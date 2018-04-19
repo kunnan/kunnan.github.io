@@ -32,4 +32,65 @@ Temporary Items
 # End of https://www.gitignore.io/api/macos
 
 # debug file
+_site# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore, theos & Swift.gitignore
+
+
+# theos
+.DS_Store
+/.theos/
+/debs/
+/obj/
+/packages/
+#pod
+/Pods/
+
+
+# Xcode
+#
+dSYM/
+
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+
+
+*.pbxuser
+!default.pbxuser
+
+*.mode1v3
+!default.mode1v3
+
+*.mode2v3
+!default.mode2v3
+
+*.perspectivev3
+!default.perspectivev3
+
+xcuserdata/
+
+## Other
+
+*.xccheckout
+
+*.moved-aside
+*.xcscmblueprint
+
+.DS_Store
+*.hmap
+*.ipa
+*.xcuserstate
+*.o
+
+#qt
+
+build-DirWatcher-Desktop_Qt_5_5_1_GCC_32bit-Debug/
+Release/*.cpp
+Release/*.o
+Release/Makefile
 _site
+.sass-cache
+.jekyll-metadata
+
