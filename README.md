@@ -1,8 +1,6 @@
 # Blog
 
-> 博客的搭建教程，这个教程修改自 [Hux](https://github.com/Huxpro/huxpro.github.io) 
 > 
-> 更为详细的教程戳这 [《利用 GitHub Pages 快速搭建个人博客》](http://www.jianshu.com/p/e68fba58f75c) 或 [wiki](https://github.com/qiubaiying/qiubaiying.github.io/wiki/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B)
 > 
 >* 我看中这个版本的catalog，因此放弃了[旧的博客](https://github.com/zhangkn/zhangkn.github.io)
 >
@@ -36,7 +34,30 @@
 
 ### 环境
 
-如果你安装了 [jekyll](http://jekyllcn.com/)，那你只需要在命令行输入`jekyll serve` 或 `jekyll s`就能在本地浏览器中输入`http://127.0.0.1:4000/`预览主题，对主题的修改也能实时展示（需要强刷浏览器）。
+安装了 [jekyll](http://jekyllcn.com/)之后，`http://127.0.0.1:4000/`预览效果，对文章的修改也能实时展示效果（需要强刷浏览器）。
+
+>* 本地调试博客的官方例子
+>
+>```
+>~ $ gem install jekyll bundler
+~ $ jekyll new my-awesome-site
+~ $ cd my-awesome-site
+~/my-awesome-site $ bundle install
+~/my-awesome-site $ bundle exec jekyll serve
+=> 打开浏览器 http://localhost:4000
+>```
+
+>* plugins: [jekyll-paginate]
+>
+```
+ 1)使用了jekyll plugins之后，除了在_config.yml声明：
+  plugins: [jekyll-paginate]；
+ 2)还需要创建对应的Gemfile
+ source 'https://rubygems.org'
+gem 'jekyll'
+gem 'redcarpet'
+gem 'jekyll-paginate'
+```
 
 >* alias
 
@@ -118,8 +139,7 @@ Jekyll官方网站还有很多的参数可以调，比如设置文章的链接�
 
 ### 撰写博文
 
-要发表的文章一般以 **Markdown** 的格式放在这里`_posts/`，你只要看看这篇模板里的文章你就立刻明白该如何设置。
-
+要发表的文章一般以 **Markdown** 的格式放在这里`_posts/`，支持子目录。
 yaml 头文件长这样:
 
 ```
@@ -236,7 +256,7 @@ iframe:     "http://huangxuan.me/js-module-7day/"
 ---
 ```
 
-iframe在不同的设备中，将会自动的调整大小。保留内边距是为了让手机用户可以向下滑动，以及添加更多的内容。
+iframe在不同的设备中，将会自动的调整大小。保留内边距是为了让手机用户可以向下滑动，以及添加更多的内容。[例子：](https://github.com/Huxpro/huxpro.github.io/blob/4bcfb7543bce3c2a771368ba40a2c838668ad994/_posts/2016-11-20-sw-101-gdgdf.markdown)
 
 
 ### Comment
@@ -247,13 +267,10 @@ iframe在不同的设备中，将会自动的调整大小。保留内边距是�
 
 优点：国际比较流行，界面也很大气、简洁，如果有人评论，还能实时通知，直接回复通知的邮件就行了；
 
-缺点：评论必须要去注册一个disqus账号，分享一般只有Facebook和Twitter，另外在墙内加载速度略慢了一点。想要知道长啥样，可以看以前的版本点[这里](http://brucezhaor.github.io/about.html) 最下面就可以看到。
-
-> Node：有很多人反映 Disqus 插件加载不出来，可能墙又架高了，有条件的话翻个墙就好了~
+缺点：评论必须要去注册一个disqus账号，分享一般只有Facebook和Twitter，另外在墙内加载速度略慢了一点。
 
 **使用：**
-
-**首先**，你需要去注册一个Disqus帐号。**不要直接使用我的啊！**
+https://disqus.com/admin/create/ 
 
 **其次**，你只需要在下面的 yaml 头文件中设置一下就可以了。
 
@@ -271,7 +288,7 @@ disqus_username: qiubaiying
 
 **使用：**
 
-参考我的这篇文章：[《为博客添加 Gitalk 评论插件》](http://qiubaiying.top/2017/12/19/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0-Gitalk-%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/)
+获取clientID、clientSecret：[new github.com applications](https://github.com/settings/applications/new)
 
 
 ### Analytics
@@ -280,11 +297,11 @@ disqus_username: qiubaiying
 
 ```
 # Baidu Analytics
-ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
+ba_track_id:
 
 # Google Analytics
-ga_track_id: 'UA-49627206-1'            # 你用Google账号去注册一个就会给你一个这样的id
-ga_domain: huangxuan.me			# 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto。
+ga_track_id: 'UA--1'            # 你用Google账号去注册一个就会给你一个这样的id
+ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己的域名，需要改成auto。
 ```
 
 ### Customization
@@ -295,19 +312,15 @@ ga_domain: huangxuan.me			# 默认的是 auto, 这里我是自定义了的域名
 
 ### Header Image
 
-博客每页的标题底图是可以自己选的，看看几篇示例post你就知道如何设置了。
-  
-标题底图的选取完全是看个人的审美了。每一篇文章可以有不同的底图，你想放什么就放什么，最后宽度要够，大小不要太大，否则加载慢啊。
+每一篇文章可以有不同的底图，宽度要够，大小不要太大，否则加载慢。
 
-> 上传的图片最好先压缩，这里推荐 imageOptim 图片压缩软件，让你的博客起飞。
+> 上传的图片最好先压缩，这里推荐 imageOptim 图片压缩软件。
 
-但是需要注意的是本模板的标题是**白色**的，所以背景色要设置为**灰色**或者**黑色**，总之深色系就对了。当然你还可以自定义修改字体颜色，总之，用github pages就是可以完全的个性定制自己的博客。
+但是需要注意的是本模板的标题是**白色**的，所以背景色要设置为**灰色**或者**黑色**，总之深色系就对了。
 
 ### SEO Title
 
-我的博客标题是 **“BY Blog”** 但是我想要在搜索的时候显示 **“柏荧的博客 | BY Blog”** ，这个就需要 SEO Title 来定义了。
 
-其实这个 SEO Title 就是定义了<head><title>标题</title></head>这个里面的东西和多说分享的标题，你可以自行修改的。
 
 ### 关于收到"Page Build Warning"的 Email
 
@@ -330,11 +343,10 @@ ga_domain: huangxuan.me			# 默认的是 auto, 这里我是自定义了的域名
 
 ## 致谢
 
-1. 这个模板是从这里 [Hux](https://github.com/Huxpro/huxpro.github.io) fork 的, 感谢这个作者。 
-2. 感谢 Jekyll、Github Pages 和 Bootstrap!
+ 感谢 Jekyll、Github Pages 和 Bootstrap!
 
 ## License
 
 遵循 MIT 许可证。有关详细,请参阅 [LICENSE](https://github.com/qiubaiying/qiubaiying.github.io/blob/master/LICENSE)。
 
-# kunnan.github.io
+# [kunnan.github.io](kunnan.github.io)
