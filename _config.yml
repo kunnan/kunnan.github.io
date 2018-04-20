@@ -87,8 +87,10 @@ gitalk:
 # 统计
 
 # Analytics settings
-# Baidu Analytics
-ba_track_id: b50bf2b12b5338a1845e33832976fd68
+# Baidu Analytics https://tongji.baidu.com/web/welcome/login
+# https://tongji.baidu.com/sc-web/24849807/home/site/getjs?siteId=11929988
+# https://tongji.baidu.com/sc-web/24849807/home/js/check?siteId=11929988
+ba_track_id: 508241b4b7829bcc7d10f4c0006a1bb9
 
 # Google Analytics
 ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
