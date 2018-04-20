@@ -98,13 +98,13 @@ https://github.com/Huxpro/huxpro.github.io/issues/105
 
 ```
 # Site settings
-title: BY Blog                    # 你的博客网站标题
-SEOTitle: 柏荧的博客 | BY Blog		# SEO 标题
-description: "Hey"	   	   # 随便说点，描述一下
+title:  Blog                    # 你的博客网站标题
+SEOTitle: 的博客 |  Blog		# SEO 标题
+description: ""	   	   # 随便说点，描述一下
 
 # SNS settings      
-github_username: qiubaiying     # 你的github账号
-jianshu_username: e71990ada2fd  # 你的简书ID。
+github_username:     # 你的github账号
+jianshu_username:  # 你的简书ID。
 
 # Build settings
 # paginate: 10              # 一页你准备放几篇文章
@@ -121,17 +121,25 @@ yaml 头文件长这样:
 ```
 ---
 layout:     post
-title:      定时器 你真的会使用吗？
-subtitle:   iOS定时器详解
-date:       2016-12-13
-author:     BY
+title: CycriptTricks
+date: 2018-04-20
+site: https://zhangkn.github.io
+catalog: true
+author: kunnan
+subtitle: Powerful_private_methods
 header-img: img/post-bg-ios9-web.jpg
-catalog: 	 true
 tags:
     - iOS
     - 定时器
 ---
 
+```
+
+>* [辅助脚本knpost](https://github.com/zhangkn/KNBin/blob/a68c51359c2f4f315982c94487e04080abd60875/knpost)
+
+```
+<!--标题、子标题、标签-->
+devzkndeMacBook-Pro:kunnan.github.io.git devzkn$ knpost CycriptTricks Powerful_private_methods -t iosre
 ```
 
 ### 侧边栏
