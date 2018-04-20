@@ -85,6 +85,12 @@ https://github.com/Huxpro/huxpro.github.io/issues/105
 -                            {% if tag[1].size > {{site.featured-condition-size}} %}
 +                            {% if tag[1].size > site.featured-condition-size %}
 ```
+>* Q:Incremental build: disabled. Enable with --incremental
+>```
+>alias spost='bundle exec jekyll server -s  ~/githubPages/kunnan.github.io.git --incremental'
+> bundle exec jekyll serve --drafts --incremental
+>  Incremental build: enabled
+>```
 
 ### 开始
 
