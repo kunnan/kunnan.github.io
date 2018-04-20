@@ -6,9 +6,7 @@
 > 
 >* 我看中这个版本的catalog，因此放弃了[旧的博客](https://github.com/zhangkn/zhangkn.github.io)
 >
-### [新的博客在这里 &rarr;](http://qiubaiying.github.io)
-
-
+### [新的博客在这里 &rarr;](https://kunnan.github.io/)
 
 ## 使用
 
@@ -36,8 +34,83 @@
 
 如果你安装了 [jekyll](http://jekyllcn.com/)，那你只需要在命令行输入`jekyll serve` 或 `jekyll s`就能在本地浏览器中输入`http://127.0.0.1:4000/`预览主题，对主题的修改也能实时展示（需要强刷浏览器）。
 
+>* alias
+
+```
+alias jekyll='bundle exec jekyll'
+
+alias cdio='cd ~/githubPages/zhangkn.github.io'
+
+alias cdpost='cd ~/githubPages/kunnan.github.io.git'
 
 
+alias sio='bundle exec jekyll server -s ~/githubPages/zhangkn.github.io'
+
+alias spost='bundle exec jekyll server -s ~/githubPages/kunnan.github.io.git'
+
+<!--是配置生效运行spro-->
+alias spro='source ~/.bash_profile'
+```
+
+### Q&A
+
+>* Q：Could not locate Gemfile or .bundle/ directory
+
+```
+A：新增Gemfile
+source 'https://rubygems.org'
+gem 'jekyll'
+gem 'redcarpet'
+gem 'jekyll-paginate'
+gem 'jekyll-sitemap'
+gem 'jekyll-feed'
+# gem 'github-pages', group: :jekyll_plugins
+```
+>* Q： The 'gems' configuration option has been renamed to 'plugins'. Please update your config file accordingly.
+
+>* A :
+```
+gems: [jekyll-paginate]--- 错误
+plugins: [jekyll-paginate]----正确
+devzkndeMacBook-Pro:kunnan.github.io.git devzkn$ spost
+Configuration file: /Users/devzkn/githubPages/kunnan.github.io.git/_config.yml
+            Source: /Users/devzkn/githubPages/kunnan.github.io.git
+       Destination: /Users/devzkn/githubPages/kunnan.github.io.git/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+    Liquid Warning: Liquid syntax error (line 142): Unexpected character { in "tag[1].size > {{site.featured-condition-size}}" in /_layouts/post.html
+```
+
+>* Q：Could not find public_suffix-3.0.0 in any of the sources 
+```
+devzkndeMacBook-Pro:zhangkn.github.io devzkn$ /usr/local/bin/jekyll server
+Traceback (most recent call last):
+	12: from /usr/local/bin/jekyll:23:in `<main>'
+	11: from /usr/local/bin/jekyll:23:in `load'
+	10: from /Users/devzkn/gems/gems/jekyll-3.7.3/exe/jekyll:11:in `<top (required)>'
+	 9: from /Users/devzkn/gems/gems/jekyll-3.7.3/lib/jekyll/plugin_manager.rb:50:in `require_from_bundler'
+	 8: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler.rb:107:in `setup'
+	 7: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/runtime.rb:20:in `setup'
+	 6: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/runtime.rb:108:in `block in definition_method'
+	 5: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/definition.rb:226:in `requested_specs'
+	 4: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/definition.rb:237:in `specs_for'
+	 3: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/definition.rb:170:in `specs'
+	 2: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/spec_set.rb:82:in `materialize'
+	 1: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/spec_set.rb:82:in `map!'
+/usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/spec_set.rb:88:in `block in materialize': Could not find public_suffix-3.0.0 in any of the sources (Bundler::GemNotFound)
+```
+
+>* A
+>```
+devzkndeMacBook-Pro:zhangkn.github.io devzkn$ Bundler update
+>```
+
+>* Q:    Liquid Warning: Liquid syntax error (line 142): Unexpected character { in "tag[1].size > {{site.featured-condition-size}}" in /_layouts/post.html
+>* A
+```
+根据 https://github.com/github/pages-gem, Github Pages 目前使用的是 Jekyll 3.0.2，so...let's the only version I targeted at.
+Using liquid 4.0.0
+```
 ### 开始
 
 你可以通用修改 `_config.yml`文件来轻松的开始搭建自己的博客:
