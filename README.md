@@ -227,14 +227,7 @@ featured-condition-size: 1     # A tag will be featured if the size of it is mor
 ```
 # Friends
 friends: [
-    {
-        title: "BY Blog",
-        href: "https://qiubaiying.github.io/"
-    },
-    {
-        title: "Apple",
-        href: "https://apple.com/"
-    }
+   
 ]
 ```
 
@@ -320,7 +313,14 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 
 ### SEO Title
 
+### favicon.ico
 
+>* [How To Use Favicon](http://www.faviconico.org/favicon)
+>```
+> <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ site.baseurl }}/img/favicon.ico">
+    <link rel="bookmark" href="{{ site.baseurl }}/img/favicon.ico">
+>```
 
 ### 关于收到"Page Build Warning"的 Email
 
