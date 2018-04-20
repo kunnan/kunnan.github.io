@@ -110,6 +110,7 @@ devzkndeMacBook-Pro:zhangkn.github.io devzkn$ Bundler update
 ```
 根据 https://github.com/github/pages-gem, Github Pages 目前使用的是 Jekyll 3.0.2，so...let's the only version I targeted at.
 Using liquid 4.0.0
+https://github.com/Huxpro/huxpro.github.io/issues/105
 ```
 ### 开始
 
