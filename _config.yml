@@ -101,6 +101,8 @@ ba_track_id: 508241b4b7829bcc7d10f4c0006a1bb9
 # 创建新媒体资源后，您将可以获得一个跟踪 ID。
 # https://analytics.google.com/analytics/web/?hl=zh-CN&pli=1#/a111030597w174737082p173885891/admin/tracking/tracking-code/
 
+# https://www.google.com/webmasters/tools/analytics-site-selection?hl=zh_CN&property=174737082&continue=https%3A%2F%2Fanalytics.google.com%2Fanalytics%2Fweb%2F%3Fhl%3Dzh-CN%26pli%3D1%23%2Fa111030597w174737082p173885891%2Fadmin%2Fintegrations%2Fwmx
+# https://www.google.com/webmasters/verification/home?hl=zh-CN&theme=wmt&continue=https://www.google.com/webmasters/tools/dashboard?hl%3Dzh-CN%26sig%3DALjLGbM42SIgAoHv_pXtJC1WuduIPcy_bw&pli=1
 
 
 ga_track_id: 'UA-111030597-2'            # Format: UA-xxxxxx-xx UA-111030597-2
