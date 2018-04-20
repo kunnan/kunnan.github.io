@@ -8,6 +8,10 @@
 >
 ### [新的博客在这里 &rarr;](https://kunnan.github.io/)
 
+
+>* [feed](https://kunnan.github.io/feed.xml)
+>
+
 ## 使用
 
 * 开始

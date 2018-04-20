@@ -17,14 +17,15 @@ sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's us
 
 
 # SNS settings
-RSS: false
+RSS: true
+# RSS: false
 weibo_username:     602056727
 zhihu_username:     kunnan
 github_username:    kunnan
 # facebook_username:  baiying.qiu.7
 jianshu_username:   0c4325829de0
 twitter_username:   zhangkunnan
-
+linkedin_username: iosre
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
@@ -91,12 +92,19 @@ gitalk:
 # https://tongji.baidu.com/sc-web/24849807/home/site/getjs?siteId=11929988
 # https://tongji.baidu.com/sc-web/24849807/home/js/check?siteId=11929988
 ba_track_id: 508241b4b7829bcc7d10f4c0006a1bb9
-
+# https://search.google.com/search-console/performance/search-analytics?resource_id=https%3A%2F%2Fzhangkn.github.io%2F&hl=zh-CN&query=!openapplicationwithbundleid
+# https://www.google.com/webmasters/tools/home?utm_source=search_console&utm_campaign=add-property&pli=1
 # Google Analytics
-ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
-ga_domain: qiubaiying.top               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+# https://www.google.com/analytics/
+# https://www.google.com/webmasters/tools/dashboard?siteUrl=https://zhangkn.github.io/
+# https://analytics.google.com/analytics/web/?hl=zh-CN&pli=1#/a111030597w165618623p166148021/admin/property/create
+# 创建新媒体资源后，您将可以获得一个跟踪 ID。
+# https://analytics.google.com/analytics/web/?hl=zh-CN&pli=1#/a111030597w174737082p173885891/admin/tracking/tracking-code/
 
 
+
+ga_track_id: 'UA-111030597-2'            # Format: UA-xxxxxx-xx UA-111030597-2
+ga_domain: auto               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
 # Featured Tags
 featured-tags: true                     # 是否使用首页标签
