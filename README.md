@@ -388,4 +388,4 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 
 遵循 MIT 许可证。有关详细,请参阅 [LICENSE](https://github.com/qiubaiying/qiubaiying.github.io/blob/master/LICENSE)。
 
-# [kunnan.github.io](kunnan.github.io)
+# [kunnan.github.io](https://kunnan.github.io)
