@@ -107,6 +107,7 @@ ba_track_id: 508241b4b7829bcc7d10f4c0006a1bb9
 
 # - [xmlsitemapgenerator 站点地图](https://xmlsitemapgenerator.org/free/waiting.aspx?job=8b793801-6086-4d18-976a-5e8c004c2bd7)
 # https://xmlsitemapgenerator.org/sitemap-generator.aspx
+# https://www.google.com/webmasters/verification/details?hl=zh-CN&siteUrl=https://kunnan.github.io/
 ga_track_id: 'UA-111030597-2'            # Format: UA-xxxxxx-xx UA-111030597-2
 ga_domain: auto               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
@@ -121,20 +122,19 @@ chrome-tab-theme-color: "#000000"
 service-worker: true
 
 
-
 # Friends
 friends: [
     {
-        title: "WY",
-        href: "http://zhengwuyang.com"
+        title: "zhangkn",
+        href: "https://zhangkn.github.io/tags/"
     },{
-        title: "简书·BY",
-        href: "http://www.jianshu.com/u/e71990ada2fd"
+        title: "iosre",
+        href: "http://iosre.com/"
     },{
-        title: "Apple",
-        href: "https://apple.com"
+        title: "csdn",
+        href: "https://blog.csdn.net/z929118967"
     },{
-        title: "Apple Developer",
-        href: "https://developer.apple.com/"
+        title: "segmentfault",
+        href: "https://segmentfault.com/u/zhangkunnan"
     }
 ]
