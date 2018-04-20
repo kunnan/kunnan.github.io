@@ -103,8 +103,10 @@ ba_track_id: 508241b4b7829bcc7d10f4c0006a1bb9
 
 # https://www.google.com/webmasters/tools/analytics-site-selection?hl=zh_CN&property=174737082&continue=https%3A%2F%2Fanalytics.google.com%2Fanalytics%2Fweb%2F%3Fhl%3Dzh-CN%26pli%3D1%23%2Fa111030597w174737082p173885891%2Fadmin%2Fintegrations%2Fwmx
 # https://www.google.com/webmasters/verification/home?hl=zh-CN&theme=wmt&continue=https://www.google.com/webmasters/tools/dashboard?hl%3Dzh-CN%26sig%3DALjLGbM42SIgAoHv_pXtJC1WuduIPcy_bw&pli=1
+# https://www.google.com/webmasters/tools/message-view?hl=zh-CN&authuser=0&message-filter=all&grid.r=0&msgid=AB9YKzL8eZsURMO_HzZFjCi9M7T6Zm_7DVpIHgp0Rt4AQkgLTkCiFiF4p93x5tHhubqz1A8sWYVYYLMtv7jIeqz3TdX7WgpSsg
 
-
+# - [xmlsitemapgenerator 站点地图](https://xmlsitemapgenerator.org/free/waiting.aspx?job=8b793801-6086-4d18-976a-5e8c004c2bd7)
+# https://xmlsitemapgenerator.org/sitemap-generator.aspx
 ga_track_id: 'UA-111030597-2'            # Format: UA-xxxxxx-xx UA-111030597-2
 ga_domain: auto               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
