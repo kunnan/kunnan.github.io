@@ -1,14 +1,14 @@
 {
-  "name": "BY Blog",
-  "short_name": "BY Blog",
-  "description": "A personal blog by engineer",
+  "name": "Blog",
+  "short_name": "Blog",
+  "description": "A personal blog by iOS Reverse engineer",
   "icons": [{
-    "src": "icons/pwa_icon_128.png",
-    "sizes": "128x128",
+    "src": "icons/pwa_icon_36.png",
+    "sizes": "36x36",
     "type": "image/png"
   }, {
-    "src": "icons/pwa_icon_512.png",
-    "sizes": "512x512",
+    "src": "icons/pwa_icon_96.png",
+    "sizes": "96x96",
     "type": "image/png"
   }],
   "background_color": "#fff",
