@@ -67,51 +67,25 @@ gem 'jekyll-feed'
 # gem 'github-pages', group: :jekyll_plugins
 ```
 >* Q： The 'gems' configuration option has been renamed to 'plugins'. Please update your config file accordingly.
-
->* A :
 ```
 gems: [jekyll-paginate]--- 错误
 plugins: [jekyll-paginate]----正确
-devzkndeMacBook-Pro:kunnan.github.io.git devzkn$ spost
-Configuration file: /Users/devzkn/githubPages/kunnan.github.io.git/_config.yml
-            Source: /Users/devzkn/githubPages/kunnan.github.io.git
-       Destination: /Users/devzkn/githubPages/kunnan.github.io.git/_site
- Incremental build: disabled. Enable with --incremental
-      Generating... 
-    Liquid Warning: Liquid syntax error (line 142): Unexpected character { in "tag[1].size > {{site.featured-condition-size}}" in /_layouts/post.html
 ```
 
 >* Q：Could not find public_suffix-3.0.0 in any of the sources 
 ```
-devzkndeMacBook-Pro:zhangkn.github.io devzkn$ /usr/local/bin/jekyll server
-Traceback (most recent call last):
-	12: from /usr/local/bin/jekyll:23:in `<main>'
-	11: from /usr/local/bin/jekyll:23:in `load'
-	10: from /Users/devzkn/gems/gems/jekyll-3.7.3/exe/jekyll:11:in `<top (required)>'
-	 9: from /Users/devzkn/gems/gems/jekyll-3.7.3/lib/jekyll/plugin_manager.rb:50:in `require_from_bundler'
-	 8: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler.rb:107:in `setup'
-	 7: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/runtime.rb:20:in `setup'
-	 6: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/runtime.rb:108:in `block in definition_method'
-	 5: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/definition.rb:226:in `requested_specs'
-	 4: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/definition.rb:237:in `specs_for'
-	 3: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/definition.rb:170:in `specs'
-	 2: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/spec_set.rb:82:in `materialize'
-	 1: from /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/spec_set.rb:82:in `map!'
-/usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/bundler/spec_set.rb:88:in `block in materialize': Could not find public_suffix-3.0.0 in any of the sources (Bundler::GemNotFound)
-```
-
->* A
->```
 devzkndeMacBook-Pro:zhangkn.github.io devzkn$ Bundler update
->```
+```
 
 >* Q:    Liquid Warning: Liquid syntax error (line 142): Unexpected character { in "tag[1].size > {{site.featured-condition-size}}" in /_layouts/post.html
->* A
 ```
-根据 https://github.com/github/pages-gem, Github Pages 目前使用的是 Jekyll 3.0.2，so...let's the only version I targeted at.
+A：根据 https://github.com/github/pages-gem, Github Pages 目前使用的是 Jekyll 3.0.2，so...let's the only version I targeted at.
 Using liquid 4.0.0
 https://github.com/Huxpro/huxpro.github.io/issues/105
+-                            {% if tag[1].size > {{site.featured-condition-size}} %}
++                            {% if tag[1].size > site.featured-condition-size %}
 ```
+
 ### 开始
 
 你可以通用修改 `_config.yml`文件来轻松的开始搭建自己的博客:
