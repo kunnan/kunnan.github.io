@@ -317,9 +317,46 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 
 >* [How To Use Favicon](http://www.faviconico.org/favicon)
 >```
+>多种浏览器中网页title的左边，收藏夹栏和书签栏中
 > <!-- Favicon -->
     <link rel="shortcut icon" href="{{ site.baseurl }}/img/favicon.ico">
     <link rel="bookmark" href="{{ site.baseurl }}/img/favicon.ico">
+        <link rel="icon"  href="{{ site.baseurl }}/img/favicon.ico" type="image/x-icon" />
+>```
+
+### Apple touch icon
+
+>* [Apple touch icon(Safari Webpage Icon)](https://www.favicon-generator.org/)
+>```
+>作用类似于favicon，也用来标识网站。Apple touch icon一般是png
+><link rel="apple-touch-startup-image" href="/images/ConfiguringWebApplications/launch.jpeg">
+    <link rel="apple-touch-icon" href="{{ site.baseurl }}/img/apple-touch-icon.png">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- 隐藏状态栏  Changing the Status Bar Appearance  in standalone mode like that of a native application /指定的iphone中safari顶端的状态条的样式  -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Adding a Launch Icon Title -->
+    <meta name="apple-mobile-web-app-title" content="iosre">
+>```
+
+>* [. Then include the following code in the head of your HTML document.](https://www.favicon-generator.org/)
+>```<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 >```
 
 ### 关于收到"Page Build Warning"的 Email
