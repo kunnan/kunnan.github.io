@@ -316,6 +316,7 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 ### favicon.ico
 
 >* [How To Use Favicon](http://www.faviconico.org/favicon)
+>
 >```
 >多种浏览器中网页title的左边，收藏夹栏和书签栏中
 > <!-- Favicon -->
@@ -327,7 +328,9 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 ### Apple touch icon
 
 >* [Apple touch icon(Safari Webpage Icon)](https://www.favicon-generator.org/)
+>
 >```
+>
 >作用类似于favicon，也用来标识网站。Apple touch icon一般是png
 ><link rel="apple-touch-startup-image" href="/images/ConfiguringWebApplications/launch.jpeg">
     <link rel="apple-touch-icon" href="{{ site.baseurl }}/img/apple-touch-icon.png">
@@ -340,6 +343,7 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 >```
 
 >* [. Then include the following code in the head of your HTML document.](https://www.favicon-generator.org/)
+>
 >```<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
