@@ -53,9 +53,25 @@ kramdown:
 
 
 
-# 评论系统
-# Disqus（https://disqus.com/）
-# disqus_username: qiubaiying
+# 评论系统 https://disqus.com/admin/create/ 
+# Disqus（https://disqus.com/） Your unique disqus URL will be: kunnan.disqus.com
+# https://kunnan.disqus.com/admin/install/subscription/
+# https://kunnan.disqus.com/admin/install/platforms/jekyll/
+# ---
+# layout: default
+# comments: true
+# # other options
+# ---
+# In between a {% if page.comments %} and a {% endif %} tag, copy and paste the Universal Embed Code in the appropriate template where you'd like Disqus to load.
+
+# https://kunnan.disqus.com/admin/install/platforms/universalcode
+# s.src = 'https://kunnan.disqus.com/embed.js';
+# How to display comment count
+# <script id="dsq-count-scr" src="//kunnan.disqus.com/count.js" async></script>
+# 
+# Your website shortname is kunnan.
+
+disqus_username: kunnan
 
 # Gitalk https://github.com/settings/applications/new
 gitalk:
