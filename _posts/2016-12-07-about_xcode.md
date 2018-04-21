@@ -76,7 +76,12 @@ codesign -f -s "iPhone Developer:xxx" xxx.dylib
 # plutil 查看plist文件
 
 
+# 工具类
 
+#### [NSDictionary (Log)、NSArray(Log)](https://github.com/zhangkn/IOSStudy/blob/master/HWeibo/Foundation%2BLog.m)
+```
+通过重写descriptionWithLocale: ,实现在 Xcode 控制台输出中文的方法。
+```
 # see also
 
 - [Xcode](https://zhangkn.github.io/2018/01/Xcode/)
