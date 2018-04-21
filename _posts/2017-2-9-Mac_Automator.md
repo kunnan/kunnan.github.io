@@ -174,6 +174,56 @@ option+command+w
 
 # see also
 
+>* [iOS 多开检测，反多开检测，反反多开检测](http://iosre.com/t/ios/11611)
+
+```
+<!--1、 如何多开 -->
+
+修改 Info.plist 中的 CFBundleIdentifier 。
+
+1)为了防止 Info.plist 被恶意篡改，iOS 提供一种数字签名技术。通过该技术，计算出 Info.plist 文件的 Hash 值，加密后存入到签名文件中。在安装时与安装后，可通过该签名文件存的 Hash 值进行文件签名校验。
+
+2) 可以把这种签名校验机制去掉，或者重新签名
+
+<!-- 2、如何检测多开 -->
+
+1）获取 App 的 Bundle Identifier 方法
+NSBundle.mainBundle.bundleIdentifier;
+[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+NSBundle.mainBundle.infoDictionary[@"CFBundleIdentifier"];
+[NSDictioanry dictionaryWithContentsOfFile:@"Info.plist"][@"CFBundleIdentifier"]
+
+<!-- 3、如何反检测多开：如果是系统、插件调用的方法，要返回真实的 Bundle ID。 -->
+
+干掉上面的几个方法
+
+1）通过 key 获取 value 的方式有多种，这几种方法也需要被干掉
+
+info[@"CFBundleIdentifier"]; // -[NSDictionary objectForKeyedSubscript:]
+[info objectForKey:@"CFBundleIdentifier"];
+[info valueForKey:@"CFBundleIdentifier"];
+
+https://github.com/Magic-Unique/MUHook
+
+2）微信也可以通过 IDFA、DeviceName 来判断是否是同一台设备登录不同的微信
+
+UIDevice、ASIdentifierManager
+
+3） 通过 dyld 的 dladdr() 函数配合当前调用栈地址来判断调用者来自哪个二进制文件： 直接使用下层的那个函数而不是dladdr的话安全性又会高一些。
+[NSThread callStackReturnAddresses]
+
+<!-- 4、如何反反检测多开 -->
+
+1） 使用 CoreFoundation 检测（CFBundleRef）
+https://github.com/facebook/fishhook
+
+2）使用 Appex、Watch 检测
+
+3）使用 FILE + 加密 + 混淆 检测
+
+4）依靠使用一些Obscure的检测方式并保持这些方式的保密性来确保App安全：http://bbs.iosre.com/t/llvm-hikari/10720/141?u=zhang
+```
+
 >* [macOS Sierra: 在设备间拷贝和粘贴](https://support.apple.com/kb/PH25168?locale=zh_CN&viewlocale=zh_CN)
 
 ```

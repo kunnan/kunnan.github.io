@@ -23,8 +23,9 @@ subtitle: 中国史纲之封建社会
 近代转型、现代革命、中国崛起与世界秩序的互动
 
 ```
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fqkapkhbx6j30u01e1dme.jpg)
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fqkapjwyrbj30qo1jjahs.jpg)
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fqkd3u28wfj30u01e1wjs.jpg)
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fqkd3teo8vj30qo1jjjxx.jpg)
+
 
 # 正文
 
