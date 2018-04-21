@@ -73,7 +73,7 @@ cat sample.txt | say -o sample.aiff
 
 #### 使用终端 显示/隐藏 文件
 
->* 命令
+>* 使用命令设置finder的AppleShowAllFiles属性
 
 ```
  devzkndeMBP:kunnan.github.io.git devzkn$ defaults write com.apple.finder AppleShowAllFiles -boolean true ; killall Finder
