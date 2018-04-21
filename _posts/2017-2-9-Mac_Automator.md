@@ -121,9 +121,29 @@ devzkndeMBP:kunnan.github.io.git devzkn$ cat /etc/shells
 
 <!-- 设置为默认shell:    usage: chpass [-l location] [-u authname] [-s shell] [user] -->
     chsh -s /bin/zsh
-    
+
 ```
 
+>* 安装 oh my zsh 配置zsh
+
+```
+	git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+	cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+
+	<!--  修改主题 -->
+	open ~/.zshrc 
+	修改 `ZSH_THEME=”robbyrussell”`，主题在 ~/.oh-my-zsh/themes 目录下。
+```
+
+>* 修改 zsh 配置文件
+
+```
+alias atom='/Applications/Atom.app/Contents/MacOS/Atom'
+alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
+# open -b com.sublimetext.3 ${postName}
+# open -b com.uranusjr.macdown ${postName}
+```
 
 # see also
 
