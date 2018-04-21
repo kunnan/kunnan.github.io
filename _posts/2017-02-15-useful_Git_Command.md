@@ -3,7 +3,7 @@ layout:     post
 title:      useful_Git_Command
 subtitle:   常用的Git指令:https://github.com/zhangkn/KNBin
 date:       2017-02-15
-author:     BY
+author:     kunnan
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:

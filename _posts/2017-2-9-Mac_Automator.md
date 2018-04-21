@@ -3,7 +3,7 @@ layout:     post
 title:      Mac_Automator
 subtitle:   在Mac下为终端设置快捷键,创建工作流，调试AppleScript
 date:       2017-02-06
-author:     BY
+author:     kunnan
 header-img: img/post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
@@ -56,6 +56,9 @@ end run
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fqk1u7u2rcj30ha083dhf.jpg)
 
+```
+ 在Services 中开启 new Terminal at Folder  等系统功能以及对应的快捷键
+```
 
 ## 黑技能
 
@@ -143,6 +146,30 @@ alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 # open -b com.sublimetext.3 ${postName}
 # open -b com.uranusjr.macdown ${postName}
+```
+
+
+#### 快捷键开启touch bar
+
+```
+#macOS 10.12.1  + Xcode
+打开Xcode 使用shift+ command+5
+```
+
+#### finder 的快捷键
+
+>* 创建目录
+
+```
+shift +command+N 
+untitled folder
+```
+
+>* 关闭finder
+
+```
+option+command+w
+#或者使用，killall -9 Finder
 ```
 
 # see also
