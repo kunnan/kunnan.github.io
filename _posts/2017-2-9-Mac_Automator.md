@@ -14,7 +14,7 @@ tags:
 
 # 前言
 
->在Mac下快速调出终端的方法是：采用Automator创建服务，为服务创建快捷键。
+>在Mac下快速调出终端的方法是：采用 Automator 创建服务，为服务创建快捷键。
 
 # 为终端添加一个快捷键打开方式
 
@@ -52,6 +52,7 @@ end run
 
 ## 黑技能
 
+#### Automator扩展
 
 >* 创建一个`Shell`脚本服务
 
@@ -61,8 +62,42 @@ end run
 输入：`sort|uniq` 
 ```
 
+#### other
+
 >* [文本转语音](http://25.io/toau/)
 
 ```
 cat sample.txt | say -o sample.aiff
 ```
+
+
+#### 使用终端 显示/隐藏 文件
+
+>* 命令
+
+```
+ devzkndeMBP:kunnan.github.io.git devzkn$ defaults write com.apple.finder AppleShowAllFiles -boolean true ; killall Finder
+
+ devzkndeMBP:kunnan.github.io.git devzkn$ defaults write com.apple.finder AppleShowAllFiles -boolean false ; killall Finder
+```
+
+>* 创建alias 到.bash_profile
+
+```
+devzkndeMBP:~ devzkn$ echo -e  "\nalias fh='defaults write com.apple.finder AppleShowAllFiles -boolean false ; killall Finder'">> ~/.bash_profile && source ~/.bash_profile
+
+```
+
+# see also
+
+>* [用React、Redux、Immutable做俄罗斯方块](https://github.com/chvin/react-tetris)
+
+```
+8、开发
+npm install
+npm start
+<!-- 打包编译 -->
+npm run build
+https://github.com/idetool/react-tetris
+```
+
