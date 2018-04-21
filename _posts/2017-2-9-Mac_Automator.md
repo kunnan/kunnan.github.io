@@ -16,6 +16,14 @@ tags:
 
 >在Mac下快速调出终端的方法是：采用 Automator 创建服务，为服务创建快捷键。
 
+```
+An Apple app that comes with macOS and
+lets you create workflows for automating repetitive tasks. 
+Automator works with many other apps, 
+including the Finder, Safari, Calendar, Contacts, Microsoft Office, and Adobe Photoshop.
+
+```
+
 # 为终端添加一个快捷键打开方式
 
 #### 打开Mac下自带的软件 **Automator**
