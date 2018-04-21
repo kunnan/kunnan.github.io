@@ -174,6 +174,15 @@ option+command+w
 
 # see also
 
+>* [macOS Sierra: 在设备间拷贝和粘贴](https://support.apple.com/kb/PH25168?locale=zh_CN&viewlocale=zh_CN)
+
+```
+1) 在“系统偏好设置”（在 Mac 上）和“设置”（在 iOS 设备上）中打开 Wi-Fi、蓝牙和 Handoff
+2) 在所有设备上使用同一 Apple ID登录 iCloud
+3)必须满足“连续互通”系统要求
+
+```
+
 >* [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/themes)
 
 >* [用React、Redux、Immutable做俄罗斯方块](https://github.com/chvin/react-tetris)
