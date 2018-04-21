@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      useful_Git_Command
-subtitle:   不适合阅读的整理的一些个人常用的 Git 指令
+subtitle:   常用的Git指令:https://github.com/zhangkn/KNBin
 date:       2017-02-15
 author:     BY
 header-img: img/post-bg-ios9-web.jpg
