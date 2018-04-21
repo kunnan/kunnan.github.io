@@ -53,9 +53,16 @@ end run
 ## 黑技能
 
 
-创建一个`Shell`脚本，
+>* 创建一个`Shell`脚本服务
 
+```
 勾选:`用输出内容替换所选文本`
 
 输入：`sort|uniq` 
+```
 
+>* [文本转语音](http://25.io/toau/)
+
+```
+cat sample.txt | say -o sample.aiff
+```
