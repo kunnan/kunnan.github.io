@@ -21,7 +21,6 @@ An Apple app that comes with macOS and
 lets you create workflows for automating repetitive tasks. 
 Automator works with many other apps, 
 including the Finder, Safari, Calendar, Contacts, Microsoft Office, and Adobe Photoshop.
-
 ```
 
 # 为终端添加一个快捷键打开方式
@@ -96,7 +95,39 @@ devzkndeMBP:~ devzkn$ echo -e  "\nalias fh='defaults write com.apple.finder Appl
 
 ```
 
+
+####  List of acceptable shells for chpass(1).
+
+```
+devzkndeMBP:kunnan.github.io.git devzkn$ cat /etc/shells
+
+/bin/bash
+/bin/csh
+/bin/ksh
+/bin/sh
+/bin/tcsh
+/bin/zsh
+
+配置bash的时候，采用~/.bash_profile；配置zsh的时候，采用open ~/.zshrc 
+```
+
+>* [ chpass, chfn, chsh -- add or change user database information]
+
+```
+
+     /etc/shells         the list of approved shells
+     /etc/chpass.XXXXXX  temporary copy of the data to edit
+     SEE ALSO: login(1), passwd(1), getusershell(3), passwd(5)  
+
+<!-- 设置为默认shell:    usage: chpass [-l location] [-u authname] [-s shell] [user] -->
+    chsh -s /bin/zsh
+    
+```
+
+
 # see also
+
+>* [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/themes)
 
 >* [用React、Redux、Immutable做俄罗斯方块](https://github.com/chvin/react-tetris)
 
