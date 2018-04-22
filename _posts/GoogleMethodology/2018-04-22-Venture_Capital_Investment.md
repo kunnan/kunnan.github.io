@@ -197,3 +197,7 @@ ps:对于创始人，比尔补充了两点：
 
 # see also 
 
+>* [knpost](https://github.com/zhangkn/KNBin/blob/e10b3e20a77cbc02c3f51b31cff2f7665dea5f7c/knpost)
+> ```
+knpost Venture_Capital_Investment " <吴军的谷歌方法论>之'什么是风险投资'" -t GoogleMethodology
+ ```
