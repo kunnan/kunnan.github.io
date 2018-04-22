@@ -464,3 +464,30 @@ Medusa
 
 # see also 
 - [Effectively_Enhance_The_Value_Of_Workplace](https://kunnan.github.io/2018/04/21/Effectively_Enhance_The_Value_Of_Workplace/)
+
+>* [Shell特殊变量：Shell $0, $#, $*, $@, $?, $$和命令行参数](http://c.biancheng.net/cpp/view/2739.html)
+>
+>```
+>零、特殊变量列表
+>1) $ 表示当前Shell进程的ID，即pid;对于 Shell 脚本，就是这些脚本所在的进程ID。
+>devzkndeMBP:kunnan.github.io.git devzkn$ echo $$
+62856
+2) $0	当前脚本的文件名
+devzkndeMBP:kunnan.github.io.git devzkn$ echo $0
+-bash
+3) $n 传递给脚本或函数的参数
+4) $# 传递给脚本或函数的参数个数
+5) $*	传递给脚本或函数的所有参数。
+6) $@ 传递给脚本或函数的所有参数。被双引号(" ")包含时，与 $* 稍有不同
+7) $? 上个命令的退出状态，或函数的返回值。
+一、我的一个小需求就是打印当前命令
+可以结合$0、$@，或者$*； 因为"$*" 是将所有的参数作为一个整体，因此我会采用它，并应用于knpost 中。
+kncommand=">* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) \n\`\`\`\n$0 $*\n\`\`\`"
+echo  "$kncommand" >> ${postName}
+二、$* 和 $@ 的区别
+1）当它们被双引号(" ")包含时，"$*" 会将所有的参数作为一个整体，以"$1 $2 … $n"的形式输出所有参数；
+2）"$@" 会将各个参数分开，以"$1" "$2" … "$n" 的形式输出所有参数
+3）例子：这个时候就有区别
+for var in "$*"
+for var in "$@"
+>```

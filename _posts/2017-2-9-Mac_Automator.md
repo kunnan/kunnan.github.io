@@ -174,6 +174,23 @@ option+command+w
 
 # see also
 
+>* [几种常见的Shell：sh、bash、csh、tcsh、ash](http://c.biancheng.net/cpp/view/6995.html)
+>
+>```
+>Shell 既是一种脚本编程语言，也是一个连接内核和用户的软件。
+>1) sh:  Bourne shell, 是 UNIX 上的标准 shell
+>2) csh: 这个 shell 的语法有点类似C语言
+>3) tcsh:  csh 的增强版，加入了命令补全功能
+>4) ash: 简单的轻量级的 Shell
+>5) bash: bash shell 是 Linux 的默认 shell;bash 兼容 sh
+>devzkndeMBP:kunnan.github.io.git devzkn$ echo $0
+-bash
+
+一、查看默认 Shell，指明了当前使用的 Shell 程序的位置
+devzkndeMBP:kunnan.github.io.git devzkn$  echo $SHELL
+/bin/bash
+>```
+
 >* [iOS 多开检测，反多开检测，反反多开检测](http://iosre.com/t/ios/11611)
 
 ```
