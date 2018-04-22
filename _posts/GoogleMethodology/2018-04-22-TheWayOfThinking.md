@@ -30,6 +30,7 @@ subtitle: <吴军的谷歌方法论>之'计算机思维‘
 >* 教育理念和学习方法
 >```
 >1、为什么要学习科学
+>2、来信补充 | 《梅杜莎之筏》这幅画为什么重要？
 >```
 
 >* 社会和职场的人生智慧
@@ -344,6 +345,13 @@ Google在建索引时，是对所有的词建索引的，而不仅仅是对于�
 4、成为一个讲道理的人：讲道理需要双方有共同的认知基础和彼此认可的讨论问题的方式，而科学本身就是帮助我们建立这样的认知基础和方法
 ```
 
+#### 2、来信补充 | 《梅杜莎之筏》这幅画为什么重要？
+
+Medusa
+
+![](https://ws1.sinaimg.cn/large/006tNc79gy1fqlfqjw3muj307v05cdg3.jpg)
+![](https://ws1.sinaimg.cn/large/006tNc79gy1fqlfqjinwxj308j05rgm1.jpg)
+
 # 社会和职场的人生智慧
 #### 1、以正合、以奇胜 
 
@@ -403,4 +411,4 @@ Google在建索引时，是对所有的词建索引的，而不仅仅是对于�
 
 
 # see also 
-
+- [Effectively_Enhance_The_Value_Of_Workplace](https://kunnan.github.io/2018/04/21/Effectively_Enhance_The_Value_Of_Workplace/)
