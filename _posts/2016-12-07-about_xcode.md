@@ -16,7 +16,7 @@ tags:
 
 ####  Debug Memory Grap
 
-点击 Debug Memory Graph 按钮。
+点击 Debug Memory Graph 按钮,检测内测泄漏.
 
 
 # xcworkspace
