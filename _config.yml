@@ -124,7 +124,7 @@ service-worker: true
 # Friends
 friends: [
     {
-        title: "zhangkn",
+        title: "github Pages",
         href: "https://zhangkn.github.io/tags/"
     },{
         title: "iosre",
