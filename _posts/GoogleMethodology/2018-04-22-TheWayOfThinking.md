@@ -490,4 +490,7 @@ echo  "$kncommand" >> ${postName}
 3）例子：这个时候就有区别
 for var in "$*"
 for var in "$@"
+4) knpost $1  "$2" $4
+"$n",跟"$*" 的效果是一样的
+#"$2",是想要获取整个参数：Advanced Google Dorking Commands； $2 将只是Advanced
 >```
