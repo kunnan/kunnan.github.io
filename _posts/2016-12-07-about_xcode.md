@@ -12,6 +12,13 @@ tags:
 ---
 
 
+# xcode 的调试功能
+
+####  Debug Memory Grap
+
+点击 Debug Memory Graph 按钮。
+
+
 # xcworkspace
 
 >* 修改工作空间包含的工程内容 xcworkspace/contents.xcworkspacedata
