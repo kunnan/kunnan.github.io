@@ -159,6 +159,30 @@ tags:
 
 ```
 
+>* [直接使用 `tree` 命令，会在当前文件目录下，递归输出所有文件层级,从中可以看出_posts 支持子目录]()
+
+```
+├── _posts
+│   ├── 2016-12-07-about_xcode.md
+│   ├── 2017-2-9-Mac_Automator.md
+│   ├── GoogleMethodology
+│   │   ├── 2018-04-22-Beyond_Free.md
+│   │   ├── 2018-04-22-TheWayOfThinking.md
+│   │   ├── 2018-04-22-Venture_Capital_Investment.md
+│   │   └── 2018-04-22-currency.md
+│   ├── OutlineOfChineseHistory
+│   │   ├── 2018-04-21-Feudal_society.md
+│   │   └── 2018-04-21-Powerful_Clan_Society.md
+│   ├── Search
+│   │   ├── 2018-04-23-GoogleHacking.md
+│   │   └── 2018-04-24-githubSearch.md
+│   ├── iget
+│   │   └── 2018-04-21-Effectively_Enhance_The_Value_Of_Workplace.md
+│   └── iosre
+│       ├── 2018-04-20-CycriptTricks.md
+│       └── 2018-04-20-how_to_host_cydia_repo.md
+```
+
 >* [辅助脚本knpost](https://github.com/zhangkn/KNBin/blob/a68c51359c2f4f315982c94487e04080abd60875/knpost)
 
 ```
