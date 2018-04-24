@@ -42,6 +42,7 @@ subtitle: <吴军的谷歌方法论>之'计算机思维‘
 >* 发明的逻辑
 >```
 > 1、第085封信 ：为什么瓷器出现在中国？
+> 2、第086封信 ：为什么青花瓷能够热销到全世界？
 >```
 >
 >
@@ -566,6 +567,11 @@ Medusa
 沿着"发明的边界条件"的思路，大家可以理解今天的很多现象；
 比如为什么高铁诞生于欧洲和日本，繁荣于中国，但是一直以科技发达著称的美国在高铁上却非常落后？
 ```
+
+#### 2、第086封信 | 为什么青花瓷能够热销到全世界？
+
+
+
 
 # see also 
 - [Effectively_Enhance_The_Value_Of_Workplace](https://kunnan.github.io/2018/04/21/Effectively_Enhance_The_Value_Of_Workplace/)
