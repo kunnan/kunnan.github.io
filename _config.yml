@@ -1,7 +1,8 @@
 # Site settings
+author: kunnan #page.author > site.author> site.title
 title: iosre Blog
 SEOTitle: 逆向 | iosre Blog
-header-img: img/post-bg-desk.jpg
+header-img: img/post-bg-desk.jpg # 设置默认的封面图片
 email: zhang_kn@icloud.com
 description: "https://zhangkn.github.io/"
 keyword: "iosre, kunnan Blog, 张坤楠的博客, zhangkunnan, zhangkn.github.io, iOS, 逆向, ReverseEngineering"
