@@ -19,6 +19,27 @@ tags:
 点击 Debug Memory Graph 按钮,检测内测泄漏.
 
 
+#### connect-via-network-wireless-debugging-working-xcode-9
+
+>* 支持：Xcode 9 及 iOS 11
+
+```
+使用数据线连接 iPhone 到电 Mac，Mac 和 iPhone 必须在同一个局域网
+```
+
+>* 1. 打开设备列表
+
+```
+使用快捷键盘 `⇧⌘2`
+或 在 Xcode 菜单栏选择 Window > Devices and Simulators,打开设备列表
+
+```
+
+>* 2. 勾选在线调试按钮: connect-via-network
+
+>*  3. 拔掉数据线:无线调试
+
+
 # xcworkspace
 
 >* 修改工作空间包含的工程内容 xcworkspace/contents.xcworkspacedata
