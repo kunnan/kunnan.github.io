@@ -140,7 +140,10 @@ origin	git@github.com:zhangkn/KNAPP.git (push)
 >git fetch <基础库仓库名> <基础库分支>
 git subtree pull --prefix=<基础库在主项目中的子目录> <基础库仓库名> <基础库分支> --squash
 让用户填写本次基础库更新的commit，可以直接Ctrl+X退出，或者自己写对应的更新内容
+ps: error: There was a problem with the editor 'vi'.
+Not committing merge; use 'git commit' to complete the merge. 这个时候使用git commit 即可解决
 >```
+>
 
 #### 2、更新实例演示
 
@@ -171,13 +174,15 @@ Working tree has modifications.  Cannot add.
 >```
 
 
->*  确保
+>*  确保working tree clean  之后，再进行git subtree pull
+>
 >```
 >devzkndeMacBook-Pro:KNAPP devzkn$ git subtree pull --prefix=KNCocoaTouchStaticLibrary KNCocoaTouchStaticLibrary master --squash
 From github.com:zhangkn/KNCocoaTouchStaticLibrary
  * branch            master     -> FETCH_HEAD
    47de4c7..bbf24c6  master     -> KNCocoaTouchStaticLibrary/master
 >```
+>
 >
 # 同步主项目中基础库的修改
 
@@ -192,14 +197,15 @@ From github.com:zhangkn/KNCocoaTouchStaticLibrary
 >git subtree push --prefix=<基础库在主项目中的子目录> <基础库仓库名> <基础库分支>
 >```
 
-
 #### 2、推送基础库更新到远程仓库
 
 >* 推送基础库更新到远程仓库
 >```
 >devzkndeMacBook-Pro:KNAPP devzkn$ git subtree push --prefix=KNCocoaTouchStaticLibrary KNCocoaTouchStaticLibrary master 
+git push using:  KNCocoaTouchStaticLibrary master
+Everything up-to-date
 >```
->
+
 
 
 # see also 
