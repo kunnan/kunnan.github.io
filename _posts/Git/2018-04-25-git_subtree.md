@@ -36,8 +36,7 @@ subtitle: 以子目录形式引用外部项目
 
 
 
-# 流程
-
+# 建立子目录与git仓库的联系
 
 #### 1、初始化建立子目录与git仓库的联系
 
@@ -119,6 +118,88 @@ KNCocoaTouchStaticLibrary	git@github.com:zhangkn/KNCocoaTouchStaticLibrary.git (
 origin	git@github.com:zhangkn/KNAPP.git (fetch)
 origin	git@github.com:zhangkn/KNAPP.git (push)
 >```
+
+至此，已经将外部项目关联到主项目的子目录。
+
+
+# 同步更新主项目中的基础库
+
+
+#### 1、同步更新主项目中的基础库
+
+当基础库更新之后，引用基础库的主项目也需要同步更新.
+
+>* 与添加联系的命令类似：
+>```
+>remote add -f 换成fetch
+>git subtree add 换成 git subtree pull
+>```
+>
+>* 同步更新共需要以下两条git命令
+>```
+>git fetch <基础库仓库名> <基础库分支>
+git subtree pull --prefix=<基础库在主项目中的子目录> <基础库仓库名> <基础库分支> --squash
+让用户填写本次基础库更新的commit，可以直接Ctrl+X退出，或者自己写对应的更新内容
+>```
+
+#### 2、更新实例演示
+
+>* 将远程仓库更新同步到本地仓库KNCocoaTouchStaticLibrary
+>
+>```
+>devzkndeMacBook-Pro:KNAPP devzkn$ git fetch git@github.com:zhangkn/KNCocoaTouchStaticLibrary.git master
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:zhangkn/KNCocoaTouchStaticLibrary
+ * branch            master     -> FETCH_HEAD
+>```
+
+>* 将本地仓库 KNCocoaTouchStaticLibrary 拉到对应子目录更新
+>
+>```
+>devzkndeMacBook-Pro:KNAPP devzkn$ git subtree pull --prefix=KNCocoaTouchStaticLibrary KNCocoaTouchStaticLibrary master --squash
+Working tree has modifications.  Cannot add.
+//这个是项目的版本冲突了，解决的方式有很多种（git checkout -- <file>..、或者项目重置），我这边就使用kngitreset
+>```
+
+>* kngitreset
+>```
+>  git reset --hard
+  git clean -fdx
+>```
+
+
+>*  确保
+>```
+>devzkndeMacBook-Pro:KNAPP devzkn$ git subtree pull --prefix=KNCocoaTouchStaticLibrary KNCocoaTouchStaticLibrary master --squash
+From github.com:zhangkn/KNCocoaTouchStaticLibrary
+ * branch            master     -> FETCH_HEAD
+   47de4c7..bbf24c6  master     -> KNCocoaTouchStaticLibrary/master
+>```
+>
+# 同步主项目中基础库的修改
+
+引用基础库，用户不应该修改它，而是在基础库的独立项目中修改，然后再推送更新。当然主项目中也可以修改基础库。
+
+
+#### 1、git命令
+
+>* 子目录的内容同步到基础库仓库名对应的远程仓库的指定分支
+>
+>```
+>git subtree push --prefix=<基础库在主项目中的子目录> <基础库仓库名> <基础库分支>
+>```
+
+
+#### 2、推送基础库更新到远程仓库
+
+>* 推送基础库更新到远程仓库
+>```
+>devzkndeMacBook-Pro:KNAPP devzkn$ git subtree push --prefix=KNCocoaTouchStaticLibrary KNCocoaTouchStaticLibrary master 
+>```
+>
 
 
 # see also 
