@@ -411,7 +411,10 @@ devzkndeMacBook-Pro:DeleteMe devzkn$ kngi swift
 
 # see also
 
+>* [git subtree 以子目录形式引用外部项目](http://www.zhengyh.com/git-subtree/)
 
+>* [ Git Subtree命令剖析](http://jifengyin.tumblr.com/post/93389974636/git-subtree%E5%91%BD%E4%BB%A4%E5%89%96%E6%9E%90)
+>
 >* [https://zhangkn.github.io/2018/03/GitHub/](https://zhangkn.github.io/2018/03/GitHub/)
 
 ```

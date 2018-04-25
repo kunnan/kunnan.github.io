@@ -3,7 +3,7 @@ layout:     post
 title:      CocoaPods公有仓库的创建
 subtitle:   手把手教你创建 CocoaPods 公有仓库
 date:       2017-03-08
-author:     BY
+author:     
 header-img: img/post-bg-ios10.jpg
 catalog: true
 tags:
@@ -12,59 +12,80 @@ tags:
     - Git
 ---
 
-> 本文发布于 [BY Blog](http://qiubaiying.github.io)、[简书](http://www.jianshu.com/p/d2d98298b1b8) 转载请保留链接
-
 # 前言
 
-作为iOS开发者，CocoaPods的使用为我们开发带来了极大的便利。
+以前,我经常以提供[静态库的方式](https://github.com/zhangkn/KNCocoaTouchStaticLibrary)给第三方使用，最近发现使用CocoaPods会更方便维护管理。
 
-我们先来看看CocoaPods本地目录中有什么
+#### ~/.cocoapods/repos/master
 
-	$ cd ~/.cocoapods/repos/master
+>* CocoaPods本地目录 ~/.cocoapods/repos/master
+>```
+>devzkndeMBP:master devzkn$ tree -L 3
+.
+├── CocoaPods-version.yml
+├── README.md
+└── Specs
+    ├── 0
+    │   ├── 0
+    │   ├── 1
+>```
 	
-或者显示隐藏文件
-
-	$ defaults write com.apple.finder AppleShowAllFiles -boolean true ; killall Finder
+>* 隐藏文件
+```
+devzkndeMBP:master devzkn$ ls -a
+.			..			.DS_Store		.git			.gitignore		CocoaPods-version.yml	README.md		Specs
+```
 	
-然后进入 `~/.cocoapods/repos/master` 
-
-你会发现 `master` 是一个 git 仓库，输出仓库的远程地址，发现是一个GitHub仓库
-
-	$ git remote -v
+ 
+>*  git remote -v: `master` 是一个 GitHub仓库
+>```
+>//显示所有远程仓库
+>devzkndeMBP:master devzkn$  git remote -v
+origin	https://github.com/CocoaPods/Specs.git (fetch)
+origin	https://github.com/CocoaPods/Specs.git (push)
+```
 	
-	origin	https://github.com/CocoaPods/Specs.git (fetch)
-	origin	https://github.com/CocoaPods/Specs.git (push)
+>* `Specs`文件夹:很多框架以及版本号
+>```
+>devzkndeMBP:Specs devzkn$ tree -L 4
+.
+├── 0
+│   ├── 0
+│   │   ├── 0
+│   │   │   ├── CAIStatusBar
+>```
 
-	
-[![](https://ww4.sinaimg.cn/large/006tKfTcgy1fdgdi59dnnj31kw10247u.jpg)]()
+>* /Users/devzkn/.cocoapods/repos/master/Specs/0/0/0/CAIStatusBar/0.0.1/
+>```
+>devzkndeMBP:CAIStatusBar devzkn$ tree -L 4
+.
+└── 0.0.1
+    └── CAIStatusBar.podspec.json
+>```
 
-继续，我们进入`Specs`文件夹一直往里点
+>* pod search CAIStatusBar:搜索Specs文件夹中的框架信息
+>
+>```
+>Creating search index for spec repo 'AliBCSpecs'.. Done!
+>Creating search index for spec repo 'artsy'.. Done!
+>Creating search index for spec repo 'master'.. Done!
+>Creating search index for spec repo 'specta'.. Done!
+[!] Skipping `OCastReferenceDriver` because the podspec contains errors.
+[!] Skipping `Specta` because the podspec contains errors.
+[!] Skipping `Specta.xcworkspace` because the podspec contains errors.
+[!] Skipping `misc` because the podspec contains errors.
+-> CAIStatusBar (0.0.1)
+   A simple indicator
+   pod 'CAIStatusBar', '~> 0.0.1' 每个版本号对应的一个json文件,描述了每个对应版本的框架的信息、配置、及源码下载地。
+   - Homepage: https://github.com/apple5566/CAIStatusBar.git
+   - Source:   https://github.com/apple5566/CAIStatusBar.git
+   - Versions: 0.0.1 [master repo]
+>```
 
-![](https://ww3.sinaimg.cn/large/006tKfTcgy1fdgdpyex7mj30yk0bkdi5.jpg)
-
-你会发现很多框架以及版本号，选择一个框架，通过
-
-	$ pod search YYImage
-
-pod搜索 Specs 文件夹中的框架，输出框架信息
-
-	-> YYImage (1.0.4)
-	   Image framework for iOS to display/encode/decode animated WebP, APNG, GIF,
-	   and more.
-	   pod 'YYImage', '~> 1.0.4'
-	   - Homepage: https://github.com/ibireme/YYImage
-	   - Source:   https://github.com/ibireme/YYImage.git
-	   - Versions: 1.0.4, 1.0.3, 1.0.2, 1.0.1, 1.0, 0.9.5, 0.9.4, 0.9.3, 0.9.2,
-	   0.9.1, 0.9.0, 0.8.9 [master repo]
-	   - Subspecs:
-	     - YYImage/Core (1.0.4)
-	     - YYImage/WebP (1.0.4)
-每个版本号对应的一个json文件,描述了每个对应版本的框架的信息、配置、及源码下载地。
-
-![](https://ww4.sinaimg.cn/large/006tKfTcgy1fdgdsl5tdxj318q14mdq2.jpg)
-
-我们在 CocoaPods 发布我们的框架时，就是要在 `master` 仓库中添加我们的仓库描述信息，然后push到远程仓库中。不过这个过程不用我们手动去操作，只需要通过`pod`命令进行操作即可。
-
+>* 在CocoaPods发布框架时要在 `master` 仓库中添加我们的仓库描述信息，然后push到远程仓库中。
+>```
+>用`pod`命令进行操作
+>```
 
 下面我们将一步步把我封装的这个简单的TextFiled控件 [BYPhoneNumTF](https://github.com/qiubaiying/BYPhoneNumTF) 上传到 Cocoapods 公有仓库中。
 
@@ -257,7 +278,12 @@ end
 
 ![](https://ww4.sinaimg.cn/large/006tNbRwgy1fdfkr2l7omj31kw0d7446.jpg)
 
-# 结语
-
-到此,你已经掌握了创建和维护一个Cocoapods公有仓库的技能了，是不是很棒~
-
+# see also
+>* [搭建一个提高开发效率的iOS静态库工程](https://blog.csdn.net/z929118967/article/details/73872024)
+>```
+>https://github.com/zhangkn/KNAPP/blob/master/README.md
+>```
+>* [截图反馈功能的实现](https://github.com/zhangkn/IOSStudy)
+>```
+> 图片的上传地址进行更换就可以应用到其他项目中（主要采用自定义View实现）。
+```
