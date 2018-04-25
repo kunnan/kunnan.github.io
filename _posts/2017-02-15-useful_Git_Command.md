@@ -372,6 +372,38 @@ git branch --set-upstream-to=origin/$1 $1
 
 	git remote remove origin
 
+# 例子
+
+>*  分支图: git log –graph –pretty=oneline
+>
+>```
+>分支图: git log –graph –pretty=oneline
+>* 4af6e9bc9c463310fbb511397f3fd8ee079f2312 (HEAD -> master, origin/master, origin/HEAD) git_subtree
+* 4e8a4494a1ad9687a5923099a0157e6d7af1a866 push:
+*   bcc7c2aeb71a346a9e83ea4e9954d2b5f2d11e33 README.md
+|\  
+| * 3928c19dddb8c7e8ad15a222523c5a370a455b33 Squashed 'KNCocoaTouchStaticLibrary/' changes from 47de4c7..bbf24c6
+* | f48b5cdb8eec56c2226e4fde486a32e0728e89da README.md
+* |   89528acc3cee61542ca5fb5aff95bd33a7ffe210 Merge commit '96551081b6604407e2f444a8e6a7ca3d75947cea' as 'KNCocoaTouchStaticLibrary'
+|\ \  
+| |/  
+| * 96551081b6604407e2f444a8e6a7ca3d75947cea Squashed 'KNCocoaTouchStaticLibrary/' content from commit 47de4c7
+*   d41cdc4a2ab2b918de7d0f761aa2c1c5dc8f6566 Merge branch 'master' of github.com:zhangkn/KNAPP
+|\  
+| * 32801e86c1c694797d7b2f267b18fba0968c61ad Update README.md
+| * 9bbbf25cc99c98bbe7ac58951e8fb2050bdb1405 Update README.md
+| * 88930444966f233765f950cf96eaa6743c89f9a1 Update README.md
+| * 630e5456f4a0d87624ecf9de98f252c27ea09764 Update README.md
+| * 6f4a4654d9e70942141f5d842fb3211aca8ca637 Update README.md
+| * 3a4721785ed3d6022cd450b86b1e2b73cb193028 Update README.md
+| * f70d60946a44d90a9f3c2c610cf7a5a27e62d42d Create README.md
+* | 89faa67857abac9453db0329657b58d0a04f7516 KNCocoaTouchStaticLibrary
+|/  
+* 980e96b64a42c3aaf33734d13f8b3a704a99f1de KNCocoaTouchStaticLibrary
+* a549563432d80bfbe252093d0b3e72edb17a6bb5 KNapp的整体代码在KNAPP.zip 中（包括app工程以及静态库工程） https://github.com/zhangkn/KNCocoaTouchStaticLibrary https://github.com/zhangkn/KNAPP
+* c302d2953806deaa95ce86db64df75aee6c22dfd 10、配置bundle工程的infoPlist文件路径 ![这里写图片描述](http://img.blog.csdn.net/20170629190534799?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvejkyOTExODk2Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+* 0f9299d60f1787c599e66ca8ea5e410d85e7730c Initial Commit
+>```
 
 # 使用 .gitignore 忽略 Git 仓库中的文件
 
@@ -411,6 +443,8 @@ devzkndeMacBook-Pro:DeleteMe devzkn$ kngi swift
 
 # see also
 
+>* [050-subtree-model.rst](https://github.com/gotgit/gotgit/blob/master/04-git-model/050-subtree-model.rst)
+>
 >* [git subtree 以子目录形式引用外部项目](http://www.zhengyh.com/git-subtree/)
 
 >* [ Git Subtree命令剖析](http://jifengyin.tumblr.com/post/93389974636/git-subtree%E5%91%BD%E4%BB%A4%E5%89%96%E6%9E%90)
