@@ -16,6 +16,29 @@ tags:
 
 以前,我经常以提供[静态库的方式](https://github.com/zhangkn/KNCocoaTouchStaticLibrary)给第三方使用，最近发现使用CocoaPods会更方便维护管理。
 
+>* [setup_Cocoa_Touch_Static_Library](https://kunnan.github.io/2018/04/25/setup_Cocoa_Touch_Static_Library/)
+>```
+>├── KNStaticBundle.bundle
+│   ├── HCPCMPayProgress.nib
+│   ├── IMG_3604.JPG
+│   ├── Info.plist
+│   ├── KNFeedbackViewController.nib
+│   ├── KNStaticBundle
+│   ├── deleteX.png
+│   ├── hebaoGrayPoint.png
+│   ├── hebaoWhitePoint.png
+│   └── store_add.png
+├── include
+│   └── KNCocoaTouchStaticLibrary
+│       ├── KNCocoaTouchStaticLibrary.h
+│       ├── KNFeedbackViewController.h
+│       └── KNTestWebViewController.h
+└── libKNCocoaTouchStaticLibrary.a
+>```
+>
+>
+>
+
 #### ~/.cocoapods/repos/master
 
 >* CocoaPods本地目录 ~/.cocoapods/repos/master
@@ -87,39 +110,156 @@ origin	https://github.com/CocoaPods/Specs.git (push)
 >用`pod`命令进行操作
 >```
 
-下面我们将一步步把我封装的这个简单的TextFiled控件 [BYPhoneNumTF](https://github.com/qiubaiying/BYPhoneNumTF) 上传到 Cocoapods 公有仓库中。
+下面将一步步把我封装的一个[简单的静态库：提供反馈模板和webview模板](https://github.com/zhangkn/KNCocoaTouchStaticLibrary)上传到 Cocoapods 公有仓库中。
 
-# 正文
 
-#### 注册 CocoaPods 账号
-想创建开源的Pod库，就要注册一个CocoaPods账号，我们使用终端注册, `email` 用你的 `GitHub` 邮箱
 
-	$ pod trunk register GitHub_email 'user_name' --verbose
 
-等终端出现下面文字，CocoaPods 会发一个`确认邮件`到你的邮箱上，登录你的邮箱进行确认。
+# pod
 
-	[!] Please verify the session by clicking the link in the verification email that has been sent to you_email@163.com
+>* pod --help
+>
+>```
+>    + trunk         Interact with the CocoaPods API (e.g. publishing new specs)
+>```
+
+
+####  pod trunk --help
+
+    $ pod trunk COMMAND
+      Interact with the CocoaPods API (e.g. publishing new specs)
+
+
+>*  pod trunk --help
+
+>* Commands:
+>
+```
+    + add-owner      Add an owner to a pod
+    + delete         Deletes a version of a pod.
+    + deprecate      Deprecates a pod.
+    + info           Returns information about a Pod.
+    + me             Display information about your sessions
+    + push           Publish a podspec
+    + register       Manage sessions
+    + remove-owner   Remove an owner from a pod
+```
+
+>* Options:
+
+```
+    --silent         Show nothing
+    --verbose        Show more debugging information
+    --no-ansi        Show output without ANSI codes
+    --help           Show help banner of specified command
+```
+
+
+####    pod spec --help
+ Manage pod specs
+
+
+>* pod spec --help
+>
+>* Commands:
+>
+```
+    + cat       Prints a spec file
+    + create    Create spec file stub.
+    + edit      Edit a spec file
+    + lint      Validates a spec file
+    + which     Prints the path of the given spec
+```
+
+>* pod spec cat
+>```
+>    $ pod spec cat [QUERY]
+      Prints the content of the podspec(s) whose name matches `QUERY` to standard
+      output.
+Options:
+    --regex      Interpret the `QUERY` as a regular expression
+    --show-all   Pick from all versions of the given podspec
+    --silent     Show nothing
+    --verbose    Show more debugging information
+    --no-ansi    Show output without ANSI codes
+    --help       Show help banner of specified command
+>```
+
+
+# 创建 CocoaPods 公有仓库
+
+
+#### 注册 CocoaPods 账号:  Manage sessions
+
+>* 使用终端注册, `email` 用你的 `GitHub` 邮箱: pod trunk register
+>
+>```
+>devzkndeMacBook-Pro:Debug-iphoneos devzkn$  pod trunk register @gmail.com name  --verbose
+opening connection to trunk.cocoapods.org:443...
+opened
+starting SSL for trunk.cocoapods.org:443...
+SSL established
+<- "POST /api/v1/sessions HTTP/1.1\r\nContent-Type: application/json; charset=utf-8\r\nAccept: application/json; charset=utf-8\r\nUser-Agent: CocoaPods/1.4.0\r\nAccept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3\r\nHost: trunk.cocoapods.org\r\nContent-Length: 73\r\n\r\n"
+<- "{\"email\":\"@gmail.com\",\"name\":\"\",\"description\":null}"
+-> "HTTP/1.1 201 Created\r\n"
+-> "Date: Wed, 25 Apr 2018 12:23:28 GMT\r\n"
+-> "Connection: keep-alive\r\n"
+-> "Strict-Transport-Security: max-age=31536000\r\n"
+-> "Content-Type: application/json\r\n"
+-> "Content-Length: 195\r\n"
+-> "X-Content-Type-Options: nosniff\r\n"
+-> "Server: thin 1.6.2 codename Doc Brown\r\n"
+-> "Via: 1.1 vegur\r\n"
+-> "\r\n"
+reading 195 bytes...
+-> "{\"created_at\":\"2018-04-25 12:23:28 UTC\",\"valid_until\":\"2018-08-31 12:23:28 UTC\",\"verified\":false,\"created_from_ip\":\"\",\"description\":null,\"token\":\"\"}"
+read 195 bytes
+Conn keep-alive
+[!] Please verify the session by clicking the link in the verification email that has been sent to@gmail.com
+//    --verbose        Show more debugging information
+>```
+
+>* [CocoaPods] Confirm your registration.
+>```
+>Hi,
+Please confirm your registration with CocoaPods by clicking the following link:
+https://trunk.cocoapods.org/sessions/verify/
+If you did not request this you do not need to take any further action.
+Kind regards, the CocoaPods team
+>```	
+>* ACE, YOU'RE SET UP.
+>```
+You can go back to your terminal now.
+>```
 	
-![](https://ww3.sinaimg.cn/large/006tNbRwgy1fdeco0ndc9j30r10h3wgt.jpg)
-
-注册成功！
+>* 	pod trunk me: Display information about your sessions
+>
+>```
+devzkndeMacBook-Pro:Debug-iphoneos devzkn$ pod trunk me
+  - Name:    
+  - Email:   @gmail.com
+  - Since:    April 25th, 06:23
+  - Pods:     None
+  - Sessions:
+    - April 25th, 06:23 - August 31st, 06:36. IP:
+>```
 	
-确认后再终端输入
-
-	pod trunk me
-	
-可以看到你的注册信息
-	
-![](https://ww4.sinaimg.cn/large/006tNbRwgy1fdecs0z72oj30n004q3z2.jpg)
 
 #### 创建Git仓库
 
-在 [GitHub](https://github.com) 上创建一个公开项目，项目中必须包含这几个文件
+>* 这次我现在之前的静态库KNCocoaTouchStaticLibrary,是KNAPP主项目的子项目
+>```
+>/Users/devzkn/code/cocoapodDemo/cocoapodStatic/KNAPP/KNCocoaTouchStaticLibrary
+>```
+
+######  [GitHub](https://github.com) 上创建一个公开项目，项目中必须包含这几个文件
 
 - `LICENSE`:开源许可证
-- `README.md`:仓库说明
-- 你的代码
-- `BYPhoneNumTF.podspec`: CocoaPods 的描述文件，这个文件**非常重要**
+- `README.md`
+- code
+- `KNCocoaTouchStaticLibrary.podspec`:CocoaPods的描述文件**非常重要**
+
+
 
 如下图：
 
@@ -130,14 +270,22 @@ origin	https://github.com/CocoaPods/Specs.git (push)
 `BYPhoneNumTF_Demo` 是代码使用样例（不是必须的）
 
 
-#### 创建`.podspec`
-`.podspec` 是用 Ruby 的配置文件，描述你项目的信息。
+#### 创建`.podspec` Create spec file stub.
 
-在你的仓库目录下，使用终端命令创建
 
-	$ pod spec create BYPhoneNumTF
-	
-这时就会在你的仓库下生成 `BYPhoneNumTF.podspec` 文件
+>* `.podspec` 是用 Ruby 的配置文件，描述你项目的信息。
+>```
+> Specification
+>```
+
+>* cd仓库目录下 pod spec create
+```
+devzkndeMacBook-Pro:KNCocoaTouchStaticLibrary devzkn$ pod spec create KNCocoaTouchStaticLibrary
+Specification created at KNCocoaTouchStaticLibrary.podspec
+```	
+><script src="https://gist.github.com/zhangkn/02cb3a7413b58c5db7c96797f0bd40b1.js"></script>
+
+
 
 ![](https://ww4.sinaimg.cn/large/006tNbRwgy1fdfioo1c4zj31bq0s20zn.jpg)
 
