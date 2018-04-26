@@ -203,6 +203,7 @@ From github.com:zhangkn/KNCocoaTouchStaticLibrary
 >
 >```
 >git subtree push --prefix=<基础库在主项目中的子目录> <基础库仓库名> <基础库分支>
+>You need to run this command from the toplevel of the working tree.
 >```
 
 #### 2、推送基础库更新到远程仓库
