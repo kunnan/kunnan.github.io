@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      CocoaPods私有仓库的创建
-subtitle:   继续带你创建 CocoaPods 私有有仓库
+title:      making_private_cocoapods
+subtitle:   use a private Spec Repo to do sharing components across projects
 date:       2017-03-10
 author:     BY
 header-img: img/post-bg-iWatch.jpg
@@ -12,33 +12,23 @@ tags:
     - Git
 ---
 
-> 本文发布于 [BY Blog](http://qiubaiying.github.io)、[简书](http://www.jianshu.com/p/d2d98298b1b8) 转载请保留链接
-> 
-> 上一篇文章 [《CocoaPods公有仓库的创建》](http://qiubaiying.top/2017/03/08/CocoaPods公有仓库的创建/)
-
 # 前言
 
-最近参照了网上一大堆 CocoaPods私有仓库 的教程，按教程操作得到的pod仓库里面是这样的~
 
-![](https://ww3.sinaimg.cn/large/006tKfTcgy1fdgexnidglj30yq0eqn0r.jpg)
+>*  a few steps to getting a private pods setup for your project
+>```
+>1) creating a private repository for them, 
+>2) letting CocoaPods know where to find it 
+>3) and adding the podspecs to the repository.
+```
 
-代码和版本描述居然混在了一起，简直太糟糕~
+>* [ source directive](https://guides.cocoapods.org/syntax/podfile.html#source)
+>```
+>source 'URL_TO_REPOSITORY'
+>```
+>
 
-虽然也能用，但是和CocoaPods本身的结构设计就不相符。
-
-在上一篇[《CocoaPods公有仓库的创建》](http://qiubaiying.top/2017/03/08/CocoaPods公有仓库的创建/)中我们了解到，`master` 目录中只存放 代码库 的描述文件，而不是存放代码。就像这样
-
-![](https://ww4.sinaimg.cn/large/006tKfTcgy1fdgf4l54rxj30ya09ujst.jpg)
-
-代码我们另外存放在代码仓库中
-
-![](https://ww4.sinaimg.cn/large/006tKfTcgy1fdgf9t7vcgj30n206s0u8.jpg)
-
-很多人不了解CocoaPods的工作原理就复制粘贴别人的教程来做教程~
-
-吐槽结束，进入正文
-
-# 正文
+# An Example
 
 #### 创建版本库(**repo**)
 
@@ -218,12 +208,46 @@ end
 - 根据 `MyAdditions.podspec` 文件中描述的源码地址下载并整合到项目中
 
 
+# How to remove a Private Repo
 
-# 结语
+>* How to remove a Private Repo
+```
+pod repo remove [name]
+```
 
-通过 [《CocoaPods私有仓库的创建》](http://qiubaiying.top/2017-03-10-CocoaPods私有仓库的创建/) 和 [《CocoaPods公有仓库的创建](http://qiubaiying.top/2017/03/08/CocoaPods公有仓库的创建/)》这两篇文章，相信大家对CocoaPods的工作原理都有了更深层次的了解。
 
-在写博客和和创建的过程中，踩了不少的坑（😀前人教程留下的），很多的东西只有自己操作完才能真正的领会。
+# Making CocoaPods
 
-最后，如果本文有什么错误或者有什么不同的观点欢迎提出交流。😉
+>* [making-a-cocoapod](https://guides.cocoapods.org/making/making-a-cocoapod.html)
+>* [using-pod-lib-create](https://guides.cocoapods.org/making/using-pod-lib-create.html)
+>* [getting-setup-with-trunk](https://guides.cocoapods.org/making/getting-setup-with-trunk.html)
+>* [quality-indexes](https://guides.cocoapods.org/making/quality-indexes.html)
+>* [private-cocoapods](https://guides.cocoapods.org/making/private-cocoapods.html)
+>* [pecs-and-specs-repo](https://guides.cocoapods.org/making/specs-and-specs-repo.html)
+>
+
+# Reference
+
+>* [syntax-podfile](https://guides.cocoapods.org/syntax/podfile.html)
+>* [syntax-podspec](https://guides.cocoapods.org/syntax/podspec.html)
+>* [terminal-commands.](https://guides.cocoapods.org/terminal/commands.html)
+>
+
+# see also
+
+
+
+# External resources
+
+>* [architecting-a-large-ios-app-with-cocoapods](http://dev.hubspot.com/blog/architecting-a-large-ios-app-with-cocoapods)
+>
+>```
+>Using CocoaPods to Modularize a Big iOS App
+>```
+>
+>
+>
+
+
+
 

@@ -12,7 +12,7 @@ subtitle: cocoaPods开发打包静态库,比我之前自己搭建的模板更方
 
 # 前言
 
-之前我自己搭建了一个模板，采用[git_subtree](https://kunnan.github.io/2018/04/25/git_subtree/)进行管理；这个喜欢上了使用cocoaPods开发打包静态库.
+之前我自己搭建了一个模板，采用[git_subtree](https://kunnan.github.io/2018/04/25/git_subtree/)进行管理；最近我喜欢上了使用cocoaPods开发打包静态库.
 
 >* [以前自己搭建的静态库模板](https://github.com/zhangkn/KNCocoaTouchStaticLibrary)
 >```
@@ -24,6 +24,9 @@ subtitle: cocoaPods开发打包静态库,比我之前自己搭建的模板更方
 >```
 >/Users/devzkn/code/cocoapodDemo/cocoapodStatic
 >```
+>
+>* [github code](https://github.com/zhangkn/KNPodlib)
+>
 
 # CocoaTouchStaticLibrary
 
@@ -44,7 +47,7 @@ subtitle: cocoaPods开发打包静态库,比我之前自己搭建的模板更方
 #  pod lib --help
 
 
-####  Develop pods
+#### 1、 Develop pods
 
 >* Commands:
 >
@@ -54,7 +57,7 @@ subtitle: cocoaPods开发打包静态库,比我之前自己搭建的模板更方
 >```
 >
 
-#### [Using Pod Lib Create](https://guides.cocoapods.org/making/using-pod-lib-create.html)
+#### 2、 [Using Pod Lib Create](https://guides.cocoapods.org/making/using-pod-lib-create.html)
 
 >* Getting started
 >```
@@ -103,7 +106,7 @@ subtitle: cocoaPods开发打包静态库,比我之前自己搭建的模板更方
 >We know that Apple is deprecating prefixes, but in reality they still have their place in Objective-C codebases.
 >```
 
-#### The Pod Lib Create Template
+#### 3、The Pod Lib Create Template
 
 
 >* The Pod Lib Create Template :tree -L 2
@@ -131,9 +134,11 @@ subtitle: cocoaPods开发打包静态库,比我之前自己搭建的模板更方
 
 
 
-#### 实践
+# 实践
 
->
+
+#### 0、pod lib create KNPodlib
+
 >* pod lib create KNPodlib
 >```
 >Cloning `https://github.com/CocoaPods/pod-template.git` into `KNPodlib`.
@@ -185,9 +190,338 @@ Pod installation complete! There are 5 dependencies from the Podfile and 5 total
 To learn more about the template see `https://github.com/CocoaPods/pod-template.git`.
 To learn more about creating a new pod, see `http://guides.cocoapods.org/making/making-a-cocoapod`.
 >```
+
+#### 1、The Pod Lib Create Template
+
+>* tree -L 3
+>```
+>.
+├── Example # This is the generated Demo & Testing bundle
+│   ├── KNPodlib
+│   │   ├── Base.lproj
+│   │   ├── Images.xcassets
+│   │   ├── KNAppDelegate.h
+│   │   ├── KNAppDelegate.m
+│   │   ├── KNPodlib-Info.plist
+│   │   ├── KNPodlib-Prefix.pch
+│   │   ├── KNViewController.h
+│   │   ├── KNViewController.m
+│   │   ├── en.lproj
+│   │   └── main.m
+│   ├── KNPodlib.xcodeproj
+│   │   ├── project.pbxproj
+│   │   ├── project.xcworkspace
+│   │   └── xcshareddata
+│   ├── KNPodlib.xcworkspace
+│   │   ├── contents.xcworkspacedata
+│   │   └── xcuserdata
+│   ├── Podfile
+│   ├── Podfile.lock
+│   ├── Pods
+│   │   ├── Expecta
+│   │   ├── Expecta+Snapshots
+│   │   ├── FBSnapshotTestCase
+│   │   ├── Headers
+│   │   ├── Local\ Podspecs
+│   │   ├── Manifest.lock
+│   │   ├── Pods.xcodeproj
+│   │   ├── Specta
+│   │   └── Target\ Support\ Files
+│   └── Tests
+│       ├── Tests-Info.plist
+│       ├── Tests-Prefix.pch
+│       ├── Tests.m
+│       └── en.lproj
+├── KNPodlib #This is where you place your library's classes
+│   ├── Assets
+│   └── Classes
+│       └── ReplaceMe.m # a single file to to ensure compilation works initially
+├── KNPodlib.podspec
+├── LICENSE #defaulting to the MIT License.
+├── README.md
+├── .travis.yml #a setup file for travis-ci.
+└── _Pods.xcodeproj -> Example/Pods/Pods.xcodeproj #a symlink to your Pod's project for Carthage support
+>```
+
+>* /Users/devzkn/code/cocoapodDemo/cocoapodStatic/KNPodlib/Example/Pods/Target Support Files/KNPodlib
+>
+
+>* [open -e .travis.yml](https://github.com/zhangkn/KNPodlib/blob/master/.travis.yml)
+>
+>```
+># references:
+# * https://www.objc.io/issues/6-build-tools/travis-ci/
+# * https://github.com/supermarin/xcpretty#usage
+osx_image: xcode7.3
+language: objective-c
+# cache: cocoapods
+# podfile: Example/Podfile
+# before_install:
+# - gem install cocoapods # Since Travis is not always on latest version
+# - pod install --project-directory=Example
+script:
+- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/KNPodlib.xcworkspace -scheme KNPodlib-Example -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO | xcpretty
+- pod lib lint
+>```
+
+#### Putting your Library Together
+
+
+>* cat .gitignore
+><script src="https://gist.github.com/zhangkn/d8c8e4907975abfcf6f5686c6d664baa.js"></script>
+>
+>
+>* edit your Podspec metadata
+>```
+> change your README and Podspec.
+>```
+>* Development Pods
+>```
+>1) Development Pods are different from normal CocoaPods in that they are symlinked files,so you can work on your library from inside Xcode.
+>2)  Your demo & tests will need to include references to headers using the #import <MyLib/XYZ.h> format.
+>```
+
+>* [!] Note:运行Pod install，让demo程序加载新建的类
+>```
+>Due to a Development Pods implementation detail, when you add new/existing files to Pod/Classes or Pod/Assets or update your podspec, you should run pod install or pod update
+>只要新增加类/资源文件或依赖的三方库都需要重新运行Pod install来应用更新
+>```
+>
+>
+>* cd Example ;执行pod install，让demo项目安装依赖项并更新配置
+>```
+> pod install --no-repo-update
+> devzkndeMacBook-Pro:Example devzkn$ pod install --no-repo-update
+Analyzing dependencies
+Fetching podspec for `KNPodlib` from `../`
+Downloading dependencies
+Using Expecta (1.0.6)
+Using Expecta+Snapshots (3.1.1)
+Using FBSnapshotTestCase (2.1.4)
+Installing KNPodlib 0.1.0 (was 0.1.0)
+Using Specta (1.0.7)
+Generating Pods project
+Integrating client project
+Sending stats
+Pod installation complete! There are 5 dependencies from the Podfile and 5 total pods installed.
+[!] Automatically assigning platform `ios` with version `9.3` on target `KNPodlib_Example` because no platform was specified. Please specify a platform for this target in your Podfile. See `https://guides.cocoapods.org/syntax/podfile.html#platform`.
+>```
+>*   使用了 s.resource_bundles，之后，会自动创建KNPodlib.bundle
+>```
+>devzkndeMacBook-Pro:KNPodlib devzkn$ tree -L 2
+>.
+├── KNPodlib.bundle
+│   ├── HCPCMPayProgress.nib
+│   ├── Info.plist
+│   ├── KNFeedbackViewController.nib
+│   ├── deleteX.png
+│   ├── hebaoGrayPoint.png
+│   ├── hebaoWhitePoint.png
+│   └── store_add.png
+└── KNPodlib.framework
+    ├── Headers
+    ├── Info.plist
+    ├── KNPodlib
+    ├── Modules
+    └── _CodeSignature
+>```
+>
+>
+
+# 开发细节
+
+#### 1、 public_header_files 配置
+
+>*  s.public_header_files 
+>```
+>   s.public_header_files = 'Classes/PublicInterface/*.h'
+>```
+>
+>*  KNPodlib/KNPodlib-umbrella.h
+>
+>```
+>#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern "C"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
+#endif
+#import "HCPEnvrionmentalVariables.h"
+#import "KNFeedbackViewController.h"
+#import "KNTestWebViewController.h"
+FOUNDATION_EXPORT double KNPodlibVersionNumber;
+FOUNDATION_EXPORT const unsigned char KNPodlibVersionString[];
+>```
+>
+>
+
+
+
+#### 2、提交本地代码库
+
+
+>* devzkndeMacBook-Pro:KNPodlib devzkn$ kngitinit git@github.com:zhangkn/KNPodlib.git
+>```
+> * [new branch]      master -> master
+>```
+>
+>* 提交源码，并打tag。
+>
+>```
+>git add .
+git commit -a -m 'v0.1.0'
+git tag -a 0.1.0 -m 'v0.1.0'
+#git tag -a v1.0 -m 'xxx' 
+git push origin --tags
+To github.com:zhangkn/KNPodlib.git
+ * [new tag]         0.1.0 -> 0.1.0
+ * [new tag]         0.1.1 -> 0.1.1
+>```
+>
+>
+#  Deploying your Library
+
+
+
+#### 1、验证类库
+>* First you should check if the Podspec lints correctly
+>
+>```
+>pod lib lint and pod spec lint
+>1)The difference between them is that 
+>2) pod lib lint does not access the network, whereas pod spec lint checks the external repo and associated tag.
+>```
+>* devzkndeMacBook-Pro:KNPodlib devzkn$  pod lib lint KNPodlib.podspec --verbose --allow-warnings
+>```
+>KNPodlib passed validation.
+>```
 >
 >
 >
+>* [ deploy to the public](https://guides.cocoapods.org/making/getting-setup-with-trunk)
+>```
+>If you're deploying an Open Source library to trunk, you cannot have CocoaPods warnings. You can have Xcode warnings though. You should continue to the getting started with trunk guide to deploy to the public.
+>pod repo push SPEC_REPO *.podspec --verbose
+>```
+>
+>* [ Private Specs Repos](https://guides.cocoapods.org/making/private-cocoapods)
+>
+>
+>* pod trunk push —allow-warnings 
+>```
+>pod trunk push —allow-warnings 
+>提交到pod服务器网络
+>```
+
+
+
+# 关于 Pod 库的资源引用 resource_bundles or resources
+
+We strongly recommend library developers to adopt resource bundles as there can be name collisions using the resources attribute. Moreover, resources specified with this attribute are copied directly to the client target and therefore they are not optimised by Xcode.
+
+
+#### 1.1 resource_bundles
+
+CocoaPods 官方强烈推荐使用 resource_bundles，因为用 key-value 可以避免相同名称资源的名称冲突。
+
+
+>*  存放的位置: 隔离了各个库或者一个库下的资源包
+>```
+>devzkndeMacBook-Pro:KNPodlib_Example.app devzkn$ tree -L 4
+.
+├── Base.lproj
+│   └── LaunchScreen.storyboardc
+│       ├── 01J-lp-oVM-view-Ze5-6b-2t3.nib
+│       ├── Info.plist
+│       └── UIViewController-01J-lp-oVM.nib
+├── Frameworks
+│   └── KNPodlib.framework
+│       ├── HCPCMPayProgress.nib
+│       ├── Info.plist
+│       ├── KNFeedbackViewController.nib
+│       ├── KNPodlib
+│       ├── KNPodlib.bundle
+│       │   ├── Info.plist
+│       │   ├── deleteX.png
+│       │   ├── hebaoGrayPoint.png
+│       │   ├── hebaoWhitePoint.png
+│       │   └── store_add.png
+│       └── _CodeSignature
+│           └── CodeResources
+>```
+>* [需要带上 .bundle 文件的路径,获取图片](https://github.com/zhangkn/KNPodlib/blob/master/Classes/main/tool/KNResourceTool.m)
+><script src="https://gist.github.com/zhangkn/8b084dfd7d34e775cc09aefad42ca7c9.js"></script>
+
+#### 1.2 resources
+
+使用 resources 来指定资源，被指定的资源只会简单的被 copy 到目标工程中（主工程）。
+
+
+>* resources
+>
+>```
+spec.ios.resource_bundle = { 'MapBox' => 'MapView/Map/Resources/*.png' }
+```
+
+>* Examples
+>
+>```
+>spec.resource = 'Resources/HockeySDK.bundle'
+>spec.resources = ['Images/*.png', 'Sounds/*']
+>```
+
+>* [syntax - podspec](https://guides.cocoapods.org/syntax/podspec.html)
+>
+>
+>* 读取图片的方式和平常使用的方式不同，要先获取 Bundle;可以使用相对方式获取
+>```
+>UIImage *image = [UIImage imageNamed:@"some-image"
+                                inBundle:[NSBundle bundleForClass:[self class]]
+           compatibleWithTraitCollection:nil];
+>```
+>
+>
+
+#### 2 对于 Pods 库的资源，同样可以使用 .xcassets 管理。
+ resources 和 resource_bundles 都可以很好的支持 .xcassets 的引用
+
+
+#### 3、小结
+
+>* resource_bundles 优点：
+>```
+>可以使用 .xcassets 指定资源文件
+可以避免每个库和主工程之间的同名资源冲突
+>```
+>
+>* resource_bundles 缺点：我觉得还好
+>```
+>获取图片时可能需要使用硬编码的形式来获取：[[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/SubModule_Use_Bundle.bundle"]
+>```
+>
+>* resources 优点：
+>
+>```
+>可以使用 .xcassets 指定资源文件
+>```
+>
+>* resources 缺点：
+>```
+>会导致每个库和主工程之间的同名资源冲突
+不需要用硬编码方式获取图片：[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+>```
+>
+>
+
+
+# [Demo](https://github.com/zhangkn/KNPodlib)
+
+
 
 # Q&A
 
@@ -247,6 +581,26 @@ Installing ri documentation for xcodeproj-1.5.7
 Done installing documentation for atomos, CFPropertyList, claide, colored2, nanaimo, xcodeproj after 3 seconds
 6 gems installed
 >```
+>
+>
+#### Q2、Unsupported Swift Version
+
+>* Unsupported Swift Version
+>```
+>The target “FBSnapshotTestCase” contains source code developed with Swift 2.x. Xcode 9 does not support building or migrating Swift 2.x targets.
+Use Xcode 8.x to migrate the code to Swift 3.
+>```
+>
+>* A: 我这里直接采用废弃FBSnapshotTestCase，从podfile删除FBSnapshotTestCase
+>
+>
+
+#### q3、引用的静态库资源图片没找到
+
+>* A:
+>```
+>
+>```
 
 #### rvm的安装
 
@@ -264,8 +618,18 @@ $source ~/.bash_profile
 >
 >* $rvm install 2.3.0  // 开始安装
 >
+>
+>
 
 # see also 
+
+>* [关于 Pod 库的资源引用 resource_bundles or resources](http://zhoulingyu.com/2018/02/02/pod-resource-reference/)
+>
+>* [Developing private static library for iOS with CocoaPods](http://blog.sigmapoint.pl/developing-static-library-for-ios-with-cocoapods/)
+>
+>* [Automatic build of static library for iOS and many architectures](http://blog.sigmapoint.pl/automatic-build-of-static-library-for-ios-for-many-architectures/)
+>
+>* [avoiding-dependency-collisions-in-ios-static-library-managed-by-cocoapods/](http://blog.sigmapoint.pl/avoiding-dependency-collisions-in-ios-static-library-managed-by-cocoapods/)
 
 >* [使用CocoaPods开发并打包静态库](http://www.cnblogs.com/brycezhang/p/4117180.html)
 >
@@ -279,4 +643,5 @@ $source ~/.bash_profile
 /Users/devzkn/bin/knpost pod_lib_create cocoaPods开发打包静态库,比我之前自己搭建的模板更方便 -t CocoaTouchStaticLibrary
 > #原来""的参数，需要自己加上""
 ```
+
 

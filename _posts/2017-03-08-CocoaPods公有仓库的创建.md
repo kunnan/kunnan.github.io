@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      CocoaPods公有仓库的创建
-subtitle:   手把手教你创建 CocoaPods 公有仓库
+title:      getting-setup-with-trunk
+subtitle:   guide to deploy to the public
 date:       2017-03-08
 author:     
 header-img: img/post-bg-ios10.jpg
@@ -35,19 +35,70 @@ tags:
 │       └── KNTestWebViewController.h
 └── libKNCocoaTouchStaticLibrary.a
 >```
->
->* 目前静态库的管理我会结合CocoaPods 和[git_subtree](https://kunnan.github.io/2018/04/25/git_subtree/)
+
+
+#### 自己搭建模板和pod的模板的比较
+
+>* 目前静态库的管理我会结合CocoaPods、demo的xcodeproj 和[git_subtree](https://kunnan.github.io/2018/04/25/git_subtree/)
 >```
 >devzkndeMacBook-Pro:KNAPP devzkn$ git subtree push --prefix=KNCocoaTouchStaticLibrary KNCocoaTouchStaticLibrary master 
+>.
+├── KNAPP
+│   ├── AppDelegate.h
+│   ├── AppDelegate.m
+│   ├── Assets.xcassets
+│   ├── Base.lproj
+│   ├── Info.plist
+│   ├── KNAPP.zip
+│   ├── ViewController.h
+│   ├── ViewController.m
+│   └── main.m
+├── KNAPP.xcodeproj
+│   ├── project.pbxproj
+│   ├── project.xcworkspace
+│   └── xcuserdata
+├── KNCocoaTouchStaticLibrary
+│   ├── Business
+│   ├── KNCocoaTouchStaticLibrary
+│   ├── KNCocoaTouchStaticLibrary.podspec
+│   ├── KNCocoaTouchStaticLibrary.xcodeproj
+│   ├── KNStaticBundle
+│   ├── LICENSE
+│   └── README.md
+└── README.md
 >```
 >
->* cocoaPods开发打包静态库:  pod lib create
+>* [cocoaPods开发打包静态库:  pod lib create](https://kunnan.github.io/2018/04/26/pod_lib_create/)
 >```
->基于Pod自动创建静态库。
+>基于Pod自动创建静态库,这个目前采用xcworkspace和Pods进行管理依赖很方便。
+>devzkndeMacBook-Pro:KNPodlib devzkn$ tree -L 2
+.
+├── Example
+│   ├── KNPodlib
+│   ├── KNPodlib.xcodeproj
+│   ├── KNPodlib.xcworkspace
+│   ├── Podfile
+│   ├── Podfile.lock
+│   ├── Pods
+│   └── Tests
+├── KNPodlib
+│   ├── Assets
+│   └── Classes
+├── KNPodlib.podspec # the Podspec for your Library.
+├── LICENSE
+├── README.md #  a default README in markdown.
+└── _Pods.xcodeproj -> Example/Pods/Pods.xcodeproj
 >```
 >
 >
->
+>* 区别：可以看出，pod lib 已经不采用Bundle的方式，而是采用普通目录Assets的方式管理资源文件
+>```
+>├── KNPodlib
+│   ├── Assets
+  # s.resource_bundles = {
+  #   'KNPodlib' => ['KNPodlib/Assets/*.png']
+  # }
+>```
 
 #### ~/.cocoapods/repos/master
 
@@ -136,9 +187,16 @@ origin	https://github.com/CocoaPods/Specs.git (push)
 
 ####  pod trunk --help
 
-    $ pod trunk COMMAND
-      Interact with the CocoaPods API (e.g. publishing new specs)
+>* CocoaPods Trunk
+>
+>```
+>CocoaPods Trunk is an authentication and CocoaPods API service. To publish new or updated libraries to CocoaPods for public release you will need to be registered with Trunk and have a valid Trunk session on your current device. 
+>```
 
+>* pod trunk COMMAND
+>```
+      Interact with the CocoaPods API (e.g. publishing new specs)
+```
 
 >*  pod trunk --help
 
@@ -441,6 +499,12 @@ end
 ![](https://ww4.sinaimg.cn/large/006tNbRwgy1fdfkr2l7omj31kw0d7446.jpg)
 
 # see also
+
+>* [ private pods](https://guides.cocoapods.org/making/private-cocoapods.html)
+>
+>
+>* [getting-setup-with-trunk](https://guides.cocoapods.org/making/getting-setup-with-trunk)
+>
 
 >* [Podspec Syntax Reference](https://guides.cocoapods.org/syntax/podspec.html#specification)
 >
