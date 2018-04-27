@@ -8,7 +8,7 @@ tag:
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
-subtitle: cocoaPods开发打包静态库,比我之前自己搭建的模板更方便 
+subtitle: 采用 `pod lib` 开发并打包静态库,[比我之前自己搭建的模板更方便](https://github.com/zhangkn/KNCocoaTouchStaticLibrary) 
 ---
 
 
@@ -176,21 +176,6 @@ Running pod install on your new library.
 Analyzing dependencies
 Fetching podspec for `KNPodlib` from `../`
 Downloading dependencies
-Installing Expecta (1.0.6)
-Installing Expecta+Snapshots (3.1.1)
-Installing FBSnapshotTestCase (2.1.4)
-Installing KNPodlib (0.1.0)
-Installing Specta (1.0.7)
-Generating Pods project
-Integrating client project
-[!] Please close any current Xcode sessions and use `KNPodlib.xcworkspace` for this project from now on.
-Sending stats
-Pod installation complete! There are 5 dependencies from the Podfile and 5 total pods installed.
-[!] Automatically assigning platform `ios` with version `9.3` on target `KNPodlib_Example` because no platform was specified. Please specify a platform for this target in your Podfile. See `https://guides.cocoapods.org/syntax/podfile.html#platform`.
- Ace! you're ready to go!
- We will start you off by opening your project in Xcode
-  open 'KNPodlib/Example/KNPodlib.xcworkspace'
-To learn more about the template see `https://github.com/CocoaPods/pod-template.git`.
 To learn more about creating a new pod, see `http://guides.cocoapods.org/making/making-a-cocoapod`.
 >```
 
@@ -297,17 +282,8 @@ script:
 > devzkndeMacBook-Pro:Example devzkn$ pod install --no-repo-update
 Analyzing dependencies
 Fetching podspec for `KNPodlib` from `../`
-Downloading dependencies
-Using Expecta (1.0.6)
-Using Expecta+Snapshots (3.1.1)
-Using FBSnapshotTestCase (2.1.4)
-Installing KNPodlib 0.1.0 (was 0.1.0)
-Using Specta (1.0.7)
-Generating Pods project
-Integrating client project
 Sending stats
-Pod installation complete! There are 5 dependencies from the Podfile and 5 total pods installed.
-[!] Automatically assigning platform `ios` with version `9.3` on target `KNPodlib_Example` because no platform was specified. Please specify a platform for this target in your Podfile. See `https://guides.cocoapods.org/syntax/podfile.html#platform`.
+See `https://guides.cocoapods.org/syntax/podfile.html#platform`.
 >```
 >*   使用了 s.resource_bundles，之后，会自动创建KNPodlib.bundle
 >```
@@ -519,12 +495,7 @@ pod trunk push  KNPodlib.podspec --verbose --allow-warnings
 >```
 >Updating spec repo `master`
 >CocoaPods 1.5.0 is available.
-To update use: `sudo gem install cocoapods`
-For more information, see https://blog.cocoapods.org and the CHANGELOG for this version at https://github.com/CocoaPods/CocoaPods/releases/tag/1.5.0
->  - Data URL: https://raw.githubusercontent.com/CocoaPods/Specs/6c07ec30e394434252110b79d56afa6b7c928b3c/Specs/3/9/a/KNPodlib/0.1.3/KNPodlib.podspec.json
-  - Log messages:
-    - April 26th, 20:21: Push for `KNPodlib 0.1.3' initiated.
-    - April 26th, 20:21: Push for `KNPodlib 0.1.3' has been pushed (0.801533271 s).
+>    - April 26th, 20:21: Push for `KNPodlib 0.1.3' has been pushed (0.801533271 s).
 >```
 
 >* [Data URL](https://raw.githubusercontent.com/CocoaPods/Specs/6c07ec30e394434252110b79d56afa6b7c928b3c/Specs/3/9/a/KNPodlib/0.1.3/KNPodlib.podspec.json)
