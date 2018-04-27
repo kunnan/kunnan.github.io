@@ -251,8 +251,16 @@ end
 
 # [crate a pod](https://guides.cocoapods.org/making/getting-setup-with-trunk.html)
 
->* [本人的教程和例子]()
+>* creating a pod is pretty easy
+>```
+>$ pod spec create Peanut
+$ edit Peanut.podspec
+$ pod spec lint Peanut.podspec
+>```
 
+>* [本人的教程和例子](https://kunnan.github.io/2018/04/26/pod_lib_create/)
+>
+>
 # see also
 >* [CocoaPod的使用](https://github.com/zhangkn/KNMVVMReactiveCocoaDemo)
 >* [CocoaPods公有仓库的创建](http://qiubaiying.top/2017/03/08/CocoaPods%E5%85%AC%E6%9C%89%E4%BB%93%E5%BA%93%E7%9A%84%E5%88%9B%E5%BB%BA/)
