@@ -151,13 +151,6 @@ origin	https://github.com/CocoaPods/Specs.git (push)
 >
 >```
 >Creating search index for spec repo 'AliBCSpecs'.. Done!
->Creating search index for spec repo 'artsy'.. Done!
->Creating search index for spec repo 'master'.. Done!
->Creating search index for spec repo 'specta'.. Done!
-[!] Skipping `OCastReferenceDriver` because the podspec contains errors.
-[!] Skipping `Specta` because the podspec contains errors.
-[!] Skipping `Specta.xcworkspace` because the podspec contains errors.
-[!] Skipping `misc` because the podspec contains errors.
 -> CAIStatusBar (0.0.1)
    A simple indicator
    pod 'CAIStatusBar', '~> 0.0.1' 每个版本号对应的一个json文件,描述了每个对应版本的框架的信息、配置、及源码下载地。
@@ -266,28 +259,8 @@ First sign up for an account with your email address. This begins a session on y
 >```
 >devzkndeMacBook-Pro:Debug-iphoneos devzkn$  pod trunk register @gmail.com name  --verbose
 opening connection to trunk.cocoapods.org:443...
-opened
-starting SSL for trunk.cocoapods.org:443...
-SSL established
-<- "POST /api/v1/sessions HTTP/1.1\r\nContent-Type: application/json; charset=utf-8\r\nAccept: application/json; charset=utf-8\r\nUser-Agent: CocoaPods/1.4.0\r\nAccept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3\r\nHost: trunk.cocoapods.org\r\nContent-Length: 73\r\n\r\n"
-<- "{\"email\":\"@gmail.com\",\"name\":\"\",\"description\":null}"
--> "HTTP/1.1 201 Created\r\n"
--> "Date: Wed, 25 Apr 2018 12:23:28 GMT\r\n"
--> "Connection: keep-alive\r\n"
--> "Strict-Transport-Security: max-age=31536000\r\n"
--> "Content-Type: application/json\r\n"
--> "Content-Length: 195\r\n"
--> "X-Content-Type-Options: nosniff\r\n"
--> "Server: thin 1.6.2 codename Doc Brown\r\n"
--> "Via: 1.1 vegur\r\n"
--> "\r\n"
-reading 195 bytes...
--> "{\"created_at\":\"2018-04-25 12:23:28 UTC\",\"valid_until\":\"2018-08-31 12:23:28 UTC\",\"verified\":false,\"created_from_ip\":\"\",\"description\":null,\"token\":\"\"}"
-read 195 bytes
-Conn keep-alive
-[!] Please verify the session by clicking the link in the verification email that has been sent to@gmail.com
-//    --verbose        Show more debugging information
 >```
+
 
 >* [CocoaPods] Confirm your registration.
 >```
@@ -308,13 +281,10 @@ You can go back to your terminal now.
 >list your sessions
 devzkndeMacBook-Pro:Debug-iphoneos devzkn$ pod trunk me
   - Name:    
-  - Email:   @gmail.com
-  - Since:    April 25th, 06:23
-  - Pods:     None
-  - Sessions:
-    - April 25th, 06:23 - August 31st, 06:36. IP:
 >```
-	
+>
+>
+
 
 #### 2、创建Git仓库
 
