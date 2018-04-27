@@ -15,7 +15,8 @@ tags:
 
 # 前言
 
-
+ 本文的重点在于如何使用，如果对[如何创建pod 比较感兴趣，可看这里](https://kunnan.github.io/2018/04/26/pod_lib_create/)
+ 
 
 #### CocoaPods是iOS最常用最有名的类库管理工具.
 
