@@ -16,6 +16,7 @@ tags:
 # 前言
 
 
+
 #### CocoaPods是iOS最常用最有名的类库管理工具.
 
 >* 解决了两个问题：
@@ -59,11 +60,17 @@ Carthage/Build
 
 #### 安装: 在安装CocoaPods之前，要在本地安装好Ruby环境。
 
+>* insatll
+>```
+CocoaPods is built with Ruby and is installable with the default Ruby available on OS X. We recommend you use the default ruby.
+```
 
 >* gem sources -l
->
-
-**CocoaPods** 是用 ruby 实现的，要想使用它首先需要有 ruby 的环境。
+>```
+>devzkndeMacBook-Pro:KNPodlib devzkn$ gem sources -l
+*** CURRENT SOURCES ***
+https://rubygems.org/
+>```
 
 
 #### 升级ruby
@@ -101,34 +108,60 @@ Carthage/Build
 
 #### 安装CocoaPods
 
-1. 安装
-	
-		sudo gem install -n /usr/local/bin cocoapods
-2. 升级版本库
+Using the default Ruby install can require you to use sudo when installing gems.
 
-		pod setup
-		
+
+>* [1.  Further installation instructions are in the guides.](https://guides.cocoapods.org/using/getting-started.html#getting-started)
+>```
+>sudo gem install -n /usr/local/bin cocoapods
+># Xcode 8 + 9
+$ sudo gem install cocoapods
+>```
+>
+>* 2. 升级版本库
+>```
+>		pod setup
+>```
+	
 	这里需要下载版本库（非常庞大），需要等很久
 	
 		Receiving objects:  72% (865815/1197150), 150.07 MiB | 190.00 KiB/s
 	
 	或者直接从其他装有cocoapod的电脑中拷贝`~/.cocoapods`到你的用户目录，然后再 `pod setup`会节省不少时间
 	
-# 使用
+	
+>* [We also have a Mac app for CocoaPods. It only gets major releases ATM though.](https://cocoapods.org/app)
+>
+	
+# 使用:get started
 
 #### 创建 `podfile` 文件: Podfile的内容是你想导入的类库
 
 
-pod 已经提供了创建 `podfile` 文件的命令，在工程目录下
+>* CocoaPods provides a `pod init` command to create a Podfile with smart defaults
+>```
+>pod init
+```
 
-	pod init
+>*  list the dependencies in a text file named Podfile in your Xcode project directory
+>```
+>platform :ios, '8.0'
+use_frameworks!
+target 'MyApp' do
+  pod 'AFNetworking', '~> 2.6'
+  pod 'SwiftyJSON', '~> 2.3'
+end
+>```
+
 
 >* 注意
 >```
 >Podfile文件应该和你的工程文件.xcodeproj在同一个目录下
 >```	
 
-#### 加载代码库：pod install 、pod update
+#### 加载代码库：pod install 、pod update  install the dependencies in your project
+
+
 
 >* 直接在本地版本库中查找对应的代码库信息，不升级版本库，节省时间
 ```
@@ -136,11 +169,17 @@ pod 已经提供了创建 `podfile` 文件的命令，在工程目录下
 //	若找不到库，再使用下面的命令
 	pod install
 ```
->* 安装第三方库之后，打开项目文件的方式: xcworkspace
+>*  open the Xcode workspace instead of the project file when building your project
 >
 >```
 >Please close any current Xcode sessions and use `KNTestPod.xcworkspace` for this project from now on.
 Sending stats
+>```
+>
+>
+>* Now you can import your dependencies e.g.:
+>```
+>#import <Reachability/Reachability.h>
 >```
 
 
@@ -152,6 +191,7 @@ Sending stats
 
 >* podupdate的使用场景：下载的网络项目包含了Podfile的时候
 >
+
 
 #### 版本号
 
@@ -206,6 +246,12 @@ end
 >https://github.com/CocoaPods/Specs/blob/master/Specs/7/8/5/OctoKit/0.5/OctoKit.podspec.json
 >    pod 'OctoKit', :podspec => 'KNMVVMReactiveCocoaDemo/0.5/OctoKit.podspec.json'
 >```
+
+
+
+# [crate a pod](https://guides.cocoapods.org/making/getting-setup-with-trunk.html)
+
+>* [本人的教程和例子]()
 
 # see also
 >* [CocoaPod的使用](https://github.com/zhangkn/KNMVVMReactiveCocoaDemo)

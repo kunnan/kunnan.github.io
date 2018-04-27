@@ -469,7 +469,6 @@ You can also deploy Podspecs to your own private specs repo with` pod repo push 
 ```
 
 
-
 成功后将会出现下列信息：
 
 	Updating spec repo `master`

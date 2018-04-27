@@ -468,6 +468,22 @@ For more information, see https://blog.cocoapods.org and the CHANGELOG for this 
 >* [Maintained by zhangkn](https://cocoapods.org/owners/30966)
 >
 >
+>*  pod trunk info KNPodlib
+>
+>```
+>devzkndeMacBook-Pro:KNPodlib devzkn$ pod trunk info KNPodlib
+KNPodlib
+    - Versions:
+      - 0.1.3 (2018-04-27 02:21:06 UTC)
+    - Owners:
+      - zhangkn <developerkunnan@gmail.com>
+>```
+>* 注意事项
+>```
+>1) 以后再次更新只需要把你的项目打一个tag，然后修改.podspec文件中的版本，接着提交到cocoapods官方.
+>2) 手动验证 Pod 时使用了 --use-libraries(引用了.a文件的时候需要使用) 或 --allow-warnings 等修饰符，那么发布的时候也应该使用相同的字段修饰，否则出现相同的报错
+>```
+>
 #### 3、Adding other people as contributors
 
 The first person to push a Podspec version to Trunk can add other maintainers. 
@@ -488,9 +504,10 @@ you can use our [Claims form](https://trunk.cocoapods.org/claims/new) to say tha
 >OWNER EMAIL:
 >CLAIM POD:
 >```
->
+>![](https://ws2.sinaimg.cn/large/006tNc79gy1fqr1s3u069j31kw0jttan.jpg)
 >* Note you can use` pod trunk info [pod] `to get information on a pod and `pod trunk me `can be used to verify your local account.
 >
+>* [KNPodlib claims](https://trunk.cocoapods.org/claims/disputes/new?claimer_email=developerkunnan%40gmail.com&pods%5B%5D=KNPodlib)
 >
 >
 
