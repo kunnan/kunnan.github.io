@@ -8,7 +8,7 @@ tag:
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
-subtitle: 采用 `pod lib` 开发并打包静态库,[比我之前自己搭建的模板更方便](https://github.com/zhangkn/KNCocoaTouchStaticLibrary) 
+subtitle: 采用 `pod lib` 开发并打包静态库,比我之前自己搭建的模板更方便
 ---
 
 
