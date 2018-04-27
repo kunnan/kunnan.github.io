@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      getting-setup-with-trunk
-subtitle:   guide to deploy to the public
+subtitle:   guide to deploy to the public:`pod trunk push [NAME.podspec] `
 date:       2017-03-08
 author:     
 header-img: img/post-bg-ios10.jpg
@@ -257,9 +257,11 @@ Options:
 # 创建 CocoaPods 公有仓库
 
 
-#### 注册 CocoaPods 账号:  Manage sessions
+#### 1、注册 CocoaPods 账号:  Manage sessions
 
->* 使用终端注册, `email` 用你的 `GitHub` 邮箱: pod trunk register
+First sign up for an account with your email address. This begins a session on your current device.
+
+>* 使用终端注册, `email` 用你的 `GitHub` 邮箱: pod trunk register mail name --description='macbook air'  --verbose
 >
 >```
 >devzkndeMacBook-Pro:Debug-iphoneos devzkn$  pod trunk register @gmail.com name  --verbose
@@ -303,6 +305,7 @@ You can go back to your terminal now.
 >* 	pod trunk me: Display information about your sessions
 >
 >```
+>list your sessions
 devzkndeMacBook-Pro:Debug-iphoneos devzkn$ pod trunk me
   - Name:    
   - Email:   @gmail.com
@@ -313,34 +316,38 @@ devzkndeMacBook-Pro:Debug-iphoneos devzkn$ pod trunk me
 >```
 	
 
-#### 创建Git仓库
+#### 2、创建Git仓库
 
 >* 这次我现在之前的静态库KNCocoaTouchStaticLibrary,是KNAPP主项目的子项目
 >```
 >/Users/devzkn/code/cocoapodDemo/cocoapodStatic/KNAPP/KNCocoaTouchStaticLibrary
 >```
 
-######  [GitHub](https://github.com) 上创建一个公开项目，项目中必须包含这几个文件
+######  2、1 [GitHub](https://github.com) 上创建一个公开项目，项目中必须包含这几个文件
 
-- `LICENSE`:开源许可证
-- `README.md`
-- code
-- `KNCocoaTouchStaticLibrary.podspec`:CocoaPods的描述文件**非常重要**
+>* 如果使用pod lib create的时候，会自动生成模板
+>```
+├── Example #代码使用样例,测试功能
+│   ├── KNPodlib
+│   ├── KNPodlib.xcodeproj
+│   ├── KNPodlib.xcworkspace
+│   ├── Podfile
+│   ├── Podfile.lock
+│   ├── Pods
+│   └── Tests
+├── KNPodlib # 开发区域
+│   ├── Assets
+│   └── Classes
+├── KNPodlib.podspec # the Podspec for your Library.
+├── LICENSE
+├── README.md #  a default README in markdown.
+>```
 
 >* curl -O url 下载开源许可证
 >
 
 
-如下图：
-
-![](https://ww2.sinaimg.cn/large/006tNbRwgy1fdfhvy3c19j31iq0dqn03.jpg)
-
-`BYPhoneNumTF` 文件夹下是我存放代码的地方
-
-`BYPhoneNumTF_Demo` 是代码使用样例（不是必须的）
-
-
-#### [创建`.podspec` Create spec file stub.](https://guides.cocoapods.org/syntax/podspec.html#specification)
+#### 3 [创建`.podspec` Create spec file stub.](https://guides.cocoapods.org/syntax/podspec.html#specification)
 
 >* [`.podspec` 是用 Ruby 的配置文件，描述你项目的信息。](https://guides.cocoapods.org/syntax/podspec.html#specification)
 >```
@@ -356,9 +363,12 @@ Specification created at KNCocoaTouchStaticLibrary.podspec
 ><script src="https://gist.github.com/zhangkn/02cb3a7413b58c5db7c96797f0bd40b1.js"></script>
 
 
->* 使用支持yaml 格式的ide进行编辑
+>* 使用支持yaml 格式的ide进行编辑：sublime text、Xcode
 >
->* 
+>
+>
+>
+>
 >
 
 so~**强烈建议**，直接拷贝下面的主要配置进行修改
@@ -384,64 +394,80 @@ Pod::Spec.new do |s|
 
 end
 ```
-最最关键的步骤的到了，验证 `.podspec` 文件的格式是否正确，
 
-	$ pod lib lint
+>* 验证 `.podspec` 文件的格式是否正确，
 
-验证会出现成功出现
+>*  pod lib lint KNPodlib.podspec --verbose --allow-warnings
+>```
+>	BYPhoneNumTF passed validation.	
+>```
+>
+>
 
-	 -> BYPhoneNumTF (1.0.0)
+>* `'echo "2.3" > .swift-version'`
+>
 
-	BYPhoneNumTF passed validation.	
+#### 4、 给仓库打标签，因为s.source 是从tag 获取的
 
-但是很多情况没这么顺利，比如:
-
-	 -> BYPhoneNumTF (1.0.0)
-	    - WARN  | url: There was a problem validating the URL http://qiubaiying.github.io.
-	
-	[!] BYPhoneNumTF did not pass validation, due to 1 warning (but you can use `--allow-warnings` to ignore it) and all results apply only to public specs, but you can use `--private` to ignore them if linting the specification for a private pod.
-	[!] The validator for Swift projects uses Swift 3.0 by default, if you are using a different version of swift you can use a `.swift-version` file to set the version for your Pod. For example to use Swift 2.3, run: 
-	    `echo "2.3" > .swift-version`.
-	You can use the `--no-clean` option to inspect any issue.
-	
-提示我们需要加`--allow-warnings`这么一句话，命令改为
-
-	$ pod lib lint --allow-warnings
-
-若还是提示什么`'echo "2.3" > .swift-version'`的，就加这么一个东西。
-
-	$ echo "2.3" > .swift-version
-然后在进行验证，这是应该就可以了。若还是不行，回到配置文件中检查有没有写错配置信息~
-
-#### 给仓库打标签，因为s.source 是从tag 获取的
-
->* s.source 的格式，决定了必须创建tag
+>* s.source 的格式
 >```
 >  s.source       = { :git => "https://github.com/zhangkn/KNCocoaTouchStaticLibrary.git", :tag => "#{s.version}" } ##你的仓库地址，不能用SSH地址
 >```
 
 >* 标签号与你在 `s.version = "1.0.0"`的版本号一致 `1.0.0`
+
+>* 	创建标签
+>```
+>git tag -a 1.0.0 -m '标签说明' 
+>	推送到远程
+>	 git push origin --tags
+>```
 >
 
-	创建标签
-	$ git tag -a 1.0.0 -m '标签说明' 
-	推送到远程
-	$ git push origin --tags
-	
-#### 发布`.podspec`
 
-最后一步，发布项目的描述的文件 `BYPhoneNumTF.podspec` 
 
-在仓库目录下执行
-	
-	pod trunk push BYPhoneNumTF.podspec
-	
-将你的 `BYPhoneNumTF.podspec` 发布到公有的speecs上,这一步其实做了很多操作,包括 
+#### 5、 发布`.podspec` Deploying a library
 
-1. 更新本地 pods 库 `~/.cocoaPods.repo/master`
-- 验证`.podspec`格式是否正确
-- 将 `.podspec` 文件转成 JSON 格式
-- 对 `master` 仓库 进行合并、提交.[master仓库地址](https://github.com/CocoaPods/Specs) 
+
+
+`pod trunk push [NAME.podspec] `will deploy your Podspec to Trunk and make it publicly available.
+You can also deploy Podspecs to your own private specs repo with` pod repo push REPO [NAME.podspec]`.
+
+
+>* pod trunk push --help
+>```
+>pod trunk push [PATH]
+>    Publish the podspec at `PATH` to make it available to all users of the ‘master’
+      spec-repo. If `PATH` is not provided, defaults to the current directory.
+>```
+>
+>* Options:
+>```
+>    --allow-warnings           Allows push even if there are lint warnings
+    --use-libraries            Linter uses static libraries to install the spec
+    --swift-version=VERSION    The SWIFT_VERSION that should be used to lint the spec.
+                               This takes precedence over a .swift-version file.
+    --skip-import-validation   Lint skips validating that the pod can be imported
+    --skip-tests               Lint skips building and running tests during validation
+    --silent                   Show nothing
+    --verbose                  Show more debugging information
+    --no-ansi                  Show output without ANSI codes
+    --help                     Show help banner of specified command
+>```
+>
+>
+
+>* 发布项目的描述的文件 `.podspec` 
+
+>* 在仓库目录下执行,发布到公有的speecs上
+>```
+>pod trunk push BYPhoneNumTF.podspec
+>1. 更新本地 pods 库 `~/.cocoaPods.repo/master`
+>- 验证`.podspec`格式是否正确
+>- 将 `.podspec` 文件转成 JSON 格式
+>- 对 `master` 仓库 进行合并、提交.[master仓库地址](https://github.com/CocoaPods/Specs) 
+```
+
 
 
 成功后将会出现下列信息：
@@ -454,15 +480,10 @@ end
 	
 	--------------------------------------------------------------------------------
 	 🎉  Congrats
-	
-	 🚀  BYPhoneNumTF (1.0.0) successfully published
-	 📅  March 7th, 01:39
-	 🌎  https://cocoapods.org/pods/BYPhoneNumTF
-	 👍  Tell your friends!
-	 
+	 	 
 说明发布成功，你就可以通过上面的URL: <https://cocoapods.org/pods/BYPhoneNumTF> 进入的Pods查看自己的仓库信息了.
 
-![](https://ww3.sinaimg.cn/large/006tNbRwgy1fded7yh8ugj31kw19djyk.jpg)
+
 
 #### 使用仓库
 

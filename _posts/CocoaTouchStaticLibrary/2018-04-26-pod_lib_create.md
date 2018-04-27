@@ -2,7 +2,9 @@
 layout: post
 title: pod_lib_create
 date: 2018-04-26
-tag: CocoaTouchStaticLibrary
+tag: 
+    - CocoaTouchStaticLibrary
+    - CocoaPods
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
@@ -402,23 +404,95 @@ To github.com:zhangkn/KNPodlib.git
 >```
 >
 >
->
->* [ deploy to the public](https://guides.cocoapods.org/making/getting-setup-with-trunk)
+
+# [ deploy to the public](https://guides.cocoapods.org/making/getting-setup-with-trunk)
+
+`pod trunk push [NAME.podspec]` will deploy your Podspec to Trunk and make it publicly available. You can also deploy Podspecs to your own private specs repo with `pod repo push REPO [NAME.podspec]`.
+
+
+>* Deploying a library
 >```
 >If you're deploying an Open Source library to trunk, you cannot have CocoaPods warnings. You can have Xcode warnings though. You should continue to the getting started with trunk guide to deploy to the public.
 >pod repo push SPEC_REPO *.podspec --verbose
 >```
->
+
+#### 1、deploy Podspecs to your own private specs repo
+
+`pod repo push REPO [NAME.podspec]`.
+
 >* [ Private Specs Repos](https://guides.cocoapods.org/making/private-cocoapods)
 >
 >
->* pod trunk push —allow-warnings 
+>
+>* Deploying with push:
+>```
+>1) Lints your Podspec locally. You can lint at any time with  pod spec lint [NAME.podspec]
+>2) A successful lint pushes your Podspec to Trunk or your private specs repo
+>3) Trunk will publish a canonical JSON representation of your Podspec
+>```
+>
+>
+>
+
+#### 2、 Deploying with push: 提交到pod服务器网络
+
+>* pod trunk push [NAME.podspec] —allow-warnings 
 >```
 >pod trunk push —allow-warnings 
->提交到pod服务器网络
+>```
+>
+>
+>* devzkndeMacBook-Pro:KNPodlib devzkn$ pod trunk push  KNPodlib.podspec --verbose --allow-warnings
+>
+>```
+>Updating spec repo `master`
+>CocoaPods 1.5.0 is available.
+To update use: `sudo gem install cocoapods`
+For more information, see https://blog.cocoapods.org and the CHANGELOG for this version at https://github.com/CocoaPods/CocoaPods/releases/tag/1.5.0
+>  - Data URL: https://raw.githubusercontent.com/CocoaPods/Specs/6c07ec30e394434252110b79d56afa6b7c928b3c/Specs/3/9/a/KNPodlib/0.1.3/KNPodlib.podspec.json
+  - Log messages:
+    - April 26th, 20:21: Push for `KNPodlib 0.1.3' initiated.
+    - April 26th, 20:21: Push for `KNPodlib 0.1.3' has been pushed (0.801533271 s).
 >```
 
+>* [Data URL](https://raw.githubusercontent.com/CocoaPods/Specs/6c07ec30e394434252110b79d56afa6b7c928b3c/Specs/3/9/a/KNPodlib/0.1.3/KNPodlib.podspec.json)
+><script src="https://gist.github.com/zhangkn/9c1a28b7ac22300e7f848d6d70dd0e16.js"></script>
+>
+>
+>* [Page on CocoaPods.org](https://cocoapods.org/pods/KNPodlib)
+>
+>* [Documentation](http://cocoadocs.org/docsets/KNPodlib/0.1.3)
+>
+>* [GitHub Repo](https://github.com/zhangkn/KNPodlib)
+>
+>* [Maintained by zhangkn](https://cocoapods.org/owners/30966)
+>
+>
+#### 3、Adding other people as contributors
 
+The first person to push a Podspec version to Trunk can add other maintainers. 
+
+>* For example, to add kyle@cocoapods.org to the library ARAnalytics:
+>```
+>$ pod trunk add-owner ARAnalytics kyle@cocoapods.org
+>```
+>
+
+#### 4、Claiming an existing library
+
+you can use our [Claims form](https://trunk.cocoapods.org/claims/new) to say that you are the owner or maintainer of a collection of libraries
+
+>* [Claim your Pod](https://trunk.cocoapods.org/claims/new)
+>```
+>OWNER NAME:
+>OWNER EMAIL:
+>CLAIM POD:
+>```
+>
+>* Note you can use` pod trunk info [pod] `to get information on a pod and `pod trunk me `can be used to verify your local account.
+>
+>
+>
 
 # 关于 Pod 库的资源引用 resource_bundles or resources
 

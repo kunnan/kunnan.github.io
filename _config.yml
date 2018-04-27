@@ -122,19 +122,22 @@ featured-condition-size: 1              # 相同标签数量大于这个数，�
 chrome-tab-theme-color: "#000000"
 service-worker: true
 
-# Friends
+# Friends: 
 friends: [
     {
         title: "github Pages",
         href: "https://zhangkn.github.io/tags/"
     },{
         title: "iosre",
-        href: "http://iosre.com/"
+        href: "http://iosre.com/u/zhangkn/activity"
     },{
         title: "csdn",
         href: "https://blog.csdn.net/z929118967"
     },{
         title: "segmentfault",
         href: "https://segmentfault.com/u/zhangkunnan"
+    },{
+        title: "cocoapods",
+        href: "https://cocoapods.org/owners/30966"
     }
 ]
