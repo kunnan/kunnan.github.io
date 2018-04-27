@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      getting-setup-with-trunk
-subtitle:   guide to deploy to the public:`pod trunk push [NAME.podspec] `
+title:      getting_setup_with_trunk
+subtitle:   guide to deploy to the public  pod repo :`pod trunk push [NAME.podspec] `
 date:       2017-03-08
 author:     
 header-img: img/post-bg-ios10.jpg
@@ -68,7 +68,7 @@ tags:
 └── README.md
 >```
 >
->* [cocoaPods开发打包静态库:  pod lib create](https://kunnan.github.io/2018/04/26/pod_lib_create/)
+>* [cocoaPods开发并打包静态库:  pod lib create](https://kunnan.github.io/2018/04/26/pod_lib_create/)
 >```
 >基于Pod自动创建静态库,这个目前采用xcworkspace和Pods进行管理依赖很方便。
 >devzkndeMacBook-Pro:KNPodlib devzkn$ tree -L 2
@@ -91,7 +91,7 @@ tags:
 >```
 >
 >
->* 区别：可以看出，pod lib 已经不采用Bundle的方式，而是采用普通目录Assets的方式管理资源文件
+>* 可以看出，pod lib 也是可以采用Bundle的方式
 >```
 >├── KNPodlib
 │   ├── Assets
@@ -154,18 +154,12 @@ origin	https://github.com/CocoaPods/Specs.git (push)
 -> CAIStatusBar (0.0.1)
    A simple indicator
    pod 'CAIStatusBar', '~> 0.0.1' 每个版本号对应的一个json文件,描述了每个对应版本的框架的信息、配置、及源码下载地。
-   - Homepage: https://github.com/apple5566/CAIStatusBar.git
-   - Source:   https://github.com/apple5566/CAIStatusBar.git
-   - Versions: 0.0.1 [master repo]
 >```
 
 >* 在CocoaPods发布框架时要在 `master` 仓库中添加我们的仓库描述信息，然后push到远程仓库中。
 >```
 >用`pod`命令进行操作
 >```
-
-下面将一步步把我封装的一个[简单的静态库：提供反馈模板和webview模板](https://github.com/zhangkn/KNCocoaTouchStaticLibrary)上传到 Cocoapods 公有仓库中。
-
 
 
 
@@ -288,14 +282,15 @@ devzkndeMacBook-Pro:Debug-iphoneos devzkn$ pod trunk me
 
 #### 2、创建Git仓库
 
->* 这次我现在之前的静态库KNCocoaTouchStaticLibrary,是KNAPP主项目的子项目
+>* [KNIosCommonTool.git](https://github.com/zhangkn/KNIosCommonTool)
 >```
->/Users/devzkn/code/cocoapodDemo/cocoapodStatic/KNAPP/KNCocoaTouchStaticLibrary
+>devzkndeMacBook-Pro:KNIosCommonTool devzkn$ kngitinit git@github.com:zhangkn/KNIosCommonTool.git
 >```
+
 
 ######  2、1 [GitHub](https://github.com) 上创建一个公开项目，项目中必须包含这几个文件
 
->* 如果使用pod lib create的时候，会自动生成模板
+>* 如果使用pod lib create的时候，会自动生成模板(推荐使用)
 >```
 ├── Example #代码使用样例,测试功能
 │   ├── KNPodlib
@@ -313,11 +308,14 @@ devzkndeMacBook-Pro:Debug-iphoneos devzkn$ pod trunk me
 ├── README.md #  a default README in markdown.
 >```
 
->* curl -O url 下载开源许可证
->
-
 
 #### 3 [创建`.podspec` Create spec file stub.](https://guides.cocoapods.org/syntax/podspec.html#specification)
+
+>* curl -O url 下载开源许可证
+>
+>
+>
+>*   pod spec create [NAME|https://github.com/USER/REPO]
 
 >* [`.podspec` 是用 Ruby 的配置文件，描述你项目的信息。](https://guides.cocoapods.org/syntax/podspec.html#specification)
 >```
@@ -328,7 +326,7 @@ devzkndeMacBook-Pro:Debug-iphoneos devzkn$ pod trunk me
 >* cd仓库目录下 pod spec create
 ```
 devzkndeMacBook-Pro:KNCocoaTouchStaticLibrary devzkn$ pod spec create KNCocoaTouchStaticLibrary
-Specification created at KNCocoaTouchStaticLibrary.podspec
+>Specification created at KNCocoaTouchStaticLibrary.podspec
 ```	
 ><script src="https://gist.github.com/zhangkn/02cb3a7413b58c5db7c96797f0bd40b1.js"></script>
 
@@ -510,3 +508,10 @@ You can also deploy Podspecs to your own private specs repo with` pod repo push 
 >```
 > 图片的上传地址进行更换就可以应用到其他项目中（主要采用自定义View实现）。
 ```
+
+>* 创建软连接: ln -s 使用相对的路径
+>```
+lrwxr-xr-x   1 devzkn  staff   56 Apr 27 17:23 KNIosCommonTool.podspec -> KNIosCommonTool/Podspec Metadata/KNIosCommonTool.podspec
+>ps: rm -rf symbolic_name 注意不是rm -rf symbolic_name/
+>```
+
