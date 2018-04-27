@@ -19,6 +19,7 @@ tags:
  
 >* [KNPodlib](https://cocoapods.org/pods/KNPodlib)
 >
+>
 
 #### CocoaPods是iOS最常用最有名的类库管理工具.
 
@@ -162,7 +163,7 @@ end
 >Podfile文件应该和你的工程文件.xcodeproj在同一个目录下
 >```	
 
-#### 加载代码库：pod install 、pod update  install the dependencies in your project
+#### install the dependencies in your project：pod install 、pod update  
 
 
 
@@ -265,9 +266,7 @@ $ pod spec lint Peanut.podspec
 >
 >
 # see also
->* [CocoaPod的使用](https://github.com/zhangkn/KNMVVMReactiveCocoaDemo)
->* [CocoaPods公有仓库的创建](http://qiubaiying.top/2017/03/08/CocoaPods%E5%85%AC%E6%9C%89%E4%BB%93%E5%BA%93%E7%9A%84%E5%88%9B%E5%BB%BA/)
->* [CocoaPods私有仓库的创建](http://qiubaiying.top/2017/03/10/CocoaPods%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E7%9A%84%E5%88%9B%E5%BB%BA/)
-
->* [ReactiveCocoa   - CSDN博客](https://blog.csdn.net/u011018979/article/details/75220438)
+>* [pod_lib_create](https://kunnan.github.io/2018/04/26/pod_lib_create/)
 >* [如何下载和安装CocoaPods](https://blog.csdn.net/z929118967/article/details/75213888)
+>* [KNMVVMReactiveCocoaDemo](https://github.com/zhangkn/KNMVVMReactiveCocoaDemo)
+>* [ReactiveCocoa- CSDN博客](https://blog.csdn.net/u011018979/article/details/75220438)
