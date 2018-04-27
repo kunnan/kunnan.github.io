@@ -311,8 +311,10 @@ devzkndeMacBook-Pro:Debug-iphoneos devzkn$ pod trunk me
 
 #### 3 [创建`.podspec` Create spec file stub.](https://guides.cocoapods.org/syntax/podspec.html#specification)
 
->* curl -O url 下载开源许可证
->
+>* curl -O url 下载开源许可证---不太靠谱
+>```
+>curl -O https://github.com/zhangkn/KNPodlib/blob/master/LICENSE
+>```
 >
 >
 >*   pod spec create [NAME|https://github.com/USER/REPO]
@@ -336,38 +338,12 @@ devzkndeMacBook-Pro:KNCocoaTouchStaticLibrary devzkn$ pod spec create KNCocoaTou
 >
 >
 >
->
->
-
-so~**强烈建议**，直接拷贝下面的主要配置进行修改
-
-```ruby
-Pod::Spec.new do |s|
-  s.name         = "BYPhoneNumTF" # 项目名称
-  s.version      = "1.0.0"        # 版本号 与 你仓库的 标签号 对应
-  s.license      = "MIT"          # 开源证书
-  s.summary      = "A delightful TextField of PhoneNumber" # 项目简介
-
-  s.homepage     = "https://github.com/qiubaiying/BYPhoneNumTF" # 你的主页
-  s.source       = { :git => "https://github.com/qiubaiying/BYPhoneNumTF.git", :tag => "#{s.version}" }#你的仓库地址，不能用SSH地址
-  s.source_files = "BYPhoneNumTF/*.{h,m}" # 你代码的位置， BYPhoneNumTF/*.{h,m} 表示 BYPhoneNumTF 文件夹下所有的.h和.m文件
-  s.requires_arc = true # 是否启用ARC
-  s.platform     = :ios, "7.0" #平台及支持的最低版本
-  s.frameworks   = "UIKit", "Foundation" #支持的框架
-  # s.dependency   = "AFNetworking" # 依赖库
-  
-  # User
-  s.author             = { "BY" => "qiubaiyingios@163.com" } # 作者信息
-  s.social_media_url   = "http://qiubaiying.github.io" # 个人主页
-
-end
-```
 
 >* 验证 `.podspec` 文件的格式是否正确，
 
 >*  pod lib lint KNPodlib.podspec --verbose --allow-warnings
 >```
->	BYPhoneNumTF passed validation.	
+>	 pod lib lint KNIosCommonTool.podspec --verbose --allow-warnings
 >```
 >
 >
@@ -382,15 +358,11 @@ end
 >  s.source       = { :git => "https://github.com/zhangkn/KNCocoaTouchStaticLibrary.git", :tag => "#{s.version}" } ##你的仓库地址，不能用SSH地址
 >```
 
->* 标签号与你在 `s.version = "1.0.0"`的版本号一致 `1.0.0`
-
 >* 	创建标签
 >```
 >git tag -a 1.0.0 -m '标签说明' 
->	推送到远程
 >	 git push origin --tags
 >```
->
 
 
 
@@ -425,38 +397,31 @@ You can also deploy Podspecs to your own private specs repo with` pod repo push 
 >
 >
 
->* 发布项目的描述的文件 `.podspec` 
 
->* 在仓库目录下执行,发布到公有的speecs上
+>* 在仓库目录下执行,发布到公有的speecs上: `pod trunk push KNIosCommonTool.podspec`
+>
 >```
->pod trunk push BYPhoneNumTF.podspec
 >1. 更新本地 pods 库 `~/.cocoaPods.repo/master`
 >- 验证`.podspec`格式是否正确
 >- 将 `.podspec` 文件转成 JSON 格式
 >- 对 `master` 仓库 进行合并、提交.[master仓库地址](https://github.com/CocoaPods/Specs) 
 ```
 
-
-成功后将会出现下列信息：
-
-	Updating spec repo `master`
-	Validating podspec
-	 -> BYPhoneNumTF (1.0.0)
-	
-	Updating spec repo `master`
-	
-	--------------------------------------------------------------------------------
-	 🎉  Congrats
+>* [进入的Pods查看自己的仓库信息](https://cocoapods.org/pods/KNIosCommonTool)
+>```
+>https://cocoapods.org/pods/KNIosCommonTool
+>```
 	 	 
-说明发布成功，你就可以通过上面的URL: <https://cocoapods.org/pods/BYPhoneNumTF> 进入的Pods查看自己的仓库信息了.
-
 
 
 #### 使用仓库
 
-发布到Cocoapods后，在终端更新本地pods仓库信息
+>* `pod setup`在终端更新本地pods仓库信息
+>```
+>Setting up CocoaPods master repo
+>```
+>
 
-	$ pod setup
 
 查询仓库
 	
