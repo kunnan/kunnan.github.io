@@ -42,7 +42,8 @@ subtitle: cocoaPods开发打包静态库,比我之前自己搭建的模板更方
 > [可选]：demo使用pod添加对私有静态库的依赖
 >```
 >
->* 基于pod自动创建`pod lib create`
+>* [基于pod自动创建`pod lib create`](https://cocoapods.org/pods/KNPodlib/)
+>
 >
 
 
@@ -266,7 +267,7 @@ script:
 - pod lib lint
 >```
 
-#### Putting your Library Together
+#### 3、Putting your Library Together
 
 
 >* cat .gitignore
@@ -368,9 +369,8 @@ FOUNDATION_EXPORT const unsigned char KNPodlibVersionString[];
 
 
 >* devzkndeMacBook-Pro:KNPodlib devzkn$ kngitinit git@github.com:zhangkn/KNPodlib.git
->```
-> * [new branch]      master -> master
->```
+>
+>
 >
 >* 提交源码，并打tag。
 >
@@ -403,7 +403,75 @@ To github.com:zhangkn/KNPodlib.git
 >KNPodlib passed validation.
 >```
 >
+
+# 打包类库(只有完成这一个步骤，才达到静态库的目的，否则就是开源的了)
+
+>* 没有执行打包类库这个步骤，直接deploy to the public的效果
+>```
+>├── Podfile
+├── Podfile.lock
+├── Pods
+│   ├── Headers
+│   ├── KNPodlib
+│   │   ├── Assets
+│   │   │   ├── deleteX.png
+│   │   │   ├── hebaoGrayPoint.png
+│   │   │   ├── hebaoWhitePoint.png
+│   │   │   └── store_add.png
+│   │   ├── Classes
+│   │   │   ├── PublicInterface
+│   │   │   │   ├── HCPEnvrionmentalVariables.h
+│   │   │   │   ├── KNBaseViewController.h
+│   │   │   │   ├── KNBaseWebViewController.h
+│   │   │   │   ├── KNFeedbackViewController.h
+│   │   │   │   └── KNTestWebViewController.h
+│   │   │   ├── ReplaceMe.m
+│   │   │   └── main
+│   │   │       ├── knFeedback
+│   │   │       │   ├── model
+│   │   │       │   ├── vc
+│   │   │       │   └── view
+│   │   │       ├── tool
+│   │   │       │   ├── HCPEnvrionmentalVariables.m
+│   │   │       │   ├── HSSingleton.h
+│   │   │       │   ├── IPLoadingTool.h
+│   │   │       │   ├── IPLoadingTool.m
+│   │   │       │   ├── KNResourceTool.h
+│   │   │       │   ├── KNResourceTool.m
+│   │   │       │   ├── const
+│   │   │       │   └── view
+│   │   │       └── webview
+│   │   │           ├── BaseWebView
+│   │   │           ├── javaScriptContext
+│   │   │           └── progress
+│   │   ├── LICENSE
+│   │   └── README.md
+>```
 >
+>* 执行pod package KNPodlib.podspec --force 之后的效果
+>
+>
+>* 执行pod package KNPodlib.podspec --force 之前的准备
+>```
+>devzkndeMacBook-Pro:KNPodlib devzkn$ git tag -a 0.1.8 -m "0.1.8"
+>git push origin --tags
+> pod package KNPodlib.podspec --force
+> tree -L 4
+> ── KNPodlib-0.1.9
+│   ├── KNPodlib.podspec
+│   ├── build
+│   │   └── Pods.build
+│   │       ├── Release-iphoneos
+│   │       └── Release-iphonesimulator
+│   └── ios
+│       └── KNPodlib.framework
+│           ├── Headers -> Versions/Current/Headers
+│           ├── KNPodlib -> Versions/Current/KNPodlib
+│           ├── Resources -> Versions/Current/Resources
+│           └── Versions
+pod lib lint KNPodlib.podspec --verbose --allow-warnings
+pod trunk push  KNPodlib.podspec --verbose --allow-warnings
+>```
 
 # [ deploy to the public](https://guides.cocoapods.org/making/getting-setup-with-trunk)
 
@@ -430,11 +498,15 @@ To github.com:zhangkn/KNPodlib.git
 >2) A successful lint pushes your Podspec to Trunk or your private specs repo
 >3) Trunk will publish a canonical JSON representation of your Podspec
 >```
->
->
->
 
-#### 2、 Deploying with push: 提交到pod服务器网络
+>
+>* pod repo push SPEC_REPO *.podspec --verbose
+>```
+>If you're deploying to a private Specs repo, you will need to have already added that repo.  use this command to deploy:
+>pod repo push SPEC_REPO *.podspec --verbose
+>```
+
+#### 2、 deploy your Podspec to Trunk and make it publicly available
 
 >* pod trunk push [NAME.podspec] —allow-warnings 
 >```
@@ -613,8 +685,115 @@ spec.ios.resource_bundle = { 'MapBox' => 'MapView/Map/Resources/*.png' }
 # [Demo](https://github.com/zhangkn/KNPodlib)
 
 
+>* [KNPodlibDemo](https://github.com/kunnan/KNPodlibDemo)
+>
+>
+>* 修改podfile之后，只有执行pod  install之后才能生效
+>
+
+# 知识补充：pod package
+
+
+>*  Package a podspec into a static library.
+>```
+使用一个cocoapods的插件cocoapods-packager来完成类库的打包.
+```
+
+>* 安装打包插件:gem install cocoapods-packager
+>```
+>sudo gem install cocoapods-packager
+>Done installing documentation for concurrent-ruby, i18n, thread_safe, tzinfo, activesupport, nap, fuzzy_match, cocoapods-core, claide, cocoapods-deintegrate, cocoapods-downloader, cocoapods-plugins, cocoapods-search, cocoapods-stats, netrc, cocoapods-trunk, cocoapods-try, molinillo, atomos, CFPropertyList, colored2, nanaimo, xcodeproj, escape, fourflusher, gh_inspector, ruby-macho, cocoapods, cocoapods-packager after 20 seconds
+29 gems installed
+>```
+
+
+>* pod package --help
+>```
+>    $ pod package NAME [SOURCE]
+>```
+
+>* Options:
+><script src="https://gist.github.com/zhangkn/62bcfd228864db619a99fe7363002b59.js"></script>
+> 
+>*  pod package KNPodlib.podspec --force
+>```
+>Building framework KNPodlib (0.1.5) with configuration Release
+Mangling symbols
+Building mangled framework
+// 这个时候如果报错：Unable to run command 'StripNIB，因为source_files包含了xib.
+├── KNPodlib-0.1.5
+│   ├── KNPodlib.podspec
+│   ├── build
+│   │   └── Pods.build
+│   │       ├── Release-iphoneos
+│   │       │   ├── KNPodlib-KNPodlib.build
+│   │       │   ├── KNPodlib.build
+│   │       │   └── Pods-packager.build
+│   │       └── Release-iphonesimulator
+│   │           ├── KNPodlib-KNPodlib.build
+│   │           ├── KNPodlib.build
+│   │           └── Pods-packager.build
+│   └── ios
+│       └── KNPodlib.framework
+│           ├── Headers -> Versions/Current/Headers
+│           ├── KNPodlib -> Versions/Current/KNPodlib
+│           ├── Resources -> Versions/Current/Resources
+│           └── Versions
+│               ├── A
+│               └── Current -> A
+>```
+>
 
 # Q&A
+
+#### q0、Unable to run command 'StripNIB KNFeedbackViewController~ipad.nib' - this target might include its own product.
+
+
+>*   s.source_files = 'Classes/**/*'
+>```
+>xib不能当成源文件(即s.source_files),否则 pod package KNPodlib.podspec --force 会报以上错误。
+>应当修改为：
+>s.source_files = 'Classes/**/*.{h,m}'
+>```
+
+>* Cocoapod compilation fails when loading .xib file
+>```
+>s.resource = "Project/**/*.{png,bundle,xib,nib}"
+>```
+>
+>* resource_bundles
+>
+>```
+>   "resource_bundles": {
+     "KNPodlib": [
+-      "Assets/*.png"
++      "Assets/*.png",
++      "Classes/**/*.xib"
+     ]
+   },
+>```
+>
+>*  增加"Classes/**/*.xib" 之后， KNPodlib.bundle的资源文件情况的变化
+>```
+>    ├── KNPodlib.bundle
+    │   ├── Info.plist
+    │   ├── deleteX.png
+    │   ├── hebaoGrayPoint.png
+    │   ├── hebaoWhitePoint.png
+    │   └── store_add.png
+    <!--增加之后的情况-->
+        ├── KNPodlib.bundle
+    │   ├── HCPCMPayProgress.nib
+    │   ├── Info.plist
+    │   ├── KNFeedbackViewController.nib
+    │   ├── deleteX.png
+    │   ├── hebaoGrayPoint.png
+    │   ├── hebaoWhitePoint.png
+    │   └── store_add.png
+>```
+>
+
+
 
 #### Q1、cannot load such file -- xcodeproj (LoadError)
 
@@ -689,9 +868,7 @@ Use Xcode 8.x to migrate the code to Swift 3.
 #### q3、引用的静态库资源图片没找到
 
 >* A:
->```
->
->```
+><script src="https://gist.github.com/zhangkn/8b084dfd7d34e775cc09aefad42ca7c9.js"></script>
 
 #### rvm的安装
 
@@ -710,7 +887,6 @@ $source ~/.bash_profile
 >* $rvm install 2.3.0  // 开始安装
 >
 >
->
 
 # see also 
 
@@ -719,15 +895,10 @@ $source ~/.bash_profile
 >* [Developing private static library for iOS with CocoaPods](http://blog.sigmapoint.pl/developing-static-library-for-ios-with-cocoapods/)
 >
 >* [Automatic build of static library for iOS and many architectures](http://blog.sigmapoint.pl/automatic-build-of-static-library-for-ios-for-many-architectures/)
->
 >* [avoiding-dependency-collisions-in-ios-static-library-managed-by-cocoapods/](http://blog.sigmapoint.pl/avoiding-dependency-collisions-in-ios-static-library-managed-by-cocoapods/)
-
 >* [使用CocoaPods开发并打包静态库](http://www.cnblogs.com/brycezhang/p/4117180.html)
->
 >* [cocoaPods 开发打包静态库](https://blog.csdn.net/Alpaca12/article/details/78386616)
 >
->
-
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```

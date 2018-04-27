@@ -144,7 +144,23 @@ $ sudo gem install cocoapods
 
 >* CocoaPods provides a `pod init` command to create a Podfile with smart defaults
 >```
->pod init
+>devzkndeMacBook-Pro:KNPodlibDemo devzkn$ pod init
+devzkndeMacBook-Pro:KNPodlibDemo devzkn$ tree -L 2
+.
+├── KNPodlibDemo
+│   ├── AppDelegate.h
+│   ├── AppDelegate.m
+│   ├── Assets.xcassets
+│   ├── Base.lproj
+│   ├── Info.plist
+│   ├── ViewController.h
+│   ├── ViewController.m
+│   └── main.m
+├── KNPodlibDemo.xcodeproj
+│   ├── project.pbxproj
+│   ├── project.xcworkspace
+│   └── xcuserdata
+└── Podfile
 ```
 
 >*  list the dependencies in a text file named Podfile in your Xcode project directory
@@ -178,14 +194,16 @@ end
 >```
 >Please close any current Xcode sessions and use `KNTestPod.xcworkspace` for this project from now on.
 Sending stats
+devzkndeMacBook-Pro:KNPodlibDemo devzkn$ open KNPodlibDemo.xcworkspace
 >```
 >
 >
 >* Now you can import your dependencies e.g.:
+>
 >```
->#import <Reachability/Reachability.h>
+>#import <KNPodlib/KNTestWebViewController.h>
+>#import <KNPodlib/KNFeedbackViewController.h>
 >```
-
 
 >* podupdate、podinstall的区别
 >```
@@ -215,6 +233,46 @@ Sending stats
 bogon:~ devzkn$ pod search AFNetworking
 Setting up CocoaPods master repo
 ```
+
+
+#### Q&A 
+
+>* Unable to run command 'StripNIB HCPCMPayProgress.nib' - this target might include its own product.
+>
+>```
+>1) podfile 打开  use_frameworks! 
+>2)再次执行 pod install
+>因此此时使用的是frameworks，frameworks静态库自己是包含资源文件（xib）的
+>devzkndeMacBook-Pro:KNPodlib devzkn$ tree -L 3
+.
+├── KNPodlib.bundle
+│   ├── Info.plist
+│   ├── deleteX.png
+│   ├── hebaoGrayPoint.png
+│   ├── hebaoWhitePoint.png
+│   └── store_add.png
+└── KNPodlib.framework
+    ├── HCPCMPayProgress.nib
+    ├── Headers
+    │   ├── HCPEnvrionmentalVariables.h
+    │   ├── KNBaseViewController.h
+    │   ├── KNBaseWebViewController.h
+    │   ├── KNFeedbackViewController.h
+    │   ├── KNPodlib-umbrella.h
+    │   └── KNTestWebViewController.h
+    ├── Info.plist
+    ├── KNFeedbackViewController.nib
+    ├── KNPodlib
+    ├── KNPodlib.bundle
+    │   ├── Info.plist
+    │   ├── deleteX.png
+    │   ├── hebaoGrayPoint.png
+    │   ├── hebaoWhitePoint.png
+    │   └── store_add.png
+    └── Modules
+        └── module.modulemap
+>```
+
 
 
 # 例子

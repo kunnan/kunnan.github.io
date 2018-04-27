@@ -138,7 +138,8 @@ friends: [
         href: "https://segmentfault.com/u/zhangkunnan"
     },{
         title: "cocoapods",
-        href: "https://cocoapods.org/owners/30966"
+        # href: "https://cocoapods.org/owners/30966"//https://cocoapods.org/pods/KNPodlib
+        href: "https://cocoapods.org/pods/KNPodlib"
     },{
         title: "gist.github.com",
         href: "https://gist.github.com/zhangkn/"
