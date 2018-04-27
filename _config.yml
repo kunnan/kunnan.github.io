@@ -122,7 +122,7 @@ featured-condition-size: 1              # 相同标签数量大于这个数，�
 chrome-tab-theme-color: "#000000"
 service-worker: true
 
-# Friends: 
+# Friends:  
 friends: [
     {
         title: "github Pages",
@@ -139,5 +139,8 @@ friends: [
     },{
         title: "cocoapods",
         href: "https://cocoapods.org/owners/30966"
+    },{
+        title: "gist.github.com",
+        href: "https://gist.github.com/zhangkn/"
     }
 ]
