@@ -270,7 +270,7 @@ https://github.com/zhangkn/KNAPP
 >* 工作性质：全职
 
 
-# see also 
+# [see also ](https://kunnan.github.io/about/)
 
 >* [2018/04时候的个人技能](https://zhangkn.github.io/2018/04/DevelopmentSkillsIntroduced/)
 >* [about-zhangkn](https://zhangkn.github.io/about/)
