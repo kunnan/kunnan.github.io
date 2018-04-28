@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      iOS自动打包
-subtitle:   利用 xcdeobulid 打包项目、上传
+title:      iOS_Auto_Archive_Script
+subtitle:   利用xcdeobulid打包项目
 date:       2017-04-20
 author:    
 header-img: img/post-bg-hacker.jpg
@@ -14,11 +14,9 @@ tags:
 ---
 
 
-
 > 利用xcode的命令行工具 `xcdeobulid` 进行项目的编译打包，生成ipa包，并上传到fir
 
 # 前言
-
 
 
 
