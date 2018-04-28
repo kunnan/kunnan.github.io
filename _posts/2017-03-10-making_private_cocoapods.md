@@ -29,22 +29,39 @@ deploy Podspecs to your own private specs repo with` pod repo push REPO [NAME.po
 >```
 >
 
-# An Example
+# [An Example](https://guides.cocoapods.org/making/private-cocoapods.html)
 
-#### 创建版本库(**repo**)
+#### 1.  Create a Private Spec Repo
 
-首先，创建一个像 `master` 一样的存放版本描述文件的git仓库，因为是私人git仓库，我们选择 [oschina](http://git.oschina.net/) 创建远程私有仓库（因为是免费的）或者也可以在GitHub上创建（**$7/month**）。
-
-下面以 [oschina](http://git.oschina.net/) 为例
-
-创建版本描述仓库
-
-![](https://ww1.sinaimg.cn/large/006tKfTcgy1fdgfqdqyy1j31kw1c2th0.jpg)
+Create a repo on your server. This can be achieved on Github or on your own server as follows
 
 
-回到终端，将这个远程的私有版本仓库添加到本地，`repo` 就是 repository 储存库的缩写。
+>* 之前使用`pod trunk push KNIosCommonTool.podspec`[发布到 publicly available](https://kunnan.github.io/2018/04/26/pod_lib_create/)
+>```
+>Updating spec repo `master`
+>对 `master` 仓库 进行合并、提交.[master仓库地址](https://github.com/CocoaPods/Specs) 
+>```
+>
+>* The rest of this example uses the repo at [zhangkn Specs](https://github.com/zhangkn/Specs)
+>```
+>创建一个像 `master` 一样的存放版本描述文件的git仓库. 不失一般性，我选择了github.com 的 public repo。
+>devzkndeMacBook-Pro:git devzkn$ pwd
+/Users/devzkn/code/git
+devzkndeMacBook-Pro:git devzkn$ mkdir Specs.git
+devzkndeMacBook-Pro:git devzkn$ cd Specs.git
+devzkndeMacBook-Pro:Specs.git devzkn$ git init --bare
+Initialized empty Git repository in /Users/devzkn/code/git/Specs.git/
+>```
+>* 你可以使用 [oschina](http://git.oschina.net/)
+>```
+>>私人git仓库，选择 [oschina](http://git.oschina.net/) 创建远程私有仓库（free）也可以在GitHub上创建（**money**）。
+>```
+>
 
-	$ pod repo add MyRepo https://git.oschina.net/baiyingqiu/MyRepo.git
+#### 2.  Add your repo to your CocoaPods installation 
+
+
+>*  pod repo add  https://git.oschina.net/baiyingqiu/MyRepo.git
 	
 查看在 Finder 目录 `~/.cocoapods/repos`， 可以发现增加了一个 MyRepo 的储存库
 
@@ -160,6 +177,9 @@ end
 	(END)
 	
 ### 私人pod库的使用
+
+
+See this [Podfile](https://github.com/artsy/eigen/blob/master/Podfile) for an example of how the repo URL is included
 
 使用私人pod库的需要在`Podflie`中添加这句话，指明你的版本库地址。
 
