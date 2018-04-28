@@ -2,7 +2,9 @@
 layout: post
 title: Effectively_Enhance_The_Value_Of_Workplace
 date: 2018-04-21
-tag: iget
+tag: 
+    - iget
+    - Workplace
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
