@@ -51,6 +51,7 @@ devzkndeMacBook-Pro:git devzkn$ mkdir Specs.git
 devzkndeMacBook-Pro:git devzkn$ cd Specs.git
 devzkndeMacBook-Pro:Specs.git devzkn$ git init --bare
 Initialized empty Git repository in /Users/devzkn/code/git/Specs.git/
+ kngitinit git@github.com:zhangkn/Specs.git
 >```
 >* 你可以使用 [oschina](http://git.oschina.net/)
 >```
@@ -61,125 +62,90 @@ Initialized empty Git repository in /Users/devzkn/code/git/Specs.git/
 #### 2.  Add your repo to your CocoaPods installation 
 
 
->*  pod repo add  https://git.oschina.net/baiyingqiu/MyRepo.git
+>*  pod repo add  zhangkn_specs git@github.com:zhangkn/Specs.git
+>```
+>Cloning spec repo `zhangkn_specs` from `git@github.com:zhangkn/Specs.git`
+>```
 	
-查看在 Finder 目录 `~/.cocoapods/repos`， 可以发现增加了一个 MyRepo 的储存库
+>*  cd `~/.cocoapods/repos`
+>```
+>devzkndeMBP:repos devzkn$ tree -L 1
+.
+├── AliBCSpecs
+├── artsy
+├── master
+├── specta
+└── zhangkn_specs
+>```
+>
+>* Check your installation is successful
+>```
+>cd ~/.cocoapods/repos/zhangkn_specs
+>pod repo lint .
+>Linting spec repo `zhangkn_specs`
+>All the specs passed validation.
+>```
+>
 
-![](https://ww2.sinaimg.cn/large/006tKfTcgy1fdgfyfl6v6j316y0piwhz.jpg)
 
-#### 创建代码库
-
-回到 [oschina](http://git.oschina.net/) 创建私人代码库
-
-创建时添加 `MIT License` 和 `README`
+#### 3、Add your Podspec to your repo
 
 
-
-![](https://ww2.sinaimg.cn/large/006tKfTcgy1fdgjfu7n96j31kw17y7cq.jpg)
-
-将仓库克隆到本地，添加`你的代码文件`、`仓库名.podspec` 描述文件，还有`.swift-version`.
-
-如下
-
-![](https://ww2.sinaimg.cn/large/006tKfTcgy1fdgmyefutej311a0kegqh.jpg)
-
-`.swift-version`文件用来知道swift版本，用命令行创建
-
-	$ echo "3.0" > .swift-version
-
-**`.podspec`** 文件是你这个代码库的pod描述文件,可以通过pod指令创建空白模板：
-
-	$ pod spec create MyAdditions
-
-或者 **强烈建议** 直接拷贝下面的模板进行修改
-
-```ruby
-Pod::Spec.new do |s|
-  s.name         = "MyAdditions" # 项目名称
-  s.version      = "0.0.1"        # 版本号 与 你仓库的 标签号 对应
-  s.license      = "MIT"          # 开源证书
-  s.summary      = "私人pod代码" # 项目简介
-
-  s.homepage     = "https://git.oschina.net/baiyingqiu/MyAdditions" # 仓库的主页
-  s.source       = { :git => "https://git.oschina.net/baiyingqiu/MyAdditions.git", :tag => "#{s.version}" }#你的仓库地址，不能用SSH地址
-  s.source_files = "MyAdditions/*.{h,m}" # 你代码的位置， BYPhoneNumTF/*.{h,m} 表示 BYPhoneNumTF 文件夹下所有的.h和.m文件
-  s.requires_arc = true # 是否启用ARC
-  s.platform     = :ios, "7.0" #平台及支持的最低版本
-  # s.frameworks   = "UIKit", "Foundation" #支持的框架
-  # s.dependency   = "AFNetworking" # 依赖库
-  
-  # User
-  s.author             = { "BY" => "qiubaiyingios@163.com" } # 作者信息
-  s.social_media_url   = "http://qiubaiying.github.io" # 个人主页
-
-end
-```
-这里我要说一下一个坑，用 [oschina](http://git.oschina.net/) 创建私人仓库时, 在验证时可能会找不到 `MIT LICENSE`证书,将其中的
-
-	s.license      = "MIT"
-	修改为，指定文件
-	s.license      = { :type => "MIT", :file => "LICENSE" }
-
-然后开始验证我们的仓库配置是否正确，并按照要求进行修改
-
-	$ pod lib lint
-	
-一般出现错误警告，需要添加 `--private` 或者 `--allow-warnings`，就可以通过验证
-
-	$ pod lib lint --private
-
-验证成功后出现
-
-	 -> MyAdditions (0.0.1)
-	 
-	MyAdditions passed validation.
-	
-#### 将描述文件推送到版本库
-	
-将项目打上标签推到远程仓库，标签号 和 版本号对应 都是`0.0.1`
-
-最后将我们的代码仓库的描述信息，push 到我们的版本仓库中
-
-	$ pod repo push MyRepo MyAdditions.podspec
-
-这时会对远程仓库进行验证，成功的话就会在 `~/.cocoapods/repos/MyRep`中发现新增的仓库描述信息了
-
-![](https://ww3.sinaimg.cn/large/006tKfTcgy1fdgo62knrwj31ko0s8784.jpg)
-	
-若是出现错误信息
-
-	[!] The repo `MyRepo` at `../.cocoapods/repos/MyRepo` is not clean
-	
-更新下我们的版本库，
-
-	$ pod repo update MyRepo
+>* [Create your Podspec](https://kunnan.github.io/2018/04/26/pod_lib_create/)
+>```
+>pod lib lint  KNBaseWebViewController.podspec --verbose  --allow-warnings
+>git tag -a 0.1.1 -m "0.1.1"
+>git push origin --tags
+> # pod trunk push KNIosCommonTool.podspec  这个步骤替换成pod repo push zhangkn_specs /Users/devzkn/code/cocoapodDemo/podDemo/KNBaseWebViewController/KNBaseWebViewController.podspec --verbose  --allow-warnings
+>```
 	
 
-再继续上传即可。
+>* Save your Podspec and add to the repo
+>```
+>Updating the `zhangkn_specs' repo
+>Adding the spec to the `zhangkn_specs' repo
+>Pushing the `zhangkn_specs' repo
+>/usr/bin/git -C /Users/devzkn/.cocoapods/repos/zhangkn_specs -C /Users/devzkn/.cocoapods/repos/zhangkn_specs push origin master
+>```
 
-`pod repo push MyRepo MyAdditions.podspec` 的过程就是
+>* Assuming your Podspec validates, it will be added to the repo. The repo will now look like this
+>```
+>cd  /Users/devzkn/.cocoapods/repos/zhangkn_specs 
+>devzkndeMBP:zhangkn_specs devzkn$ tree -L 3
+.
+├── HEAD
+├── KNBaseWebViewController
+│   └── 0.1.1
+│       └── KNBaseWebViewController.podspec
+├── README.md
+>```
+>
 
-1. 验证 `MyAdditions.podspec` 文件
-- 拉取远程版本库 `MyRepo`
-- 添加 `MyAdditions.podspec` 到版本库中
-- push 到远程
 
-添加完成后我们就可以在pod中搜索
 
-	$ pod search MyAdditions
----
-	-> MyAdditions (0.0.1)
-	   Some category of the framework and UIKit
-	   pod 'MyAdditions', '~> 0.0.1'
-	   - Homepage: https://git.oschina.net/baiyingqiu/MyAdditions
-	   - Source:   https://git.oschina.net/baiyingqiu/MyAdditions.git
-	   - Versions: 0.0.1 [MyRepo repo]
-	(END)
+>*  pod repo update zhangkn_specs
 	
-### 私人pod库的使用
+
+>* pod search KNBaseWebViewController
+>
+>```
+>-> KNBaseWebViewController (0.1.1)
+   KNPodlib Improve  customize webview functionality
+   pod 'KNBaseWebViewController', '~> 0.1.1'
+   - Homepage: https://github.com/zhangkn/KNBaseWebViewController
+   - Source:   https://github.com/zhangkn/KNBaseWebViewController.git
+   - Versions: 0.1.1 [zhangkn_specs repo]
+>```
+>
+
+	
+###  See this Podfile for an example of how the repo URL is included
+
 
 
 See this [Podfile](https://github.com/artsy/eigen/blob/master/Podfile) for an example of how the repo URL is included
+
+
 
 使用私人pod库的需要在`Podflie`中添加这句话，指明你的版本库地址。
 
@@ -256,7 +222,10 @@ pod repo remove [name]
 
 # see also
 
-
+>* [artsy/Specs](https://github.com/artsy/Specs)
+>
+>
+>
 
 # External resources
 
