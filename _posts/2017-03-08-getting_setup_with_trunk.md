@@ -405,6 +405,11 @@ You can also deploy Podspecs to your own private specs repo with` pod repo push 
 >- 验证`.podspec`格式是否正确
 >- 将 `.podspec` 文件转成 JSON 格式
 >- 对 `master` 仓库 进行合并、提交.[master仓库地址](https://github.com/CocoaPods/Specs) 
+> 🎉  Congrats
+ 🚀  KNIosCommonTool (0.0.1) successfully published
+ 📅  April 27th, 04:05
+ 🌎  https://cocoapods.org/pods/KNIosCommonTool
+ 👍  Tell your friends!
 ```
 
 >* [进入的Pods查看自己的仓库信息](https://cocoapods.org/pods/KNIosCommonTool)
@@ -413,43 +418,53 @@ You can also deploy Podspecs to your own private specs repo with` pod repo push 
 >```
 	 	 
 
-
 #### 使用仓库
 
 >* `pod setup`在终端更新本地pods仓库信息
 >```
 >Setting up CocoaPods master repo
+> /usr/bin/git -C /Users/devzkn/.cocoapods/repos/master fetch origin --progress
+> /usr/bin/git -C /Users/devzkn/.cocoapods/repos/master rev-parse --abbrev-ref HEAD
+> /usr/bin/git -C /Users/devzkn/.cocoapods/repos/master reset --hard origin/master
 >```
+>*  pod trunk info KNPodlib
 >
+>```
+    - Versions:
+      - 0.1.10 (2018-04-27 08:15:15 UTC)
+      - 0.1.11 (2018-04-27 08:27:30 UTC)
+      - 0.1.3 (2018-04-27 02:21:06 UTC)
+      - 0.1.9 (2018-04-27 07:53:52 UTC)
+    - Owners:
+      - zhangkn <developerkunnan@gmail.com>
+```
 
+>* pod search KNPodlib
 
-查询仓库
-	
-	$ pod search BYPhoneNumTF
----
-	-> BYPhoneNumTF (1.0.0)
-	   A delightful TextField of PhoneNumber
-	   pod 'BYPhoneNumTF', '~> 1.0.0'
-	   - Homepage: https://github.com/qiubaiying/BYPhoneNumTF
-	   - Source:   https://github.com/qiubaiying/BYPhoneNumTF.git
-	   - Versions: 1.0.0, 0.0.1 [BYPhoneNumTF repo]
-	(END)
-
-若出现仓库信息说明已经成功了，这时候你就可以在 `Podfile` 添加、使用自己的仓库了 `pod 'BYPhoneNumTF', '~> 1.0.0'`
-
-![](https://ww1.sinaimg.cn/large/006tNbRwgy1fdedvficvaj30fu0loaex.jpg)
+>* [demo-code](https://github.com/kunnan/KNIosCommonToolDemo)
+>```
+>pod init
+>pod install
+>open  KNIosCommonToolDemo.xcworkspace
+>build
+>#import <KNIosCommonTool/KNIosCommonTool-umbrella.h>
+>```
 
 #### 更新维护
 
-当你的代码更新维护后，就需要重写发布，流程是：
+>*  更新`.podspec`中的版本号
+>*  打上标签推送远程
+>```
+>git tag -a 0.0.1 -m "0.0.1"
+> git push origin --tags
+>```
+>* `pod trunk push .podspec`
+>
 
-- 更新`BYPhoneNumTF.podspec`中的版本号
-- 打上标签推送远程
-- `pod trunk push BYPhoneNumTF.podspec` 推送到pods仓库
-
-更新后你就可以在 [CocoaPods Master Repo](https://github.com/CocoaPods/Specs) 仓库上看到自己的提交记录了。
-
-![](https://ww4.sinaimg.cn/large/006tNbRwgy1fdfkr2l7omj31kw0d7446.jpg)
+>* 就可以在 [CocoaPods Master Repo](https://github.com/CocoaPods/Specs) 仓库上看到自己的[提交记录](https://github.com/CocoaPods/Specs/tree/23872c91315bab82eb842bc7bf656ff2a7f37e88)了。
+>```
+>https://github.com/CocoaPods/Specs/commit/23872c91315bab82eb842bc7bf656ff2a7f37e88
+>```
 
 # see also
 
