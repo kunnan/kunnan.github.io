@@ -418,7 +418,7 @@ You can also deploy Podspecs to your own private specs repo with` pod repo push 
 >```
 	 	 
 
-#### 使用仓库
+#### 6、 使用仓库
 
 >* `pod setup`在终端更新本地pods仓库信息
 >```
@@ -470,14 +470,11 @@ You can also deploy Podspecs to your own private specs repo with` pod repo push 
 
 >* [ private pods](https://guides.cocoapods.org/making/private-cocoapods.html)
 >
->
 >* [getting-setup-with-trunk](https://guides.cocoapods.org/making/getting-setup-with-trunk)
 >
-
 >* [Podspec Syntax Reference](https://guides.cocoapods.org/syntax/podspec.html#specification)
 >
 >* [ios-dev-uses-cocoapods-to-package-static-libraries-relying-on-private-libraries-open-source-libraries-private-libraries-and-static-libraries.html](http://w3cgeek.com/ios-dev-uses-cocoapods-to-package-static-libraries-relying-on-private-libraries-open-source-libraries-private-libraries-and-static-libraries.html)
->
 >* [使用cocoapods打包静态库(依赖私有库，开源库，私有库又包含静态库)](https://www.jianshu.com/p/9096a2eb2804)
 >
 >* [搭建一个提高开发效率的iOS静态库工程](https://blog.csdn.net/z929118967/article/details/73872024)
@@ -488,7 +485,6 @@ You can also deploy Podspecs to your own private specs repo with` pod repo push 
 >```
 > 图片的上传地址进行更换就可以应用到其他项目中（主要采用自定义View实现）。
 ```
-
 >* 创建软连接: ln -s 使用相对的路径
 >```
 lrwxr-xr-x   1 devzkn  staff   56 Apr 27 17:23 KNIosCommonTool.podspec -> KNIosCommonTool/Podspec Metadata/KNIosCommonTool.podspec
