@@ -102,6 +102,7 @@ Initialized empty Git repository in /Users/devzkn/code/git/Specs.git/
 
 >* Save your Podspec and add to the repo
 >```
+>pod repo push zhangkn_specs /Users/devzkn/code/cocoapodDemo/podDemo/KNBaseWebViewController/KNBaseWebViewController.podspec --verbose  --allow-warnings
 >Updating the `zhangkn_specs' repo
 >Adding the spec to the `zhangkn_specs' repo
 >Pushing the `zhangkn_specs' repo
@@ -141,58 +142,38 @@ Initialized empty Git repository in /Users/devzkn/code/git/Specs.git/
 	
 ###  See this Podfile for an example of how the repo URL is included
 
+>* [demo repo](https://github.com/kunnan/KNBaseWebViewControllerDemo)
+>
+>* [demo for `how the private repo URL is included` ](https://github.com/kunnan/KNBaseWebViewControllerDemo/blob/master/Podfile)
+>```
+> pod init
+> source 'https://github.com/zhangkn/Specs.git'
+> Cloning spec repo `zhangkn` from `https://github.com/zhangkn/Specs.git`
+> devzkndeMBP:repos devzkn$ tree -L 1
+.
+├── AliBCSpecs
+├── artsy
+├── master
+├── specta
+├── zhangkn # 从https://github.com/zhangkn/Specs.git 下载的仓库
+└── zhangkn_specs # 我刚刚创建的本地仓库
+ open KNBaseWebViewControllerDemo.xcworkspace
+ pod update
+ Installing KNBaseWebViewController 0.1.2 (was 0.1.1)
+>```
 
 
-See this [Podfile](https://github.com/artsy/eigen/blob/master/Podfile) for an example of how the repo URL is included
-
-
-
-使用私人pod库的需要在`Podflie`中添加这句话，指明你的版本库地址。
-
-	source ‘https://git.oschina.net/baiyingqiu/MyRepo.git’
-**注意**是版本库的地址，而不是代码库的地址，很多教程都把我搞晕了~
+>* 使用私人pod库的需要在`Podflie`中添加这句话，指明你的版本库地址。
+>```
+> source 'https://github.com/zhangkn/Specs.git'
+>```
 
 	
-若有还使用了公有的pod库，需要把公有库地址也带上
-
+>* 如果同时使用了其他的Specs库，也要声明
+>```
 	source ‘https://github.com/CocoaPods/Specs.git’
+```
 
-最后的`Podflie`文件变成这个样子
-
-	source ‘https://github.com/CocoaPods/Specs.git’
-	source ‘https://git.oschina.net/baiyingqiu/MyRepo.git’
-	
-	platform :ios, '8.0'
-	
-	target ‘MyPodTest’ do
-	use_frameworks!
-	
-	pod “BYPhoneNumTF” #公有库
-	pod ‘MyAdditions’ #我们的私有库
-	pod ‘BYAdditions’ #这是我又添加到版本库中的另一个代码库
-	
-	end
-
-测试：
-
-	$ pod install
-
-加载完成可以看到代码已经整合到我们的项目中了
-
-**perfect！**
-
-<img src="https://ww4.sinaimg.cn/large/006tKfTcgy1fdhkgtfn98j30ee0hwq6y.jpg" width="250">
-
-回到Fender中 `~/.cocoapods/repos`,会发现 repos 中增加了一个pod版本库。 
-
-![](https://ww2.sinaimg.cn/large/006tKfTcgy1fdhlc59rl9j30ya08y0ub.jpg)
-
-执行 `pod install` 命令时
-
-- 会拉取远程 `Podflie` 中 `source` 标记 版本库 到本地的 repos 文件夹中
-
-- 在 版本库 中搜索我们`pod ‘MyAdditions’` 的 `MyAdditions.podspec` 文件。
-- 根据 `MyAdditions.podspec` 文件中描述的源码地址下载并整合到项目中
 
 
 # How to remove a Private Repo
@@ -225,7 +206,7 @@ pod repo remove [name]
 >* [artsy/Specs](https://github.com/artsy/Specs)
 >
 >
->
+
 
 # External resources
 
