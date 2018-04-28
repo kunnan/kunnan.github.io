@@ -3,8 +3,7 @@ layout:     post
 title:      making_private_cocoapods
 subtitle:   use a private Spec Repo to do sharing components across projects：deploy Podspecs to your own private specs repo with` pod repo push REPO [NAME.podspec]`
 date:       2017-03-10
-author:     BY
-header-img: img/post-bg-iWatch.jpg
+author:   
 catalog: true
 tags:
     - iOS
