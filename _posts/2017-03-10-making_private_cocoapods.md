@@ -121,7 +121,15 @@ Initialized empty Git repository in /Users/devzkn/code/git/Specs.git/
 ├── README.md
 >```
 >
-
+>
+>
+>* git pull
+>```
+>Merge made by the 'recursive' strategy.
+ KNBaseWebViewController/0.1.1/KNBaseWebViewController.podspec | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ KNBaseWebViewController/0.1.2/KNBaseWebViewController.podspec | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ KNBaseWebViewController/0.1.3/KNBaseWebViewController.podspec | 55 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>```
 
 
 >*  pod repo update zhangkn_specs
