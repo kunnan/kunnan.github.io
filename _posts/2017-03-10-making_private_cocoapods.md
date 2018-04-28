@@ -175,7 +175,6 @@ Initialized empty Git repository in /Users/devzkn/code/git/Specs.git/
 ```
 
 
-
 # How to remove a Private Repo
 
 >* How to remove a Private Repo
