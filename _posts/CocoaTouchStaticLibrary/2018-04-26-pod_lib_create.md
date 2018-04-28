@@ -870,7 +870,7 @@ $source ~/.bash_profile
 
 >* [关于 Pod 库的资源引用 resource_bundles or resources](http://zhoulingyu.com/2018/02/02/pod-resource-reference/)
 >
->* [Developing private static library for iOS with CocoaPods](http://blog.sigmapoint.pl/developing-static-library-for-ios-with-cocoapods/)
+>* [Developing private static library for iOS with CocoaPods](https://kunnan.github.io/2017/03/10/making_private_cocoapods/)
 >
 >* [Automatic build of static library for iOS and many architectures](http://blog.sigmapoint.pl/automatic-build-of-static-library-for-ios-for-many-architectures/)
 >* [avoiding-dependency-collisions-in-ios-static-library-managed-by-cocoapods/](http://blog.sigmapoint.pl/avoiding-dependency-collisions-in-ios-static-library-managed-by-cocoapods/)
