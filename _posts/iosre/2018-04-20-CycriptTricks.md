@@ -2,7 +2,9 @@
 layout: post
 title: CycriptTricks
 date: 2018-04-20
-tag: iosre
+tag: 
+    - iosre
+    - Cycript
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
