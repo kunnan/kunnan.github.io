@@ -14,10 +14,14 @@ tags:
 ---
 
 
-> 利用xcode的命令行工具 `xcdeobulid` 进行项目的编译打包，生成ipa包，并上传到fir
 
 # 前言
 
+
+>* 利用xcode的命令行工具 `xcdeobulid` 进行项目的编译打包，生成ipa包.
+>```
+>xcodebuild -help
+>```
 
 
 # Xcodebuild
@@ -166,6 +170,26 @@ This project contains no schemes.
 
 # [自动打包脚本](https://github.com/zhangkn/KNBin/blob/master/knipa)
 
+
+>* knxcodeipa
+><script src="https://gist.github.com/zhangkn/0f37ea59af8569a31257f26cc1cfee1e.js"></script>
+>
+>* KNBaseWebViewControllerDemo-v1.0.ipa
+>```
+>devzkndeMBP:KNBaseWebViewControllerDemo-IPA devzkn$ tree -L 1
+.
+├── DistributionSummary.plist
+├── ExportOptions.plist
+├── KNBaseWebViewControllerDemo-v1.0.ipa
+├── KNBaseWebViewControllerDemo.xcarchive
+└── Packaging.log
+>```
+>
+>* [完成打包代码](https://github.com/zhangkn/KNBin/blob/master/knipa)
+
+
+>* 附件：developmentExportOptionsPlist
+><script src="https://gist.github.com/zhangkn/60125fb7f453953286e041713a757020.js"></script>
 
 
 # see also
