@@ -22,7 +22,14 @@ tags:
 - 字典转属性
 
 
-# 1、查询方法
+# 0、利用运行时API 进行属性的获取和修改
+
+>* 利用运行时API 进行获取、修改、操作保护的属性
+><script src="https://gist.github.com/zhangkn/b040f5b395aa36e244b2aee59afdf7f4.js"></script>
+
+
+
+# 1、查询类信息
 
 #### 1、1 获取类的名称
 
@@ -144,7 +151,12 @@ myString)) // Swift.String
 
 >* `is` 替代了 `isMemberOfClass`
 >
->
+
+
+
+
+
+
 
 # see also
 
