@@ -14,9 +14,25 @@ tags:
 
 # [前言](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048?language=objc)
 
->* [Objc是一门动态语言，把一些决定工作从编译连接推迟到运行时](https://opensource.apple.com/source/objc4/)
 
->* [runtime源码](https://opensource.apple.com/source/objc4/objc4-208/runtime/)
+#### runtime
+>* Objective-C 是一门基于运行时的编程语言，
+>```
+>1)这意味着所有方法、变量、类之间的link，都会推迟到应用实际运行的最后一刻才会建立。
+> 2)Foundation 框架实现了基于运行时的一个特性：
+键值编码 (key-value-coding, KVC) 以及键值观察 (key-value observing, KVO)。
+KVC 和 KVO 允许我们将 UI 和数据进行绑定。这也是 Rx 以及其他响应式框架实现的基础。
+ps:而且MVVM的实现又可以借助“V-VM”第三方绑定框架进行实现
+>```
+
+
+>* 对象在 runtime.h 当中是这样定义的：
+><script src="https://gist.github.com/zhangkn/f5ed829af985c625e1cc054494643f57.js"></script>
+
+
+#### runtime code
+
+>* [runtime源码:它是完全开源的，并且开源了很长一段时间了](https://opensource.apple.com/source/objc4/objc4-208/runtime/)
 >```
 >https://opensource.apple.com/source/objc4/objc4-208/
 >```
@@ -26,9 +42,6 @@ tags:
 >* [github.com opensource-apple/objc4](https://github.com/opensource-apple/objc4/tree/master/runtime)
 >
 >* [github.com opensource-apple](https://github.com/opensource-apple)
-
-
-
 
 
 
@@ -81,7 +94,7 @@ The document is intended for readers who might be interested in learning about t
 For the most part, the runtime system works automatically and behind the scenes. You use it just by writing and compiling Objective-C source code.
 
 
-#### 1、NSObject Methods
+#### 1、NSObject Methods: 「内省 (introspection)」机制：判别这个类能执行何种操作
 
 
 >* `NSProxy`
@@ -756,6 +769,11 @@ An opaque type that represents an Objective-C class.
 
 
 # XI、See Also
+
+
+>* [Objective-C 运行时以及 Swift 的动态性](https://segmentfault.com/a/1190000012362645)
+>
+
 
 >* [Objective-C Runtime Reference ](https://developer.apple.com/documentation/objectivec/objective_c_runtime)
 >```
