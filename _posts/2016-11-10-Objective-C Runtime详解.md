@@ -243,6 +243,11 @@ Although there is a runtime function that performs dynamic loading of Objective-
 >
 
 
+# Message Forwarding
+
+
+
+
 
 # Objective-C Runtime Reference
 
@@ -254,122 +259,71 @@ Although there is a runtime function that performs dynamic loading of Objective-
 #### Topics
 
 
+# 相关的关键词
+
+>* /usr/include/objc
+ 
+>* include/objc/objc.h
+ ```
+ /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/objc/objc.h
+```
+
 #### SEL
 
-`objc_msgSend`函数第二个参数类型为`SEL`，它是`selector`在Objc中的表示类型（Swift中是`Selector`类）。`selector`是方法选择器，可以理解为区分方法的标识，而这个标识的数据结构是SEL:
+/// An opaque type that represents a method selector.
 
-```
-typedef struct objc_selector *SEL;
-```
 
-本质上，SEL只是一个指向方法的指针（准确的说，只是一个根据方法名hash化了的KEY值，能唯一代表一个方法），它的存在只是为了加快方法的查询速度。这个查找过程我们将在下面讨论。
+>* SEL
+><script src="https://gist.github.com/zhangkn/38f514da906eb6559956a54300021601.js"></script>
 
-我们可以在运行时添加新的selector，也可以在运行时获取已存在的selector，我们可以通过下面三种方法来获取SEL:
 
-1. sel_registerName函数
+####  isa
 
-2. Objective-C编译器提供的@selector()
+The isa pointer, as the name suggests, points to the object's class which maintains a dispatch table. This dispatch table essentially contains pointers to the methods the class implements, among other data.
 
-3. NSSelectorFromString()方法
+>* Note: `isa` variable
+>```
+> the isa pointer is required for an object to work with the Objective-C runtime system. An object needs to be “equivalent” to a struct objc_object (defined in objc/objc.h) in whatever fields the structure defines. 
+>```
+
+>* [Key-Value Observing Implementation Details:Automatic key-value observing is implemented using a technique called isa-swizzling](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOImplementation.html#//apple_ref/doc/uid/20002307-BAJEAIEE)
+>```
+>You should never rely on the isa pointer to determine class membership. Instead, you should use the class method to determine the class of an object instance.
+>1) When an observer is registered for an attribute of an object the isa pointer of the observed object is modified, pointing to an intermediate class rather than at the true class. As a result the value of the isa pointer does not necessarily reflect the actual class of the instance.
+>```
+
+
+#### objc_class
+
+
+>* objc_class
+><script src="https://gist.github.com/zhangkn/e427935b259e86a7f9058a0dc57fc489.js"></script>
+>
+
+
+#### objc_object
+
+>* /// Represents an instance of a class.
+><script src="https://gist.github.com/zhangkn/4ff01a8c94c7f64641bc4c9f3db7aa0f.js"></script>
+
 
 #### id
 
-`objc_msgSend`第一个参数类型为`id`，大家对它都不陌生，它是一个指向类实例的指针：
 
+>* /// A pointer to an instance of a class.
 ```
 typedef struct objc_object *id;
 ```
 
-那`objc_object`又是啥呢：
 
-```
-struct objc_object { Class isa; };
-```
-`objc_object`结构体包含一个`isa`指针，根据`isa`指针就可以顺藤摸瓜找到对象所属的类。
+#### [Class](https://developer.apple.com/documentation/objectivec/1418956-nsobject/1571949-class)
 
-PS:`isa`指针不总是指向实例对象所属的类，不能依靠它来确定类型，而是应该用`class`方法来确定实例对象的类。因为KVO的实现机理就是将被观察对象的isa指针指向一个中间类而不是真实的类，这是一种叫做 **isa-swizzling** 的技术，详见[官方文档](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOImplementation.html#//apple_ref/doc/uid/20002307-BAJEAIEE)的这句段说明
-
->Key-Value Observing Implementation Details
-
->Automatic key-value observing is implemented using a technique called isa-swizzling.
-
->The isa pointer, as the name suggests, points to the object's class which maintains a dispatch table. This dispatch table essentially contains pointers to the methods the class implements, among other data.
-
->When an observer is registered for an attribute of an object the isa pointer of the observed object is modified, pointing to an intermediate class rather than at the true class. As a result the value of the isa pointer does not necessarily reflect the actual class of the instance.
-
->You should never rely on the isa pointer to determine class membership. Instead, you should use the class method to determine the class of an object instance.
-
-#### Class
-
-之所以说`isa`是指针是因为`Class`其实是一个指向`objc_class`结构体的指针：
-
+>* /// An opaque type that represents an Objective-C class.
 ```
 typedef struct objc_class *Class;
 ```
-而`objc_class`就是我们摸到的那个瓜，里面的东西多着呢：
 
-```
-struct objc_class {
-    Class isa  OBJC_ISA_AVAILABILITY;
-
-#if !__OBJC2__
-    Class super_class                                        OBJC2_UNAVAILABLE;
-    const char *name                                         OBJC2_UNAVAILABLE;
-    long version                                             OBJC2_UNAVAILABLE;
-    long info                                                OBJC2_UNAVAILABLE;
-    long instance_size                                       OBJC2_UNAVAILABLE;
-    struct objc_ivar_list *ivars                             OBJC2_UNAVAILABLE;
-    struct objc_method_list **methodLists                    OBJC2_UNAVAILABLE;
-    struct objc_cache *cache                                 OBJC2_UNAVAILABLE;
-    struct objc_protocol_list *protocols                     OBJC2_UNAVAILABLE;
-#endif
-
-} OBJC2_UNAVAILABLE;
-```
-可以看到运行时一个类还关联了它的超类指针，类名，成员变量，方法，缓存，还有附属的协议
-
-PS:`OBJC2_UNAVAILABLE`之类的宏定义是苹果在 Objc 中对系统运行版本进行约束的黑魔法，为的是兼容非Objective-C 2.0的遗留逻辑，但我们仍能从中获得一些有价值的信息，有兴趣的可以查看源代码
-
-`Objective-C 2.0` 的头文件虽然没暴露出`objc_class`结构体更详细的设计，我们依然可以从`Objective-C 1.0` 的定义中小窥端倪
-
-在`objc_class`结构体中：`ivars`是`objc_ivar_list`指针；`methodLists`是指向`objc_method_list`指针的指针。也就是说可以动态修改`*methodLists`的值来添加成员方法，这也是Category实现的原理，同样解释了Category不能添加属性的原因。而最新版的 Runtime 源码对这一块的描述已经有很大变化，可以参考下美团技术团队的[深入理解Objective-C：Category](http://tech.meituan.com/DiveIntoCategory.html).
-
-PS：任性的话可以在Category中添加`@dynamic`的属性，并利用运行期动态提供存取方法或干脆动态转发；或者干脆使用关联度对象（AssociatedObject）
-
-其中`objc_ivar_list`和`objc_method_list`分别是成员变量列表和方法列表：
-
-```
-struct objc_ivar_list {
-    int ivar_count                                           OBJC2_UNAVAILABLE;
-#ifdef __LP64__
-    int space                                                OBJC2_UNAVAILABLE;
-#endif
-    /* variable length structure */
-    struct objc_ivar ivar_list[1]                            OBJC2_UNAVAILABLE;
-}                                                            OBJC2_UNAVAILABLE;
-
-struct objc_method_list {
-    struct objc_method_list *obsolete                        OBJC2_UNAVAILABLE;
-
-    int method_count                                         OBJC2_UNAVAILABLE;
-#ifdef __LP64__
-    int space                                                OBJC2_UNAVAILABLE;
-#endif
-    /* variable length structure */
-    struct objc_method method_list[1]                        OBJC2_UNAVAILABLE;
-}
-```
-如果你C语言不是特别好，可以理解为`objc_ivar_list`结构体存储着`objc_ivar`数组列表，而`objc_ivar`结构体存储了类的单个成员变量的信息；同理`objc_method_list`结构体存储着`objc_method`数组列表，而o`bjc_method`结构体存储了类的某个方法的信息。
-
-最后要提到的还有一个`objc_cache`，顾名思义它是缓存，它在`objc_class`的作用很重要，在后面会讲到。
-
-不知道你是否注意到了`objc_class`中也有一个`isa`对象，这是因为一个 ObjC 类本身同时也是一个对象，为了处理类和对象的关系，runtime 库创建了一种叫做元类 (Meta Class) 的东西，类对象所属类型就叫做元类，它用来表述类对象本身所具备的元数据。类方法就定义于此处，因为这些方法可以理解成类对象的实例方法。每个类仅有一个类对象，而每个类对象仅有一个与之相关的元类。当你发出一个类似`[NSObject alloc]`的消息时，你事实上是把这个消息发给了一个类对象 (Class Object) ，这个类对象必须是一个元类的实例，而这个元类同时也是一个根元类 (root meta class) 的实例。所有的元类最终都指向根元类为其超类。所有的元类的方法列表都有能够响应消息的类方法。所以当 `[NSObject alloc]` 这条消息发给类对象的时候，`objc_msgSend()`会去它的元类里面去查找能够响应消息的方法，如果找到了，然后对这个类对象执行方法调用。
-
-![](http://7ni3rk.com1.z0.glb.clouddn.com/Runtime/class-diagram.jpg)
-
-上图实线是 `super_class` 指针，虚线是`isa`指针。 有趣的是根元类的超类是`NSObjec`t，而`isa`指向了自己，而`NSObject`的超类为`nil`，也就是它没有超类
-
-####Method
+#### Method
 
 `Method`是一种代表类中的某个方法的类型。
 
