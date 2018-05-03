@@ -361,7 +361,6 @@ objc_property_t *protocol_copyPropertyList(Protocol *proto, unsigned int *outCou
 # VII、Objective-C Associated Objects
 
 
-
 ```
  void objc_setAssociatedObject ( id object, const void *key, id value, objc_AssociationPolicy policy );
  id objc_getAssociatedObject ( id object, const void *key );
@@ -385,7 +384,6 @@ enum {
 ><script src="https://gist.github.com/zhangkn/e427935b259e86a7f9058a0dc57fc489.js"></script>
 >
 
-
 # VIII、Method Swizzling
 
 
@@ -395,7 +393,7 @@ enum {
 
 
 
-# IX、相关的关键词
+# IX、Class-Definition Data Structures
 
 >* /usr/include/objc
  
@@ -539,6 +537,141 @@ typedef struct objc_property *objc_property_t;///// An opaque type that represen
 
 
 #### Topics
+
+###### 10.1 Working with Classes
+
+>* class_getName
+>```
+>Returns the name of a class.
+>```
+
+###### 10.2 Adding Classes
+
+>* objc_allocateClassPair
+>```
+Creates a new class and metaclass.
+```
+
+###### 10.3 Instantiating Classes
+
+>* class_createInstance
+>```
+Creates an instance of a class, allocating memory for the class in the default malloc memory zone.
+```
+
+###### 10.4 Working with Instances
+
+>* object_getClassName
+>```
+>object_getClassName
+Returns the class name of a given object.
+>```
+
+###### 10.5 Obtaining Class Definitions
+
+>* objc_getClassList
+>```
+>objc_getClassList
+Obtains the list of registered class definitions.
+>```
+
+###### 10.6 Working with Instance Variables
+
+>* ivar_getOffset
+>```
+>ivar_getOffset
+Returns the offset of an instance variable.
+>```
+
+
+###### 10.6 Associative References
+
+>* [AssociatedObject,常用来新增属性](https://kunnan.github.io/2017/02/04/Objective-C_Runtime_system/#viiobjective-c-associated-objects)
+>```
+1) objc_setAssociatedObject
+Sets an associated value for a given object using a given key and association policy.
+2) objc_getAssociatedObject
+Returns the value associated with a given object for a given key.
+3) objc_removeAssociatedObjects
+Removes all associations for a given object.
+>```
+
+###### 10.7  Sending Messages
+
+
+When it encounters a method invocation, the compiler might generate a call to any of several functions to perform the actual message dispatch, depending on the receiver, the return value, and the arguments. You can use these functions to dynamically invoke methods from your own plain C code, or to use argument forms not permitted by NSObject’s perform... methods. These functions are declared in /usr/include/objc/objc-runtime.h.
+
+>* `objc_msgSend` sends a message with a simple return value to an instance of a class.
+
+>* `objc_msgSend_stret` sends a message with a data-structure return value to an instance of a class.
+
+>* `objc_msgSendSuper` sends a message with a simple return value to the superclass of an instance of a class.
+
+>* `objc_msgSendSuper_stret` sends a message with a data-structure return value to the superclass of an instance of a class.
+
+
+###### [10.8 Working with Methods](https://kunnan.github.io/2017/02/04/Objective-C_Runtime_system/#viiimethod-swizzling)
+
+[常用来method-swizzling](https://kunnan.github.io/2017/02/04/Objective-C_Runtime_system/#viiimethod-swizzling)
+
+
+
+>* method_getImplementation
+>```
+>method_getImplementation
+Returns the implementation of a method.
+>```
+
+
+###### 10.9 Working with Libraries
+
+>* class_getImageName
+>```
+>class_getImageName
+Returns the name of the dynamic library a class originated from.
+>```
+>
+
+###### 10.10 Working with Selectors
+
+>* [sel_registerName](https://developer.apple.com/documentation/objectivec/1418557-sel_registername?language=objc)
+>```
+Registers a method with the Objective-C runtime system, maps the method name to a selector, and returns the selector value.
+>```
+
+###### 10.11 Working with Protocols
+
+>* objc_getProtocol
+>```
+>objc_getProtocol
+Returns a specified protocol.
+>```
+
+###### 10.12 Working with Properties
+
+>* property_getAttributes
+>```
+>property_getAttributes
+Returns the attribute string of a property.
+>```
+
+###### 10.13 Using Objective-C Language Features
+
+>* imp_getBlock
+>```
+>imp_getBlock
+Returns the block associated with an IMP that was created using 
+imp_implementationWithBlock
+>```
+
+
+###### 10.14 [Class-Definition Data Structures]()
+
+>* Class
+>```
+>Class
+An opaque type that represents an Objective-C class.
+>```
 
 
 
