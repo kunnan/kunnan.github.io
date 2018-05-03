@@ -298,7 +298,8 @@ The isa pointer, as the name suggests, points to the object's class which mainta
 
 >* objc_class
 ><script src="https://gist.github.com/zhangkn/e427935b259e86a7f9058a0dc57fc489.js"></script>
->
+>* class-diagram
+>![](https://ws1.sinaimg.cn/large/006tNc79ly1fqy2tsj6pxj30px0r5wfl.jpg)
 
 
 #### objc_object
