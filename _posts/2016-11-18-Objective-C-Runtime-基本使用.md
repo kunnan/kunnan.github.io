@@ -91,5 +91,62 @@ tags:
 
 # 7、运行时层面的上一层框架：Foundation 
 
+>* KVC 和 KVO 允许我们将 UI 和数据进行绑定。这也是 Rx 以及其他响应式框架实现的基础。
+><script src="https://gist.github.com/zhangkn/4f3475f0e5af98fa302f6bc6ac84d7e5.js"></script>
 
 
+# 8、Swift 的动态性
+
+>* @objc 和 @dynamic
+>```
+>1) @objc 将您的 Swift API 暴露给 Objective-C 运行时，但是它仍然不能保证编译器会尝试对其进行优化。
+2) 想使用动态功能的话，就需要使用 @dynamic。（一旦您使用了 @dynamic 修饰符之后，就不需要添加 @objc 了，因为它已经隐含在其中。）
+>```
+
+
+#### 8.1 Swift 当中的动态特性
+
+>* 方法转发
+>```
+>// 1
+override class func resolveInstanceMethod(_ sel: Selector!)
+-> Bool {
+    // 添加实例方法并返回 true 的一次机会，它随后会再次尝试发送消息
+}
+// 2
+override func forwardingTarget(for aSelector: Selector!) ->
+Any? {
+    // 返回可以处理 Selector 的对象
+}
+// 3 - Swift 不支持 NSInvocation
+>```
+
+
+>* 方法混淆
+>```
+>方法混淆
+1) load 在 Swift 不再会被调用，因此我们需要在 initialize 中进行混淆。
+2) 在 Objective-C 当中，我们使用 dispatch_once，但是自 Swift 3 之后，dispatch_once 便不复存在于 Swift 当中了。事情变得略为复杂。
+>```
+
+>* 内省
+```
+if self is MyClass {
+    // YAY
+}
+let myString = "myString";
+let mirror = Mirror(reflecting: myString)
+print(mirror.subjectType) // “String"
+let string = String(reflecting: type(of:
+myString)) // Swift.String
+```
+
+
+>* `is` 替代了 `isMemberOfClass`
+>
+>
+
+# see also
+
+>* [Objective-C 运行时以及 Swift 的动态性](https://segmentfault.com/a/1190000012362645)
+>
