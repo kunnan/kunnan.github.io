@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      OC_Runtime
-subtitle:   Runtime 详解
+title:      OC_Runtime_system
+subtitle:    read this document to gain an understanding of how the Objective-C runtime system works and how you can take advantage of it.
 date:       2017-02-04
 author:     
 header-img: img/post-bg-ios9-web.jpg
@@ -14,12 +14,10 @@ tags:
 
 # [前言](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048?language=objc)
 
+>* [Objc是一门动态语言，把一些决定工作从编译连接推迟到运行时](https://opensource.apple.com/source/objc4/)
 
->* Objective-C的方法调用实则为`objc_msgSend `
->
-```
-objc_msgSend(id _Nullable self, SEL _Nonnull op, ...)
-```
+
+
 
 # Who Should Read This Document
 
@@ -27,21 +25,85 @@ objc_msgSend(id _Nullable self, SEL _Nonnull op, ...)
 The document is intended for readers who might be interested in learning about the Objective-C runtime.
 
 
-
-#  Overview
-
-
-[因为Objc是一门动态语言，把一些决定工作从编译连接推迟到运行时](https://opensource.apple.com/source/objc4/)
+# Organization of This Document
 
 
->* Objective-C runtime library support functions are implemented in the shared library found at /usr/lib/libobjc.A.dylib.
->
+>* [Runtime Versions and Platforms](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtVersionsPlatforms.html#//apple_ref/doc/uid/TP40008048-CH106-SW1)
+>* [Interacting with the Runtime](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtInteracting.html#//apple_ref/doc/uid/TP40008048-CH103-SW1)
+>* [Messaging](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtHowMessagingWorks.html#//apple_ref/doc/uid/TP40008048-CH104-SW1)
+>* [Dynamic Method Resolution](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtDynamicResolution.html#//apple_ref/doc/uid/TP40008048-CH102-SW1)
+>* [Message Forwarding](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtForwarding.html#//apple_ref/doc/uid/TP40008048-CH105-SW1)
+>* [Type Encodings](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100-SW1)
+>* [Declared Properties](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html#//apple_ref/doc/uid/TP40008048-CH101-SW1)
 
 
 
-#### 1、Runtime的函数的存放位置
+# I、 Runtime Versions and Platforms
 
->* [头文件存放于`/usr/include/objc`](https://developer.apple.com/reference/objectivec/1657527-objective_c_runtime)
+#### Legacy and Modern Versions
+
+>* In the legacy runtime
+>```
+>In the legacy runtime, if you change the layout of instance variables in a class, you must recompile classes that inherit from it
+>```
+
+>* In the modern runtime
+>```
+>In the modern runtime, if you change the layout of instance variables in a class, you do not have to recompile classes that inherit from it.
+>```
+
+
+
+# II、Interacting with the Runtime
+
+>* Objective-C programs interact with the runtime system at three distinct levels
+>```
+> 1) through Objective-C source code; 
+> 2) through methods defined in the NSObject class of the Foundation framework;
+> 3) and through direct calls to runtime functions.
+>```
+
+#### 0、Objective-C Source Code
+
+For the most part, the runtime system works automatically and behind the scenes. You use it just by writing and compiling Objective-C source code.
+
+
+#### 1、NSObject Methods
+
+
+>* `NSProxy`
+```
+@class NSMethodSignature, NSInvocation;
+NS_ASSUME_NONNULL_BEGIN
+NS_ROOT_CLASS
+@interface NSProxy <NSObject> {
+    Class	isa;
+}
+```
+
+>* isKindOfClass:和isMemberOfClass:则检查对象是否在指定的类继承体系中
+>```
+>which test an object’s position in the inheritance hierarchy
+>```
+>* `respondsToSelector:`检查对象能否响应指定的消息；
+>```
+> which indicates whether an object can accept a particular message
+>```
+>* `conformsToProtocol:`检查对象是否实现了指定协议类的方法；
+>```
+>which indicates whether an object claims to implement the methods defined in a specific protocol
+>```
+>*`methodForSelector:`则返回指定方法实现的地址
+>```
+>which provides the address of a method’s implementation. Methods like these give an object the ability to introspect about itself.
+>```
+
+#### 3、Runtime Functions
+
+
+The runtime system is a dynamic shared library with a public interface consisting of a set of functions and data structures in the header files located within the directory /usr/include/objc.
+
+>* /usr/include/objc
 >```
 >devzkndeMacBook-Pro:bin devzkn$ cd  /usr/include/objc
 devzkndeMacBook-Pro:objc devzkn$ tree -L 2
@@ -67,27 +129,129 @@ devzkndeMacBook-Pro:objc devzkn$ tree -L 2
 └── runtime.h
 >```
 
-#### 2、NSObject的方法--在运行时获得类的信息
 
->* `NSProxy`
+>* Objective-C runtime library support functions are implemented in the shared library found at /usr/lib/libobjc.A.dylib.
+>
+>* All of these functions are documented in [Objective-C Runtime Reference](https://developer.apple.com/documentation/objectivec/objective_c_runtime).
+
+
+
+# III、[Messaging](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtHowMessagingWorks.html#//apple_ref/doc/uid/TP40008048-CH104-SW1)
+
+
+ how the message expressions are converted into [objc_msgSend](https://developer.apple.com/documentation/objectivec/1456712-objc_msgsend) function calls, and how you can refer to methods by name？
+ 
+
+
+
+#### 3.1、The objc_msgSend Function
+
+
+>* [`objc_msgSend `](https://developer.apple.com/documentation/objectivec/1456712-objc_msgsend)
+>
 ```
-@class NSMethodSignature, NSInvocation;
-NS_ASSUME_NONNULL_BEGIN
-NS_ROOT_CLASS
-@interface NSProxy <NSObject> {
-    Class	isa;
+Sends a message with a simple return value to an instance of a class.
+objc_msgSend(id _Nullable self, SEL _Nonnull op, ...)
+1) self : A pointer that points to the instance of the class that is to receive the message.
+2) op : The selector of the method that handles the message.
+3) ... :A variable argument list containing the arguments to the method.
+```
+
+>* Note: `isa` variable
+>```
+> the isa pointer is required for an object to work with the Objective-C runtime system. An object needs to be “equivalent” to a struct objc_object (defined in objc/objc.h) in whatever fields the structure defines. 
+>```
+
+>* Messaging Framework
+>![](https://ws2.sinaimg.cn/large/006tNc79gy1fqxyuh7ri6g30980f4aa3.gif)
+>```
+>1) When a message is sent to an object, the messaging function follows the object’s isa pointer to the class structure where it looks up the method selector in the dispatch table. 
+>If it can’t find the selector there, objc_msgSend follows the pointer to the superclass and tries to find the selector in its dispatch table. Successive failures cause objc_msgSend to climb the class hierarchy until it reaches the NSObject class. Once it locates the selector, the function calls the method entered in the table and passes it the receiving object’s data structure.
+>```
+>
+>
+#### 3.2、Using Hidden Arguments
+
+They’re inserted into the implementation when the code is compiled.
+
+>* When objc_msgSend finds the procedure that implements a method, it calls the procedure and passes it all the arguments in the message. It also passes the procedure two hidden arguments:
+>```
+>1) The receiving object
+>2) The selector for the method
+>```
+
+
+>*  A method refers to the receiving object as self, and to its own selector as _cmd. In the example below, _cmd refers to the selector for the strange method and self to the object that receives a strange message.
+>```
+>strange
+{
+    id  target = getTheReceiver();
+    SEL method = getTheMethod();
+    if ( target == self || method == _cmd )
+        return nil;
+    return [target performSelector:method];
 }
-```
+self is the more useful of the two arguments. It is, in fact, the way the receiving object’s instance variables are made available to the method definition.
+>```
 
->* isKindOfClass:和isMemberOfClass:则检查对象是否在指定的类继承体系中
->* `respondsToSelector:`检查对象能否响应指定的消息；
->* `conformsToProtocol:`检查对象是否实现了指定协议类的方法；
->*`methodForSelector:`则返回指定方法实现的地址。
+#### 3.3 Getting a Method Address
+
+
+
+>* The example below shows how the procedure that implements the setFilled: method might be called:
+><script src="https://gist.github.com/zhangkn/9b57c2fd678df8897bb654a2da3cdf90.js"></script>
+>
 >
 
-# Topics
+
+# IV、[Dynamic Method Resolution](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtDynamicResolution.html#//apple_ref/doc/uid/TP40008048-CH102-SW1)
 
 
+
+ how you can provide an implementation of a method dynamically?
+ 
+ 
+#### 4.1 Dynamic Method Resolution
+
+
+>* For example, the Objective-C declared properties feature includes the @dynamic directive:
+>```
+>@dynamic propertyName;
+>//which tells the compiler that the methods associated with the property will be provided dynamically.
+>```
+
+
+>* [Adds a new method to a class with a given name and implementation.](https://developer.apple.com/documentation/objectivec/1418901-class_addmethod)
+><script src="https://gist.github.com/zhangkn/eb415d8dd908d5b73a292334cadaa18a.js"></script>
+
+>*  dynamically add `dynamicMethodIMP ` to a class as a method  using `resolveInstanceMethod`
+><script src="https://gist.github.com/zhangkn/9a8464db30e597d9ebb5291070b403f1.js"></script>
+
+
+>* [ Objective-C Runtime Programming Guide](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048) > [Type Encodings](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100)
+>* [resolveClassMethod](https://developer.apple.com/documentation/objectivec/nsobject/1418889-resolveclassmethod?language=objc)
+>* [resolveInstanceMethod](https://developer.apple.com/documentation/objectivec/nsobject/1418500-resolveinstancemethod?language=objc)
+>
+
+
+#### 4.2 Dynamic Loading
+
+Although there is a runtime function that performs dynamic loading of Objective-C modules in Mach-O files (`objc_loadModules`, defined in `objc/objc-load.h`), Cocoa’s NSBundle class provides a significantly more convenient interface for dynamic loading—one that’s object-oriented and integrated with related services. 
+
+>* See the [`NSBundle`](https://developer.apple.com/documentation/foundation/bundle) class specification in the Foundation framework reference for information on the NSBundle class and its use. 
+>* See OS X ABI `Mach-O File Format Reference` for information on Mach-O files.
+>
+
+
+
+# Objective-C Runtime Reference
+
+
+>* Objective-C runtime library support functions are implemented in the shared library found at /usr/lib/libobjc.A.dylib.
+
+
+
+#### Topics
 
 
 #### SEL
@@ -856,10 +1020,15 @@ enum {
 
 
 
-
 # See Also
 
->* [Objective-C Runtime](http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/)
+>* [Objective-C Runtime Reference ](https://developer.apple.com/documentation/objectivec/objective_c_runtime)
+>```
+>describes the data structures and functions of the Objective-C runtime support library. Your programs can use these interfaces to interact with the Objective-C runtime system. For example, you can add classes or methods, or obtain a list of all class definitions for loaded classes.
+>```
+>
+
+>* [Objective-C Runtime  Reference ](http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/)
 >* [Objective-C Runtime Programming Guide](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048)
 >* [Objective-C Runtime源码](https://opensource.apple.com/source/objc4/)
 >*  [Objective-C runtime之运行时的基本特点](http://blog.csdn.net/wzzvictory/article/details/8615569)

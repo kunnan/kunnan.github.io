@@ -24,10 +24,15 @@ subtitle: YYWKWebView
 >* 执行js方法
 ><script src="https://gist.github.com/zhangkn/5b2a0994c064b79d4d2ceec8d1a4e13a.js"></script>
 
+####  获取html内容
+
 >* 获取html内容
 ><script src="https://gist.github.com/zhangkn/44615635ba9e0f8da899636dfee6d89a.js"></script>
 
 
+>* 获取url 的正则
+><script src="https://gist.github.com/zhangkn/bf22f38864d0dafbf2ba656ac875c773.js"></script>
+>
 
 # See Also 
 
