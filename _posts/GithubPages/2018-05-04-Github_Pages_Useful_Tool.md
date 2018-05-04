@@ -19,7 +19,17 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 > 4)  gist.github.com: 提高代码的阅读行性，以及提升markdown的文章的精简性。
 >```
 >
+
+# ImageOptim
+
+>* [ImageOptim/ImageOptim](https://github.com/ImageOptim/ImageOptim/blob/master/imageoptim/ImageOptimController.m#L324-L326)
+>* /Users/devzkn/Downloads/kevinsoftware/ImageOptim.app/Contents/MacOS/ImageOptim
+>```
+>devzkndeMacBook-Pro:MacOS devzkn$ ImageOptim
+2018-05-04 16:43:01.853 ImageOptim[3051:2147753] Results cache is in /Users/devzkn/Library/Caches/net.pornel.ImageOptim/Results.db
+>```
 >
+
 # macdown
 
 >* macdown 的默认打开路径

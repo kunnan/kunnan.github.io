@@ -140,15 +140,22 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 >* 简介
 ><script src="https://gist.github.com/zhangkn/e9329307c6157ffbee887c31b68c1e71.js"></script>
 >
+
+###### 1.4.0  NSOperation的子类
+
 >* NSOperation的子类
 ><script src="https://gist.github.com/zhangkn/773fc2ac01f3bca0c3fd0e3e732d35bc.js"></script>
 >
->* NSInvocationOperation
+>* 1) NSInvocationOperation
 >*<script src="https://gist.github.com/zhangkn/df65374e11c7b5faf59788aa6c9609cf.js"></script>
->* NSBlockOperation
+>* 2) NSBlockOperation
 ><script src="https://gist.github.com/zhangkn/2cc795f85b78906cd9de9190440b04f4.js"></script>
+>* 3)自定义子类继承NSOperation，实现内部相应
+><script src="https://gist.github.com/zhangkn/320cd4b419773bdcc4b4ba694acbb682.js"></script>
 >* NSOperationQueue
 ><script src="https://gist.github.com/zhangkn/368499394d23c40d7f9f1e294dcd0386.js"></script>
+>
+
 
 ###### 1.4.1 NSOperation的方法
 
@@ -159,13 +166,15 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 >* 操作依赖
 ><script src="https://gist.github.com/zhangkn/b1d75ca60e1031abae1891d0dd139946.js"></script>
 
-###### 1.4.2 cell下载图片思路 – 用沙盒缓存（使用md5生成图片名称，保证唯一）
+###### 1.4.2 cell下载图片思路 – 用沙盒缓存（使用md5生成图片名称，保证唯一；或者使用url）
 
->* 使用operations实现下载操作
->
-
-
-
+>* [使用operations实现下载操作](https://gist.github.com/zhangkn/711d92f07041ed0e392085cbeb588641)
+>![](https://ws3.sinaimg.cn/large/006tKfTcgy1fqzd4ef8ytj30yv0l0adj.jpg)
+><script src="https://gist.github.com/zhangkn/711d92f07041ed0e392085cbeb588641.js"></script>
+>* [SDWebImage](https://github.com/rs/SDWebImage)
+>```
+>图片下载、图片缓存、下载进度监听、gif处理
+>```
 
 
 # II、RunLoop 与线程的关系
@@ -177,75 +186,57 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 >![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqz9jav6rjg306k05g741.gif)
 >
 
+>* CFRunLoop是基于pthread来管理的。
+
+>* 苹果不允许直接创建 RunLoop，它只提供了两个自动获取的函数：`CFRunLoopGetMain()` 和 `CFRunLoopGetCurrent()`。
+><script src="https://gist.github.com/zhangkn/17ee74e1af575bc7253562a064b6e64a.js"></script>
 
 
-苹果并没有提供这两个对象相互转换的接口，但不管怎么样，可以肯定的是 pthread_t 和 NSThread 是一一对应的。比如，你可以通过 `pthread_main_thread_np()` 或 `[NSThread mainThread]` 来获取主线程；也可以通过 `pthread_self()` 或 `[NSThread currentThread]` 来获取当前线程。CFRunLoop 是基于 pthread 来管理的。
 
-苹果不允许直接创建 RunLoop，它只提供了两个自动获取的函数：`CFRunLoopGetMain()` 和 `CFRunLoopGetCurrent()`。 这两个函数内部的逻辑大概是下面这样:
+# III、RunLoop 对外的接口
 
 
+
+#### 3.0 NSRunLoop
+
+>* NSRunLoop.h
+><script src="https://gist.github.com/zhangkn/fb417fb401bfd8f2346cc5efd7acaf6f.js"></script>
+>
+
+#### 3.1 CFRunLoop.h
+
+>* [CFRunLoop.c](https://github.com/apple/swift-corelibs-foundation/blob/master/CoreFoundation%2FRunLoop.subproj%2FCFRunLoop.c#L1948-L1980)
+>```
+>https://github.com/iossrc/swift-corelibs-foundation
+>```
+
+>* `#import <CoreFoundation/CFRunLoop.h>`关于RunLoop有5个类:
+> <script src="https://gist.github.com/zhangkn/ab5698d096e394f81434b77cf82e80ec.js"></script>
+> ![RunLoop 有5个类的关系](https://ws3.sinaimg.cn/large/006tKfTcgy1fqzeit62ncj30pa0jugm5.jpg)
+>* `CFRunLoopSourceContext`、`CFRunLoopTimerContext`、`CFRunLoopObserverContext`struct
+><script src="https://gist.github.com/zhangkn/1f437a306ac3fd0779b483a6d187dfeb.js"></script>
+>```
+1)一个 RunLoop 包含若干个 Mode，每个 Mode 又包含若干个 Source/Timer/Observer。
+2)每次调用 RunLoop 的主函数时，只能指定其中一个 Mode，这个Mode被称作 CurrentMode。如果需要切换 Mode，只能退出 Loop，再重新指定一个 Mode 进入。---这样做主要是为了分隔开不同组的 Source/Timer/Observer，让其互不影响。
 ```
-/// 全局的Dictionary，key 是 pthread_t， value 是 CFRunLoopRef
-static CFMutableDictionaryRef loopsDic;
-/// 访问 loopsDic 时的锁
-static CFSpinLock_t loopsLock;
- 
-/// 获取一个 pthread 对应的 RunLoop。
-CFRunLoopRef _CFRunLoopGet(pthread_t thread) {
-    OSSpinLockLock(&loopsLock);
-    
-    if (!loopsDic) {
-        // 第一次进入时，初始化全局Dic，并先为主线程创建一个 RunLoop。
-        loopsDic = CFDictionaryCreateMutable();
-        CFRunLoopRef mainLoop = _CFRunLoopCreate();
-        CFDictionarySetValue(loopsDic, pthread_main_thread_np(), mainLoop);
-    }
-    
-    /// 直接从 Dictionary 里获取。
-    CFRunLoopRef loop = CFDictionaryGetValue(loopsDic, thread));
-    
-    if (!loop) {
-        /// 取不到时，创建一个
-        loop = _CFRunLoopCreate();
-        CFDictionarySetValue(loopsDic, thread, loop);
-        /// 注册一个回调，当线程销毁时，顺便也销毁其对应的 RunLoop。
-        _CFSetTSD(..., thread, loop, __CFFinalizeRunLoop);
-    }
-    
-    OSSpinLockUnLock(&loopsLock);
-    return loop;
-}
- 
-CFRunLoopRef CFRunLoopGetMain() {
-    return _CFRunLoopGet(pthread_main_thread_np());
-}
- 
-CFRunLoopRef CFRunLoopGetCurrent() {
-    return _CFRunLoopGet(pthread_self());
-}
-```
-从上面的代码可以看出，线程和 RunLoop 之间是一一对应的，其关系是保存在一个全局的 Dictionary 里。线程刚创建时并没有 RunLoop，如果你不主动获取，那它一直都不会有。RunLoop 的创建是发生在第一次获取时，RunLoop 的销毁是发生在线程结束时。你只能在一个线程的内部获取其 RunLoop（主线程除外）。
 
-## RunLoop 对外的接口
 
-在 CoreFoundation 里面关于 RunLoop 有5个类:
+###### 3.1.1 CFRunLoopSourceRef
 
-- CFRunLoopRef
-- CFRunLoopModeRef
-- CFRunLoopSourceRef
-- CFRunLoopTimerRef
-- CFRunLoopObserverRef
+>* **CFRunLoopSourceRef** 是事件产生的地方。
+>* Source 有两个版本：Source0 和 Source1。
+><script src="https://gist.github.com/zhangkn/16ca7977483f807e1bca2da787f1f515.js"></script>
+>```
+>1)Source0 只包含了一个回调（函数指针），它并不能主动触发事件。使用时，你需要先调用 `CFRunLoopSourceSignal(source)`，将这个 Source 标记为待处理，然后手动调用 `CFRunLoopWakeUp(runloop)` 来唤醒 RunLoop，让其处理这个事件。
+>2)Source1 包含了一个 mach_port 和一个回调（函数指针），被用于通过内核和其他线程相互发送消息。这种 Source 能主动唤醒 RunLoop 的线程
+>```
 
-其中 CFRunLoopModeRef 类并没有对外暴露，只是通过 CFRunLoopRef 的接口进行了封装。他们的关系如下:
+>* [Source0的例子：运行runLoop 一次，阻塞当前线程以等待处理一次输入源](https://gist.github.com/zhangkn/2721a43436676e15c8f8be497dac9901)
+><script src="https://gist.github.com/zhangkn/2721a43436676e15c8f8be497dac9901.js"></script>
 
-![RunLoop 有5个类的关系](http://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_0.png)
+>* [CFUserNotificationCreateRunLoopSource](https://developer.apple.com/documentation/corefoundation/1534507-cfusernotificationcreaterunloops?language=objc)
+>
 
-一个 RunLoop 包含若干个 Mode，每个 Mode 又包含若干个 Source/Timer/Observer。每次调用 RunLoop 的主函数时，只能指定其中一个 Mode，这个Mode被称作 CurrentMode。如果需要切换 Mode，只能退出 Loop，再重新指定一个 Mode 进入。这样做主要是为了分隔开不同组的 Source/Timer/Observer，让其互不影响。
-
-**CFRunLoopSourceRef** 是事件产生的地方。Source 有两个版本：Source0 和 Source1。
-
-- Source0 只包含了一个回调（函数指针），它并不能主动触发事件。使用时，你需要先调用 `CFRunLoopSourceSignal(source)`，将这个 Source 标记为待处理，然后手动调用 `CFRunLoopWakeUp(runloop)` 来唤醒 RunLoop，让其处理这个事件。
-- Source1 包含了一个 mach_port 和一个回调（函数指针），被用于通过内核和其他线程相互发送消息。这种 Source 能主动唤醒 RunLoop 的线程，其原理在下面会讲到。
 
 **CFRunLoopTimerRef** 是基于时间的触发器，它和 NSTimer 是toll-free bridged 的，可以混用。其包含一个时间长度和一个回调（函数指针）。当其加入到 RunLoop 时，RunLoop会注册对应的时间点，当时间点到时，RunLoop会被唤醒以执行那个回调。
 
