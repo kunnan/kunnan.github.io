@@ -355,13 +355,15 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 >https://gist.github.com/zhangkn/e10655836d6cd025847ec46e0fa88cc0.js
 >```
 
->* [code](https://gist.github.com/zhangkn/e10655836d6cd025847ec46e0fa88cc0)
+>* [Apple touch icon:code](https://gist.github.com/zhangkn/e10655836d6cd025847ec46e0fa88cc0)
 
 
 >* [Then include the following code in the head of your HTML document.](https://www.favicon-generator.org/)
 >```
 >https://gist.github.com/zhangkn/14a2342ae648f8216afb85465ffd8778
 >```
+>* [favicon-generator: code](https://gist.github.com/zhangkn/14a2342ae648f8216afb85465ffd8778)
+
 
 ### 关于收到"Page Build Warning"的 Email
 
