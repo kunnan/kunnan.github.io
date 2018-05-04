@@ -377,10 +377,7 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 <link rel="manifest" href="/manifest.json">
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
-```
->
->
+<meta name="theme-color" content="#ffffff">```
 
 
 ### 关于收到"Page Build Warning"的 Email
