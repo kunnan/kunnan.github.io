@@ -3,25 +3,27 @@ layout:     post
 title:      Objective-C：RunLoop
 subtitle:   深入理解RunLoop
 date:       2016-11-28
-author:     BY
+author:     
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
     - iOS
     - RunLoop
-    - Obj-C
 ---
 
-# 深入理解RunLoop
->本文转自：[《深入理解RunLoop》](http://blog.ibireme.com/2015/05/18/runloop/)
+
 
 # 前言
 
-RunLoop 是 iOS 和 OSX 开发中非常基础的一个概念，这篇文章将从 CFRunLoop 的源码入手，介绍 RunLoop 的概念以及底层实现原理。之后会介绍一下在 iOS 中，苹果是如何利用 RunLoop 实现自动释放池、延迟回调、触摸事件、屏幕刷新等功能的。
+苹果是利用 RunLoop 实现自动释放池、延迟回调、触摸事件、屏幕刷新等功能的。
 
-# 目录
+>* [Technical Notes](https://developer.apple.com/library/content/navigation/index.html#section=Resource%20Types&topic=Technical%20Notes)
+>* [Inter-processCommunicationByRrocketbootstrap](https://zhangkn.github.io/2018/01/Inter-processCommunicationByRrocketbootstrap/)
 
-- RunLoop 的概念
+
+
+####  目录
+
 - RunLoop 与线程的关系
 - RunLoop 对外的接口
 - RunLoop 的 Mode
@@ -41,38 +43,116 @@ RunLoop 是 iOS 和 OSX 开发中非常基础的一个概念，这篇文章将�
 	- AsyncDisplayKit
 	
 
-# 正文
-## RunLoop 的概念
+####  RunLoop 的概念
 
-一般来讲，一个线程一次只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时处理事件但并不退出，通常的代码逻辑是这样的：
-
+>* 如何管理事件/消息，如何让线程在没有处理消息时休眠以避免资源占用、在有消息到来时立刻被唤醒。
+>```
+>1） RunLoop 实际上就是一个对象，这个对象管理了其需要处理的事件和消息，并提供了一个入口函数来执行Event Loop 的逻辑。
+>2） 线程执行了这个函数后，就会一直处于这个函数内部 "接受消息->等待->处理" 的循环中，直到这个循环结束（激活触发退出循环的条件，函数返回。
+>3） OSX/iOS 系统中，提供了两个这样的对象：CFRunLoopRef（CoreFoundation，提供了纯 C 函数的 API，所有这些 API 都是线程安全的）。
+>NSRunLoop(基于 CFRunLoopRef 的封装，提供的 API不是线程安全的)
 ```
-function loop() {
-    initialize();
-    do {
-        var message = get_next_message();
-        process_message(message);
-    } while (message != quit);
-}
+>* [CFRunLoopRef 的代码开源](https://opensource.apple.com/source/CF/CF-855.17/CFRunLoop.c)
+>* [可以在这里](http://opensource.apple.com/tarballs/CF/)下载到整个 `CoreFoundation` 的源码来查看。
+>* note: Swift 开源后，苹果又维护了[一个跨平台的 CoreFoundation 版本](https://github.com/apple/swift-corelibs-foundation/)适配了 `Linux/Windows`.
+
+
+# I、RunLoop 与线程的关系
+
+
+
+>* [how Mac OS threading works](https://www.fenestrated.net/mac/mirrors/Apple%20Technotes%20(As%20of%202002)/tn/tn2028.html)
+>* Mac OS X thread layering hierarchy
+>![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqz9jav6rjg306k05g741.gif)
+
+#### 1、1 pthread_t
+
+>* pthread_t 的定义和演示
+><script src="https://gist.github.com/zhangkn/47240bde3df9d3b2b6b76ce6cd6d1338.js"></script>
+
+
+#### 1、2 NSThread
+
+
+一个NSThread对象就代表一条线程
+
+>*  [创建、启动NSThread线程](https://gist.github.com/zhangkn/3e265030afdd521faed4d7a152666dc0)
+><script src="https://gist.github.com/zhangkn/3e265030afdd521faed4d7a152666dc0.js"></script>
+>
+
+>* 线程的状态
+>![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqza209j8tj30w20gpq4u.jpg)
+
+>* [控制线程状态](https://gist.github.com/zhangkn/fca416497b52eabfe260f7a898b91436)
+><script src="https://gist.github.com/zhangkn/fca416497b52eabfe260f7a898b91436.js"></script>
+
+>* [原子和非原子属性](https://gist.github.com/zhangkn/cd4f098321241830d3d7e1601a9ddd3a)
+><script src="https://gist.github.com/zhangkn/cd4f098321241830d3d7e1601a9ddd3a.js"></script>
+>
+>* [线程间通信](https://zhangkn.github.io/2018/01/Inter-processCommunicationByRrocketbootstrap/)
+>
+>
+
+#### 1、3 GCD（Grand Central Dispatch）
+
+>* 纯C语言，提供了非常多强大的函数。GCD是苹果公司为多核的并行运算提出的解决方案
+>```
+>GCD会自动利用更多的CPU内核（比如双核、四核）
+>GCD会自动管理线程的生命周期（创建线程、调度任务、销毁线程）
+>程序员只需要告诉GCD想要执行什么任务，不需要编写任何线程管理代码
+>```
+
+###### 1、3、1 任务和队列
+
+>* GCD中有2个核心概念
+>```
+任务：执行什么操作
+队列：用来存放任务
 ```
 
-这种模型通常被称作 [Event Loop](https://en.wikipedia.org/wiki/Event_loop)。 Event Loop 在很多系统和框架里都有实现，比如 Node.js 的事件处理，比如 Windows 程序的消息循环，再比如 OSX/iOS 里的 RunLoop。实现这种模型的关键点在于：如何管理事件/消息，如何让线程在没有处理消息时休眠以避免资源占用、在有消息到来时立刻被唤醒。
+>* GCD的使用就2个步骤
+>```
+1)定制任务:确定想做的事情
+2) 将任务添加到队列中: 
+GCD会自动将队列中的任务取出，放到对应的线程中执行
+任务的取出遵循队列的FIFO原则：先进先出，后进后出
+```
+>* [执行任务](https://gist.github.com/zhangkn/5202b338dee49adbf373fb7efaf0b33c)
+><script src="https://gist.github.com/zhangkn/5202b338dee49adbf373fb7efaf0b33c.js"></script>
+>
 
-所以，RunLoop 实际上就是一个对象，这个对象管理了其需要处理的事件和消息，并提供了一个入口函数来执行上面 Event Loop 的逻辑。线程执行了这个函数后，就会一直处于这个函数内部 "接受消息->等待->处理" 的循环中，直到这个循环结束（比如传入 quit 的消息），函数返回。
+>* [队列的类型：Concurrent Dispatch Queue、Serial Dispatch Queue](https://gist.github.com/zhangkn/3e24418985f4895c41fd3a5fc0162bc4)
+><script src="https://gist.github.com/zhangkn/3e24418985f4895c41fd3a5fc0162bc4.js"></script>
+>
+>* 各种队列的执行效果
+>![](https://ws2.sinaimg.cn/large/006tKfTcly1fqzbb4cazdj30w40fb75g.jpg)
+>* [线程间通信示例](https://gist.github.com/zhangkn/37a271df3bbd39860f9476ab92843707)
+><script src="https://gist.github.com/zhangkn/37a271df3bbd39860f9476ab92843707.js"></script>
+>
+>* 延时执行
+><script src="https://gist.github.com/zhangkn/1600550a7f70b86dd951e3efd0fbea18.js"></script>
+>* 一次性代码
+><script src="https://gist.github.com/zhangkn/3c37b8db36f2086d12d0142315f7c39e.js"></script>
+>* [队列组:等2个异步操作都执行完毕后，再回到主线程执行操作](https://gist.github.com/zhangkn/91ba86f7ace93e7c744d437fafc4d1e5)
+><script src="https://gist.github.com/zhangkn/91ba86f7ace93e7c744d437fafc4d1e5.js"></script>
+>* [单例模式](https://github.com/zhangkn/KNIosCommonTool/blob/master/KNIosCommonTool/Classes/PublicInterface/HSSingleton.h)
+>```
+>pod KNIosCommonTool
+>```
+><script src="https://gist.github.com/zhangkn/9f90f6e4f32e104a18b3473b2e40cf4f.js"></script>
+>
 
-OSX/iOS 系统中，提供了两个这样的对象：NSRunLoop 和 CFRunLoopRef。
 
-CFRunLoopRef 是在 CoreFoundation 框架内的，它提供了纯 C 函数的 API，所有这些 API 都是线程安全的。
 
-NSRunLoop 是基于 CFRunLoopRef 的封装，提供了面向对象的 API，但是这些 API 不是线程安全的。
 
-CFRunLoopRef 的代码是[开源](https://opensource.apple.com/source/CF/CF-855.17/CFRunLoop.c)的，你可以在[这里](http://opensource.apple.com/tarballs/CF/)下载到整个 CoreFoundation 的源码来查看。
 
-(Update: Swift 开源后，苹果又维护了一个跨平台的 CoreFoundation 版本：<https://github.com/apple/swift-corelibs-foundation/>，这个版本的源码可能和现有 iOS 系统中的实现略不一样，但更容易编译，而且已经适配了 Linux/Windows。) 
 
-## RunLoop 与线程的关系
 
-首先，iOS 开发中能遇到两个线程对象: pthread_t 和 NSThread。过去苹果有份[文档](http://www.fenestrated.net/~macman/mirrors/Apple%20Technotes%20(As%20of%202002)/tn/tn2028.html)标明了 NSThread 只是 pthread_t 的封装，但那份文档已经失效了，现在它们也有可能都是直接包装自最底层的 mach thread。苹果并没有提供这两个对象相互转换的接口，但不管怎么样，可以肯定的是 pthread_t 和 NSThread 是一一对应的。比如，你可以通过 `pthread_main_thread_np()` 或 `[NSThread mainThread]` 来获取主线程；也可以通过 `pthread_self()` 或 `[NSThread currentThread]` 来获取当前线程。CFRunLoop 是基于 pthread 来管理的。
+
+
+
+
+苹果并没有提供这两个对象相互转换的接口，但不管怎么样，可以肯定的是 pthread_t 和 NSThread 是一一对应的。比如，你可以通过 `pthread_main_thread_np()` 或 `[NSThread mainThread]` 来获取主线程；也可以通过 `pthread_self()` 或 `[NSThread currentThread]` 来获取当前线程。CFRunLoop 是基于 pthread 来管理的。
 
 苹果不允许直接创建 RunLoop，它只提供了两个自动获取的函数：`CFRunLoopGetMain()` 和 `CFRunLoopGetCurrent()`。 这两个函数内部的逻辑大概是下面这样:
 
@@ -721,4 +801,9 @@ UI对象操作通常包括 UIView/CALayer 等 UI 对象的创建、设置属性�
 
 ASDK 仿照 QuartzCore/UIKit 框架的模式，实现了一套类似的界面更新的机制：即在主线程的 RunLoop 中添加一个 Observer，监听了 kCFRunLoopBeforeWaiting 和 kCFRunLoopExit 事件，在收到回调时，遍历所有之前放入队列的待处理的任务，然后一一执行。
 具体的代码可以看这里[_ASAsyncTransactionGroup](https://github.com/facebook/AsyncDisplayKit/blob/master/AsyncDisplayKit%2FDetails%2FTransactions%2F_ASAsyncTransactionGroup.m)。
+
+
+# see also
+
+>* [《深入理解RunLoop》](http://blog.ibireme.com/2015/05/18/runloop/)
 
