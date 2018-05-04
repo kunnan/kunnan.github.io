@@ -354,11 +354,10 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 >```
 ><script src="https://gist.github.com/zhangkn/e10655836d6cd025847ec46e0fa88cc0.js"></script>
 ```
-> [code](https://gist.github.com/zhangkn/e10655836d6cd025847ec46e0fa88cc0)
-> 
+>* [code](https://gist.github.com/zhangkn/e10655836d6cd025847ec46e0fa88cc0)
 
->* [. Then include the following code in the head of your HTML document.](https://www.favicon-generator.org/)
->
+
+>* [Then include the following code in the head of your HTML document.](https://www.favicon-generator.org/)
 >```<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -377,6 +376,7 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 >```
+
 
 ### 关于收到"Page Build Warning"的 Email
 
