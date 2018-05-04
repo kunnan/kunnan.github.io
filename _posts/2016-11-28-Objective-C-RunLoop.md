@@ -56,15 +56,7 @@ tags:
 >* [可以在这里](http://opensource.apple.com/tarballs/CF/)下载到整个 `CoreFoundation` 的源码来查看。
 >* note: Swift 开源后，苹果又维护了[一个跨平台的 CoreFoundation 版本](https://github.com/apple/swift-corelibs-foundation/)适配了 `Linux/Windows`.
 
-
-# I、RunLoop 与线程的关系
-
-
-
->* [how Mac OS threading works](https://www.fenestrated.net/mac/mirrors/Apple%20Technotes%20(As%20of%202002)/tn/tn2028.html)
->* Mac OS X thread layering hierarchy
->![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqz9jav6rjg306k05g741.gif)
-
+# I、 多线程
 #### 1、1 pthread_t
 
 >* pthread_t 的定义和演示
@@ -143,12 +135,47 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 >
 
 
+#### 1.4 NSOperation
+
+>* 简介
+><script src="https://gist.github.com/zhangkn/e9329307c6157ffbee887c31b68c1e71.js"></script>
+>
+>* NSOperation的子类
+><script src="https://gist.github.com/zhangkn/773fc2ac01f3bca0c3fd0e3e732d35bc.js"></script>
+>
+>* NSInvocationOperation
+>*<script src="https://gist.github.com/zhangkn/df65374e11c7b5faf59788aa6c9609cf.js"></script>
+>* NSBlockOperation
+><script src="https://gist.github.com/zhangkn/2cc795f85b78906cd9de9190440b04f4.js"></script>
+>* NSOperationQueue
+><script src="https://gist.github.com/zhangkn/368499394d23c40d7f9f1e294dcd0386.js"></script>
+
+###### 1.4.1 NSOperation的方法
+
+>* 操作优先级
+><script src="https://gist.github.com/zhangkn/f6d9dc91b3e352ef770c7ad2d5c204a2.js"></script>
+>* 操作的监听
+><script src="https://gist.github.com/zhangkn/cc80dfdee09346a0c2af33d865898324.js"></script>
+>* 操作依赖
+><script src="https://gist.github.com/zhangkn/b1d75ca60e1031abae1891d0dd139946.js"></script>
+
+###### 1.4.2 cell下载图片思路 – 用沙盒缓存（使用md5生成图片名称，保证唯一）
+
+>* 使用operations实现下载操作
+>
 
 
 
 
 
+# II、RunLoop 与线程的关系
 
+
+
+>* [how Mac OS threading works](https://www.fenestrated.net/mac/mirrors/Apple%20Technotes%20(As%20of%202002)/tn/tn2028.html)
+>* Mac OS X thread layering hierarchy
+>![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqz9jav6rjg306k05g741.gif)
+>
 
 
 
