@@ -18,6 +18,27 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 > 3） MacDown：markdown的编辑工具，支持预览
 > 4)  gist.github.com: 提高代码的阅读行性，以及提升markdown的文章的精简性。
 >```
+>
+>
+# macdown
+
+>* macdown 的默认打开路径
+>![](https://ws2.sinaimg.cn/large/006tKfTcly1fqz2gtklehj30b20bvwf1.jpg)
+
+>* Macdown的命令行工具
+>![](https://ws4.sinaimg.cn/large/006tKfTcly1fqz2gtfh7zj309e06tt8w.jpg)
+![](https://ws4.sinaimg.cn/large/006tKfTcly1fqz2gt8v1tj309w06z3yq.jpg)
+>```
+>devzkndeMacBook-Pro:kunnan.github.io.git devzkn$ macdown --help
+usage: macdown [file ...]
+Options:
+-v --version Print the version and exit. 
+-h --help    Print this help message and exit. 
+>```
+>
+
+>* [macdown 打开文档的方式](https://gist.github.com/zhangkn/7357c847faa86741cb49d136420b2f37)
+><script src="https://gist.github.com/zhangkn/7357c847faa86741cb49d136420b2f37.js"></script>
 
 
 # ipic
