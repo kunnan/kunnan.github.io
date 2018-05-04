@@ -351,19 +351,8 @@ ga_domain:			# 默认的是 auto, 这里自定义的域名，如果没有自己�
 ### Apple touch icon
 
 >* [Apple touch icon(Safari Webpage Icon)](https://www.favicon-generator.org/)
->
->```
->
->作用类似于favicon，也用来标识网站。Apple touch icon一般是png
-><link rel="apple-touch-startup-image" href="/images/ConfiguringWebApplications/launch.jpeg">
-    <link rel="apple-touch-icon" href="{{ site.baseurl }}/img/apple-touch-icon.png">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <!-- 隐藏状态栏  Changing the Status Bar Appearance  in standalone mode like that of a native application /指定的iphone中safari顶端的状态条的样式  -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <!-- Adding a Launch Icon Title -->
-    <meta name="apple-mobile-web-app-title" content="iosre">
->```
+><script src="https://gist.github.com/zhangkn/e10655836d6cd025847ec46e0fa88cc0.js"></script>
+
 
 >* [. Then include the following code in the head of your HTML document.](https://www.favicon-generator.org/)
 >
