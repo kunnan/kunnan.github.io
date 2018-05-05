@@ -15,7 +15,18 @@ tags:
 
 # 前言
 
-苹果是利用 RunLoop 实现自动释放池、延迟回调、触摸事件、屏幕刷新等功能的。
+>* Both Cocoa and Core Foundation provide run loop objects to help you configure and manage your thread’s run loop. 
+>```
+苹果利用 RunLoop 实现自动释放池、延迟回调、触摸事件、屏幕刷新等功能的。
+```
+
+>* [Run Loops](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW23)
+>
+>
+>* [NSRunLoop Class Reference ](https://developer.apple.com/documentation/foundation/runloop)
+>  [CFRunLoop Reference](https://developer.apple.com/documentation/corefoundation/cfrunloop)
+
+
 
 >* [Technical Notes](https://developer.apple.com/library/content/navigation/index.html#section=Resource%20Types&topic=Technical%20Notes)
 >* [Inter-processCommunicationByRrocketbootstrap](https://zhangkn.github.io/2018/01/Inter-processCommunicationByRrocketbootstrap/)
@@ -43,10 +54,17 @@ tags:
 	- AsyncDisplayKit
 	
 
-####  RunLoop 的概念
+####  [RunLoop 的概念](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW23)
+
+
+>* A run loop is an event processing loop that you use to schedule work and coordinate the receipt of incoming events.
+>```
+> The purpose of a run loop is to keep your thread busy when there is work to do and put your thread to sleep when there is none.
+> ```
 
 >* 如何管理事件/消息，如何让线程在没有处理消息时休眠以避免资源占用、在有消息到来时立刻被唤醒。
 >```
+>The programmatic interface to objects that manage input sources.
 >1） RunLoop 实际上就是一个对象，这个对象管理了其需要处理的事件和消息，并提供了一个入口函数来执行Event Loop 的逻辑。
 >2） 线程执行了这个函数后，就会一直处于这个函数内部 "接受消息->等待->处理" 的循环中，直到这个循环结束（激活触发退出循环的条件，函数返回。
 >3） OSX/iOS 系统中，提供了两个这样的对象：CFRunLoopRef（CoreFoundation，提供了纯 C 函数的 API，所有这些 API 都是线程安全的）。
@@ -57,6 +75,14 @@ tags:
 >* note: Swift 开源后，苹果又维护了[一个跨平台的 CoreFoundation 版本](https://github.com/apple/swift-corelibs-foundation/)适配了 `Linux/Windows`.
 
 # I、 多线程
+
+>*  Your application does not need to create these objects explicitly; 
+>```
+>1)each thread, including the application’s main thread, has an associated run loop object. 
+>2)Only secondary threads need to run their run loop explicitly, however. The app frameworks automatically set up and run the run loop on the main thread as part of the application startup proces
+>```
+
+
 #### 1、1 pthread_t
 
 >* pthread_t 的定义和演示
@@ -179,6 +205,10 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 
 # II、RunLoop 与线程的关系
 
+>* Run loops are part of the fundamental infrastructure associated with threads
+>```
+> A run loop is an event processing loop that you use to schedule work and coordinate the receipt of incoming events. The purpose of a run loop is to keep your thread busy when there is work to do and put your thread to sleep when there is none.
+>```
 
 
 >* [how Mac OS threading works](https://www.fenestrated.net/mac/mirrors/Apple%20Technotes%20(As%20of%202002)/tn/tn2028.html)
@@ -197,11 +227,58 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 
 
 
-#### 3.0 NSRunLoop
+#### 3.0 [NSRunLoop](https://developer.apple.com/documentation/foundation/runloop)
 
->* NSRunLoop.h
+The programmatic interface to objects that manage input sources.
+
+
+>* [NSRunLoop.h](https://developer.apple.com/documentation/foundation/nsrunloop?language=objc)
 ><script src="https://gist.github.com/zhangkn/fb417fb401bfd8f2346cc5efd7acaf6f.js"></script>
 >
+>
+
+###### 3.0.1 Overview
+
+A NSRunLoop object processes input for sources such as mouse and keyboard events from the `window system`, [`NSPort objects`](https://developer.apple.com/documentation/foundation/nsport?language=objc), and [`NSConnection objects`](https://developer.apple.com/documentation/foundation/nsconnection?language=objc). A NSRunLoop object also processes[` NSTimer events`](https://developer.apple.com/documentation/foundation/nstimer?language=objc)
+
+>* Your application neither creates or explicitly manages NSRunLoop objects.
+>```
+> Each NSThread object—including the application’s main thread—has an NSRunLoop object automatically created for it as needed. If you need to access the current thread’s run loop, you do so with the class method currentRunLoop.
+>```
+>* Note that from the perspective of NSRunLoop
+>```
+> NSTimer objects are not "input"—they are a special type, and one of the things that means is that they do not cause the run loop to return when they fire.
+>```
+
+
+>* Warning: The `NSRunLoop `class is generally not considered to be thread-safe and its methods should only be called within the context of the current thread.
+>
+>
+
+###### 3.0.2 [Topics](https://developer.apple.com/documentation/foundation/nsrunloop?language=objc)
+
+>* Accessing Run Loops and Modes
+><script src="https://gist.github.com/zhangkn/6e6f0f5867ede44bdfaac2ee6c655323.js"></script>
+>* Managing Timers
+>```
+>1)addTimer:forMode:
+>Registers a given timer with a given input mode.
+>2) Discussion:
+>You can add a timer to multiple input modes
+>```
+>* Managing Ports
+><script src="https://gist.github.com/zhangkn/c270c28bed01f6e1109a1d3270ca2643.js"></script>
+>
+
+
+
+###### 3.0.3 See Also
+
+>* Run Loop Scheduling
+>```
+>NSTimer: A timer that fires after a certain time interval has elapsed, sending a specified message to a target object.
+>```
+
 
 #### 3.1 CFRunLoop.h
 
@@ -241,72 +318,86 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 >
 
 
-**CFRunLoopTimerRef** 是基于时间的触发器，它和 NSTimer 是toll-free bridged 的，可以混用。其包含一个时间长度和一个回调（函数指针）。当其加入到 RunLoop 时，RunLoop会注册对应的时间点，当时间点到时，RunLoop会被唤醒以执行那个回调。
+###### 3.1.2  CFRunLoopTimerRef
 
-**CFRunLoopObserverRef** 是观察者，每个 Observer 都包含了一个回调（函数指针），当 RunLoop 的状态发生变化时，观察者就能通过回调接受到这个变化。可以观测的时间点有以下几个：
 
+>* **CFRunLoopTimerRef** 是基于时间的触发器，它和 NSTimer 是toll-free bridged 的，可以混用。
+>```其包含一个时间长度和一个回调（函数指针）。
+>当其加入到 RunLoop 时，RunLoop会注册对应的时间点，当时间点到时，RunLoop会被唤醒以执行那个回调。
+>```
+><script src="https://gist.github.com/zhangkn/dc035d074cc80a31d8417e7be11bc5d8.js"></script>
+>
+
+
+###### 3.2.3 CFRunLoopObserverRef
+
+>* **CFRunLoopObserverRef** 是观察者，每个 Observer 都包含了一个回调（函数指针）
+><script src="https://gist.github.com/zhangkn/2d32f6bbe5a09f338355e0049334132c.js"></script>
+>
+
+
+###### 3.2.4 mode item
+
+>* `Source`/`Timer`/`Observer` 被统称为 `mode item`，
+>```
+>一个 item 可以被同时加入多个 mode。
+>但一个 item 被重复加入同一个 mode 时是不会有效果的。如果一个 mode 中一个 item 都没有，则 RunLoop 会直接退出，不进入循环
+>```
+
+>* 小结
+>```
+>1)一个 RunLoop 包含若干个 Mode，每个 Mode 又包含若干个 Source/Timer/Observer。
+2)每次调用 RunLoop 的主函数时，只能指定其中一个 Mode，这个Mode被称作 CurrentMode。如果需要切换 Mode，只能退出 Loop，再重新指定一个 Mode 进入。---这样做主要是为了分隔开不同组的 Source/Timer/Observer，让其互不影响。
+>```
+
+
+# IV、 RunLoop 的 Mode
+
+>* [swift-corelibs-foundation/CoreFoundation/RunLoop.subproj/CFRunLoop.c](https://github.com/apple/swift-corelibs-foundation/blob/386f3a5d71dc51845abddbf8c2ffb3179cd5cc89/CoreFoundation/RunLoop.subproj/CFRunLoop.c)
+>* CFRunLoopMode结构
+><script src="https://gist.github.com/zhangkn/acecc505d64fd8741072e0cee6195f23.js"></script>
+>* CFRunLoop 的结构大致如下：
+><script src="https://gist.github.com/zhangkn/6d567a95877cac9839f029c9342bf148.js"></script>
+
+
+>* 重要概念`CommonModes`：
+>```
+>1)一个 Mode 可以将自己标记为"Common"属性（通过将其 ModeName 添加到 RunLoop 的 "commonModes" 中）。
+>2)每当 RunLoop 的内容发生变化时，RunLoop 都会自动将 _commonModeItems 里的 Source/Observer/Timer 同步到具有 "Common" 标记的所有Mode里。
+>```
+
+#### 4.1 CFRunLoop对外暴露的管理 Mode 接口只有下面2个:
+
+>* CFRunLoop对外暴露的管理 Mode 接口只有下面2个
+><script src="https://gist.github.com/zhangkn/968e4509c6b3468f9ed17f35a0aebeb5.js"></script>
+
+
+
+
+#### 4.2 Mode 暴露的管理 mode item 的接口有下面几个：
+
+
+
+>* Mode 暴露的管理 mode item 的接口
+><script src="https://gist.github.com/zhangkn/200ef53dff04e5265c83475c393fc1b2.js"></script>
+
+>* 苹果公开提供的 Mode 有两个：`kCFRunLoopDefaultMode (NSDefaultRunLoopMode)` 和 `UITrackingRunLoopMode`，你可以用这两个 Mode Name 来操作其对应的 Mode。
+><script src="https://gist.github.com/zhangkn/efe456e8efa85f79718f26e359a5a4cf.js"></script>
+
+
+#### 4.3 同时苹果还提供了一个操作 Common 标记的字符串：
+
+>* `kCFRunLoopCommonModes (NSRunLoopCommonModes)`，你可以用这个字符串来操作 Common Items，或标记一个 Mode 为 "Common"。使用时注意区分这个字符串和其他 mode name。
+>
+>
+
+
+# V、RunLoop 的内部逻辑
+
+>* Run loop management is not entirely automatic.
+>``` You must still design your thread’s code to start the run loop at appropriate times and respond to incoming events
 ```
-typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) {
-    kCFRunLoopEntry         = (1UL << 0), // 即将进入Loop
-    kCFRunLoopBeforeTimers  = (1UL << 1), // 即将处理 Timer
-    kCFRunLoopBeforeSources = (1UL << 2), // 即将处理 Source
-    kCFRunLoopBeforeWaiting = (1UL << 5), // 即将进入休眠
-    kCFRunLoopAfterWaiting  = (1UL << 6), // 刚从休眠中唤醒
-    kCFRunLoopExit          = (1UL << 7), // 即将退出Loop
-};
-```
-上面的 Source/Timer/Observer 被统称为 mode item，一个 item 可以被同时加入多个 mode。但一个 item 被重复加入同一个 mode 时是不会有效果的。如果一个 mode 中一个 item 都没有，则 RunLoop 会直接退出，不进入循环
 
-## RunLoop 的 Mode
-
-CFRunLoopMode 和 CFRunLoop 的结构大致如下：
-
-```
-struct __CFRunLoopMode {
-    CFStringRef _name;            // Mode Name, 例如 @"kCFRunLoopDefaultMode"
-    CFMutableSetRef _sources0;    // Set
-    CFMutableSetRef _sources1;    // Set
-    CFMutableArrayRef _observers; // Array
-    CFMutableArrayRef _timers;    // Array
-    ...
-};
- 
-struct __CFRunLoop {
-    CFMutableSetRef _commonModes;     // Set
-    CFMutableSetRef _commonModeItems; // Set<Source/Observer/Timer>
-    CFRunLoopModeRef _currentMode;    // Current Runloop Mode
-    CFMutableSetRef _modes;           // Set
-    ...
-};
-```
-这里有个概念叫 "CommonModes"：一个 Mode 可以将自己标记为"Common"属性（通过将其 ModeName 添加到 RunLoop 的 "commonModes" 中）。每当 RunLoop 的内容发生变化时，RunLoop 都会自动将 _commonModeItems 里的 Source/Observer/Timer 同步到具有 "Common" 标记的所有Mode里。
-
-CFRunLoop对外暴露的管理 Mode 接口只有下面2个:
-
-```
-CFRunLoopAddCommonMode(CFRunLoopRef runloop, CFStringRef modeName);
-CFRunLoopRunInMode(CFStringRef modeName, ...);
-```
-
-Mode 暴露的管理 mode item 的接口有下面几个：
-
-```
-CFRunLoopAddSource(CFRunLoopRef rl, CFRunLoopSourceRef source, CFStringRef modeName);
-CFRunLoopAddObserver(CFRunLoopRef rl, CFRunLoopObserverRef observer, CFStringRef modeName);
-CFRunLoopAddTimer(CFRunLoopRef rl, CFRunLoopTimerRef timer, CFStringRef mode);
-CFRunLoopRemoveSource(CFRunLoopRef rl, CFRunLoopSourceRef source, CFStringRef modeName);
-CFRunLoopRemoveObserver(CFRunLoopRef rl, CFRunLoopObserverRef observer, CFStringRef modeName);
-CFRunLoopRemoveTimer(CFRunLoopRef rl, CFRunLoopTimerRef timer, CFStringRef mode);
-
-```
-
-你只能通过 mode name 来操作内部的 mode，当你传入一个新的 mode name 但 RunLoop 内部没有对应 mode 时，RunLoop会自动帮你创建对应的 CFRunLoopModeRef。对于一个 RunLoop 来说，其内部的 mode `只能增加不能删除`。
-
-苹果公开提供的 Mode 有两个：`kCFRunLoopDefaultMode (NSDefaultRunLoopMode)` 和 `UITrackingRunLoopMode`，你可以用这两个 Mode Name 来操作其对应的 Mode。
-
-同时苹果还提供了一个操作 Common 标记的字符串：`kCFRunLoopCommonModes (NSRunLoopCommonModes)`，你可以用这个字符串来操作 Common Items，或标记一个 Mode 为 "Common"。使用时注意区分这个字符串和其他 mode name。
-
-RunLoop 的内部逻辑
 
 根据苹果在[文档](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW23)里的说明，RunLoop 内部的逻辑大致如下:
 
