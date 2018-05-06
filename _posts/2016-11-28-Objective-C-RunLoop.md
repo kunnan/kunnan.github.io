@@ -860,5 +860,7 @@ RunLoop 调用这个函数去接收消息，如果没有别人发送 port 消息
 
 # see also
 
+>* [Thread_Management](https://kunnan.github.io/2018/05/06/Thread_Management/)
+>
 >* [《深入理解RunLoop》](http://blog.ibireme.com/2015/05/18/runloop/)
 

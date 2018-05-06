@@ -10,6 +10,8 @@ subtitle: an overview of the thread technologies available in OS X and iOS along
 ---
 
 
+
+
 # I、 多线程
 
 
@@ -138,6 +140,58 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 >```
 >图片下载、图片缓存、下载进度监听、gif处理
 >```
+
+
+
+
+# II、Thread Costs
+
+>* The core structures needed to manage your thread and coordinate its scheduling are stored in the kernel using wired memory. 
+>```
+>Your thread’s stack space and per-thread data is stored in your program’s memory space. 
+>Most of these structures are created and initialized when you first create the thread—a process that can be relatively expensive because of the required interactions with the kernel.
+>```
+
+#### 2.1 Thread creation costs
+
+>* Kernel data structures
+>```
+>Approximately 1 KB
+>```
+>* Stack space
+>```
+>512 KB (secondary threads)
+8 MB (OS X main thread)
+1 MB (iOS main thread)
+>```
+>* Creation time
+>```
+>Approximately 90 microseconds
+>```
+>
+>* [ see Concurrency Programming Guide.](https://developer.apple.com/library/content/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008091)
+>
+
+# III、Creating a Thread
+
+>* [For information on how to configure your threads, see Configuring Thread Attributes](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/CreatingThreads/CreatingThreads.html#//apple_ref/doc/uid/10000057i-CH15-SW8)
+>
+
+#### 3.1 Using NSThread
+
+>* There are two ways to create a thread using the NSThread class:
+><script src="https://gist.github.com/zhangkn/bd318f66b45025c6419a166d80f7f96f.js"></script>
+>
+
+
+
+
+
+
+
+
+ 
+
 
 # See Also 
 
