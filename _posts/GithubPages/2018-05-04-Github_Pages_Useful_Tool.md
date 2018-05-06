@@ -20,6 +20,40 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 >```
 >
 
+# 解析域名： `iosre.club` ->`https://kunnan.github.io/`
+
+
+####  添加解析
+>* 管理控制台 → 域名与网站（万网） → 域名
+>```
+>选择你注册好的域名，点击解析
+>```
+>* 添加解析
+>```
+>记录值就是我们博客的IP地址，是 GitHub Pagas 在美国的服务器的地址 
+>devzkndeMacBook-Pro:kunnan.github.io.git devzkn$ ping kunnan.github.io
+PING sni.github.map.fastly.net (185.199.111.153): 56 data bytes
+>```
+>
+>* 要解析 www.iosre.club，请填写 www。主机记录就是域名前缀，常见用法有：
+>```
+1) 要解析 www.iosre.club，请填写 www。
+>2)要解析 iosre.club，请填写 @。
+>3)* 
+>4)mail
+>5) 二级域名
+>6）手机网站：m
+>```
+
+#### 修改CNAME
+
+>* 然后 GitHub Pages 再通过 CNAME记录 跳转到你的主页上。
+>```
+>修改 我们github仓库下的 CNAME 文件
+>在CNAME输入你自己的域名，就可以解析到你的主页了
+>```
+
+
 # ImageOptim
 
 >* [ImageOptim/ImageOptim](https://github.com/ImageOptim/ImageOptim/blob/master/imageoptim/ImageOptimController.m#L324-L326)
