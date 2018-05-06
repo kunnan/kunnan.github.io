@@ -401,15 +401,19 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 #### 3.4 CFRunLoopObserverRef: Run Loop Observers
 
 
+>*  To create a run loop observer, you create a new instance of the CFRunLoopObserverRef opaque type. This type keeps track of your custom callback function and the activities in which it is interested
+
 >* **CFRunLoopObserverRef** 是观察者，每个 Observer 都包含了一个回调（函数指针）
 ><script src="https://gist.github.com/zhangkn/2d32f6bbe5a09f338355e0049334132c.js"></script>
 >
 >* You might use run loop observers to prepare your thread to process a given event or to prepare the thread before it goes to sleep. You can associate run loop observers with the following events in your run loop:
 ><script src="https://gist.github.com/zhangkn/1a990ad34ea7c2dd26d055f8afbdb964.js"></script>
 
+>* [see Configuring the Run Loop](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW18)
+>* [CFRunLoopObserver Reference](https://developer.apple.com/documentation/corefoundation/cfrunloopobserver)
 
 
-###### 3.2.4 mode item
+#### 3.5 mode item
 
 >* `Source`/`Timer`/`Observer` 被统称为 `mode item`，
 >```
@@ -423,6 +427,8 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 2)每次调用 RunLoop 的主函数时，只能指定其中一个 Mode，这个Mode被称作 CurrentMode。如果需要切换 Mode，只能退出 Loop，再重新指定一个 Mode 进入。---这样做主要是为了分隔开不同组的 Source/Timer/Observer，让其互不影响。
 >```
 
+ 
+ 
 
 # IV、 RunLoop 的 Mode
 
@@ -512,7 +518,8 @@ kCFRunLoopCommonModes (Core Foundation)
 >
 
 
-# V、RunLoop 的内部逻辑
+# V、RunLoop的内部逻辑:The Run Loop Sequence of Events
+
 
 >* Run loop management is not entirely automatic.
 >``` You must still design your thread’s code to start the run loop at appropriate times and respond to incoming events
@@ -525,6 +532,7 @@ It is a loop your thread enters and uses to run event handlers in response to in
 ###### 5.1.0 以runUntilDate: 为例子
 
 >* runUntilDate
+>
 >```
 >- (void)runUntilDate:(NSDate *)limitDate;
 >```
@@ -546,6 +554,87 @@ It is a loop your thread enters and uses to run event handlers in response to in
 >实际上CFRunLoopRun 就是这样一个函数，其内部是一个 do-while 循环。
 >当你调用 `CFRunLoopRun()` 时，线程就会一直停留在这个循环里；直到超时或被手动停止，该函数才会返回。
 ```
+
+>* your thread’s run loop processes pending events and generates notifications for any attached observers
+><blockquote><section><ol class="ol"><li class="li"><p>Notify observers that the run loop has been entered.</p></li><li class="li"><p>Notify observers that any ready timers are about to fire.</p></li><li class="li"><p>Notify observers that any input sources that are not port based are about to fire.</p></li><li class="li"><p>Fire any non-port-based input sources that are ready to fire.</p></li><li class="li"><p>If a port-based input source is ready and waiting to fire, process the event immediately. Go to step 9. </p></li><li class="li"><p>Notify observers that the thread is about to sleep.</p></li><li class="li"><p>Put the thread to sleep until one of the following events occurs:</p><ul class="ul"><li class="li"><p>An event arrives for a port-based input source.</p></li><li class="li"><p>A timer fires.</p></li><li class="li"><p>The timeout value set for the run loop expires.</p></li><li class="li"><p>The run loop is explicitly woken up. </p></li></ul></li><li class="li"><p>Notify observers that the thread just woke up.</p></li><li class="li"><p>Process the pending event.</p><ul class="ul"><li class="li"><p>If a user-defined timer fired, process the timer event and restart the loop. Go to step 2.</p></li><li class="li"><p>If an input source fired, deliver the event.</p></li><li class="li"><p>If the run loop was explicitly woken up but has not yet timed out, restart the loop. Go to step 2.</p></li></ul></li><li class="li"><p>Notify observers that the run loop has exited.</p></li></section></blockquote>
+
+
+
+# VI、 When Would You Use a Run Loop?
+
+>* For example, you need to start a run loop if you plan to do any of the following
+><script src="https://gist.github.com/zhangkn/25a0325a70a7696536cd03d3cf584f34.js"></script>
+
+>* Information on how to configure and exit a run loop is described in [`Using Run Loop Objects`](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW5)
+>
+>
+# VII、Using Run Loop Objects
+
+>* A run loop object provides the main interface for adding input sources, timers, and run-loop observers to your run loop and then running it.
+>```
+> Every thread has a single run loop object associated with it. 
+> In Cocoa, this object is an instance of the NSRunLoop class. 
+> In a low-level application, it is a pointer to a CFRunLoopRef opaque type.
+> ```
+> 
+
+#### 7.1 Getting a Run Loop Object
+>* In a Cocoa application, use the `currentRunLoop `class method of` NSRunLoop` to retrieve an NSRunLoop object.
+>* Use the CFRunLoopGetCurrent function.
+
+
+>* Although they are not toll-free bridged types, you can get a CFRunLoopRef opaque type from an NSRunLoop object when needed.
+>```
+> The NSRunLoop class defines a getCFRunLoop method that returns a CFRunLoopRef type that you can pass to Core Foundation routines. 
+> Because both objects refer to the same run loop, you can intermix calls to the NSRunLoop object and CFRunLoopRef opaque type as needed.
+> ```
+
+#### 7.2 Configuring the Run Loop
+
+>* Before you run a run loop on a secondary thread, you must add at least one input source or timer to it.
+
+>* [see Configuring Run Loop Sources](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW7)
+>*  Creating a run loop observer
+><script src="https://gist.github.com/zhangkn/98d7c32cec7f85b27a809d2cfebc7abe.js"></script>
+>
+
+#### 7.3 Starting the Run Loop
+
+
+A run loop must have at least one input source or timer to monitor. If one is not attached, the run loop exits immediately.
+
+>* There are several ways to start the run loop, including the following:
+>```
+>1、Unconditionally
+>2、With a set time limit
+>3、In a particular mode
+>```
+
+
+>* unconditionally
+>```
+>You can add and remove input sources and timers, but the only way to stop the run loop is to kill it
+>```
+
+>* it is better to run the run loop with a timeout value
+>```
+>When you use a timeout value, the run loop runs until an event arrives or the allotted time expires.
+> 1) If an event arrives, that event is dispatched to a handler for processing and then the run loop exits. Your code can then restart the run loop to handle the next event.
+> 2)If the allotted time expires instead, you can simply restart the run loop or use the time to do any needed housekeeping
+>```
+>* you can also run your run loop using a specific mod
+>```
+> more detail in Run Loop Modes: https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW12
+>```
+
+>* example: Running a run loop 
+><script src="https://gist.github.com/zhangkn/add4bd6a5ce53afff8f036405eaeb11f.js"></script>
+>
+
+
+
+
+
 
 # RunLoop 的底层实现
 
