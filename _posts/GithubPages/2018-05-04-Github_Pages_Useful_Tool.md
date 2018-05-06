@@ -20,7 +20,7 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 >```
 >
 
-# 解析域名： `iosre.club` ->`https://kunnan.github.io/`
+# [解析域名： `iosre.club` ->`https://kunnan.github.io/`](https://console.cloud.tencent.com/developer)
 
 
 ####  添加解析
@@ -52,6 +52,7 @@ PING sni.github.map.fastly.net (185.199.111.153): 56 data bytes
 >修改 我们github仓库下的 CNAME 文件
 >在CNAME输入你自己的域名，就可以解析到你的主页了
 >```
+
 
 
 # ImageOptim
@@ -103,6 +104,51 @@ Options:
 >视图->母版->幻灯片母版。
 >```
  
+# [小程序发布流程](https://mp.weixin.qq.com/wxopen/initprofile?action=home&lang=zh_CN)
+
+
+
+#### 小程序开发与管理
+
+
+###### 小程序开发与管理
+
+>* [ 普通小程序开发者工具](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/devtools.html)
+>* [小游戏开发者工具](https://mp.weixin.qq.com/debug/wxagame/dev/devtools/devtools.html)
+
+###### 添加开发者
+
+
+###### 配置服务器
+
+在[开发设置]页面查看AppID和AppSecret，配置服务器域名
+
+###### 帮助文档
+
+>* [普通小程序](https://mp.weixin.qq.com/debug/wxadoc/introduction/index.html)
+>* [小游戏](https://mp.weixin.qq.com/debug/wxagame/introduction/index.html)
+>
+
+#### 版本发布
+
+ 先提交代码，然后提交审核，审核通过后可发布
+
+
+
+
+# [开启公众号开发者模式](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1472017492_58YV5)
+
+#### 1.1 申请服务器
+
+>* 以腾讯云服务器为示例：[腾讯云服务器](https://buy.qcloud.com/cvm?cpu=1&mem=1)购买入口，购买指导请参考[快速入门linux云服务器](http://www.qcloud.com/doc/product/213/%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E6%B3%A8%E5%86%8C%E8%85%BE%E8%AE%AF%E4%BA%91%E5%B8%90%E5%8F%)
+
+>* 学生党注意：腾讯公司为在读高校生提供了[云+校园计口](http://bbs.qcloud.com/forum.php?mod=viewthread&tid=21113&highlight=%E6%A0%A1%E5%9B%AD)，1元/月即可使用腾讯云。
+
+
+
+
+
+
 
 # See Also 
 
