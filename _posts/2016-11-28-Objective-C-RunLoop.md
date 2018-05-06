@@ -76,131 +76,6 @@ tags:
 
 # I、 多线程
 
->*  Your application does not need to create these objects explicitly; 
->```
->1)each thread, including the application’s main thread, has an associated run loop object. 
->2)Only secondary threads need to run their run loop explicitly, however. The app frameworks automatically set up and run the run loop on the main thread as part of the application startup proces
->```
-
-
-#### 1、1 pthread_t
-
->* pthread_t 的定义和演示
-><script src="https://gist.github.com/zhangkn/47240bde3df9d3b2b6b76ce6cd6d1338.js"></script>
-
-
-#### 1、2 NSThread
-
-
-一个NSThread对象就代表一条线程
-
->*  [创建、启动NSThread线程](https://gist.github.com/zhangkn/3e265030afdd521faed4d7a152666dc0)
-><script src="https://gist.github.com/zhangkn/3e265030afdd521faed4d7a152666dc0.js"></script>
->
-
->* 线程的状态
->![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqza209j8tj30w20gpq4u.jpg)
-
->* [控制线程状态](https://gist.github.com/zhangkn/fca416497b52eabfe260f7a898b91436)
-><script src="https://gist.github.com/zhangkn/fca416497b52eabfe260f7a898b91436.js"></script>
-
->* [原子和非原子属性](https://gist.github.com/zhangkn/cd4f098321241830d3d7e1601a9ddd3a)
-><script src="https://gist.github.com/zhangkn/cd4f098321241830d3d7e1601a9ddd3a.js"></script>
->
->* [线程间通信](https://zhangkn.github.io/2018/01/Inter-processCommunicationByRrocketbootstrap/)
->
->
-
-#### 1、3 GCD（Grand Central Dispatch）
-
->* 纯C语言，提供了非常多强大的函数。GCD是苹果公司为多核的并行运算提出的解决方案
->```
->GCD会自动利用更多的CPU内核（比如双核、四核）
->GCD会自动管理线程的生命周期（创建线程、调度任务、销毁线程）
->程序员只需要告诉GCD想要执行什么任务，不需要编写任何线程管理代码
->```
-
-###### 1、3、1 任务和队列
-
->* GCD中有2个核心概念
->```
-任务：执行什么操作
-队列：用来存放任务
-```
-
->* GCD的使用就2个步骤
->```
-1)定制任务:确定想做的事情
-2) 将任务添加到队列中: 
-GCD会自动将队列中的任务取出，放到对应的线程中执行
-任务的取出遵循队列的FIFO原则：先进先出，后进后出
-```
->* [执行任务](https://gist.github.com/zhangkn/5202b338dee49adbf373fb7efaf0b33c)
-><script src="https://gist.github.com/zhangkn/5202b338dee49adbf373fb7efaf0b33c.js"></script>
->
-
->* [队列的类型：Concurrent Dispatch Queue、Serial Dispatch Queue](https://gist.github.com/zhangkn/3e24418985f4895c41fd3a5fc0162bc4)
-><script src="https://gist.github.com/zhangkn/3e24418985f4895c41fd3a5fc0162bc4.js"></script>
->
->* 各种队列的执行效果
->![](https://ws2.sinaimg.cn/large/006tKfTcly1fqzbb4cazdj30w40fb75g.jpg)
->* [线程间通信示例](https://gist.github.com/zhangkn/37a271df3bbd39860f9476ab92843707)
-><script src="https://gist.github.com/zhangkn/37a271df3bbd39860f9476ab92843707.js"></script>
->
->* 延时执行
-><script src="https://gist.github.com/zhangkn/1600550a7f70b86dd951e3efd0fbea18.js"></script>
->* 一次性代码
-><script src="https://gist.github.com/zhangkn/3c37b8db36f2086d12d0142315f7c39e.js"></script>
->* [队列组:等2个异步操作都执行完毕后，再回到主线程执行操作](https://gist.github.com/zhangkn/91ba86f7ace93e7c744d437fafc4d1e5)
-><script src="https://gist.github.com/zhangkn/91ba86f7ace93e7c744d437fafc4d1e5.js"></script>
->* [单例模式](https://github.com/zhangkn/KNIosCommonTool/blob/master/KNIosCommonTool/Classes/PublicInterface/HSSingleton.h)
->```
->pod KNIosCommonTool
->```
-><script src="https://gist.github.com/zhangkn/9f90f6e4f32e104a18b3473b2e40cf4f.js"></script>
->
-
-
-#### 1.4 NSOperation
-
->* 简介
-><script src="https://gist.github.com/zhangkn/e9329307c6157ffbee887c31b68c1e71.js"></script>
->
-
-###### 1.4.0  NSOperation的子类
-
->* NSOperation的子类
-><script src="https://gist.github.com/zhangkn/773fc2ac01f3bca0c3fd0e3e732d35bc.js"></script>
->
->* 1) NSInvocationOperation
->*<script src="https://gist.github.com/zhangkn/df65374e11c7b5faf59788aa6c9609cf.js"></script>
->* 2) NSBlockOperation
-><script src="https://gist.github.com/zhangkn/2cc795f85b78906cd9de9190440b04f4.js"></script>
->* 3)自定义子类继承NSOperation，实现内部相应
-><script src="https://gist.github.com/zhangkn/320cd4b419773bdcc4b4ba694acbb682.js"></script>
->* NSOperationQueue
-><script src="https://gist.github.com/zhangkn/368499394d23c40d7f9f1e294dcd0386.js"></script>
->
-
-
-###### 1.4.1 NSOperation的方法
-
->* 操作优先级
-><script src="https://gist.github.com/zhangkn/f6d9dc91b3e352ef770c7ad2d5c204a2.js"></script>
->* 操作的监听
-><script src="https://gist.github.com/zhangkn/cc80dfdee09346a0c2af33d865898324.js"></script>
->* 操作依赖
-><script src="https://gist.github.com/zhangkn/b1d75ca60e1031abae1891d0dd139946.js"></script>
-
-###### 1.4.2 cell下载图片思路 – 用沙盒缓存（使用md5生成图片名称，保证唯一；或者使用url）
-
->* [使用operations实现下载操作](https://gist.github.com/zhangkn/711d92f07041ed0e392085cbeb588641)
->![](https://ws3.sinaimg.cn/large/006tKfTcgy1fqzd4ef8ytj30yv0l0adj.jpg)
-><script src="https://gist.github.com/zhangkn/711d92f07041ed0e392085cbeb588641.js"></script>
->* [SDWebImage](https://github.com/rs/SDWebImage)
->```
->图片下载、图片缓存、下载进度监听、gif处理
->```
 
 
 # II、RunLoop 与线程的关系
@@ -631,248 +506,228 @@ A run loop must have at least one input source or timer to monitor. If one is no
 ><script src="https://gist.github.com/zhangkn/add4bd6a5ce53afff8f036405eaeb11f.js"></script>
 >
 
+#### 7.4 Exiting the Run Loop
+
+>* There are two ways to make a run loop exit before it has processed an event:
+>```
+>1) Configure the run loop to run with a timeout value.
+2) Tell the run loop to stop.
+>```
+
+>* Using a timeout value is certainly preferred, if you can manage it
+>```
+> Specifying a timeout value lets the run loop finish all of its normal processing, including delivering notifications to run loop observers, before exiting.
+>```
+>* topping the run loop explicitly with the `CFRunLoopStop `function produces a result similar to a timeout.
+>```
+> The run loop sends out any remaining run-loop notifications and then exits
+>```
+>* Although removing a run loop’s `input sources `and `timers `may also cause the run loop to exit, this is not a reliable way to stop a run loop
 
 
 
+#### 7.5 Thread Safety and Run Loop Objects
+
+>* The functions in Core Foundation are generally thread-safe and can be called from any thread
+ 
+>* The Cocoa NSRunLoop class is not as inherently thread safe as its Core Foundation counterpart
+>```
+>Adding an input source or timer to a run loop belonging to a different thread could cause your code to crash or behave in an unexpected way.
+>```
+ 
+# VIII、 Configuring Run Loop Sources
+
+#### 8.1 Defining a Custom Input Source
+
+>* Creating a custom input source involves defining the following:
+>```
+>1)The information you want your input source to process.
+>2) A scheduler routine to let interested clients know how to contact your input source.
+>3) A handler routine to perform requests sent by any clients.
+>4) A cancellation routine to invalidate your input source.
+>```
 
 
-# RunLoop 的底层实现
+>* Operating a custom input source
+>![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr1hdj8payj30cx069wem.jpg)
+>
+
+#### 8.2 Defining the Input Source
+
+>* uses an Objective-C object to manage a command buffer and coordinate with the run loop.
+><script src="https://gist.github.com/zhangkn/44ba7e91139a88e67a94fd4306a60747.js"></script>
+>* Scheduling a run loop source
+><script src="https://gist.github.com/zhangkn/f9a5b5006cf6cbf4849120907a7c3f0d.js"></script>
+>
+>*   Performing work in the input source
+><script src="https://gist.github.com/zhangkn/d9ab4be615fc54d6b9fdd1e6e056efa2.js"></script>
+>*  Invalidating an input source
+><script src="https://gist.github.com/zhangkn/aaf02ae9a5190fe1bc3847f86d24bc5e.js"></script>
+>
+
+#### 8.3 Installing the Input Source on the Run Loop
+
+
+>* Installing the run loop source
+><script src="https://gist.github.com/zhangkn/e4f46747de954936f78ad087556c2390.js"></script>
+>
+
+#### 8.4 Coordinating with Clients of the Input Source
+
+>*  Registering and removing an input source with the application delegate
+><script src="https://gist.github.com/zhangkn/b241a913f2affaa065a48c8e4880115c.js"></script>
+>
+
+#### 8.5  Signaling the Input Source
+
+
+After it hands off its data to the input source, a client must signal the source and wake up its run loop.
+
+>* shows the fireCommandsOnRunLoop method of the RunLoopSource object
+><script src="https://gist.github.com/zhangkn/f5deca4778769437ee6854ba012bf001.js"></script>
+>
+
+# IX Configuring Timer Sources
+
+>* create a timer object and schedule it on your run loop
+ ```
+1)  In Cocoa, you use the NSTimer class to create new timer objects,
+2) and in Core Foundation you use the CFRunLoopTimerRef opaque type. 
+ ```
+ 
+>* In Cocoa, you can create and schedule a timer all at once using either of these class methods:
+>```
+> scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:
+scheduledTimerWithTimeInterval:invocation:repeats:
+These methods create the timer and add it to the current thread’s run loop in the default mode (NSDefaultRunLoopMode).
+>```
+>* adding it to the run loop using the addTimer:forMode: method of NSRunLoop
+
+#### 9.1  how to create timers using both techniques: `NSTimer`、 `Core Foundation`
+
+###### 9.1.1  Creating and scheduling timers using NSTimer
+
+<script src="https://gist.github.com/zhangkn/a02696658453e0e42504c549821399c5.js"></script>
+
+
+###### 9.1.2 Creating and scheduling a timer using Core Foundation
+
+
+>* [see its description in CFRunLoopTimer Reference.](https://developer.apple.com/documentation/corefoundation/cfrunlooptimer-rhk)
+><script src="https://gist.github.com/zhangkn/57b17fdec91b0ea50a6d2f95e8c288c4.js"></script>
+>
+
+# X、Configuring a Port-Based Input Source
+
+Both Cocoa and Core Foundation provide port-based objects for communicating between threads or between processes. 
+
+#### 10.0 Configuring an NSMachPort Object
+
+
+>* Main thread launch method
+><script src="https://gist.github.com/zhangkn/ed82aff56f402a276584e7e63a8b98fd.js"></script>
+>*  Handling Mach port messages
+><script src="https://gist.github.com/zhangkn/ba665ef4e3e6dc8bc07f5165410a0282.js"></script>
+>*  Launching the worker thread using Mach ports
+><script src="https://gist.github.com/zhangkn/d55256fa9371e9696d236b08ddac2e42.js"></script>
+>* Sending the check-in message using Mach ports
+><script src="https://gist.github.com/zhangkn/13a0f61387b9328952c2ed498931223a.js"></script>
+>
+
+#### 10.1 Configuring an NSMessagePort Object
+
+>*  Registering a message port
+><script src="https://gist.github.com/zhangkn/395cacd73ce163b59c1ff784843809d2.js"></script>
+>
+>
+
+#### 10.2 Configuring a Port-Based Input Source in Core Foundation
+
+>*   Attaching a Core Foundation message port to a new thread
+><script src="https://gist.github.com/zhangkn/300df7400f6c4c5c9f610d136da77f0c.js"></script>
+>*   Receiving the checkin message
+><script src="https://gist.github.com/zhangkn/18ad17b2686f0b11ca5ab529168f0e7d.js"></script>
+>* Setting up the thread structures
+><script src="https://gist.github.com/zhangkn/15d1174543bf45d32c52fcd74bbdb584.js"></script>
+>
+
+# XI、RunLoop 的底层实现
 
  RunLoop 的核心是基于 mach port 的，其进入休眠时调用的函数是 `mach_msg()`。为了解释这个逻辑，下面稍微介绍一下 OSX/iOS 的系统架构。
 
 ![](http://ww4.sinaimg.cn/large/7853084cjw1fa7xzae9dlj206203nwel.jpg)
 
-苹果官方将整个系统大致划分为上述4个层次：
 
-应用层包括用户能接触到的图形应用，例如 Spotlight、Aqua、SpringBoard 等。
 
-应用框架层即开发人员接触到的 Cocoa 等框架。
+#### 11.1 苹果官方将整个系统大致划分为上述4个层次：
 
-核心框架层包括各种核心框架、OpenGL 等内容。
+>* 应用层包括用户能接触到的图形应用: Spotlight、Aqua、SpringBoard 
+>* 应用框架层即开发人员接触到的 Cocoa 等框架。
+>* 核心框架层包括各种核心框架、OpenGL 等内容。
+>* Darwin 即操作系统的核心，包括系统内核、驱动、Shell 等内容，这一层是开源的，其所有源码在 [opensource.apple.com](https://opensource.apple.com/) 
 
-Darwin 即操作系统的核心，包括系统内核、驱动、Shell 等内容，这一层是开源的，其所有源码都可以在 [opensource.apple.com](https://opensource.apple.com/) 里找到。
-
-我们在深入看一下 Darwin 这个核心的架构：
+#### 11.2 深入看一下 Darwin 这个核心的架构：
 
 ![](http://ww4.sinaimg.cn/large/7853084cjw1fa7xzt0n5wj2070060wel.jpg)
 
-其中，在硬件层上面的三个组成部分：Mach、BSD、IOKit (还包括一些上面没标注的内容)，共同组成了 XNU 内核。
-XNU 内核的内环被称作 Mach，其作为一个微内核，仅提供了诸如处理器调度、IPC (进程间通信)等非常少量的基础服务。
-BSD 层可以看作围绕 Mach 层的一个外环，其提供了诸如进程管理、文件系统和网络等功能。
-IOKit 层是为设备驱动提供了一个面向对象(C++)的一个框架。
+>* 在硬件层上面的三个组成部分：
+>```
+>Mach、BSD、IOKit (还包括一些上面没标注的内容)，共同组成了 XNU 内核。
+>```
 
-Mach 本身提供的 API 非常有限，而且苹果也不鼓励使用 Mach 的 API，但是这些API非常基础，如果没有这些API的话，其他任何工作都无法实施。在 Mach 中，所有的东西都是通过自己的对象实现的，进程、线程和虚拟内存都被称为"对象"。和其他架构不同， Mach 的对象间不能直接调用，只能通过消息传递的方式实现对象间的通信。"消息"是 Mach 中最基础的概念，消息在两个端口 (port) 之间传递，这就是 Mach 的 `IPC (进程间通信)` 的核心。
+>* [XNU 内核的内环被称作 Mach，](https://zhangkn.github.io/2018/01/Inter-processCommunicationByRrocketbootstrap/)
+>```
+>其作为一个微内核，仅提供了诸如处理器调度、IPC (进程间通信)等非常少量的基础服务。
+>1) 在 Mach 中，所有的东西都是通过自己的对象实现的，进程、线程和虚拟内存都被称为"对象"。
+>2) Mach 的对象间不能直接调用，只能通过消息传递的方式实现对象间的通信。
+>3) "消息"是 Mach 中最基础的概念，消息在两个端口 (port) 之间传递，这就是 Mach 的 `IPC (进程间通信)` 的核心。
+>```
 
-Mach 的消息定义是在 `<mach/message.h>` 头文件的，很简单：
+>* BSD 层可以看作围绕 Mach 层的一个外环，
+>```
+>其提供了诸如进程管理、文件系统和网络等功能。
+>```
 
-```
-typedef struct {
-  mach_msg_header_t header;
-  mach_msg_body_t body;
-} mach_msg_base_t;
- 
-typedef struct {
-  mach_msg_bits_t msgh_bits;
-  mach_msg_size_t msgh_size;
-  mach_port_t msgh_remote_port;
-  mach_port_t msgh_local_port;
-  mach_port_name_t msgh_voucher_port;
-  mach_msg_id_t msgh_id;
-} mach_msg_header_t;
-```
+>* IOKit 层是为设备驱动提供了一个面向对象(C++)的一个框架。
+>
 
-一条 Mach 消息实际上就是一个二进制数据包 (BLOB)，其头部定义了当前端口 `local_port` 和目标端口 `remote_port`，
+>* Mach 的消息定义是在 `<mach/message.h>` 头文件的，很简单：
+><script src="https://gist.github.com/zhangkn/50c15e92a243fcee8a38f16b38621cd6.js"></script>
+>![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr1kzsllsuj30lu0f2mxi.jpg)
 
-发送和接受消息是通过同一个 API 进行的，其 option 标记了消息传递的方向：
+>* [System_call](http://en.wikipedia.org/wiki/System_call)、[Trap_(computing)](http://en.wikipedia.org/wiki/Trap_(computing))。
+>
 
-```
-mach_msg_return_t mach_msg(
-			mach_msg_header_t *msg,
-			mach_msg_option_t option,
-			mach_msg_size_t send_size,
-			mach_msg_size_t rcv_size,
-			mach_port_name_t rcv_name,
-			mach_msg_timeout_t timeout,
-			mach_port_name_t notify);
+
+#### 11.3  `mach_msg()`
+
+>* RunLoop 的核心就是一个`mach_msg()`  
+>```
+RunLoop 调用这个函数去接收消息，如果没有别人发送 port 消息过来，内核会将线程置于等待状态。
+1)例如你在模拟器里跑起一个 iOS 的 App，然后在 App 静止时点击暂停，你会看到主线程调用栈是停留在 `mach_msg_trap()` 这个地方。
 ```
 
-为了实现消息的发送和接收，`mach_msg()` 函数实际上是调用了一个 Mach 陷阱 (trap)，即函数 `mach_msg_trap()`，陷阱这个概念在 Mach 中等同于系统调用。当你在用户态调用 `mach_msg_trap()` 时会触发陷阱机制，切换到内核态；内核态中内核实现的 `mach_msg()` 函数会完成实际的工作，如下图：
 
-![](http://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_5.png)
+>* [NSHipster:如何利用 mach port 发送信息](http://nshipster.com/inter-process-communication/)，或者[这里](http://segmentfault.com/a/1190000002400329)的中文翻译 。
 
-这些概念可以参考维基百科: [System_call](http://en.wikipedia.org/wiki/System_call)、[Trap_(computing)](http://en.wikipedia.org/wiki/Trap_(computing))。
+>* [Mac OS X 背后的故事（三）Mach 之父 Avie Tevanian:Mach的历史](http://www.programmer.com.cn/8121/)。
 
-RunLoop 的核心就是一个 `mach_msg()` (见上面代码的第7步)，RunLoop 调用这个函数去接收消息，如果没有别人发送 port 消息过来，内核会将线程置于等待状态。例如你在模拟器里跑起一个 iOS 的 App，然后在 App 静止时点击暂停，你会看到主线程调用栈是停留在 `mach_msg_trap()` 这个地方。
 
-关于具体的如何利用 mach port 发送信息，可以看看 [NSHipster 这一篇文章](http://nshipster.com/inter-process-communication/)，或者[这里](http://segmentfault.com/a/1190000002400329)的中文翻译 。
+# XII、苹果用 RunLoop 实现的功能
 
-关于Mach的历史可以看看这篇很有趣的文章：[Mac OS X 背后的故事（三）Mach 之父 Avie Tevanian](http://www.programmer.com.cn/8121/)。
 
-## 苹果用 RunLoop 实现的功能
+>* App 启动后 RunLoop 的状态：
+><script src="https://gist.github.com/zhangkn/44e2d4c7e6f447abff5178793f70e8d2.js"></script>
 
-首先我们可以看一下 App 启动后 RunLoop 的状态：
+>* [苹果内部的 Mode](http://iphonedevwiki.net/index.php/CFRunLoop)
+>
 
-```
-CFRunLoop {
-    current mode = kCFRunLoopDefaultMode
-    common modes = {
-        UITrackingRunLoopMode
-        kCFRunLoopDefaultMode
-    }
- 
-    common mode items = {
- 
-        // source0 (manual)
-        CFRunLoopSource {order =-1, {
-            callout = _UIApplicationHandleEventQueue}}
-        CFRunLoopSource {order =-1, {
-            callout = PurpleEventSignalCallback }}
-        CFRunLoopSource {order = 0, {
-            callout = FBSSerialQueueRunLoopSourceHandler}}
- 
-        // source1 (mach port)
-        CFRunLoopSource {order = 0,  {port = 17923}}
-        CFRunLoopSource {order = 0,  {port = 12039}}
-        CFRunLoopSource {order = 0,  {port = 16647}}
-        CFRunLoopSource {order =-1, {
-            callout = PurpleEventCallback}}
-        CFRunLoopSource {order = 0, {port = 2407,
-            callout = _ZL20notify_port_callbackP12__CFMachPortPvlS1_}}
-        CFRunLoopSource {order = 0, {port = 1c03,
-            callout = __IOHIDEventSystemClientAvailabilityCallback}}
-        CFRunLoopSource {order = 0, {port = 1b03,
-            callout = __IOHIDEventSystemClientQueueCallback}}
-        CFRunLoopSource {order = 1, {port = 1903,
-            callout = __IOMIGMachPortPortCallback}}
- 
-        // Ovserver
-        CFRunLoopObserver {order = -2147483647, activities = 0x1, // Entry
-            callout = _wrapRunLoopWithAutoreleasePoolHandler}
-        CFRunLoopObserver {order = 0, activities = 0x20,          // BeforeWaiting
-            callout = _UIGestureRecognizerUpdateObserver}
-        CFRunLoopObserver {order = 1999000, activities = 0xa0,    // BeforeWaiting | Exit
-            callout = _afterCACommitHandler}
-        CFRunLoopObserver {order = 2000000, activities = 0xa0,    // BeforeWaiting | Exit
-            callout = _ZN2CA11Transaction17observer_callbackEP19__CFRunLoopObservermPv}
-        CFRunLoopObserver {order = 2147483647, activities = 0xa0, // BeforeWaiting | Exit
-            callout = _wrapRunLoopWithAutoreleasePoolHandler}
- 
-        // Timer
-        CFRunLoopTimer {firing = No, interval = 3.1536e+09, tolerance = 0,
-            next fire date = 453098071 (-4421.76019 @ 96223387169499),
-            callout = _ZN2CAL14timer_callbackEP16__CFRunLoopTimerPv (QuartzCore.framework)}
-    },
- 
-    modes ＝ {
-        CFRunLoopMode  {
-            sources0 =  { /* same as 'common mode items' */ },
-            sources1 =  { /* same as 'common mode items' */ },
-            observers = { /* same as 'common mode items' */ },
-            timers =    { /* same as 'common mode items' */ },
-        },
- 
-        CFRunLoopMode  {
-            sources0 =  { /* same as 'common mode items' */ },
-            sources1 =  { /* same as 'common mode items' */ },
-            observers = { /* same as 'common mode items' */ },
-            timers =    { /* same as 'common mode items' */ },
-        },
- 
-        CFRunLoopMode  {
-            sources0 = {
-                CFRunLoopSource {order = 0, {
-                    callout = FBSSerialQueueRunLoopSourceHandler}}
-            },
-            sources1 = (null),
-            observers = {
-                CFRunLoopObserver >{activities = 0xa0, order = 2000000,
-                    callout = _ZN2CA11Transaction17observer_callbackEP19__CFRunLoopObservermPv}
-            )},
-            timers = (null),
-        },
- 
-        CFRunLoopMode  {
-            sources0 = {
-                CFRunLoopSource {order = -1, {
-                    callout = PurpleEventSignalCallback}}
-            },
-            sources1 = {
-                CFRunLoopSource {order = -1, {
-                    callout = PurpleEventCallback}}
-            },
-            observers = (null),
-            timers = (null),
-        },
-        
-        CFRunLoopMode  {
-            sources0 = (null),
-            sources1 = (null),
-            observers = (null),
-            timers = (null),
-        }
-    }
-}
-```
+>当 RunLoop 进行回调时，一般都是通过一个很长的函数调用出去 (call out), 当你在你的代码中下断点调试时，通常能在调用栈上看到这些函数：
+><script src="https://gist.github.com/zhangkn/877472f7ec948cda7ecffd8ade52896b.js"></script>
 
-可以看到，系统默认注册了5个Mode:
 
-1. kCFRunLoopDefaultMode: App的默认 Mode，通常主线程是在这个 Mode 下运行的。
-2. UITrackingRunLoopMode: 界面跟踪 Mode，用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他 Mode 影响。
-3. UIInitializationRunLoopMode: 在刚启动 App 时第进入的第一个 Mode，启动完成后就不再使用。
-4. GSEventReceiveRunLoopMode: 接受系统事件的内部 Mode，通常用不到。
-5. kCFRunLoopCommonModes: 这是一个占位的 Mode，没有实际作用。
+#### 12.1  AutoreleasePool
 
-你可以在[这里](http://iphonedevwiki.net/index.php/CFRunLoop)看到更多的苹果内部的 Mode，但那些 Mode 在开发中就很难遇到了。
-
-当 RunLoop 进行回调时，一般都是通过一个很长的函数调用出去 (call out), 当你在你的代码中下断点调试时，通常能在调用栈上看到这些函数。下面是这几个函数的整理版本，如果你在调用栈中看到这些长函数名，在这里查找一下就能定位到具体的调用地点了：
-
-```
-{
-    /// 1. 通知Observers，即将进入RunLoop
-    /// 此处有Observer会创建AutoreleasePool: _objc_autoreleasePoolPush();
-    __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopEntry);
-    do {
- 
-        /// 2. 通知 Observers: 即将触发 Timer 回调。
-        __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopBeforeTimers);
-        /// 3. 通知 Observers: 即将触发 Source (非基于port的,Source0) 回调。
-        __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopBeforeSources);
-        __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__(block);
- 
-        /// 4. 触发 Source0 (非基于port的) 回调。
-        __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__(source0);
-        __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__(block);
- 
-        /// 6. 通知Observers，即将进入休眠
-        /// 此处有Observer释放并新建AutoreleasePool: _objc_autoreleasePoolPop(); _objc_autoreleasePoolPush();
-        __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopBeforeWaiting);
- 
-        /// 7. sleep to wait msg.
-        mach_msg() -> mach_msg_trap();
-        
- 
-        /// 8. 通知Observers，线程被唤醒
-        __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopAfterWaiting);
- 
-        /// 9. 如果是被Timer唤醒的，回调Timer
-        __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__(timer);
- 
-        /// 9. 如果是被dispatch唤醒的，执行所有调用 dispatch_async 等方法放入main queue 的 block
-        __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__(dispatched_block);
- 
-        /// 9. 如果如果Runloop是被 Source1 (基于port的) 的事件唤醒了，处理这个事件
-        __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__(source1);
- 
- 
-    } while (...);
- 
-    /// 10. 通知Observers，即将退出RunLoop
-    /// 此处有Observer释放AutoreleasePool: _objc_autoreleasePoolPop();
-    __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopExit);
-}
-```
-
-#### AutoreleasePool
 
 App启动后，苹果在主线程 RunLoop 里注册了两个 Observer，其回调都是 `_wrapRunLoopWithAutoreleasePoolHandler()`。
 
