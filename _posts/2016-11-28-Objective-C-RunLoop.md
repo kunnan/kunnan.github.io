@@ -785,7 +785,8 @@ RunLoop 调用这个函数去接收消息，如果没有别人发送 port 消息
 
 
 
-#### [12.5 定时器]()
+#### [12.5 定时器](https://kunnan.github.io/2016/12/13/iOS_Timer/)
+
 
 >* **NSTimer** 其实就是 CFRunLoopTimerRef，他们之间是 toll-free bridged 的。
 >```
@@ -795,109 +796,67 @@ RunLoop 调用这个函数去接收消息，如果没有别人发送 port 消息
 >```
 
 
->* **CADisplayLink** 是一个和屏幕刷新率一致的定时器（但实际实现原理更复杂，和 NSTimer 并不一样，其内部实际是操作了一个 Source）。如果在两次屏幕刷新之间执行了一个长任务，那其中就会有一帧被跳过去（和 NSTimer 相似），造成界面卡顿的感觉。在快速滑动TableView时，即使一帧的卡顿也会让用户有所察觉。Facebook 开源的 AsyncDisplayLink 就是为了解决界面卡顿的问题，其内部也用到了 RunLoop，这个稍后我会再单独写一页博客来分析。
+>* **CADisplayLink** 是一个和屏幕刷新率一致的定时器
+>```
+>如果在两次屏幕刷新之间执行了一个长任务，那其中就会有一帧被跳过去（和 NSTimer 相似），造成界面卡顿的感觉。在快速滑动TableView时，即使一帧的卡顿也会让用户有所察觉。Facebook 开源的 AsyncDisplayLink 就是为了解决界面卡顿的问题，其内部也用到了 RunLoop
+>```
 
-#### PerformSelecter
 
-当调用 NSObject 的 `performSelecter:afterDelay:` 后，实际上其内部会创建一个 Timer 并添加到当前线程的 RunLoop 中。所以如果当前线程没有 RunLoop，则这个方法会失效。
 
-当调用 `performSelector:onThread:` 时，实际上其会创建一个 Timer 加到对应的线程去，同样的，如果对应线程没有 RunLoop 该方法也会失效。
+####  12.6 GCD
 
-#### 关于GCD
+>* 实际上 RunLoop 底层也会用到 GCD 的东西，
+>```
+>虽然 NSTimer 是用了 XNU 内核的 mk_timer，我也仔细调试了一下，发现 NSTimer 确实是由 mk_timer 驱动，而非 GCD 驱动的）。但同时 GCD 提供的某些接口也用到了 RunLoop， 例如 dispatch_async()。
+>```
 
-实际上 RunLoop 底层也会用到 GCD 的东西，~~比如 RunLoop 是用 dispatch_source_t 实现的 Timer~~（评论中有人提醒，NSTimer 是用了 XNU 内核的 mk_timer，我也仔细调试了一下，发现 NSTimer 确实是由 mk_timer 驱动，而非 GCD 驱动的）。但同时 GCD 提供的某些接口也用到了 RunLoop， 例如 dispatch_async()。
 
-当调用 `dispatch_async(dispatch_get_main_queue(), block)` 时，libDispatch 会向主线程的 RunLoop 发送消息，RunLoop会被唤醒，并从消息中取得这个 block，并在回调 `__CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__()` 里执行这个 block。但这个逻辑仅限于 dispatch 到主线程，dispatch 到其他线程仍然是由 libDispatch 处理的。
+>* 当调用 `dispatch_async(dispatch_get_main_queue(), block)` 时，libDispatch 会向主线程的 RunLoop 发送消息，RunLoop会被唤醒，并从消息中取得这个 block，并在回调 `__CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__()` 里执行这个 block。
 
-#### 关于网络请求
 
-iOS 中，关于网络请求的接口自下至上有如下几层:
 
-```
-CFSocket
-CFNetwork       ->ASIHttpRequest
-NSURLConnection ->AFNetworking
-NSURLSession    ->AFNetworking2, Alamofire
-```
+#### 12.7 PerformSelecter
 
-- CFSocket 是最底层的接口，只负责 socket 通信。
-- CFNetwork 是基于 CFSocket 等接口的上层封装，ASIHttpRequest 工作于这一层。
-- NSURLConnection 是基于 CFNetwork 的更高层的封装，提供面向对象的接口，AFNetworking 工作于这一层。
-- NSURLSession 是 iOS7 中新增的接口，表面上是和 NSURLConnection 并列的，但底层仍然用到了 NSURLConnection 的部分功能 (比如 `com.apple.NSURLConnectionLoader` 线程)，AFNetworking2 和 Alamofire 工作于这一层。
 
-下面主要介绍下 NSURLConnection 的工作过程。
+>* 当调用 NSObject 的 `performSelecter:afterDelay:` 后，实际上其内部会创建一个 Timer 并添加到当前线程的 RunLoop 中。同样的调用 `performSelector:onThread:` 时，实际上其会创建一个 Timer 加到对应的线程去，
 
-通常使用 NSURLConnection 时，你会传入一个 Delegate，当调用了 `[connection start]` 后，这个 Delegate 就会不停收到事件回调。实际上，start 这个函数的内部会会获取 CurrentRunLoop，然后在其中的 DefaultMode 添加了4个 Source0 (即需要手动触发的Source)。CFMultiplexerSource 是负责各种 Delegate 回调的，CFHTTPCookieStorage 是处理各种 Cookie 的。
 
-当开始网络传输时，我们可以看到 NSURLConnection 创建了两个新线程：com.apple.NSURLConnectionLoader 和 com.apple.CFSocket.private。其中 CFSocket 线程是处理底层 socket 连接的。NSURLConnectionLoader 这个线程内部会使用 RunLoop 来接收底层 socket 的事件，并通过之前添加的 Source0 通知到上层的 Delegate。
+#### 12.8 网络请求
 
+
+>* iOS 中，关于网络请求的接口自下至上有如下几层:
+><script src="https://gist.github.com/zhangkn/c235c48e7f65b9e1303321030cb44439.js"></script>
 ![](http://ww3.sinaimg.cn/large/7853084cjw1fa7xj3vs8ij20hs0cdt9m.jpg)
 
-NSURLConnectionLoader 中的 RunLoop 通过一些基于 mach port 的 Source 接收来自底层 CFSocket 的通知。当收到通知后，其会在合适的时机向 CFMultiplexerSource 等 Source0 发送通知，同时唤醒 Delegate 线程的 RunLoop 来让其处理这些通知。CFMultiplexerSource 会在 Delegate 线程的 RunLoop 对 Delegate 执行实际的回调。
+>* NSURLConnectionLoader 中的 RunLoop 通过一些基于 mach port 的 Source 接收来自底层 CFSocket 的通知。
+>```
+>当收到通知后，其会在合适的时机向 CFMultiplexerSource 等 Source0 发送通知，同时唤醒 Delegate 线程的 RunLoop 来让其处理这些通知。
+>CFMultiplexerSource 会在 Delegate 线程的 RunLoop 对 Delegate 执行实际的回调。
+>```
 
-## RunLoop 的实际应用举例
+#  XIII、RunLoop 的实际应用举例
 
-#### AFNetworking
 
-[AFURLConnectionOperation](https://github.com/AFNetworking/AFNetworking) 这个类是基于 NSURLConnection 构建的，其希望能在后台线程接收 Delegate 回调。为此 AFNetworking 单独创建了一个线程，并在这个线程中启动了一个 RunLoop：
+#### 13.1  AFNetworking
 
-```
-+ (void)networkRequestThreadEntryPoint:(id)__unused object {
-    @autoreleasepool {
-        [[NSThread currentThread] setName:@"AFNetworking"];
-        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-        [runLoop addPort:[NSMachPort port] forMode:NSDefaultRunLoopMode];
-        [runLoop run];
-    }
-}
- 
-+ (NSThread *)networkRequestThread {
-    static NSThread *_networkRequestThread = nil;
-    static dispatch_once_t oncePredicate;
-    dispatch_once(&oncePredicate, ^{
-        _networkRequestThread = [[NSThread alloc] initWithTarget:self selector:@selector(networkRequestThreadEntryPoint:) object:nil];
-        [_networkRequestThread start];
-    });
-    return _networkRequestThread;
-}
-```
+>* [AFURLConnectionOperation](https://github.com/AFNetworking/AFNetworking) 这个类是基于 NSURLConnection 构建的，其希望能在后台线程接收 Delegate 回调。为此 AFNetworking 单独创建了一个线程，并在这个线程中启动了一个 RunLoop：
+><script src="https://gist.github.com/zhangkn/c620183a35a460aac824a6f8585b0a68.js"></script>
 
-RunLoop 启动前内部必须要有至少一个 Timer/Observer/Source，所以 AFNetworking 在 [runLoop run] 之前先创建了一个新的 NSMachPort 添加进去了。通常情况下，调用者需要持有这个 NSMachPort (mach_port) 并在外部线程通过这个 port 发送消息到 loop 内；但此处添加 port 只是为了让 RunLoop 不至于退出，并没有用于实际的发送消息。
 
-```
-- (void)start {
-    [self.lock lock];
-    if ([self isCancelled]) {
-        [self performSelector:@selector(cancelConnection) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
-    } else if ([self isReady]) {
-        self.state = AFOperationExecutingState;
-        [self performSelector:@selector(operationDidStart) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
-    }
-    [self.lock unlock];
-}
-```
 
-当需要这个后台线程执行任务时，AFNetworking 通过调用 [NSObject performSelector:onThread:..] 将这个任务扔到了后台线程的 RunLoop 中。
 
-#### AsyncDisplayKit
+####  13.2 AsyncDisplayKit
 
-[AsyncDisplayKit](https://github.com/facebook/AsyncDisplayKit) 是 Facebook 推出的用于保持界面流畅性的框架，其原理大致如下：
+>* [AsyncDisplayKit](https://github.com/facebook/AsyncDisplayKit) 是 Facebook 推出的用于保持界面流畅性的框架，其原理大致如下：
+><script src="https://gist.github.com/zhangkn/e7a7c3db109c7973b9c5c92da9c8b45a.js"></script>
+>
 
-UI 线程中一旦出现繁重的任务就会导致界面卡顿，这类任务通常分为3类：排版，绘制，UI对象操作。
-
-排版通常包括计算视图大小、计算文本高度、重新计算子式图的排版等操作。
-
-绘制一般有文本绘制 (例如 CoreText)、图片绘制 (例如预先解压)、元素绘制 (Quartz)等操作。
-
-UI对象操作通常包括 UIView/CALayer 等 UI 对象的创建、设置属性和销毁。
-
-其中前两类操作可以通过各种方法扔到后台线程执行，而最后一类操作只能在主线程完成，并且有时后面的操作需要依赖前面操作的结果 （例如TextView创建时可能需要提前计算出文本的大小）。ASDK 所做的，就是尽量将能放入后台的任务放入后台，不能的则尽量推迟 (例如视图的创建、属性的调整)。
-
-为此，ASDK 创建了一个名为 ASDisplayNode 的对象，并在内部封装了 UIView/CALayer，它具有和 UIView/CALayer 相似的属性，例如 frame、backgroundColor等。所有这些属性都可以在后台线程更改，开发者可以只通过 Node 来操作其内部的 UIView/CALayer，这样就可以将排版和绘制放入了后台线程。但是无论怎么操作，这些属性总需要在某个时刻同步到主线程的 UIView/CALayer 去。
-
-ASDK 仿照 QuartzCore/UIKit 框架的模式，实现了一套类似的界面更新的机制：即在主线程的 RunLoop 中添加一个 Observer，监听了 kCFRunLoopBeforeWaiting 和 kCFRunLoopExit 事件，在收到回调时，遍历所有之前放入队列的待处理的任务，然后一一执行。
-具体的代码可以看这里[_ASAsyncTransactionGroup](https://github.com/facebook/AsyncDisplayKit/blob/master/AsyncDisplayKit%2FDetails%2FTransactions%2F_ASAsyncTransactionGroup.m)。
-
+>* ASDK 仿照 QuartzCore/UIKit 框架的模式，实现了一套类似的界面更新的机制：
+>```
+>即在主线程的 RunLoop 中添加一个 Observer，监听了 kCFRunLoopBeforeWaiting 和 kCFRunLoopExit 事件，在收到回调时，遍历所有之前放入队列的待处理的任务，然后一一执行。
+>```
+>
+>* 具体的代码可以看这里[_ASAsyncTransactionGroup](https://github.com/facebook/AsyncDisplayKit/blob/master/AsyncDisplayKit%2FDetails%2FTransactions%2F_ASAsyncTransactionGroup.m)。
 
 # see also
 
