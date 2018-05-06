@@ -307,8 +307,22 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 2)每次调用 RunLoop 的主函数时，只能指定其中一个 Mode，这个Mode被称作 CurrentMode。如果需要切换 Mode，只能退出 Loop，再重新指定一个 Mode 进入。---这样做主要是为了分隔开不同组的 Source/Timer/Observer，让其互不影响。
 ```
 
+#### 3.2  Input Sources
 
-###### 3.1.1 CFRunLoopSourceRef---perform
+>* Input sources deliver events asynchronously to your threads
+>```
+>1)  Port-based input sources monitor your application’s Mach ports.
+>2)  Custom input sources monitor custom sources of events. 
+>```
+
+>*  The only difference between the two sources is how they are signaled.
+>```
+> 1)Port-based sources are signaled automatically by the kernel, 
+> 2) and custom sources must be signaled manually from another thread
+>```
+
+
+###### 3.2.1 CFRunLoopSourceRef---perform
 
 >* **CFRunLoopSourceRef** 是事件产生的地方。
 >```
@@ -321,6 +335,31 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 >2)Source1 包含了一个 mach_port 和一个回调（函数指针），被用于通过内核和其他线程相互发送消息。这种 Source 能主动唤醒 RunLoop 的线程
 >```
 
+###### 3.2.2 Port-Based Sources: Source1
+
+>* For example, in Cocoa, you never have to create an input source directly at all. 
+>```
+>You simply create a port object and use the methods of NSPort to add that port to the run loop. 
+>The port object handles the creation and configuration of the needed input source for you.
+```
+>* In `Core Foundation`, you must manually create both the port and its run loop source.
+>
+>
+>* In both cases, you use the functions associated with the port opaque type ([`CFMachPortRef`](https://developer.apple.com/documentation/corefoundation/cfmachport), [`CFMessagePortRef`](https://developer.apple.com/documentation/corefoundation/cfmessageportref), or [`CFSocketRef`](https://developer.apple.com/documentation/corefoundation/cfsocket)) to create the appropriate objects
+>* [ Configuring a Port-Based Input Source.](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-131281)
+
+
+###### 3.2.3 Custom Input Sources: Source0
+
+>* To create a custom input source, you must use the functions associated with the `CFRunLoopSourceRef` opaque type in Core Foundation. 
+>```
+>You configure a custom input source using several callback functions.
+> Core Foundation calls these functions at different points to configure the source, handle any incoming events, and tear down the source when it is removed from the run loop.
+>```
+>* [For an example of how to create a custom input source](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW3)
+>
+>* [see also CFRunLoopSource Reference](https://developer.apple.com/documentation/corefoundation/cfrunloopsource-rhr)
+
 >* [Source0的例子：运行runLoop 一次，阻塞当前线程以等待处理一次输入源](https://gist.github.com/zhangkn/2721a43436676e15c8f8be497dac9901)
 ><script src="https://gist.github.com/zhangkn/2721a43436676e15c8f8be497dac9901.js"></script>
 
@@ -328,7 +367,24 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 >
 
 
-###### 3.1.2  CFRunLoopTimerRef
+###### 3.2.4 Cocoa Perform Selector Sources
+
+>* Cocoa defines a custom input source that allows you to perform a selector on any thread
+>```
+>a perform selector source removes itself from the run loop after it performs its selector.
+>```
+
+>*  Performing selectors on other threads
+><script src="https://gist.github.com/zhangkn/8713914c94be503613711b1f346c3693.js"></script>
+>
+
+#### 3.3 CFRunLoopTimerRef: Timer Sources
+
+>* Timer sources deliver events synchronously to your threads at a preset time in the future. Timers are a way for a thread to notify itself to do something
+>```
+>Like input sources, timers are associated with specific modes of your run loop.
+>You can configure timers to generate events only once or repeatedly
+>```
 
 
 >* **CFRunLoopTimerRef** 是基于时间的触发器，它和 NSTimer 是toll-free bridged 的，可以混用。
@@ -336,14 +392,21 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 >当其加入到 RunLoop 时，RunLoop会注册对应的时间点，当时间点到时，RunLoop会被唤醒以执行那个回调。
 >```
 ><script src="https://gist.github.com/zhangkn/dc035d074cc80a31d8417e7be11bc5d8.js"></script>
+
+>* [see Configuring Timer Sources](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW6)
+>* [ see NSTimer Class Reference ](https://developer.apple.com/documentation/foundation/timer)
+>* [ CFRunLoopTimer Reference](https://developer.apple.com/documentation/corefoundation/cfrunlooptimer-rhk)
 >
 
+#### 3.4 CFRunLoopObserverRef: Run Loop Observers
 
-###### 3.2.3 CFRunLoopObserverRef
 
 >* **CFRunLoopObserverRef** 是观察者，每个 Observer 都包含了一个回调（函数指针）
 ><script src="https://gist.github.com/zhangkn/2d32f6bbe5a09f338355e0049334132c.js"></script>
 >
+>* You might use run loop observers to prepare your thread to process a given event or to prepare the thread before it goes to sleep. You can associate run loop observers with the following events in your run loop:
+><script src="https://gist.github.com/zhangkn/1a990ad34ea7c2dd26d055f8afbdb964.js"></script>
+
 
 
 ###### 3.2.4 mode item
@@ -363,6 +426,21 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 
 # IV、 RunLoop 的 Mode
 
+
+A run loop mode is a collection of input sources and timers to be monitored and a collection of run loop observers to be notified.
+
+>* In your code, you identify modes by name.
+>```
+>You can define custom modes by simply specifying a custom string for the mode name.
+> You must be sure to add one or more input sources, timers, or run-loop observers to any modes you create for them to be useful.
+>```
+>
+>* Note: Modes discriminate based on the source of the event
+>```
+> You could use modes to listen to a different set of ports, suspend timers temporarily, or otherwise change the sources and run loop observers currently being monitored
+>```
+
+
 >* [swift-corelibs-foundation/CoreFoundation/RunLoop.subproj/CFRunLoop.c](https://github.com/apple/swift-corelibs-foundation/blob/386f3a5d71dc51845abddbf8c2ffb3179cd5cc89/CoreFoundation/RunLoop.subproj/CFRunLoop.c)
 >* CFRunLoopMode结构
 ><script src="https://gist.github.com/zhangkn/acecc505d64fd8741072e0cee6195f23.js"></script>
@@ -372,6 +450,9 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 
 >* 重要概念`CommonModes`：
 >```
+>NSRunLoopCommonModes (Cocoa)
+kCFRunLoopCommonModes (Core Foundation)
+This is a configurable group of commonly used modes. Associating an input source with this mode also associates it with each of the modes in the group. For Cocoa applications, this set includes the default, modal, and event tracking modes by default. Core Foundation includes just the default mode initially. You can add custom modes to the set using the CFRunLoopAddCommonMode function.
 >1)一个 Mode 可以将自己标记为"Common"属性（通过将其 ModeName 添加到 RunLoop 的 "commonModes" 中）。
 >2)每当 RunLoop 的内容发生变化时，RunLoop 都会自动将 _commonModeItems 里的 Source/Observer/Timer 同步到具有 "Common" 标记的所有Mode里。
 >```
@@ -393,12 +474,41 @@ A NSRunLoop object processes input for sources such as mouse and keyboard events
 
 >* 苹果公开提供的 Mode 有两个：`kCFRunLoopDefaultMode (NSDefaultRunLoopMode)` 和 `UITrackingRunLoopMode`，你可以用这两个 Mode Name 来操作其对应的 Mode。
 ><script src="https://gist.github.com/zhangkn/efe456e8efa85f79718f26e359a5a4cf.js"></script>
+>
+
+###### 4.2.1 Predefined run loop modes
+
+>* Default
+>```
+NSDefaultRunLoopMode (Cocoa)
+kCFRunLoopDefaultMode (Core Foundation)
+The default mode is the one used for most operations. Most of the time, you should use this mode to start your run loop and configure your input sources.
+>```
+>* Connection
+>```
+>NSConnectionReplyMode (Cocoa)
+>Cocoa uses this mode in conjunction with NSConnection objects to monitor replies. You should rarely need to use this mode yourself.
+>```
+>* Modal
+>```
+>NSModalPanelRunLoopMode (Cocoa)
+>Cocoa uses this mode to identify events intended for modal panels.
+>```
+>* Event tracking
+>```
+>NSEventTrackingRunLoopMode (Cocoa)
+>Cocoa uses this mode to restrict incoming events during mouse-dragging loops and other sorts of user interface tracking loops.
+>```
+>* Common modes
+>```
+> NSRunLoopCommonModes (Cocoa)
+kCFRunLoopCommonModes (Core Foundation)
+>```
 
 
 #### 4.3 同时苹果还提供了一个操作 Common 标记的字符串：
 
 >* `kCFRunLoopCommonModes (NSRunLoopCommonModes)`，你可以用这个字符串来操作 Common Items，或标记一个 Mode 为 "Common"。使用时注意区分这个字符串和其他 mode name。
->
 >
 
 
@@ -439,7 +549,7 @@ It is a loop your thread enters and uses to run event handlers in response to in
 
 # RunLoop 的底层实现
 
-从上面代码可以看到，RunLoop 的核心是基于 mach port 的，其进入休眠时调用的函数是 `mach_msg()`。为了解释这个逻辑，下面稍微介绍一下 OSX/iOS 的系统架构。
+ RunLoop 的核心是基于 mach port 的，其进入休眠时调用的函数是 `mach_msg()`。为了解释这个逻辑，下面稍微介绍一下 OSX/iOS 的系统架构。
 
 ![](http://ww4.sinaimg.cn/large/7853084cjw1fa7xzae9dlj206203nwel.jpg)
 
