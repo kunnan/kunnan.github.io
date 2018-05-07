@@ -40,6 +40,13 @@ tags:
 
 >* 写一个空白的子类设置在Customer Class 中
 ><script src="https://gist.github.com/zhangkn/89eb967d5174eddbc0af324a0a1cfc71.js"></script>
+>
+>
+
+#### [code](https://github.com/kunnan/KNIBInspectable)
+
+>* [KNIBInspectable/KNIBInspectableEx](https://github.com/kunnan/KNIBInspectable/tree/master/KNIBInspectable/KNIBInspectableEx)
+>
 
 # see also
 

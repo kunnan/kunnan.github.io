@@ -108,6 +108,16 @@ Options:
 
 
 
+#### 一步步搭建小程序
+
+>* 域名及证书配置	
+>```
+>购买域名 >
+网站备案 >
+部署SSL证书 >
+>```
+
+
 #### 小程序开发与管理
 
 
@@ -147,7 +157,17 @@ Options:
 
 
 
+# Viscosity 
 
+是一款运行在macOS平台上的网络保护软件，使用它可以进行内部网络的连接。
+
+# [software/confluence](https://www.atlassian.com/software/confluence)
+
+>* 通常的层级结构是：空间->文章（技术、接口文档wiki）
+>![](https://ws3.sinaimg.cn/large/006tKfTcgy1fr2mzcisttj31980e2myb.jpg)
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr2mzc78s5j30n206edge.jpg)
+
+>* 如果新增个问答模块就更完美了
 
 
 # See Also 

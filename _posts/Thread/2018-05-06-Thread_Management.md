@@ -9,7 +9,17 @@ author: kunnan
 subtitle: an overview of the thread technologies available in OS X and iOS along with examples of how to use those technologies in your applications
 ---
 
+# 前言
 
+#### 基本概念
+
+>* 进程： 一个具有一定独立功能的程序关于某个数据集合的一次运行活动。可以理解成一个运行中的应用程序。
+>* 线程： 程序执行流的最小单元，线程是进程中的一个实体。
+>* 同步： 只能在当前线程按先后顺序依次执行，不开启新线程。
+>* 异步： 可以在当前线程开启多个新线程执行，可不按顺序执行。
+>* 队列： 装载线程任务的队形结构。
+>* 并发： 线程执行可以同时一起进行执行。
+>* 串行： 线程执行只能依次逐一先后有序的执行。
 
 
 # I、 多线程
