@@ -89,7 +89,7 @@ Options:
 
 #### 扩张语法
 
->* 代码块和语法高亮: `swift`、`js`
+>* 代码块和语法高亮: `swift`、`js`、`objc`
 >```js
 window.addEventListener('load', function() {
   console.log('window loaded');
