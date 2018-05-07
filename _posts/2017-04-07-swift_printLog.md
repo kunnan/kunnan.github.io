@@ -47,6 +47,8 @@ tags:
 </tbody></table>
 
 
+# 利用编译符号强化print 
+
 >* 有了上面的这些编译符号，我们就可以自定义一个输出函数：`printm`
 ><script src="https://gist.github.com/zhangkn/9cb1b6fa6485f6df0cdd3441b103746b.js"></script>
 >
