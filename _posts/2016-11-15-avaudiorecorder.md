@@ -1,14 +1,13 @@
 ---
 layout:     post
 title:      avaudiorecorder
-subtitle:   avaudiorecorder的averagePowerForChannel: 使用的例子：测噪音
+subtitle:   avaudiorecorder的averagePowerForChannel:测噪音
 date:       2016-11-15
 author:    
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
     - iOS
-   
 ---
 
 
