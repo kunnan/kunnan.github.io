@@ -182,14 +182,42 @@ GCD会自动将队列中的任务取出，放到对应的线程中执行
 >* There are two ways to create a thread using the NSThread class:
 ><script src="https://gist.github.com/zhangkn/bd318f66b45025c6419a166d80f7f96f.js"></script>
 >
+#### 3.2 Using POSIX Threads
+
+>* OS X and iOS provide C-based support for creating threads using the` POSIX thread API`
+>```
+>This technology can actually be used in any type of application (including Cocoa and Cocoa Touch applications) and might be more convenient if you are writing your software for multiple platforms
+>```
+
+>* Creating a thread in C
+><script src="https://gist.github.com/zhangkn/8c196ce46991960edfb0a1ae1238afb6.js"></script>
+>
 
 
+# IV、Using NSObject to Spawn a Thread
 
 
+>* Using NSObject to Spawn a Thread
+>```
+>[myObj performSelectorInBackground:@selector(doSomething) withObject:nil];
+>```
+
+# V、Writing Your Thread Entry Routine
 
 
+#### 5.1 Creating an Autorelease Pool
+
+>* Defining your thread entry point routine
+><script src="https://gist.github.com/zhangkn/da640649e6d62b0fe8c6f533bdbbfdcc.js"></script>
+>
+>
+
+# VI、 Terminating a Thread
 
 
+>* Checking for an exit condition during a long job
+><script src="https://gist.github.com/zhangkn/df7c9174ed9d0e2e5c63203a1c125c0b.js"></script>
+>
  
 
 
