@@ -1,14 +1,14 @@
 ---
 layout:     post
-title:      iOS噪音计
-subtitle:   一个iOS噪音计模型、以及测量原理及分贝计算
+title:      avaudiorecorder
+subtitle:   avaudiorecorder的averagePowerForChannel: 使用的例子：测噪音
 date:       2016-11-15
 author:    
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
     - iOS
-    - Demo
+   
 ---
 
 
