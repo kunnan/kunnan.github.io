@@ -90,9 +90,14 @@ Options:
 #### 扩张语法
 
 >* 代码块和语法高亮: 
+>```js
+window.addEventListener('load', function() {
+  console.log('window loaded');
+});
+>```
 
 
-
+>* [code-blocks-and-highlighting](http://itmyhome.com/markdown/article/extension/code-blocks-and-highlighting.html)
 
 
 
