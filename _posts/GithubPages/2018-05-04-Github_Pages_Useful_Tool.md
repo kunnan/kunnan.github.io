@@ -89,13 +89,14 @@ Options:
 
 #### 扩张语法
 
->* 代码块和语法高亮: 
+>* 代码块和语法高亮: `swift`、`js`
 >```js
 window.addEventListener('load', function() {
   console.log('window loaded');
 });
 >```
-
+> <script src="https://gist.github.com/zhangkn/9cb1b6fa6485f6df0cdd3441b103746b.js"></script>
+> 
 
 >* [code-blocks-and-highlighting](http://itmyhome.com/markdown/article/extension/code-blocks-and-highlighting.html)
 
