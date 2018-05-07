@@ -3,12 +3,12 @@ layout:     post
 title:      iOS_GestureRecognizer_CGAffineTransform
 subtitle:   手势与变形
 date:       2016-10-10
-author:     BY
+author:    
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
     - iOS
-    - iOS开发基础
+    
 ---
 
 
