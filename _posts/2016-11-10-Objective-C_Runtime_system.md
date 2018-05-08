@@ -7,9 +7,9 @@ author:
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
-    - Obj-C
+    - objc
     - Runtime
-    - iOS
+    
 --- 
 
 # [前言](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048?language=objc)
