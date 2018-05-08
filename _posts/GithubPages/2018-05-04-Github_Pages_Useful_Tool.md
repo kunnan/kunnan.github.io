@@ -44,6 +44,13 @@ PING sni.github.map.fastly.net (185.199.111.153): 56 data bytes
 >5) 二级域名
 >6）手机网站：m
 >```
+>
+>* 域名解析
+>```
+>解析生效后，可以尝试访问来查看是否解析成功，直接访问 http://iosre.club，如果是 Github Pages 的 404 界面，说明解析成功了。
+>```
+>
+
 
 #### 修改CNAME
 
@@ -53,6 +60,21 @@ PING sni.github.map.fastly.net (185.199.111.153): 56 data bytes
 >在CNAME输入你自己的域名，就可以解析到你的主页了
 >```
 
+>* https://github.com/kunnan/kunnan.github.io/settings
+>```
+>Your site is ready to be published at https://kunnan.github.io/. 修改之前的情况
+> Your site is published at http://iosre.club/修改之后的情况
+>```
+>
+>* Enforce HTTPS
+>```
+>Enforce HTTPS — Unavailable for your site because your domain is not properly configured to support HTTPS (iosre.club) 
+1) HTTPS provides a layer of encryption that prevents others from snooping on or tampering with traffic to your site.
+When HTTPS is enforced, your site will only be served over HTTPS. Learn more.
+>```
+>
+>* [securing-your-github-pages-site-with-https](https://help.github.com/articles/securing-your-github-pages-site-with-https)
+>
 
 
 # ImageOptim
