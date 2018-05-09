@@ -22,6 +22,20 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 
 # [解析域名： `iosre.club` ->`https://kunnan.github.io/`](https://console.cloud.tencent.com/developer)
 
+#### 常用的选择：GitHub Pages
+
+>* 优点
+>```
+自带域名可 https 访问
+可配置自定义域名
+```
+>* 缺点
+>```
+>无法给自定义域名配置 SSL,借助其他平台(cloudflare CDN)。
+>不如自己买个 vps 搭建。
+```
+
+
 
 ####  添加解析
 >* 管理控制台 → 域名与网站（万网） → 域名
@@ -33,6 +47,24 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 >记录值就是我们博客的IP地址，是 GitHub Pagas 在美国的服务器的地址 
 >devzkndeMacBook-Pro:kunnan.github.io.git devzkn$ ping kunnan.github.io
 PING sni.github.map.fastly.net (185.199.111.153): 56 data bytes
+devzkndeMacBook-Pro:kunnan.github.io.git devzkn$ dig kunnan.github.io
+; <<>> DiG 9.9.7-P3 <<>> kunnan.github.io
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 45945
+;; flags: qr rd ra; QUERY: 1, ANSWER: 5, AUTHORITY: 0, ADDITIONAL: 0
+;; QUESTION SECTION:
+;kunnan.github.io.		IN	A
+;; ANSWER SECTION:
+kunnan.github.io.	3600	IN	CNAME	sni.github.map.fastly.net.
+sni.github.map.fastly.net. 1300	IN	A	185.199.110.153
+sni.github.map.fastly.net. 1300	IN	A	185.199.108.153
+sni.github.map.fastly.net. 1300	IN	A	185.199.111.153
+sni.github.map.fastly.net. 1300	IN	A	185.199.109.153
+;; Query time: 218 msec
+;; SERVER: 114.114.114.114#53(114.114.114.114)
+;; WHEN: Wed May 09 10:35:36 CST 2018
+;; MSG SIZE  rcvd: 137
 >```
 >
 >* 要解析 www.iosre.club，请填写 www。主机记录就是域名前缀，常见用法有：
@@ -75,6 +107,49 @@ When HTTPS is enforced, your site will only be served over HTTPS. Learn more.
 >
 >* [securing-your-github-pages-site-with-https](https://help.github.com/articles/securing-your-github-pages-site-with-https)
 >
+
+
+####  [部署SSL证书](https://console.cloud.tencent.com/ssl)
+
+>* 证书申请
+>```
+>您的域名已使用云解析服务，可自动添加DNS记录验证，无需您进行任何操作
+>您的申请信息已提交。腾讯云将在一个工作日内完成审核，审核结果将以短信、邮件及站内信的方式通知您。
+>您的证书已颁发，可下载到本地。证书安装方法可参考指引文档
+>```
+>* [证书安装指引](https://cloud.tencent.com/document/product/400/4143)
+>* [自定义域名的 GitHub Pages 添加 SSL 的方案:利用 Cloudflare 反代实现全站 HTTPS](https://blog.itswincer.com/posts/444a2b9d/)
+>```
+>cloudflare 免费版并不是很快。而且他强制你 nameserver 指过去。反正我不想用
+>```
+>* [介绍一些免费好用的静态网站托管服务 #55](https://github.com/lmk123/blog/issues/55)
+>```
+> 1) GitLab Pages:同样跟 GitHub Pages 的功能一样，但是：自定义域名可配置 https，不过需要上传证书
+> https://docs.gitlab.com/ee/user/project/pages/index.html
+> 2)Netlify（推荐）https://www.netlify.com/  
+> --可以使用 CLI 上传代码
+> --支持自定义域名且自定义域名支持一键开启 https（证书来自 Let's Encrype）
+> --支持强制让用户通过 https 访问网站（开启后此功能后，http 的访问一律会 301跳转到 https
+> --支持自动构建
+> --支持重定向（Redirects）和重写（Rewrites）功能
+> --数据通过 HTTP2 协议传输
+> --提供 webhooks 与 API
+> Netlify 有个问题是会自动把静态资源上传到 cloudfront CDN，但国内有些地方访问 cloudfront 速度很慢或部分被墙。
+>```
+>* [在GitHub Pages上使用CloudFlare(简称CF) https CDN](https://blog.chionlab.moe/2016/01/28/github-pages-with-https/)
+>```
+>一家CDN提供商，它的free plan里面就提供https服务（免费计划不能上传SSL）。
+>现在可以通过CF实现：从用户到CDN服务器的连接为https，而CDN服务器到GitHub Pages服务器的连接为http。
+>当用户通过该域名访问CF的CDN时（仅限http或https），CDN再转发到刚才填写的真实目的主机（即username.github.io）
+>```
+>
+>
+
+
+
+####  [小程序配置指引、升级方案](https://github.com/tencentyun/weapp-doc)
+
+
 
 
 # ImageOptim
@@ -146,13 +221,13 @@ window.addEventListener('load', function() {
 
 
 
-#### 一步步搭建小程序
+#### [一步步搭建小程序](https://cloud.tencent.com/act/weapp/package?fromSource=gwzcw.916481.916481.916481)
 
 >* 域名及证书配置	
 >```
 >购买域名 >
 网站备案 >
-部署SSL证书 >
+部署SSL证书 > https://console.cloud.tencent.com/ssl
 >```
 
 
@@ -175,6 +250,8 @@ window.addEventListener('load', function() {
 
 >* [普通小程序](https://mp.weixin.qq.com/debug/wxadoc/introduction/index.html)
 >* [小游戏](https://mp.weixin.qq.com/debug/wxagame/introduction/index.html)
+>* [API](https://developers.weixin.qq.com/miniprogram/dev/api/)
+>
 >
 
 #### 版本发布
