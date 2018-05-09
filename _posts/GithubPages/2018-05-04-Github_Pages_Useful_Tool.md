@@ -233,6 +233,12 @@ window.addEventListener('load', function() {
 
 #### 小程序开发与管理
 
+>*
+>```
+>devzkndeMacBook-Pro:iosre devzkn$ git init
+>git add .
+> git commit -m "demo"
+>```
 
 ###### 小程序开发与管理
 
@@ -251,13 +257,14 @@ window.addEventListener('load', function() {
 >* [普通小程序](https://mp.weixin.qq.com/debug/wxadoc/introduction/index.html)
 >* [小游戏](https://mp.weixin.qq.com/debug/wxagame/introduction/index.html)
 >* [API](https://developers.weixin.qq.com/miniprogram/dev/api/)
->
->
+>* [开发支持](https://mp.weixin.qq.com/cgi-bin/wx)
 
 #### 版本发布
 
- 先提交代码，然后提交审核，审核通过后可发布
-
+>*  先提交代码，然后提交审核，审核通过后可发布
+>```
+>多次提交测试内容或 Demo，将受到相应处罚。
+>```
 
 
 
