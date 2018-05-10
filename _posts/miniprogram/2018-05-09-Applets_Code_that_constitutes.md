@@ -57,14 +57,8 @@ subtitle: 小程序的代码构成
 >```
 >框架可以让数据与视图非常简单地保持同步。当做数据修改的时候，只需要在逻辑层修改数据，视图层就会做相应的更新。
 >```
+>* [例子的代码片段](wechatide://minicode/ykE7Dim36JZG)
 >
-
-
-
-
-
-
-
 
 
 
@@ -140,6 +134,27 @@ subtitle: 小程序的代码构成
 
 
 
+# 逻辑层(App Service)
+
+
+>* 小程序开发框架的逻辑层由 JavaScript 编写。
+>```
+>逻辑层将数据进行处理后发送给视图层，同时接受视图层的事件反馈。
+>```
+>
+>* 在 JavaScript 基础上的一些修改
+><script src="https://gist.github.com/zhangkn/ee780a5f666c98a7af20ebc471b16e56.js"></script>
+
+#### 注册小程序 App
+
+>* App() 函数用来注册一个小程序。接受一个 object 参数，其指定小程序的生命周期函数等。
+><script src="https://gist.github.com/zhangkn/e199024423db6e11619912e80c839cb5.js"></script>
+>
+>
+ 
+>* 全局的 `getApp() `函数可以用来获取到小程序实例
+><script src="https://gist.github.com/zhangkn/e8ea423d299f8bd7180e360ae9132f56.js"></script>
+>
 
 
 
