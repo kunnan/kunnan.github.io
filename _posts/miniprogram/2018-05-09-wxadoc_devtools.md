@@ -281,12 +281,18 @@ http 服务在工具启动后自动开启，HTTP 服务端口号在用户目录�
 <script src="https://gist.github.com/zhangkn/091aaf96e25eaf3b19ba22b2c52697ac.js"></script>
 
 
+###### 4. 上传
 
+<script src="https://gist.github.com/zhangkn/49fd1ecfbf66f8277f7ae249c388e39e.js"></script>
 
+###### 5. 自动化测试
 
-
-
-
+>* test
+>```sh
+># 提交路径为 /Users/username/demo 的项目进行测试
+http://127.0.0.1:端口号/test?projectpath=%2FUsers%2Fusername%2Fdemo
+>```
+>
 
 
 # See Also 
