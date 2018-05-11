@@ -228,10 +228,13 @@ subtitle: 小程序的代码构成
 >```
 >模块只有通过 `module.exports `或者 `exports` 才能对外暴露接口。
 >```
+><script src="https://gist.github.com/zhangkn/6053bb2301759adafb032dcabc546c70.js"></script>
+>
 >
 
+#### [API](https://developers.weixin.qq.com/miniprogram/dev/api/)
 
-
+提供丰富的微信原生 API，可以方便的调起微信提供的能力，如获取用户信息，本地存储，支付功能
 
 
 # 开放能力
