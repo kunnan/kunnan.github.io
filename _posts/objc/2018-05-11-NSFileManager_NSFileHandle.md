@@ -13,6 +13,12 @@ subtitle: NSFileManager类对文件的操作、NSFileHandle对文件内容进行
 # 前言
 
 
+>* [code: KNiosreTool](https://github.com/kunnan/KNiosreTool)
+>```
+>存储一些逆向分析的工具代码片段
+>```
+>
+
 >* 从沙盒获取信息:NSFileManager类主要对文件的操作（删除、修改、移动、复制等等） NSFileHandle 类主要对文件内容进行读取和写入操作
 ><script src="https://gist.github.com/zhangkn/cd381ef436409a4ea04ec28817df87e9.js"></script>
 

@@ -9,6 +9,13 @@ author: kunnan
 subtitle: 逆向常用工具
 ---
 
+# 前言
+
+>* [code: KNiosreTool](https://github.com/kunnan/KNiosreTool)
+>```
+>存储一些逆向分析的工具代码片段
+>```
+>
 
 
 # cydia host
