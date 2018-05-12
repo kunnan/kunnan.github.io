@@ -17,6 +17,11 @@ subtitle: NSFileManager类对文件的操作、NSFileHandle对文件内容进行
 ><script src="https://gist.github.com/zhangkn/cd381ef436409a4ea04ec28817df87e9.js"></script>
 
 
+# 例子
+
+>* [在sb tweak 中 拷贝特定文件到特定app的沙盒路径]
+><script src="https://gist.github.com/zhangkn/74ce4737a33221228244b9b18f8e545a.js"></script>
+
 
 # See Also 
 
