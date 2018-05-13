@@ -69,6 +69,7 @@ Theos（iphone/tool、iphone/tweak）、socat、class dump、
 1) MobileWiFi.framework:   启动处理Wi-Fi的连接断开
 2） SpringBoardServices.framework
 3） <Foundation/NSTask.h>： task launch
+4) /System/Library/PrivateFrameworks/AppStoreDaemon.framework/appstored.bundle/appstored
 ```
 
 >* ios CoreServices
