@@ -204,6 +204,22 @@ window.addEventListener('load', function() {
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fqz049dx01j30wy08yt9q.jpg)
 
 >* 默认支持markdown的图片格式，默认上传图片到新浪图床
+>```
+>https://chrome.google.com/webstore/detail/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E5%9B%BE%E5%BA%8A/fdfdnfpdplfbbnemmmoklbfjbhecpnhf
+>```
+>* [weibo_util.py](https://github.com/noteblogpost/hexo_weibo_image)
+>```
+>/usr/bin/python --version Python 2.7.10
+> python --version Python 3.6.5
+> ImportError: No module named requests
+devzkndeMacBook-Pro:hexo_weibo_image devzkn$ sudo pip install requests
+ImportError: No module named rsa
+devzkndeMacBook-Pro:hexo_weibo_image devzkn$ sudo pip install rsa
+>```
+>* [minipublish](https://weibo.com/minipublish)
+>* [目前我使用的工具Weibo-Picture-Store](https://github.com/noteblogpost/Weibo-Picture-Store)
+
+
 
 #  [gist.github.com]( https://gist.github.com/zhangkn/)
 

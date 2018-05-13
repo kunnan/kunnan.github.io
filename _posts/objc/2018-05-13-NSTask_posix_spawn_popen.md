@@ -17,6 +17,8 @@ subtitle: NSTask、posix_spawn、popen 的应用例子
 >```objc
 >FILE	*popen(const char *, const char *) __DARWIN_ALIAS_STARTING(__MAC_10_6, __IPHONE_2_0, __DARWIN_ALIAS(popen)) __swift_unavailable_on("Use posix_spawn APIs or NSTask instead.", "Process spawning is unavailable.");
 >```
+>
+>* [code](https://github.com/kunnan/KNiosreTool)
 
 
 # I、popen
