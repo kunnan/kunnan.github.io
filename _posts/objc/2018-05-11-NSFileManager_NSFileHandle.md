@@ -33,7 +33,7 @@ subtitle: NSFileManager类对文件的操作、NSFileHandle对文件内容进行
 >
 
 
-# setupdeletedir
+# [setupdeletedir:`enumeratorAtPath`、`contentsOfDirectoryAtPath`](https://github.com/kunnan/KNiosreTool/blob/master/KNiosreTool/file/KNdelateDirTool.m)
 
 
 
