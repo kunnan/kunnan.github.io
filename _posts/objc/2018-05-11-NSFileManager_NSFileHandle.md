@@ -15,7 +15,7 @@ subtitle: NSFileManager类对文件的操作、NSFileHandle对文件内容进行
 
 >* [code: KNiosreTool](https://github.com/kunnan/KNiosreTool)
 >```
->存储一些逆向分析的工具代码片段
+>存储一些逆向分析的工具代码片段: 清理文件、自动登录Wi-Fi
 >```
 >
 
@@ -31,6 +31,12 @@ subtitle: NSFileManager类对文件的操作、NSFileHandle对文件内容进行
 >* 从沙盒宝贝特定文件到特定目录
 ><script src="https://gist.github.com/zhangkn/c3c2b1cded433f58648d5aff6b8293be.js"></script>
 >
+
+
+# setupdeletedir
+
+
+
 
 
 # See Also 

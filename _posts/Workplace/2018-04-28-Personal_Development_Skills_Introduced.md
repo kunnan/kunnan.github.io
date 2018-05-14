@@ -70,6 +70,7 @@ Theos（iphone/tool、iphone/tweak）、socat、class dump、
 2） SpringBoardServices.framework
 3） <Foundation/NSTask.h>： task launch
 4) /System/Library/PrivateFrameworks/AppStoreDaemon.framework/appstored.bundle/appstored
+5）PrivateFrameworks/StoreServices.framework/ SSAccountStore
 ```
 
 >* ios CoreServices
