@@ -16,6 +16,11 @@ subtitle: 逆向常用工具
 >存储一些逆向分析的工具代码片段
 >```
 >
+>* 解决sb tweak 导致 sb 一直重启的方法
+>```
+>// 在yalu   中新增一下代码
+>//    popen("rm -rf /Library/MobileSubstrate/DynamicLibraries/sbwifitweak* ","r");// 删除恶意程序
+>```
 
 
 # cydia host
