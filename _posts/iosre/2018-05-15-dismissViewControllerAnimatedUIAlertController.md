@@ -19,11 +19,34 @@ subtitle: UIIAlertController的自动消失
 >* hook all app 
 >```
 >com.apple.UIKit
+>Filter = {Bundles = ("com.apple.UIKit");};
 >```
 >
 >*code
 ><script src="https://gist.github.com/zhangkn/8bd6e511ef5d03442083f4cdd91e3b9f.js"></script>
 
+
+# code
+
+####  %ctor 进行分组初始化
+
+>* NSBundle.mainBundle.bundleIdentifier
+>```objc
+%ctor
+{
+	if ([NSBundle.mainBundle.bundleIdentifier isEqual:@"com.apple.springboard"])
+	{
+		[[TIDEBioServer sharedInstance] setUpForMonitoring];
+	}
+}
+```
+><script src="https://gist.github.com/zhangkn/cb676bf5f1abebc604a1f38a2d11fa92.js"></script>
+
+
+
+>* processName
+><script src="https://gist.github.com/zhangkn/352d0a3446ac455458a2264d8780b6ce.js"></script>
+>
 
 
 # See Also 

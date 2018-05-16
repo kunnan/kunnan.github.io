@@ -6,7 +6,7 @@ tag: iosre
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
-subtitle: YYWKWebView
+subtitle: YYWKWebView & 
 ---
 
 # 前言
@@ -18,7 +18,7 @@ subtitle: YYWKWebView
 - (void)evaluateJavaScriptFromString:(id)arg1 completionBlock:(CDUnknownBlockType)arg2;
 >```
 
-# 例子
+# YYUIWebView的例子
 
 
 >* 执行js方法
@@ -33,6 +33,14 @@ subtitle: YYWKWebView
 >* 获取url 的正则
 ><script src="https://gist.github.com/zhangkn/bf22f38864d0dafbf2ba656ac875c773.js"></script>
 >
+
+
+# UIWebView 的例子
+
+<script src="https://gist.github.com/zhangkn/cb676bf5f1abebc604a1f38a2d11fa92.js"></script>
+
+
+
 
 # See Also 
 
