@@ -31,83 +31,40 @@ subtitle: 视图层
 
 
 
-#### 数据绑定
+# 数据绑定
 
->* 数据绑定使用 Mustache 语法（双大括号）将变量包起来，可以作用于：`内容`、`组件属性(需要在双引号之内)
-`、`控制属性(需要在双引号之内)
-`、`关键字(需要在双引号之内)
-`
-```
-<view id="item-{{id}}"> </view>
-<view wx:if="{{condition}}"> </view>
-<checkbox checked="{{false}}"> </checkbox>
-```
+>* 数据绑定使用 Mustache 语法（双大括号）将变量包起来，可以作用于：`内容`、`组件属性(需要在双引号之内)`、`控制属性(需要在双引号之内)`、`关键字(需要在双引号之内)`
+><script src="https://gist.github.com/zhangkn/e47f1e27f00b8cdb92c93d9bc8e541b9.js"></script>
+>
+>
 
 
 
-###### 运算
+
+
+#### 运算
 
 >* 支持的有如下几种方式: `三元运算
 `、`算数运算`、`逻辑判断`、`字符串运算
-`、`数据路径运算`、
+`、`数据路径运算`
+<script src="https://gist.github.com/zhangkn/b88b4149e679700a7b785e9d584de107.js"></script>
 
 
->* 三元运算
->```wxml
-><view hidden="{{flag ? true : false}}"> Hidden </view>
->```
 
->* 算数运算
->```wxml
-><view> {{a + b}} + {{c}} + d </view>
->```
->* 逻辑判断
->```
-><view wx:if="{{length > 5}}"> </view>
->```
->* 字符串运算
->```
-><view>{{"hello" + name}}</view>
->```
->* 数据路径运算
->```
-><view>{{object.key}} {{array[0]}}</view>
->```
->
 
-###### 组合
+
+
+
+#### 组合
 
 
 直接进行组合，构成新的对象或者数组
+<script src="https://gist.github.com/zhangkn/867b577ef1da2041fc2467787759326a.js"></script>
 
-
-
->* 数组
->```
-><view wx:for="{{[zero, 1, 2, 3, 4]}}"> {{item}} </view>
->```
->* 对象
->```
-><template is="objectCombine" data="{{for: a, bar: b}}"></template>
->```
->
->* 用扩展运算符 ... 来将一个对象展开,常用于模板的数据传入
->```
-><template is="objectCombine" data="{{...obj1, ...obj2, e: 5}}"></template>
-><template is="staffName" data="{{...staffA}}"></template>
->```
->
->
-
-
-
-
-
-
-###### 例子
+#### 例子
 
 >* <!--wxml-->
->```wxml
+>```
 >    <text class="user-motto">{{motto}}</text>
 >```
 >* //index.js
@@ -121,7 +78,7 @@ subtitle: 视图层
 >```
 
 
-#### 列表渲染
+# 列表渲染
 
 >* 在`组件`上使用 `wx:for` 控制属性绑定一个数组，即可使用数组中各项的数据重复渲染该`组件`。
 
@@ -145,21 +102,12 @@ VM339:3  Now you can provide attr "wx:key" for a "wx:for" to improve performance
 
 
 
-###### 例子1
+#### 例子1
 
 
-
->* logs.wxml: 重复渲染该`text组件`
->```
-><!--logs.wxml 页面结构-->
-<view class="container log-list">
-<!--使用 wx:for-item 可以指定数组当前元素的变量名,默认值为item -->
-  <block wx:for="{{logs}}" wx:for-item="log">
-  <!--使用 wx:for-index 可以指定数组当前下标的变量名：默认index-->
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
-</view>
->```
+>*  重复渲染`text组件` --logs.wxml
+><script src="https://gist.github.com/zhangkn/e6e0396d6b62e7f419e197974fd12403.js"></script>
+>
 
 >*  logs.js 
 >```js
@@ -195,29 +143,17 @@ Page({//进行页面的注册
 >```
 
 
-###### 例子2
-
->* wxml: 重复渲染该`view组件`
->```
-><!--wxml-->
-<view wx:for="{{array}}"> {{item}} </view>
->```
->* page.js
->```
->// page.js
-Page({
-  data: {
-    array: [1, 2, 3, 4, 5]
-  }
-})
->```
->
->
-
-#### 条件渲染
+#### 例子2
 
 
-###### `wx:if` vs ` hidden`
+
+<script src="https://gist.github.com/zhangkn/ad038296624155cd33975139dc7f0619.js"></script>
+
+
+# 条件渲染
+
+
+#### `wx:if` vs ` hidden`
 
 >* ` wx:if` 也是惰性的，如果在初始渲染条件为 false，框架什么也不做，在条件第一次变成真的时候才开始局部渲染。
 >
@@ -231,91 +167,30 @@ Page({
 >```
 
 
-###### 例子一
+#### 例子一
 
 
->* wxml
->```
->  <view class="userinfo">
-  <!--1、使用 button 组件，并将 open-type 指定为 getUserInfo 类型，获取用户基本信息  -->
-  <!-- /2、使用 open-data 展示用户基本信息。 -->
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
->```
-
->* js
->```js
->Page({
-  data: {
-    text: 'Click me get my posts!',
-    motto: helloData,
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')//使用 button 组件，并将 open-type 指定为 getUserInfo 类型，获取用户基本信息
-  }
-  })
->```
+<script src="https://gist.github.com/zhangkn/e1204304f6ab24586a03c0cce7bf22e5.js"></script>
 
 
-###### 例子二
+#### 例子二
 
 
 
->* wxml
->```
-><!--wxml-->
-<view wx:if="{{view == 'WEBVIEW'}}"> WEBVIEW </view>
-<view wx:elif="{{view == 'APP'}}"> APP </view>
-<view wx:else="{{view == 'MINA'}}"> MINA </view>
->```
-
->*  view 变量的定义
->```
->// page.js
-Page({
-  data: {
-    view: 'MINA'
-  }
-})
->```
+<script src="https://gist.github.com/zhangkn/cc25c2210130941f9cd4518e2858d2fe.js"></script>
 
 
-#### 模板
+
+# 模板
 
 WXML提供模板（template），可以在模板中定义代码片段，然后在不同的地方调用。
 
 
->* template wxml
->```
-<template is="staffName" data="{{...staffA}}"></template>
-<template is="staffName" data="{{...staffB}}"></template>
-<template is="staffName" data="{{...staffC}}"></template>
-<!--wxml-->
-<template name="staffName">
-  <view>
-    FirstName: {{firstName}}, LastName: {{lastName}}
-  </view>
-</template>
->```
->
->*  js
->```
->Page({//进行页面的注册
-  data: {
-    logs: [],
-    staffA: { firstName: 'Hulk', lastName: 'Hu' },
-    staffB: { firstName: 'Shang', lastName: 'You' },
-    staffC: { firstName: 'Gideon', lastName: 'Lin' }
-  }})
->```
+<script src="https://gist.github.com/zhangkn/ffe64caa9f01482578a9d17e35b34ec2.js"></script>
 
 
 
-#### 事件
+# 事件
 
 
 >* 事件可以绑定在组件上，当达到触发事件，就会执行逻辑层中对应的事件处理函数
@@ -325,7 +200,7 @@ WXML提供模板（template），可以在模板中定义代码片段，然后�
 >
 
 
-###### 事件的使用方式
+#### 事件的使用方式
 
 
 >* 在组件中绑定一个事件处理函数。`bindtap`
@@ -335,7 +210,6 @@ WXML提供模板（template），可以在模板中定义代码片段，然后�
 >
 
 
-# 事件详解
 
 #### 事件分类
 
@@ -373,26 +247,13 @@ WXML提供模板（template），可以在模板中定义代码片段，然后�
 
 ###### 例子
 
->* 在捕获阶段中,事件到达节点的顺序与冒泡阶段恰好相反
->```wxml
-><!--点击 inner view 会先后调用handleTap2、handleTap4、handleTap3、handleTap1-->
-><view id="outer" bind:touchstart="handleTap1" capture-bind:touchstart="handleTap2">
-  outer view
-  <view id="inner" bind:touchstart="handleTap3" capture-bind:touchstart="handleTap4">
-    inner view
-  </view>
-</view>
->```
->* 只触发handleTap2
->```
-><view id="outer" bind:touchstart="handleTap1" capture-catch:touchstart="handleTap2">
-  outer view
-  <view id="inner" bind:touchstart="handleTap3" capture-bind:touchstart="handleTap4">
-    inner view
-  </view>
-</view>
->```
->
+
+<script src="https://gist.github.com/zhangkn/1f29659219d6df4c3dfca42fcf1fabbd.js"></script>
+
+
+
+
+
 
 #### 事件对象
 
@@ -402,13 +263,25 @@ WXML提供模板（template），可以在模板中定义代码片段，然后�
 >
 >
 
+
+###### dataset
+
+>* 组件中可以定义数据，这些数据将会通过事件传递给 SERVICE。 书写方式： 以data-开头
+>
+><script src="https://gist.github.com/zhangkn/3809b9aebce0cf4d09fc389d06ebe0a6.js"></script>
+
+
+
+
+
+
 ###### 例子
 
 >*  CustomEvent 自定义事件对象（继承 BaseEvent）
->```wxml
+>```
 >      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>  
 >```
->* 属性:detail 额外的信息
+>* 属性:detail 额外的信息: `表单组件`的提交事件会携带用户的输入，`媒体的错误事件`会携带错误信息
 >```js
 >  getUserInfo: function (e) {// 通过button.open-type.getUserInfo的方式获取数据
     console.log(e)
@@ -423,6 +296,29 @@ WXML提供模板（template），可以在模板中定义代码片段，然后�
 
 
 
+
+
+# 引用
+
+
+WXML 提供两种文件引用方式import和include。
+
+
+#### import
+
+<script src="https://gist.github.com/zhangkn/c944bffe04fdaad8e30777203c1db83f.js"></script>
+
+
+###### import 的作用域
+
+
+只会 import 目标文件中定义的 template，而不会 import 目标文件 import 的 template。
+
+
+#### include
+
+include 可以将目标文件除了 <template/> <wxs/> 外的整个代码引入，相当于是拷贝到 include 位置，如：
+<script src="https://gist.github.com/zhangkn/70de1a6d6663a3d9186bea21f64205e6.js"></script>
 
 
 
