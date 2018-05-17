@@ -33,6 +33,78 @@ subtitle: 视图层
 
 #### 数据绑定
 
+>* 数据绑定使用 Mustache 语法（双大括号）将变量包起来，可以作用于：`内容`、`组件属性(需要在双引号之内)
+`、`控制属性(需要在双引号之内)
+`、`关键字(需要在双引号之内)
+`
+```
+<view id="item-{{id}}"> </view>
+<view wx:if="{{condition}}"> </view>
+<checkbox checked="{{false}}"> </checkbox>
+```
+
+
+
+###### 运算
+
+>* 支持的有如下几种方式: `三元运算
+`、`算数运算`、`逻辑判断`、`字符串运算
+`、`数据路径运算`、
+
+
+>* 三元运算
+>```wxml
+><view hidden="{{flag ? true : false}}"> Hidden </view>
+>```
+
+>* 算数运算
+>```wxml
+><view> {{a + b}} + {{c}} + d </view>
+>```
+>* 逻辑判断
+>```
+><view wx:if="{{length > 5}}"> </view>
+>```
+>* 字符串运算
+>```
+><view>{{"hello" + name}}</view>
+>```
+>* 数据路径运算
+>```
+><view>{{object.key}} {{array[0]}}</view>
+>```
+>
+
+###### 组合
+
+
+直接进行组合，构成新的对象或者数组
+
+
+
+>* 数组
+>```
+><view wx:for="{{[zero, 1, 2, 3, 4]}}"> {{item}} </view>
+>```
+>* 对象
+>```
+><template is="objectCombine" data="{{for: a, bar: b}}"></template>
+>```
+>
+>* 用扩展运算符 ... 来将一个对象展开,常用于模板的数据传入
+>```
+><template is="objectCombine" data="{{...obj1, ...obj2, e: 5}}"></template>
+><template is="staffName" data="{{...staffA}}"></template>
+>```
+>
+>
+
+
+
+
+
+
+###### 例子
 
 >* <!--wxml-->
 >```wxml
@@ -240,6 +312,124 @@ WXML提供模板（template），可以在模板中定义代码片段，然后�
     staffC: { firstName: 'Gideon', lastName: 'Lin' }
   }})
 >```
+
+
+
+#### 事件
+
+
+>* 事件可以绑定在组件上，当达到触发事件，就会执行逻辑层中对应的事件处理函数
+>```
+>事件对象可以携带额外信息，如 id, dataset, touches
+>```
+>
+
+
+###### 事件的使用方式
+
+
+>* 在组件中绑定一个事件处理函数。`bindtap`
+>```
+><button bindtap="switch"> Switch </button>
+>```
+>
+
+
+# 事件详解
+
+#### 事件分类
+
+
+>* 事件分为`冒泡事件`和`非冒泡事件`：
+```
+1) 冒泡事件：当一个组件上的事件被触发后，该事件会向父节点传递。
+2) 非冒泡事件：当一个组件上的事件被触发后，该事件不会向父节点传递。
+```
+
+
+###### WXML的冒泡事件列表：
+
+
+<script src="https://gist.github.com/zhangkn/1a965fd0bf5cf9320f37e3aac39b02a7.js"></script>
+
+
+#### 事件绑定和冒泡
+
+
+>*  key、value 的形式
+>```
+>1) key 以bind或catch开头，然后跟上事件的类型，如bindtap、catchtouchstart。
+>自基础库版本 1.5.0 起，bind和catch后可以紧跟一个冒号，其含义不变，如bind:tap、、catch:touchstart。
+2) value 是一个字符串，需要在对应的 Page 中定义同名的函数。不然当触发事件的时候会报错。
+>```
+>
+
+#### 事件的捕获阶段
+
+>* 自基础库版本 1.5.0 起，触摸类事件支持捕获阶段。
+>```
+>需要在捕获阶段监听事件时，可以采用`capture-bind`、`capture-catch`关键字，后者将中断捕获阶段和取消冒泡阶段。
+>```
+
+###### 例子
+
+>* 在捕获阶段中,事件到达节点的顺序与冒泡阶段恰好相反
+>```wxml
+><!--点击 inner view 会先后调用handleTap2、handleTap4、handleTap3、handleTap1-->
+><view id="outer" bind:touchstart="handleTap1" capture-bind:touchstart="handleTap2">
+  outer view
+  <view id="inner" bind:touchstart="handleTap3" capture-bind:touchstart="handleTap4">
+    inner view
+  </view>
+</view>
+>```
+>* 只触发handleTap2
+>```
+><view id="outer" bind:touchstart="handleTap1" capture-catch:touchstart="handleTap2">
+  outer view
+  <view id="inner" bind:touchstart="handleTap3" capture-bind:touchstart="handleTap4">
+    inner view
+  </view>
+</view>
+>```
+>
+
+#### 事件对象
+
+
+>* 如无特殊说明，当组件触发事件时，逻辑层绑定该事件的处理函数会收到一个事件对象。
+><script src="https://gist.github.com/zhangkn/543f4361794e0ff844388d14e3955bc5.js"></script>
+>
+>
+
+###### 例子
+
+>*  CustomEvent 自定义事件对象（继承 BaseEvent）
+>```wxml
+>      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>  
+>```
+>* 属性:detail 额外的信息
+>```js
+>  getUserInfo: function (e) {// 通过button.open-type.getUserInfo的方式获取数据
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+  }
+>```
+
+
+
+
+
+
+
+
+
+
+
 
 # See Also 
 

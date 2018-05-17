@@ -17,8 +17,22 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 > 2） ipic ：上传图片到图床
 > 3） MacDown：markdown的编辑工具，支持预览
 > 4)  gist.github.com: 提高代码的阅读行性，以及提升markdown的文章的精简性。
+> 5）rss推送功能
 >```
 >
+
+
+# rss推送功能
+
+
+![image](http://ws2.sinaimg.cn/large/006tBeITgy1fre8jtlgj6j30ku112diq.jpg)
+![image](http://ws2.sinaimg.cn/large/006tBeITgy1fre8judyzwj30ku112jss.jpg)
+
+>* 本站的rss: https://kunnan.github.io/feed.xml
+>* 旧站的rss: https://zhangkn.github.io/feed.xml
+>
+
+
 
 # [解析域名： `iosre.club` ->`https://kunnan.github.io/`](https://console.cloud.tencent.com/developer)
 
