@@ -29,6 +29,19 @@ tags:
 	git push -u origin master
 ```
 
+#### 创建分支develop ，并提交到远程仓库;
+
+>* git push origin develop:develop
+>```sh 
+>git checkout -b develop
+#  提交本地develop分支作为远程的develop分支
+git push origin develop:develop
+# 本地分支和远程分支建立联系(使用git branch -vv 可以查看本地分支和远程分支的关联关系)
+#git branch --set-upstream-to=origin/远程分支的名字 本地分支的名字
+git branch --set-upstream-to=origin/develop develop
+>```
+
+
 #### [若仓库存在,直接add、commit、push](https://github.com/zhangkn/KNBin/blob/master/kngit)
 
 ```

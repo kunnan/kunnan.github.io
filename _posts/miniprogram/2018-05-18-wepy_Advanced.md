@@ -34,8 +34,61 @@ subtitle: wepy进阶介绍
 >    this.$parent.checkReg(async () => {
 >```
 >
+
+
+#### Page页面实例和Component组件实例
+
+>* Page也是组件,除扩展了页面所特有的config配置以及特有的页面生命周期函数之外，其它属性和方法与Component一致
+><script src="https://gist.github.com/zhangkn/be250f3911cd81c8532197091a3ef100.js"></script>
+>
+>* WePY中的组件都是静态组件，是以组件ID作为唯一标识的，每一个ID都对应一个组件实例
 >
 >
+
+# computed 计算属性
+
+>* 类型: `{ [key: string]: Function }`
+>```
+>可直接被当作绑定数据来使用。因此类似于data属性，代码中可通过this.计算属性名来引用，模板中也可通过{{ 计算属性名 }}来绑定数据。
+>```
+>```
+>  // 计算属性aPlus，在脚本中可通过this.aPlus来引用，在模板中可通过{{ aPlus }}来插值
+  computed = {
+      aPlus () {
+          return this.a + 1
+      }
+  }
+>```
+>
+
+# watcher 监听器
+
+
+
+# props 传值
+
+>* props传值在WePY中属于父子组件之间传值的一种机制，包括静态传值与动态传值。
+>```js
+>props = {
+    // 静态传值
+    title: String,
+    // 父向子单向动态传值
+    syncTitle: {
+        type: String,
+        default: 'null'
+    },
+    twoWayTitle: {
+        type: Number,
+        default: 'nothing',
+        twoWay: true
+    }
+};
+>```
+>
+>
+
+
+
 
 
 
