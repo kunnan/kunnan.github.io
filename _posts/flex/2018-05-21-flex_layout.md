@@ -12,6 +12,12 @@ subtitle: Flex 布局教程：语法篇
 
 # 前言
 
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frj5o5d2roj30ih07p0t7.jpg)
+
+>* flex layout is biased to the `flex directions`
+>
+>* The [`flex-flow`](https://www.w3.org/TR/css-flexbox/#propdef-flex-flow) value and the [`writing mode `](https://drafts.csswg.org/css-writing-modes-4/#writing-mode)determine how these terms map to physical directions (top/right/bottom/left), axes (vertical/horizontal), and sizes (width/height).
+
 
 # demo
 
@@ -66,6 +72,37 @@ npm notice created a lockfile as package-lock.json. You should commit this file.
 
 
 ![image](http://wx4.sinaimg.cn/large/006tBeITgy1friyscvpokj30dw05kjrb.jpg)
+
+
+>* [he official flexbox model by W3C](https://www.w3.org/TR/css-flexbox/#box-model)
+>
+>
+
+
+
+# Usage
+
+
+To use flexbox layout just set the` display `property on the parent HTML element:
+
+```css
+.flex-container {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+```
+
+>* Or if you want to display it like an inline element use:
+
+>```
+>.flex-container {
+  display: -webkit-inline-flex; /* Safari */
+  display: inline-flex;
+}
+>```
+>
+>
+
 
 
 
@@ -206,6 +243,10 @@ flex-flow: <‘flex-direction’> || <‘flex-wrap’>
 
 #### order
 
+Default value: 0
+
+
+
 ![image](http://wx4.sinaimg.cn/large/006tBeITgy1frj0kbeab1j30680460sj.jpg)
 
 ```css
@@ -213,6 +254,9 @@ flex-flow: <‘flex-direction’> || <‘flex-wrap’>
   order: <integer>; /* default is 0 */
 }
 ```
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frj6uqm6u1j30yv078n0e.jpg)
+
 
 
 #### flex-grow
@@ -222,6 +266,13 @@ flex-flow: <‘flex-direction’> || <‘flex-wrap’>
   flex-grow: <number>; /* default 0 */
 }
 ```
+
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frj6w0u5llj30yv078q6b.jpg)
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frj6w95fmsj30yv078n0i.jpg)
+
+
 
 #### flex-shrink
 
