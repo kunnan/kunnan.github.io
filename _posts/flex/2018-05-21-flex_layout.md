@@ -46,15 +46,29 @@ npm notice created a lockfile as package-lock.json. You should commit this file.
 >
 
 
+#### Mini project demonstrating how to make Chrome-like tabs
+
+
+>* [knchrome-tabs](https://cssflex.github.io/knchrome-tabs/)
+>
 
 
 # flexbox-basics
+
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frj5fb7vdqj30yv0ciad5.jpg)
+
+
+>* `the flexbox model`: The flex layout is constituted of parent container referred as` flex container` and its immediate children which are called` flex items`.
 
 
 ![image](http://wx4.sinaimg.cn/large/006tBeITgy1friys2d6f5j30dw05kjra.jpg)
 
 
 ![image](http://wx4.sinaimg.cn/large/006tBeITgy1friyscvpokj30dw05kjrb.jpg)
+
+
+
 
 
 
