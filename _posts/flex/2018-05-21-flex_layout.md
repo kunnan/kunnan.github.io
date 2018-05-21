@@ -19,7 +19,11 @@ subtitle: Flex 布局教程：语法篇
 >* The [`flex-flow`](https://www.w3.org/TR/css-flexbox/#propdef-flex-flow) value and the [`writing mode `](https://drafts.csswg.org/css-writing-modes-4/#writing-mode)determine how these terms map to physical directions (top/right/bottom/left), axes (vertical/horizontal), and sizes (width/height).
 
 
-# demo
+# Flexbox playground
+
+ you can play with the different `flex properties `and explore the power of the `flexbox layout`. Combine several flex properties to get complex layouts.
+ 
+ 
 
 >* [demo：动态显示`items、container `的各个属性对应的效果](https://codepen.io/justd/full/yydezN/)
 >
@@ -276,6 +280,7 @@ Default value: 0
 
 #### flex-shrink
 
+By default all `flex items` can be shrunk, but if we set it to 0 (don't shrink) they will maintain the original size
 
 
 ```css
@@ -283,6 +288,11 @@ Default value: 0
   flex-shrink: <number>; /* default 1 */
 }
 ```
+
+
+![image](https://wx4.sinaimg.cn/large/006tBeITly1frj75vs5oqj30yv078q76.jpg)
+
+
 
 #### flex-basis
 
@@ -292,6 +302,8 @@ Default value: 0
   flex-basis: <length> | auto; /* default auto */
 }
 ```
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frj78ypevbj30yv078djc.jpg)
 
 #### flex
 
@@ -311,6 +323,14 @@ Default value: 0
 }
 ```
 
+>* The 3rd and 4th `flex items` have overridden alignment through the align-self property
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frj7aho9foj30yv08uae5.jpg)
+
+#### Note for flex items
+
+
+>* `float`, `clear `and `vertical-align` have no effect on a flex item, and do not take it out-of-flow.
 
 
 
