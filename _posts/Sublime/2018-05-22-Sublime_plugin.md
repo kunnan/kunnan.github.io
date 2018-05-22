@@ -34,6 +34,24 @@ devzkndeMacBook-Pro:Packages devzkn$ git clone git@github.com:TheSavior/ESLint-F
 
 ```
 
+
+####  ESLint
+
+`ESLint `用于静态检查代码的语法和风格，安装命令如下。
+```
+$ npm install --save-dev eslint babel-eslint
+```
+
+```
+ "devDependencies": {
+    "babel-eslint": "^7.2.1",
+```
+
+
+
+
+
+
 # Sublime 支持`wpy` 语法高亮的配置步骤
 
 >*   1. 打开Sublime->Preferences->Browse Packages..进入用户包文件夹。

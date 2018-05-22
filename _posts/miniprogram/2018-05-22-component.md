@@ -22,6 +22,9 @@ subtitle: 组件是视图层的基本组成单元,通过组合这些基础组件
 
 # See Also 
 
+>* [es6](http://es6.ruanyifeng.com/#docs/intro)
+>
+
 >* font-family
 >
 ```css
