@@ -20,7 +20,32 @@ subtitle: 组件是视图层的基本组成单元,通过组合这些基础组件
 
 
 
+# 新增 remove-console
+>* package.json
+>
+```
++    "babel-plugin-transform-remove-console": "^6.9.1",
+```
+
+>*  wepy.config.js
+>
+```js
+module.exports.compilers.babel.plugins.push('transform-remove-console')
+```
+
+# 字符串操作
+
+>* 去除第一个字符
+>```
+>    let hashData = BW.createHash(BW.reqstr.Gamecontinue.substring(1))
+>```
+
+
 # See Also 
+
+```
++       "libVersion": "2.0.6", 这个库才可以获取群ID
+```
 
 >* [es6](http://es6.ruanyifeng.com/#docs/intro)
 >

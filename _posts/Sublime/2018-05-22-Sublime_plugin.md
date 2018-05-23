@@ -51,7 +51,6 @@ $ npm install --save-dev eslint babel-eslint
 
 
 
-
 # Sublime 支持`wpy` 语法高亮的配置步骤
 
 >*   1. 打开Sublime->Preferences->Browse Packages..进入用户包文件夹。

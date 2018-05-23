@@ -40,10 +40,9 @@ const声明一个只读的常量。一旦声明，常量的值就不能改变。
 
 
 
-
 # See Also 
 
->* [](http://es6.ruanyifeng.com/#docs/let)
+>* [let](http://es6.ruanyifeng.com/#docs/let)
 >
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
