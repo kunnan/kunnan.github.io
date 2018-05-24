@@ -136,6 +136,20 @@ subtitle: 组件是视图层的基本组成单元,通过组合这些基础组件
 
 #### form
 
+>* 表单，将组件`<switch/> <input/> <checkbox/> <slider/> <radio/> <picker/> `内的用户输入的提交。
+
+```
+当点击 <form/> 表单中 formType 为 submit 的 <button/> 组件时，会将表单组件中的 value 值进行提交，需要在表单组件中加上 name 来作为 key
+```
+
+<script src="https://gist.github.com/zhangkn/6214448f19752e49a567c9682c692752.js"></script>
+
+
+
+
+
+
+
 
 
 
