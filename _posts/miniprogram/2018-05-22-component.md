@@ -33,10 +33,9 @@ subtitle: 组件是视图层的基本组成单元,通过组合这些基础组件
 使用竖向滚动时，需要给<scroll-view/>一个固定高度，通过 WXSS 设置 height。
 
 ```xml
-  <scroll-view scroll-y style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <scroll-view scroll-y style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="" scroll-top="">
   </scroll-view>
 ```
-
 
 
 #### `swiper` 滑块视图容器
@@ -145,11 +144,79 @@ subtitle: 组件是视图层的基本组成单元,通过组合这些基础组件
 <script src="https://gist.github.com/zhangkn/6214448f19752e49a567c9682c692752.js"></script>
 
 
+#### [input](https://developers.weixin.qq.com/miniprogram/dev/component/input.html)
+
+
+#### label
 
 
 
 
+#### [picker](https://developers.weixin.qq.com/miniprogram/dev/component/picker.html)
 
+
+#### picker-view
+嵌入页面的滚动选择器
+
+#### [radio.html](https://developers.weixin.qq.com/miniprogram/dev/component/radio.html)
+
+单选项目
+
+
+
+# 媒体组件
+
+
+#### image 图片
+
+
+
+<script src="https://gist.github.com/zhangkn/2edda91c86c2a538f66d41f6c64a9cfc.js"></script>
+
+#### video
+
+#### camera系统相机
+
+#### live-player
+
+#### live-pusher
+
+实时音视频录制
+
+# 地图
+
+map
+
+
+# canvas 画布
+
+
+
+
+# 开发能力
+
+
+#### open-data
+
+
+```xml
+<open-data type="groupName" open-gid="xxxxxx"></open-data>
+<open-data type="userAvatarUrl"></open-data>
+<open-data type="userGender" lang="zh_CN"></open-data>
+```
+
+Tips: 关于open-gid的获取请查看 [转发](https://developers.weixin.qq.com/miniprogram/dev/api/share.html#wxgetshareinfoobject)
+
+
+#### web-view
+
+```xml
+    <web-view src="https://kunnan.github.io/"></web-view>
+```
+
+#### ad
+
+广告。目前暂时以邀请制开放申请.
 
 
 

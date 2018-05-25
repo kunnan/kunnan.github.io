@@ -93,7 +93,7 @@ VM339:3  Now you can provide attr "wx:key" for a "wx:for" to improve performance
   26 | <view class="container log-list">
 > 27 |   <block wx:for="{{logs}}" wx:for-item="log" wx:for-index="knindex">
      |    ^
-  28 |     <text class="log-item">{{knindex + 1}}. {{log}}</text>
+  28 |     <text class="log-item"></text>
   29 |   </block>
   30 | </view>
 (anonymous) @ VM339:3
@@ -279,7 +279,7 @@ WXML提供模板（template），可以在模板中定义代码片段，然后�
 
 >*  CustomEvent 自定义事件对象（继承 BaseEvent）
 >```
->      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>  
+>      <button wx:if="" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>  
 >```
 >* 属性:detail 额外的信息: `表单组件`的提交事件会携带用户的输入，`媒体的错误事件`会携带错误信息
 >```js
