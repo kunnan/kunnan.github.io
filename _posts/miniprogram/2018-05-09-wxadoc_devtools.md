@@ -38,8 +38,13 @@ subtitle: 微信开发者工具
 >* 区别：
 >```
 >1)ES6 语法支持不一致。
->2) wxss 渲染表现不一致。尽管可以通过开启样式补全来规避大部分的问题 ，还是建议开发者需要在 iOS 和 Android 上分别检查小程序的真实表现。
 >```
+
+#### ES6 转 ES5
+
+默认使用 babel 将开发者 ES6 语法代码转换为三端都能很好支持的 ES5 的代码，帮助开发者解决环境不同所带来的开发问题
+
+
 
 # Mac OS 快捷键	
 
@@ -82,7 +87,6 @@ subtitle: 微信开发者工具
 
 
 
-
 #### Wxml
 
 >* 帮助开发者开发 wxml 转化后的界面
@@ -100,6 +104,13 @@ subtitle: 微信开发者工具
 >微信小程序框架会对脚本文件进行编译的工作，所以在 Sources panel 中开发者看到的文件是经过处理之后的脚本文件，开发者的代码都会被包裹在 define 函数中，并且对于 Page 代码，在尾部会有 require 的主动调用。
 >```
 ><script src="https://gist.github.com/zhangkn/1c58ad68605aa83c90e2ab4fa5e7416a.js"></script>
+>
+
+
+>* 在 Sources 面板查看源代码时
+>```
+>除了可以在调试器进行单步调试，开发者还能在代码中手动插入 debugger;
+>```
 >
 
 
@@ -180,6 +191,12 @@ devzkndeMacBook-Pro:WeappVendor devzkn$ tree -L 2
 >```
 
 # 真机远程调试流程
+
+>* 在 Sources 面板查看源代码时
+>```
+>除了可以在调试器进行单步调试，开发者还能在代码中手动插入 debugger;
+>```
+>
 
 
 # 命令行调用
@@ -296,7 +313,6 @@ http://127.0.0.1:端口号/test?projectpath=%2FUsers%2Fusername%2Fdemo
 
 
 # [代码片段](https://kunnan.github.io/2018/05/09/minicode/)
-
 
 
 
