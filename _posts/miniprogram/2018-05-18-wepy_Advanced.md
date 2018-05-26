@@ -84,11 +84,79 @@ subtitle: wepy进阶介绍
     }
 };
 >```
+
+
+# 组件通信与交互
+
+
+>* `wepy.component`基类提供`$broadcast、$emit、$invoke`三个方法用于组件之间的通信和交互
 >
->
+
+#### `$emit`
+
+>* 子组件：事件发起组件的所有祖先组件会依次接收到`$emit`事件
+
+```js
+this.$emit('some-event', 1, 2, 3, 4);
+        this.$emit('answer-event', 1)// 触发条件：答对了
+```
+
+>* 祖先组件: 事件处理函数需要写在组件和页面的`events`对象
+
+```js
+    events = {
+        'some-event': (p1, p2, p3, $event) => {
+               console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`);
+        }
+       'answer-event': knanswer => {
+      if (knanswer === 1) {
+        // 处理答对的情况  
+      } else {
+        // 处理失败的情况
+        this.$apply()
+      }
+     }
+    };
+```
+
+#### `$broadcast`
+
+`$broadcast`事件是由父组件发起，所有子组件都会收到此广播事件
+
+子组件： 
+```js
+    'helpTips': () => {
+    //处理分享之后的View渲染
+      }
+```
+父组件: 分享回调的处理
+
+```
+            this.$broadcast('helpTips')
+```
 
 
 
+
+#### `$invoke`
+
+`$invoke`是一个页面或组件对另一个组件中的方法的直接调用，通过传入组件路径找到相应的组件，然后再调用其方法。
+
+
+>* 想在页面Page_Index中调用组件ComA的某个方法：
+```
+this.$invoke('ComA', 'someMethod', 'someArgs');
+如果想在组件ComA中调用组件ComG的某个方法：
+```
+>* 
+>```
+this.$invoke('./../ComB/ComG', 'someMethod', 'someArgs');
+```
+
+
+#  WePY数据绑定方式
+
+`在异步函数中更新数据的时候，必须手动调用$apply方法，才会触发脏数据检查流程的运行`
 
 
 
