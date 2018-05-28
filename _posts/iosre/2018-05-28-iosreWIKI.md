@@ -13,21 +13,8 @@ subtitle: IOS安全学习资料汇总
 # OSobfuscation
 
 
-#### [找出没有被引用的方法](https://github.com/kunnan/KN_find_methods_unreferenced)
->
 
-```sh
-devzkndeMacBook-Pro:objc_cover devzkn$ /usr/bin/python objc_cover.py /Users/devzkn/tmp
-# the following methods may be unreferenced
-+[EJEueKdIvdloplkk _begin]
-+[EJEueKdIvdloplkk cleanUp]
-+[EJEueKdIvdloplkk hidden]
-```
 
-```
-alias kncover='/usr/bin/python /Users/devzkn/code/iosre/objc_cover'
-devzkndeMacBook-Pro:objc_cover devzkn$ kncover  /Users/devzkn/tmp 
-```
 
 # Check_and_Modify_machO_symbol
 
@@ -43,7 +30,51 @@ https://github.com/kunnan/KNmackextdump
 ```
 
 
+
+
+
 # RuntimeBrowser
+
+#### [找出没有被引用的方法](https://github.com/kunnan/KN_find_methods_unreferenced)
+
+
+```sh
+devzkndeMacBook-Pro:objc_cover devzkn$ /usr/bin/python objc_cover.py /Users/devzkn/tmp
+# the following methods may be unreferenced
++[EJEueKdIvdloplkk _begin]
++[EJEueKdIvdloplkk cleanUp]
++[EJEueKdIvdloplkk hidden]
+```
+
+```
+alias kncover='/usr/bin/python /Users/devzkn/code/iosre/objc_cover'
+devzkndeMacBook-Pro:objc_cover devzkn$ kncover  /Users/devzkn/tmp 
+```
+
+
+#### Graph the import dependancies in an Objective-C project
+
+
+>* [objc_dep](https://github.com/jbtewaks/objc_dep)
+>
+>* [Graph the import dependancies in an Objective-C project](https://github.com/kunnan/KNobjc_dep)
+
+```sh
+Using options
+% python objc_dep.py /path/to/repo -x "(^Internal|secret)" -i subdir1 subdir2 > graph.dot
+Will exclude files with names that begin with "Internal", or contain the word "secret". Additionally all files in folders named subdir1 and subdir2 are ignored.
+```
+
+#### [CrashReports]( https://github.com/nst/CrashReports)
+
+>* [symbolicatecrash](https://zhangkn.github.io/2018/03/symbolicatecrash/)
+>
+>
+
+
+
+
+#### KNiOSRuntimeHeadersBrowser
 
 >* [Objective-C Runtime Browser, for Mac OS X and iOS](https://github.com/WxHook/RuntimeBrowser)
 >* [KNiOSRuntimeHeadersBrowser](https://github.com/kunnan/KNiOSRuntimeHeadersBrowser)
@@ -52,7 +83,6 @@ https://github.com/kunnan/KNmackextdump
      1. iOS OCRuntime > Frameworks tab > Load All
      2. $ wget -r http://192.168.2.213:10000/tree/
 ```
-
 
 # See Also 
 
