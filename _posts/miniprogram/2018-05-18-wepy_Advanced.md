@@ -11,16 +11,14 @@ subtitle: wepy进阶介绍
 
 
 
-# wepy.config.js配置文件说明
 
-
-# .wpy文件说明
+# I 、.wpy文件说明
 
 
 ![image](http://wx4.sinaimg.cn/large/006tBeITgy1frfhcfcrktj30fb08c3zg.jpg)
 
 
-# 实例
+# II、实例
 
 >* 在 WePY 中，小程序被分为三个实例：小程序实例App、页面实例Page、组件实例Component。其中Page实例继承自Component
 ><script src="https://gist.github.com/zhangkn/eed586903cacb5997ab01e62f6b565ba.js"></script>
@@ -45,7 +43,7 @@ subtitle: wepy进阶介绍
 >
 >
 
-# computed 计算属性
+# III、computed 计算属性
 
 >* 类型: `{ [key: string]: Function }`
 >```
@@ -61,11 +59,10 @@ subtitle: wepy进阶介绍
 >```
 >
 
-# watcher 监听器
 
 
 
-# props 传值
+# IV、 props 传值
 
 >* props传值在WePY中属于父子组件之间传值的一种机制，包括静态传值与动态传值。
 >```js
@@ -86,7 +83,7 @@ subtitle: wepy进阶介绍
 >```
 
 
-# 组件通信与交互
+# V、 组件通信与交互
 
 
 >* `wepy.component`基类提供`$broadcast、$emit、$invoke`三个方法用于组件之间的通信和交互
@@ -154,7 +151,7 @@ this.$invoke('./../ComB/ComG', 'someMethod', 'someArgs');
 ```
 
 
-#  WePY数据绑定方式
+# VI、 WePY数据绑定方式
 
 `在异步函数中更新数据的时候，必须手动调用$apply方法，才会触发脏数据检查流程的运行`
 
