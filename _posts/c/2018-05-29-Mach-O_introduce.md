@@ -96,6 +96,8 @@ devzkndeMacBook-Pro:mach-o devzkn$ tree -L 4
 
 使系统能够快速定位其运行环境以及文件类型
 
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frsbs2qie6j30c20aoweq.jpg)
+
 >* struct 
 
 ```
@@ -113,7 +115,7 @@ struct mach_header_64 {
 
 
 >* `Fat Binary` Fat Header的数据结构在<mach-o/fat.h>头文件上有定义：
-
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frsbs8ohnfj30c40owgmj.jpg)
 
 ```objc
 #define FAT_MAGIC	0xcafebabe
