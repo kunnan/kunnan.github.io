@@ -151,5 +151,8 @@ friends: [
     ,{
         title: "flexbox-playground",
         href: "https://cssflex.github.io/"
+    } ,{
+        title: "tumblr",
+        href: "https://kunnanblr.tumblr.com/"
     }
 ]

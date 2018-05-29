@@ -15,6 +15,15 @@ subtitle: IOS安全学习资料汇总
 
 >* [Hikari](https://github.com/iOSHacking/Hikari)
 >
+>
+>
+
+
+#### iOS-private-api-scanner
+
+>* [iOS-private-api-scanner](https://github.com/WxHook/iOS-private-api-scanner)
+>
+
 
 # Check_and_Modify_machO_symbol
 
@@ -28,7 +37,6 @@ subtitle: IOS安全学习资料汇总
 ```
 https://github.com/kunnan/KNmackextdump
 ```
-
 
 
 
@@ -84,7 +92,17 @@ Will exclude files with names that begin with "Internal", or contain the word "s
      2. $ wget -r http://192.168.2.213:10000/tree/
 ```
 
+
+# tool
+
+>* [一个包含iPA重签名以及dylib注入的命令行工具](https://github.com/jbtewaks/ktool)
+>
+>
+
 # See Also 
+>* [iOS-private-api-checker](https://github.com/NetEaseGame/iOS-private-api-checker)
+>* [ming1016](https://github.com/ming1016/study/wiki)
+>* [学习资料资源入口整理（一起整理啦）](http://iosre.com/t/topic/4680)
 
 >* [Quick Python script over otool to help spotting potentially unused methods in Objective-C Mach-O executable files](https://github.com/iOSobfuscation/objc_cover)
 >* [nonworm](http://www.mottoin.com/user/nonworm)
