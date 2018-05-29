@@ -14,6 +14,9 @@ subtitle: Mach-O基础知识
 
 # mach-o
 
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frsamldr58j30ah0bvaaw.jpg)
+
 `mach-o`记录编译后的可执行文件，对象代码，共享库，动态加载代码和内存转储的文件格式。
 
 
@@ -49,8 +52,12 @@ devzkndeMacBook-Pro:mach-o devzkn$ tree -L 4
 ```
 
 >* `/usr/include/mach-o/loader.h` 重点看
->
->
+
+```objc
+#include <mach-o/loader.h>
+```
+
+
 ####  [Mach-O 文件包含三个区域](https://zhangkn.github.io/2018/03/Hopper/)
 
 >* 1、Mach-O Header：包含字节顺序，magic，cpu 类型，加载指令的数量等
@@ -106,33 +113,43 @@ struct mach_header_64 {
 ```
 
 
->* Fat Binary
+>* `Fat Binary` Fat Header的数据结构在<mach-o/fat.h>头文件上有定义：
+
 
 ```objc
-struct fat_header
-{
-  uint32_t magic;
-  uint32_t nfat_arch;
+#define FAT_MAGIC	0xcafebabe
+#define FAT_CIGAM	0xbebafeca	/* NXSwapLong(FAT_MAGIC) */
+struct fat_header {
+  uint32_t	magic;		/* FAT_MAGIC */
+  uint32_t	nfat_arch;	/* number of structs that follow */
 };
-
-
-struct fat_arch
-{
-  cpu_type_t cputype;
-  cpu_subtype_t cpusubtype;
-  uint32_t offset;
-  uint32_t size;
-  uint32_t align;
+//说明对应Mach-O文件大小、支持的CPU架构、偏移地址
+struct fat_arch {
+  cpu_type_t	cputype;	/* cpu specifier (int) */
+  cpu_subtype_t	cpusubtype;	/* machine specifier (int) */
+  uint32_t	offset;		/* file offset to this object file */
+  uint32_t	size;		/* size of this object file */
+  uint32_t	align;		/* alignment as a power of 2 */
 };
-
 ```
 
+从上面的例子，可以看出胖文件的fat_magic是0xcafebabe；顺便说一下64位的Mach-O文件的魔数值为#define MH_MAGIC_64 0xfeedfacf
 
->* ` otool -h tmp`
->
+```
+file 就是根据Magic 来判断的
+file ~/tmp
+/Users/devzkn/tmp: Mach-O universal binary with 2 architectures: [arm_v7:Mach-O dynamically linked shared library arm_v7] [arm64:Mach-O 64-bit dynamically linked shared library arm64]
+```
+
+[magic 存放的位置在/usr/share/file/magic，更多信息请看这里](https://zhangkn.github.io/2017/12/usefulCommand/)
+
+
+>* ` otool -h tmp`  print the mach header
 
 
 # II、 Load Commands
+
+这些加载命令在Mach-O文件加载解析时，被内核加载器或者动态链接器调用，指导如何设置加载对应的二进制数据段；
 
 
 >* Any load command starts with the following fields:
@@ -154,7 +171,7 @@ Mach header
  0xfeedface      12          9  0x00           6    33       3640 0x00100085
 
 ```
->* otool -l
+>* `otool -l`: `OS X/iOS`发展到今天，已经有40多条加载命令，其中部分是由内核加载器直接使用，而其他则是由动态链接器处理。其中几个主要的Load Commend为`LC_SEGMENT`,` LC_LOAD_DYLINKER`, `LC_UNIXTHREAD`,` LC_MAIN`[LC_SEGMENT 的数据结构的更多信息请查看这里](https://zhangkn.github.io/2017/12/frida/)
 
 ```
 <!-- 看加载命令区 -->
@@ -239,7 +256,7 @@ Load command 10
      cryptoff 16384
     cryptsize 262144
       cryptid 0
-<!-- 加载的动态库，包括动态库地址、名称、版本号等 -->
+<!-- 加载的动态库，包括动态库地址、名称、版本号等 load a dynamically linked shared library,load a dynamically linked shared library that is allowed to be missing -->
 Load command 11
           cmd LC_LOAD_DYLIB
       cmdsize 96
@@ -289,25 +306,47 @@ Load command 32
 
 Mach-O 文件有多个段（Segment），每个段有不同的功能。然后每个段又分为很多小的 Section。 LC_SEGMENT 意味着这部分文件需要映射到进程的地址空间去
 
-
->* 段名
-
-```
-__PAGEZERO:　空指针陷阱段，映射到虚拟内存空间的第一页，用于捕捉对 NULL 指针的引用。
-
-
-__TEXT:　包含了执行代码以及其他只读数据。该段数据可以 VM_PROT_READ(读)、VM_PROT_EXECUTE(执行)，不能被修改。
-
-
-__DATA:　程序数据，该段可写 VM_PROT_WRITE/READ/EXECUTE。
-
-
-__LINKEDIT:　链接器使用的符号以及其他表。
-
+>* section的命名规则
 
 ```
+命名规则标识段-区的表示方法为(__SEGMENT.__section)SEGMENT所有字母大写，加两个下横线作为前缀；section为小写，同样加两个下横线作为前缀。
+```
+
+>* Raw segment data
+>```
+>一般Mach-O文件有多个段(Segement)，段每个段有不同的功能;
+1). __PAGEZERO: 空指针陷阱段，映射到虚拟内存空间的第一页，用于捕捉对NULL指针的引用；<br>
+2). __TEXT: 包含了执行代码以及其他只读数据。该段数据的保护级别为：VM_PROT_READ（读）、VM_PROT_EXECUTE(执行)，防止在内存中被修改；<br>
+3). __DATA: 包含了程序数据，该段可写；<br>
+4). __OBJC: Objective-C运行时支持库；<br>
+5). __LINKEDIT: 链接器使用的符号以及其他表<br>
+一般的段又会按不同的功能划分为几个区（section）。
+>```
+>
+
  
+>* `otool -o`
+>
+```
+devzkndeMacBook-Pro:segment_dumper devzkn$ otool -o ~/tmp
+/Users/devzkn/tmp (architecture armv7):
+Contents of (__DATA,__objc_classlist) section
+```
 
+```
+devzkndeMacBook-Pro:knMoknKKKKKKokkn.decrypted.4.0 devzkn$ otool -o MKNooJn.dec* |grep password
+            name 0x82b11e passwordTextFieldFrame
+            name 0x82b135 passwordPlaceholder
+                name 0x82b11e passwordTextFieldFrame
+                name 0x82b135 passwordPlaceholder
+                name 0x82b11e passwordTextFieldFrame
+                name 0x82b135 passwordPlaceholder
+```
+
+###### LC_SEGMENT(__TEXT) Number of Sections + LC_SEGMENT(__DATA) Number of Sections = Sections Number of sections
+
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frsaz63dygj30wt0gewim.jpg)
 
 ####  [LC_DYSYMTAB符号表](https://zhangkn.github.io/2018/03/symbolicatecrash/)
 
@@ -330,6 +369,11 @@ struct symtab_command {
 ```
 
 # III、 Section
+
+
+一个可执行文件包含多个段, 在每一个段内有一些片段。它们包含了可执行文件的不同的部分, 包含了部分的源码及DATA.
+
+
 
 ```objc 
 struct section
@@ -369,6 +413,9 @@ __IMPORT,__jump_table — stubs for calls of imported functions
 
 它的结构体跟随在 LC_SEGMENT 结构体之后，LC_SEGMENT 又在 Load Commands 中，
 segment 的数据内容是跟在 Load Commands 之后的。
+
+
+
 
 #### 作用
 >* 各节的作用
@@ -565,6 +612,17 @@ segment 的数据内容是跟在 Load Commands 之后的。
 </table>
 
 
+
+#### `otool -t ` print the text section (disassemble with -v)
+
+
+>* `otool -tv tmp`
+>
+>* `otool -sv __TEXT __cstring tmp`
+>
+
+
+
 ####  code_signature
 
 里面包含了程序代码的签名，这个签名的作用就是保证签名后 .app 里的文件，包括资源文件，Mach-O 文件都不能够更改。
@@ -579,6 +637,63 @@ Load command 32
  datasize 15776
 ```
 
+
+
+# IV、  Sequence of Steps in Executing an Image
+
+>* flow_of_process_execution
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frsb3zo76kj315g0tmjui.jpg)
+Flow of the various process execution functions in OS X 引用自《Mac OS X and iOS Internals》P519
+
+>* parse_machfile()
+>
+```
+(1)：解析线程状态，UUID和代码签名。相关命令为LC_UNIXTHREAD、LC_MAIN、LC_UUID、LC_CODE_SIGNATURE 
+(2)：解析代码段Segment。相关命令为LC_SEGMENT、LC_SEGMENT_64；
+(3)：解析动态链接库、加密信息。相关命令为：LC_ENCRYPTION_INFO、LC_ENCRYPTION_INFO_64、LC_LOAD_DYLINKER
+```
+
+
+>* load 函数是如何被调用的
+>
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frsb50x2ncj30d00ultbr.jpg)
+
+dyld 是Apple 的动态链接器；在 xnu 内核为程序启动做好准备后，就会将 PC 控制权交给 dyld 负责剩下的工作 （dyld 是运行在 用户态的， 这里由 内核态 切到了用户态）.
+
+
+# V 、app 的启动过程
+
+
+>* 1、内核（OS Kernel）创建一个进程，分配虚拟的进程空间等等，加载动态链接器。
+>* 2、通过动态链接器加载主二进制程序引用的库、绑定符号。
+>* 3、启动程序
+>
+
+
+>* mach-o_execution:
+>
+![image](https://wx4.sinaimg.cn/large/006tBeITly1frsb6eabgqj30ge0gk75n.jpg)
+
+>* Darwin体系
+```
+1)Darwin是一种类似unix的操作系统，他的核心是XNU。
+2)XNU是一种混合式内核。结合了mach与BSD两种内核。
+3)Mach 是微内核实现。
+4)BSD 实现在Mach的上层，这一层提供的API 支持了POSIX标准模型。在XNU中主要实现了一些高级的API与模块。
+```
+
+![image](https://wx4.sinaimg.cn/large/006tBeITly1frsb8319t6j30u60x0dq8.jpg)
+
+# VI 、iOS安全机制
+
+
+>*  代码签名:
+- 强制访问控制（Mandatory Access Control):系统检测安全属性以便确定一个用户是否有权访问该文件
+- sandbox: 沙盒在启动的时候可以设置运行的程序是否可以访问网络、文件、目录
+
+
+![image](https://wx4.sinaimg.cn/large/006tBeITgy1frsb9zjaprj30gp0an0uv.jpg)
 
 # See Also 
 
