@@ -40,6 +40,20 @@ IPA files downloaded from the iOS App Store are encrypted by default with Apple�
 If the value of cryptid is 1, it implies that the binary is encrypted. On
 decrypting, the value would be 0.
 
+#### 手动分析 
+
+###### Domain Names
+
+>*  inside the directory using `grep` or running `strings` on the executable.
+>
+
+```
+strings ~/kntmp | egrep -i 'http|https'
+```
+
+```
+ cat Info.plist | grep NSExceptionDomains -A13
+```
 
 
 # KNiOS-checkIPA
@@ -73,11 +87,16 @@ Distribution: code signing Entitlements 'get-task-allow' value is set to YES; sh
 
 ####  plutil [command_option] [other_options] file
 
-plutil can be used to check the syntax of property list files, or convert a plist file from one format to another.  Specifying - as an input file reads from stdin.
+plutil can be used to check the syntax of property list files, or convert a plist file from one format to another.  Specifying - as an input file reads from stdin. plutil 使plist文件在二进制和XML之间转换
 
 
+>* 将二进制转为xml
 ```
 plutil -convert xml1 Info.plist
+```
+
+```sh
+plutil -convert binary1 -o binary.plist xml.plist //将xml转为二进制
 ```
 
 #### Python  library
@@ -86,6 +105,9 @@ There are also many other ways to parse binary plist files. For example, I'm usi
 
 
 # See Also 
+>* [Web path scanner](https://github.com/maurosoria/dirsearch)
+
+>* [A python script that finds endpoints in JavaScript files ](https://github.com/GerbenJavado/LinkFinder)
 >* [ios-static-analysis-and-recon](https://secdevops.ai/ios-static-analysis-and-recon-c611eaa6d108)
 >* [wiki.secmobi.com](https://github.com/iOSHacking/wiki.secmobi.com)
 >* [A Python script using construct (http://construct.wikispaces.com/) to parse the code directory in a Mach-O file.  In the future it might parse the whole Mach-O that way.
