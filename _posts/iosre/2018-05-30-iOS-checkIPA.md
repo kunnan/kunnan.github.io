@@ -105,6 +105,11 @@ There are also many other ways to parse binary plist files. For example, I'm usi
 
 
 # See Also 
+
+>* [iOS-private-api-checker-tools](https://blog.yahui.wang/2017/05/31/iOS-private-api-checker-tools/)
+>
+
+
 >* [Web path scanner](https://github.com/maurosoria/dirsearch)
 
 >* [A python script that finds endpoints in JavaScript files ](https://github.com/GerbenJavado/LinkFinder)
