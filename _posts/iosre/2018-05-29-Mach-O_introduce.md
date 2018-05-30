@@ -11,13 +11,11 @@ subtitle: Mach-O基础知识
 
 
 
-# mach-o
-
+# [mach-o](https://github.com/iOSHacking/osx-abi-macho-file-format-reference)
 
 ![image](https://wx4.sinaimg.cn/large/006tBeITgy1frsamldr58j30ah0bvaaw.jpg)
 
 `mach-o`记录编译后的可执行文件，对象代码，共享库，动态加载代码和内存转储的文件格式。
-
 
 
 >* /usr/include/mach-o
