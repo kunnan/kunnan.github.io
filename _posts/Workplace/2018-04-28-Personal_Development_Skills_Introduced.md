@@ -18,9 +18,9 @@ subtitle: 实时最新的个人简历
 >* [充满激情的逆向工程师、C/C++/java/Object-C/Swift开发者、安全研究员。](https://about.me/kunnan)
 
 ```
-	1、自学Object-C、Swift、lua、iOS逆向开发(其中包括阅读ARM汇编)。
+	1、熟悉Object-C、Swift、lua、iOS逆向、java、js开发(其中包括阅读ARM汇编)。
 
-	2、熟悉java开发、有前后端开发经验者;
+	2、有前后端开发经验者(包括微信小程序开发);
 
 	3、对待工作主动积极，责任心强，对代码规范有轻微强迫症，能良好处理人际关系。 爱好游泳、羽毛球、篮球。
 
@@ -158,7 +158,7 @@ jQuery、JSP、css、html、数据库(sql基本操作)、j2ee(Spring + Struts +H
 
 >* 主要负责: 
 >```
->vpn类app、导购类app、
+>vpn类app、导购类app、微信小程序
 >AppStore应用协助审核，马甲包制作； 
 >App代码加密和混淆工具开发； 
 >AppStore排行榜提升，ASO关键词优化； 
