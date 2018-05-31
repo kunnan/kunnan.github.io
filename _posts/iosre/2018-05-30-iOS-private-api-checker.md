@@ -93,7 +93,64 @@ methods_not_in_app 191
 在tmp文件夹里可以找到生成好的xlsx文件
 
 
+
+#  对原来的代码进行优化
+
+
+####  修改`iOS-private-api-checker/dump/otool_utils.py` 使用jtool 来替代otool 
+
+>* jtool - an alternative to otool 
+
+```
+jtool comes with a capability of running on Linux environment. Some ipa scanning tools are created to run on Linux environment where mac environment is not available.
+```
+
+>* 请暂时暂mac上运行，linux上暂时没有找到合适的、代替otool的工具，求推荐^^!-------推荐jtool 
+>
+
+```
+otool_path = "otool" #otool所在的位置
+otool_cmd = otool_path + " -L %s" # otool cmd模板字符串
+```
+
+
+```
+To check if the executable is encrypted, run otool(jtool for linux)
+```
+[jtool](http://www.newosxbook.com/tools/jtool.html) 对otool 进行扩张
+
+```
+devzkndeMacBook-Pro:jtool  devzkn$ tree -L 4
+.
+├── Makefile
+├── WhatsNew.txt
+├── disarm
+├── jtool
+├── jtool.1
+└── jtool.ELF64    支持linux64
+```
+
+>* [jtool.tar](http://www.newosxbook.com/tools/jtool.tar)
+>
+
+```
+linux64:
+	$(CC)  -DLINUX -DMACHLIB -D__DARWIN_UNIX03 -I./include -DLINUX  $(FILES) -o jtool.ELF64 -g2
+
+linux32:
+	$(CC) -m32 -DLINUX32 -DLINUX -DMACHLIB -D__DARWIN_UNIX03 -I./include -DLINUX  $(FILES) -o jtool.ELF32 -g2
+```
+
+
+
 # See Also 
+>* [KNjtool](https://github.com/kunnan/KNjtool)
+>* [iOS-private-api-checker](https://github.com/NetEaseGame/iOS-private-api-checker)
+
+>* [blog.yahui.wang](https://blog.yahui.wang/2017/05/31/iOS-private-api-checker-tools/)
+>* [iOS-OSX-Static-Analysis](https://github.com/secmobi/wiki.secmobi.com/blob/master/pages/tools/iOS-OSX-Static-Analysis.md)
+
+>* [jtool的中文用法解释](https://bbs.pediy.com/thread-220100.htm)
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
