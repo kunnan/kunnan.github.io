@@ -10,7 +10,7 @@ subtitle: Developer tool to scan iOS apps for private API usage before submittin
 ---
 
 
-# [code 运行基础准备](https://github.com/iOSobfuscation/iOS-private-api-checker)
+# I 、[code 运行基础准备](https://github.com/iOSobfuscation/iOS-private-api-checker)
 
 
 >* 安装依赖python包
@@ -43,7 +43,7 @@ sdks_config.append({
  /usr/bin/python  build_api_db.py
 ```
 
-# 运行项目
+# II、运行项目
 
 
 #### 方式一： `open http://0.0.0.0:9527/`
@@ -93,8 +93,7 @@ methods_not_in_app 191
 在tmp文件夹里可以找到生成好的xlsx文件
 
 
-
-#  对原来的代码进行优化
+#  III、对原来的代码进行优化
 
 
 ####  修改`iOS-private-api-checker/dump/otool_utils.py` 使用jtool 来替代otool 
