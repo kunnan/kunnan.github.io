@@ -6,29 +6,29 @@ tag: Xiang_Shuai_Beida_Finance_Course
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
-subtitle: 现代人如何抵制风险?
+subtitle: 第一周和第二周
 ---
 
-# 前言
+# 003 | 现代人如何抵制风险?
 
 ![image](https://wx1.sinaimg.cn/large/af39b376ly1frvq567s3pj20u05l54qr.jpg)
 
 
 在古代社会的时候 ,主要靠家庭、宗族来实现风险共担。
 
-# 一、保险：让社会分担分散个体的风险
+#### 一、保险：让社会分担分散个体的风险
 
 
 保险这种风险共担的功能，让我们人类获得了很大的自由。对自然的依赖减小了，我们个体承受的风险也被分散到了社会群体中间
 
-# 二、股票：让更多人“利益共享，风险共担”
+#### 二、股票：让更多人“利益共享，风险共担”
 
 
 
-# 三、风投、创投： 让社会分担创业创新风险
+#### 三、风投、创投： 让社会分担创业创新风险
 
 
-# 划重点
+#### 划重点
 
 >* 1．金融是迄今人类社会能最有效实现跨区域、跨时间、大规模“风险分担”的一个机制。
 
@@ -48,6 +48,43 @@ subtitle: 现代人如何抵制风险?
 ```
 金融能帮我们加工时间，集聚资金和分散风险。
 ```
+
+# I、第一周 PPT
+
+
+#### 导论：金融的本质
+
+这三天我分别从`时间、资金、风险`三个维度给你讲解了金融的作用，我将它们称为“金融的三大定理”。
+
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrtwnf6mj20zk0k0ajq.jpg)
+
+
+#### 资金的时间价值
+
+金融就是帮助我们人类对未来时间进行深度加工，将时间转化成不同财富的技术和工具。
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvs1d550gj20zk0k0nop.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvs1qks0mj20zk0k0qbc.jpg)
+
+
+#### 资金的集聚
+
+现代金融就是帮助人们在关键时刻集聚资金的技术。
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvs3j5fsoj20zk0k0tp6.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvs3wxufoj20zk0k07um.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvs4dgtaij20zk0k0k2n.jpg)
+
+
+#### 现代人如何抵制风险?
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvschcx3nj20zk0k0ay3.jpg)
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvscr43ibj20zk0k01gx.jpg)
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvscz0vf2j20zk0k0dxd.jpg)
 
 
 # 006｜王的信用：中央货币财政体系
@@ -104,6 +141,45 @@ subtitle: 现代人如何抵制风险?
 ```
 把风险资产的配置比例给降下来
 ```
+
+# II、第二周｜课件放送：本周划重点时间到！
+
+
+#### 一、王的信用：中央货币财政体系
+>* 中国金融市场的制度根源：秦汉时代开始的中央集权与“官山海”的国有经济制度，是中国金融制度的根源，我们称其为“中央货币财政体系”。
+
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrjlxwjgj20zk0k0qoa.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376ly1frvrk4dgwmj20zk0k0kcv.jpg)
+
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrkimz42j20zk0k01bi.jpg)
+
+#### 二、分权制衡：银行货币体系
+![image](https://wx1.sinaimg.cn/large/af39b376ly1frvrkuky5ij20zk0k0x1z.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrlquiajj20zk0k0x68.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrm1efd5j20zk0k0nlw.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrmb1a8nj20zk0k0h2l.jpg)
+
+#### 三、信息不对称
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrn997wpj20zk0k01be.jpg)
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrmv2dixj20zk0k01kx.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376ly1frvrny95f3j20zk0k0qsm.jpg)
+
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrox140hj20zk0k0u0u.jpg)
+
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrpd8nlbj20zk0k0h1e.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvrprve4fj20zk0k0h2u.jpg)
+
 
 # See Also 
 
