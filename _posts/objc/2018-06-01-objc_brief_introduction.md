@@ -14,9 +14,9 @@ subtitle: objc 简介
 
 初学者最容易犯、最不应该犯的一个错误：`钻牛角尖`
 
-![image](https://wx1.sinaimg.cn/large/af39b376gy1frvo5u4ldgj20yc0iwjz4.jpg)
-
 ![image](https://wx1.sinaimg.cn/large/af39b376gy1frvo2i2ar6j20g10bujtu.jpg)
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1frvpww8djnj20i50os459.jpg)
 
 
 # UIViewController
@@ -84,7 +84,6 @@ subtitle: objc 简介
 //清空之前设置的transform属性
 view.transform = CGAffineTransformIdentity;
 ```
-
 
 # See Also 
 
