@@ -9,7 +9,6 @@ author: kunnan
 subtitle: Developer tool to scan iOS apps for private API usage before submitting to Apple
 ---
 
-
 # I 、[code 运行基础准备](https://github.com/iOSobfuscation/iOS-private-api-checker)
 
 
@@ -95,6 +94,20 @@ methods_not_in_app 191
 
 #  III、对原来的代码进行优化
 
+#### [class-dump-z](https://code.google.com/archive/p/networkpx/wikis/class_dump_z.wiki)替换class-dump 为Linux版本
+
+>* 64位Linux（ubuntu）安装、运行32位程序
+
+```
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install zlib1g:i386 libstdc++6:i386 libc6:i386
+```
+
+如果你使用的是比较老的ubuntu版本，可以安装ia32-libs来解决此问题。 
+```
+sudo apt-get install ia32-libs 
+```
 
 ####  修改`iOS-private-api-checker/dump/otool_utils.py` 使用jtool 来替代otool 
 
@@ -104,6 +117,11 @@ methods_not_in_app 191
 jtool comes with a capability of running on Linux environment. Some ipa scanning tools are created to run on Linux environment where mac environment is not available.
 ```
 
+>* jtool 默认处理fat
+```
+jtool -L -arch arm64  /Users/devzkn/Downloads/Payload/kntmp
+```
+
 >* 请暂时暂mac上运行，linux上暂时没有找到合适的、代替otool的工具，求推荐^^!-------推荐jtool 
 >
 
@@ -111,7 +129,6 @@ jtool comes with a capability of running on Linux environment. Some ipa scanning
 otool_path = "otool" #otool所在的位置
 otool_cmd = otool_path + " -L %s" # otool cmd模板字符串
 ```
-
 
 ```
 To check if the executable is encrypted, run otool(jtool for linux)
@@ -140,9 +157,16 @@ linux32:
 	$(CC) -m32 -DLINUX32 -DLINUX -DMACHLIB -D__DARWIN_UNIX03 -I./include -DLINUX  $(FILES) -o jtool.ELF32 -g2
 ```
 
+```
+devzkndeMacBook-Pro:iOS-private-api-checker devzkn$ jtool -d objc -arch arm64  /Users/devzkn/Downloads/Payload/kntmp 
+```
+
 
 
 # See Also 
+>* [wetest.qq.com](http://wetest.qq.com/)
+>
+>
 >* [KNjtool](https://github.com/kunnan/KNjtool)
 >* [iOS-private-api-checker](https://github.com/NetEaseGame/iOS-private-api-checker)
 

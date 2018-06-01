@@ -9,8 +9,9 @@ author: kunnan
 subtitle: Scans an IPA file and parses its Info.plist and embedded.mobileprovision files. Performs checks of expected key/value relationships and displays the results.
 ---
 
-
 # Contents in an IPA
+
+![image](https://ws4.sinaimg.cn/large/af39b376gy1frvmbsycanj20u00ssaig.jpg)
 
 >* Payload - Contains the .app folder of the specific iOS application. Under the .app folder we can see the application’s contents like the images, nib files which store the user interface and so on.
 >* Mach-O Executable - Mach Object files are file formats for executables.
@@ -63,10 +64,12 @@ strings ~/kntmp | egrep -i 'http|https'
 ```sh
  /usr/bin/python checkipa -i /Users/devzkn/Desktop/Payload.ipa 
 ```
-
+>* 将 `com.apple.security.get-task-allow `设置为 `true `之后会允许调试 `WebView`。`Xcode `编译出来的调试版本` App` 都会带上这个` entitlement`，这也是 `lldb `真机调试必须的配置。
 ```
 Distribution: code signing Entitlements 'get-task-allow' value is set to YES; should be NO
 ```
+
+>* [precheck](https://docs.fastlane.tools/actions/precheck/)
 
 # 知识补充
 
@@ -105,6 +108,8 @@ There are also many other ways to parse binary plist files. For example, I'm usi
 
 
 # See Also 
+
+>* [ iOS 的 Safari 远程调试](http://taobaofed.org/blog/2015/11/27/webkit-remote-debug-action/)
 
 >* [iOS-private-api-checker-tools](https://blog.yahui.wang/2017/05/31/iOS-private-api-checker-tools/)
 >

@@ -105,6 +105,12 @@ Will exclude files with names that begin with "Internal", or contain the word "s
 >
 
 # See Also 
+>* [iphonedevwiki.net](http://iphonedevwiki.net/index.php/Main_Page)
+>* [ios-security-defense](http://wiki.jikexueyuan.com/project/ios-security-defense/)
+>* [iOS 逆向工程资料整理](https://niyaoyao.github.io/2017/05/09/Learning-Reverse-From-Today-D4/)
+>* [移动App入侵与逆向破解技术－iOS篇](https://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&mid=2653577384&idx=1&sn=b44a9c9651bf09c5bea7e0337031c53c&scene=0#wechat_redirect)
+>* [iOS安全些许经验和学习笔记](https://bbs.pediy.com/thread-209014.htm)
+>* [blog &BBS For iosre](https://segmentfault.com/a/1190000011790846)
 >* [iOS-private-api-checker](https://github.com/NetEaseGame/iOS-private-api-checker)
 >* [ming1016](https://github.com/ming1016/study/wiki)
 >* [学习资料资源入口整理（一起整理啦）](http://iosre.com/t/topic/4680)
