@@ -363,7 +363,7 @@ Google AdSense小组敬上
 >```
 
 # See Also 
-
+>* [maxfong.github.com: 可以考虑的新博客模版](https://github.com/kunnan/maxfong.github.com)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```

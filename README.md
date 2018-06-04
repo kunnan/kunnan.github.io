@@ -8,7 +8,8 @@
 
 
 >* [feed](https://kunnan.github.io/feed.xml)
->
+>* [maxfong.github.com: 可以考虑的新博客模版](https://github.com/kunnan/maxfong.github.com)
+
 
 ## 使用
 
