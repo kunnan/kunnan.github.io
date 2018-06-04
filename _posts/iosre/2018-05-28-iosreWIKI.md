@@ -102,7 +102,71 @@ Will exclude files with names that begin with "Internal", or contain the word "s
 
 >* [一个包含iPA重签名以及dylib注入的命令行工具](https://github.com/jbtewaks/ktool)
 >
+
+# aso\积分墙
+
+#### [应用试客（iTry.com）](https://shike.com/)
+
+
+
+#### 钱咖简介
+
+钱咖是一家纯移动互联网公司，是一款通过手机试玩应用免费赚钱的应用，目前支持苹果与安卓版（通过手机浏览器访问qianka.com下载），目前月流水超千万、iOS用户超2000万、微信服务号关注超600万。
+
+>* [e.qianka.com： 客户](https://e.qianka.com/)
+
+
+>* [www.qianka.com: 用户](https://www.qianka.com/)
+
+```
+做任务不能关闭app： 
+绑定你的账号和设备
+```
+
+>* safari : 抢任务-》获取关键词，app（具体的任务页面）-》领取任务、奖励
+
+```
+//具体的任务页面： 检测助手是否打开
+1) 前往app store
+2）开始试完，打开《宝宝亲》app，宝宝亲会直接打开对应的”任务app“
+-- 这个过程有通信流程
+3） 领取奖励-〉 判断时间，继续试完-》 完成任务
+4） 取消任务
+```
+
+>* 证书安装
+
+```
+安装证书： 确保设备唯一性： push,获取设备ID，设备注册质询：加密的描述文件服务
+签署证书： 
+```
+
+>* 绑定手机号码否则，无法保存收益
+
+>* [高级逆向工程师 30K-40K](https://www.zhipin.com/job_detail/3632668511370b790XBz3d25Fw~~.html?ka=comp_joblist_2_blank&lid=291fca63-7f02-41d4-ab53-10636b9c0f6c.brand_jod_list)
 >
+
+#### see also
+>* [检测用户是否在App Store下载 是否越狱 是否第一次下载 是否删除后下载 如果是当前手机 当前的账号都是第一次下载 则发送对应的奖励](https://github.com/maxfong/MFSIdentifier/issues/2)
+
+```
+1) 是否在App Store下载:一般是应用内添加refid标识对应渠道
+
+你自己定义的，比如App Store为10000，PP助手为10001等等，iOS应用 大部分都是App Store下载，小渠道或者越狱取到的量很少的
+
+2)是否越狱:这个能查得到
+3)是否第一次下载:现在KeyChain可用，所以查询存储在KeyChain的数据，存在则表示不是第一次安装，集合iCloud刷机也能判断
+4)是否删除后下载:添加校验逻辑，给应用累加一个标识符，再根据是否第一次下载判断是否重新安装
+5)如果是当前手机：可以根据Telephony、屏幕分辨率、以及设备名称等，再根据存储的标识符做校验
+6)当前的账号都是第一次下载:以上问题都解决，这个也就知道了
+7)KeyChain不可用时，可用Safari Cookie、iCloud替代
+ps:很多这类应用会有一个企业助手，可调用的私有API的
+```
+>* [苹果赚钱网](http://www.shouzuanapp.com/)
+>* [ios](http://www.shouzhuanapp.com/app/ios/)
+>* [从技术角度聊聊ASO](http://news.deepaso.com/aso/aso-fromtech.html)
+>* [iOS App获取唯一标识符方案](https://github.com/maxfong/MFSIdentifier)
+
 
 # See Also 
 >* [iphonedevwiki.net](http://iphonedevwiki.net/index.php/Main_Page)
