@@ -17,10 +17,18 @@ subtitle: 01天-入门
 
 ![image](https://wx1.sinaimg.cn/large/af39b376gy1frvpww8djnj20i50os459.jpg)
 
+#  UIView（视图）
+>* 可以看得到，摸得到得东西，都可以理解为视图
+>* 作用：布局界面的
+>* 所有的控件，都继承自UIView，位置、宽度、高度...
 
 # UIViewController
 
 >* `UIViewController`就是`UIView`的大管家，负责`创建、显示、销毁`UIView，负责`监听`UIView内部的事件，负责`处理`UIView与用户的交互
+
+```
+一个UIViewController通常负责一个完整的"页面"视图中的逻辑控制。
+```
 
 # 补充
 
@@ -53,7 +61,15 @@ subtitle: 01天-入门
 
 ![image](https://wx1.sinaimg.cn/large/af39b376gy1frvpaa2axtj20sj09lgod.jpg)
 
+####  产品标示符
 
+>* 域名 baidu.com https://kunnan.github.io/
+```
+域名通常用来唯一标示一台主机：www.baidu.com
+```
+>* 反向域名：通常用来唯一表示产品：io.github.kunnan
+
+>* Bundle Identifier：反向域名+产品名称
 
 # 控件的使用
 
