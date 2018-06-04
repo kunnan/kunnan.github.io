@@ -22,7 +22,7 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 >
 
 
-# rss推送功能
+# I、rss推送功能
 
 
 ![image](http://ws2.sinaimg.cn/large/006tBeITgy1fre8jtlgj6j30ku112diq.jpg)
@@ -34,7 +34,7 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 
 
 
-# [解析域名： `iosre.club` ->`https://kunnan.github.io/`](https://console.cloud.tencent.com/developer)
+# II、 [解析域名： `iosre.club` ->`https://kunnan.github.io/`](https://console.cloud.tencent.com/developer)
 
 #### 常用的选择：GitHub Pages
 
@@ -164,6 +164,32 @@ When HTTPS is enforced, your site will only be served over HTTPS. Learn more.
 ####  [小程序配置指引、升级方案](https://github.com/tencentyun/weapp-doc)
 
 
+
+# III、在网页或博客中嵌入演示文稿
+
+#### 使用Google文档、表格和幻灯片来查看和编辑Microsoft Word、Excel和PowerPoint文件
+
+>* [欢迎使用Google幻灯片](https://docs.google.com/presentation/u/0/)
+
+```
+快速创建新演示文稿或打开现有演示文稿。与他人共享即可协同编辑。
+```
+>* [Google文档、表格及幻灯片的Office编辑：chrome 用户需要安装的插件](http://goo.gl/VZm5xc)
+>
+
+>* [Google文档](https://docs.google.com/document/u/0/)
+>
+>* [pdf 课件](https://drive.google.com/file/d/1lld_y7puHyRfyuYAMnDaS3hAb6mzr2tn/view)
+
+#### 推荐使用onedrive
+
+>* [ppt课件](https://1drv.ms/p/s!AgrZWf10_6KoabJojRKrceecyy8)
+
+>* [onedrive.live.com](https://onedrive.live.com/?id=root&cid=A8A2FF74FD59D90A)
+>
+>*  [PowerPoint.aspx: 上传ppt,在网页或博客中嵌入演示文稿](https://office.live.com/start/PowerPoint.aspx?s=2&auth=1&nf=1&ppud=4)
+
+>* [在网页或博客中嵌入演示文稿](https://support.office.com/zh-cn/article/%E5%9C%A8%E7%BD%91%E9%A1%B5%E6%88%96%E5%8D%9A%E5%AE%A2%E4%B8%AD%E5%B5%8C%E5%85%A5%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF-19668a1d-2299-4af3-91e1-ae57af723a60)
 
 
 # ImageOptim

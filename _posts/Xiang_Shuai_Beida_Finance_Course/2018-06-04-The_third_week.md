@@ -170,6 +170,15 @@ subtitle: 存款准备金、基准利率
 <iframe src='https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21105&authkey=AJHmvBpUoVDbKZ0&em=2&wdAr=1.7777777777777777' width='962px' height='565px' frameborder='0'>这是嵌入 <a target='_blank' href='https://office.com'>Microsoft Office</a> 演示文稿，由 <a target='_blank' href='https://office.com/webapps'>Office Online</a> 支持。</iframe>
 
 
+#### 使用Google文档、表格和幻灯片来查看和编辑Microsoft Word、Excel和PowerPoint文件
+
+>* [欢迎使用Google幻灯片](https://docs.google.com/presentation/u/0/)
+
+```
+快速创建新演示文稿或打开现有演示文稿。与他人共享即可协同编辑。
+```
+>* [Google文档、表格及幻灯片的Office编辑：chrome 用户需要安装的插件](http://goo.gl/VZm5xc)
+
 # See Also 
 
 >* [ppt课件](https://1drv.ms/p/s!AgrZWf10_6KoabJojRKrceecyy8)

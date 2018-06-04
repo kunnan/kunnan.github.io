@@ -52,6 +52,8 @@ subtitle: 第一周和第二周
 # I、第一周 PPT
 
 
+<iframe src="https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21111&authkey=ANAVD-bUeSNuk30&em=2" width="800" height="900" frameborder="0" scrolling="no"></iframe>
+
 #### 导论：金融的本质
 
 这三天我分别从`时间、资金、风险`三个维度给你讲解了金融的作用，我将它们称为“金融的三大定理”。
@@ -144,6 +146,8 @@ subtitle: 第一周和第二周
 
 # II、第二周｜课件放送：本周划重点时间到！
 
+
+<iframe src="https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21114&authkey=AP9JqvafFz3vtl8&em=2" width="780" height="600" frameborder="0" scrolling="no"></iframe>
 
 #### 一、王的信用：中央货币财政体系
 >* 中国金融市场的制度根源：秦汉时代开始的中央集权与“官山海”的国有经济制度，是中国金融制度的根源，我们称其为“中央货币财政体系”。
