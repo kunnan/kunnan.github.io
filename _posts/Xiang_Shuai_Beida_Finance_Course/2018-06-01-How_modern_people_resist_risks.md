@@ -51,7 +51,6 @@ subtitle: 第一周和第二周
 
 # I、第一周 PPT
 
-
 <iframe src="https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21111&authkey=ANAVD-bUeSNuk30&em=2" width="800" height="900" frameborder="0" scrolling="no"></iframe>
 
 #### 导论：金融的本质
@@ -147,7 +146,12 @@ subtitle: 第一周和第二周
 # II、第二周｜课件放送：本周划重点时间到！
 
 
-<iframe src="https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21114&authkey=AP9JqvafFz3vtl8&em=2" width="780" height="600" frameborder="0" scrolling="no"></iframe>
+<embed width="100%" height="400" fullscreen="yes" src="https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21114&authkey=AP9JqvafFz3vtl8&em=2"/>
+
+
+
+<embed width="100%" height="400" fullscreen="yes" src="https://drive.google.com/file/d/1fl47_2EKDwVtyRmqsxo3fckdv5iZe5SD/view"/>
+
 
 #### 一、王的信用：中央货币财政体系
 >* 中国金融市场的制度根源：秦汉时代开始的中央集权与“官山海”的国有经济制度，是中国金融制度的根源，我们称其为“中央货币财政体系”。
@@ -186,6 +190,54 @@ subtitle: 第一周和第二周
 
 
 # See Also 
+
+
+#### 如何在网页中嵌入PDF
+
+>* 如何在网页中嵌入PDF: 直接使用html的<object>标签或者<embed>标签
+
+```js
+<object data="http://example.com/yourpdf.pdf" type="application/pdf" width="95%" height="700px">
+    <embed src="http://example.com/yourpdf.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="http://example.com/yourpdf.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
+```
+
+```js
+<center><embed src="/pdf/mou.pdf" width="100%" height="600"></center>
+```
+
+>* 或者使用iframe
+
+```js
+<iframe src="https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21111&authkey=ANAVD-bUeSNuk30&em=2" width="800" height="900" frameborder="0" scrolling="no"></iframe>
+```
+
+```
+<iframe src="My.pdf" style="width:718px; height:700px;" frameborder="0"></iframe> 
+```
+
+
+>* 使用Google View来看. 据说支持多种格式如PPT,DOC.
+
+```
+<iframe src="http://docs.google.com/gview?url=http://platinhom.github.io/pdf/mou.pdf&embedded=true" style="width:500px; height:100px;" frameborder="0"></iframe>
+```
+
+```js
+<iframe jsname="L5Fo6c" jscontroller="qFkC8" jsaction="rcuQ6b:WYd;" onload="this.setAttribute('data-iframe-loaded', true)" class="YMEQtf L6cTce-purZT L6cTce-pSzOP" frameborder="0" aria-label="Drive, 《香帅的北大金融学课》课件W2.pdf" data-src="https://drive.google.com/file/d/1fl47_2EKDwVtyRmqsxo3fckdv5iZe5SD/preview?authuser=0" allowfullscreen></iframe>
+```
+
+>* [Google PDF Viewer:Uses HTML5 to display PDF files directly in the browser](https://chrome.google.com/webstore/detail/pdf-viewer/oemmndcbldboiebfnladdacbdfmadadm?hl=zh-CN)
+
+>* 借助Flash或者[PDF.js: PDF Reader in JavaScript](https://github.com/mozilla/pdf.js/)等插件
+
+```
+建议仍旧采用pdf.js，虽然说flash的用户体验效果很好，但是考虑mac Safari不支持，采用HTML5更加稳妥，而且pdf.js的操作体验也不差
+```
+
+#### other
 
 >* [小马笔记](https://www.jianshu.com/u/44a9796a1b66)
 
