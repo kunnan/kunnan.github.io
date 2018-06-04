@@ -165,9 +165,20 @@ subtitle: 存款准备金、基准利率
 >* 第二个阶段叫框架通关。这就是说，要求你建立一个金融思考的框架。我们现在面临的是一个信息爆炸的时代，市场上其实错误的信息是很多的，比如说你经常会听到什么“货币超发”、“货币战争”这些词语，这里面有很多的逻辑硬伤。在概念通关的基础上，你要学着建立一个自己的金融思维的框架，辨别这些信息。
 >* 第三阶段叫做实操通关，这就是要求你运用金融框架来解决问题，在这个阶段，我会给你一些模拟的宏观环境，让你置身在一个具体的场景里面，这个时候你要开始运用自己在前面学到的很多知识进行判断，进行操作、投资、商业决策、金融运作等等。
 
+# PPT课件
+
+<iframe src='https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21105&authkey=AJHmvBpUoVDbKZ0&em=2&wdAr=1.7777777777777777' width='962px' height='565px' frameborder='0'>这是嵌入 <a target='_blank' href='https://office.com'>Microsoft Office</a> 演示文稿，由 <a target='_blank' href='https://office.com/webapps'>Office Online</a> 支持。</iframe>
 
 
 # See Also 
+
+>* [ppt课件](https://1drv.ms/p/s!AgrZWf10_6KoabJojRKrceecyy8)
+
+>* [onedrive.live.com](https://onedrive.live.com/?id=root&cid=A8A2FF74FD59D90A)
+>
+>*  [PowerPoint.aspx: 上传ppt,在网页或博客中嵌入演示文稿](https://office.live.com/start/PowerPoint.aspx?s=2&auth=1&nf=1&ppud=4)
+
+>* [在网页或博客中嵌入演示文稿](https://support.office.com/zh-cn/article/%E5%9C%A8%E7%BD%91%E9%A1%B5%E6%88%96%E5%8D%9A%E5%AE%A2%E4%B8%AD%E5%B5%8C%E5%85%A5%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF-19668a1d-2299-4af3-91e1-ae57af723a60)
 
 >* [金融学课](https://www.jianshu.com/c/04a0ab69e8d8?utm_source=desktop&utm_medium=notes-included-collection)
 >
