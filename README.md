@@ -2,7 +2,7 @@
 
 > 
 > 
->* 我看中这个版本的catalog，因此放弃了[旧的博客](https://github.com/zhangkn/zhangkn.github.io)
+>* 我看中这个版本的catalog，自己新增了站内搜索；因此放弃了[旧的博客](https://github.com/zhangkn/zhangkn.github.io)
 >
 ### [本博客的特色：tag\search\catalog &rarr;](https://kunnan.github.io/)
 
