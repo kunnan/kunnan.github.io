@@ -49,9 +49,84 @@ command + B 将生成的 codeObfuscation.h加入项目
 
 # 验证效果
 
+#### hopper 
 
 >* `frida-ps -Ua`
 >* `kndump appname`
+>
+
+#### class-dump
+
+
+```sh
+ swiftOCclass-dump /Users/devzkn/decrypted/kn/Payload/kn.app/kn -H -o  /Users/devzkn/decrypted/kn/head
+```
+
+>* [获取头文件](https://github.com/zhangkn/KNBin/blob/master/swiftOCclass-dump)
+
+```
+https://github.com/zhangkn/KNBin/blob/master/swiftOCclass-dump
+
+可以class-dump混编的
+
+swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/AppStoreV10.2/Payload/AppStore.app/AppStore -H -o  /Users/devzkn/decrypted/AppStoreV10.2/head
+
+swiftOCclass-dump knip  -H -o  /Users/devzkn/decrypted/knip/head
+```
+
+#### otool -tv
+
+>*  otool -hv knip
+
+>*  otool -l knip
+
+#### `tweak+ knhook ` 进行跟踪 
+
+```sh
+nic 
+11 
+MobileSubstrate Bundle filter: 可以使用frida-ps -Ua 进行查看
+ List of applications to terminate upon installation: 使用 ps -e |grep No
+```
+
+>* 修改`Makefile`
+
+```
+THEOS_DEVICE_IP=usb2222	#5C9
+TARGET = iphone:latest:8.0
+ARCHS = armv7 arm64
+THEOS=/opt/theos
+THEOS_MAKE_PATH=$(THEOS)/makefiles
+```
+>* 新增 deploy sh
+
+```
+echo "" > ~/.ssh/known_hosts
+	cd `dirname $0` 
+	make clean
+	rm -rf ./packages
+	make package install
+```
+
+>* 添加`knhook`
+
+```makefile
+KNHookClass/KNHook.m
+```
+```xm
+#import  "KNHookClass/KNHook.h"
+```
+
+```
+//寻找UIApplicationDelegate 实例的didFinishLaunchingWithOptions
+%hook _AppDelegate
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	// 打印某个类的所有方法的，查看所有方法的执行顺序
+		[KNHook hookClass:@""];// 
+    return %orig;
+}
+%end
+```
 
 # See Also 
 
