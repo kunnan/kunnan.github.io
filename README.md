@@ -4,12 +4,12 @@
 > 
 >* 我看中这个版本的catalog，因此放弃了[旧的博客](https://github.com/zhangkn/zhangkn.github.io)
 >
-### [新的博客在这里 &rarr;](https://kunnan.github.io/)
+### [本博客的特色：tag\search\catalog &rarr;](https://kunnan.github.io/)
 
 
 >* [feed](https://kunnan.github.io/feed.xml)
 >* [maxfong.github.com: 可以考虑的新博客模版](https://github.com/kunnan/maxfong.github.com)
-
+>* [本人比较喜欢Jekyll, 如果你喜欢使用Hexo驱动们可以参考这个：马甲包混淆方案](https://github.com/iOSobfuscation/biqinglin.github.io)
 
 ## 使用
 

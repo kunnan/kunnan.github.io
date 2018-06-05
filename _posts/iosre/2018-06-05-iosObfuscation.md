@@ -15,7 +15,8 @@ subtitle: 马甲包混淆方案
 >* 通过技术手段，多次上架同一款产品的方法.
 >* 另一种马甲包是内容和功能完全不合规，壳子本身功能正常是为了能通过审核，而一旦审核通过，大部分都会直接成为一个web展示内容，包括：赌博、色情、以及其他（我司是网赚平台）
 
-# 混淆方案组合一 混淆调用树
+# 混淆方案组合一:`Hikari` 混淆调用树
+
 
 
 
@@ -46,8 +47,16 @@ command + B 将生成的 codeObfuscation.h加入项目
 >2)另外方案一有可能导致当前项目无法使用xib以及无法继承自定义类的情况，暂时无法解决，发生几率不高，但是还是建议在工程做完之后再修改编译方式。
 >```
 
+# 验证效果
+
+
+>* `frida-ps -Ua`
+>* `kndump appname`
 
 # See Also 
+
+>* [code:BQL_iOSProjectMix](https://github.com/iOSobfuscation/BQL_iOSProjectMix)
+
 
 #### iOSobfuscation
 
@@ -73,7 +82,35 @@ devzkndeMacBook-Pro:Hikari devzkn$ kngitinit git@github.com:iOSobfuscation/KNHik
 Uploading LFS objects:   0% (0/1), 114 MB | 591 KB/s                                                                                                                                                                         
 ```
 
+#### AppStore上架-技术篇
+
+>* [AppStore上架-技术篇-HTML5过审技术之混淆技巧](https://www.jianshu.com/p/5b53c361514c)
+
+```
+1)而是通过创建本地http服务器的形式通过http://localhost:端口的方式浏览
+2) 本地服务器那个是用的开源库：github搜索HTTPServer
+3) 重点添加classprex前缀和后缀：加入指令混淆和函数封装
+4)shell脚本类型和函数的重命名: https://my.oschina.net/FEEDFACF/blog/1627398
+```
+
+>*  [iOS壳版本场景下的批量修改类名、属性名、插入混淆代码、修改项目名称的shell脚本](https://gitee.com/dhar/YTTInjectedContentKit)
+
+```
+https://gitee.com/xtfjhhsfm/YTTInjectedContentKit.git
+
+https://github.com/iOSobfuscation/KNInjectedContentKit
+```
+
+>* [修改类名、属性名、插入混淆代码、修改项目名称的shell脚本](https://github.com/iOSobfuscation/KNInjectedContentKit)
+
+
 #### other
+>* [FishHook用于hook C函数，是Facebook提供的一个动态修改链接mach-O文件的工具，项目地址：fishhook 。](https://github.com/facebook/fishhook)
+
+```
+https://my.oschina.net/FEEDFACF/blog/1528819
+https://my.oschina.net/FEEDFACF/blog/1621956
+```
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
