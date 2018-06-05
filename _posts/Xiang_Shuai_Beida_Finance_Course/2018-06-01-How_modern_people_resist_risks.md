@@ -149,10 +149,6 @@ subtitle: 第一周和第二周
 <embed width="100%" height="400" fullscreen="yes" src="https://onedrive.live.com/embed?cid=A8A2FF74FD59D90A&resid=A8A2FF74FD59D90A%21114&authkey=AP9JqvafFz3vtl8&em=2"/>
 
 
-
-<embed width="100%" height="400" fullscreen="yes" src="https://drive.google.com/file/d/1fl47_2EKDwVtyRmqsxo3fckdv5iZe5SD/view"/>
-
-
 #### 一、王的信用：中央货币财政体系
 >* 中国金融市场的制度根源：秦汉时代开始的中央集权与“官山海”的国有经济制度，是中国金融制度的根源，我们称其为“中央货币财政体系”。
 

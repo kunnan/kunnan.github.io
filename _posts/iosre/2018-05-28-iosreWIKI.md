@@ -17,11 +17,16 @@ subtitle: IOS安全学习资料汇总
 
 # OSobfuscation
 
+>* [obfuscator](https://github.com/iOSobfuscation/obfuscator)
+>* [Hikari: 基于 obfuscator 进行了Xcode9的适配](https://github.com/iOSHacking/Hikari)
+>
+>* [马甲包混淆方案:组合 Hikari+ 混淆方法名，类名](http://biqinglin.com/2018/05/06/%E9%A9%AC%E7%94%B2%E5%8C%85%E6%B7%B7%E6%B7%86%E6%96%B9%E6%A1%88/#more)
 
->* [Hikari](https://github.com/iOSHacking/Hikari)
->
->
->
+>* [back zip hikari](https://github.com/iOSobfuscation/KNHikari)
+
+```
+http://7xunik.com1.z0.glb.clouddn.com/Hikari.zip
+```
 
 
 #### iOS-private-api-scanner

@@ -1,15 +1,20 @@
 
-<link rel="stylesheet" href="/assets/vendor/octicons/octicons/octicons.css">
-<h4>Search</h4>
+
+<h5>Search</h5>
 <div id="site_search">
-    <input type="text" id="search_box" placeholder="Search" width="100%"/>
-    <button class="btn btn-default" id="site_search_do"><span class="octicon octicon-search"></span></button>
+<style scoped>
+</style>
+	<input type="text" id="search_box" placeholder="Search" width="100%"/>
+	<button  class="btn btn-default" id="site_search_do"  ><span class="octicon octicon-search"></span></button>
+		<!-- <link  rel="stylesheet" type="text/css" href="/assets/vendor/primer-css/css/primer.css" scoped="scoped"/> -->
+
 </div>
 
 <ul id="search_results"></ul>
-<link rel="stylesheet" href="/assets/css/globals/responsive.css">
-<link rel="stylesheet" href="/assets/vendor/primer-css/css/primer.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/modules/sidebar-search.css">
+<link scoped rel="stylesheet" type="text/css" href="/assets/vendor/octicons/octicons/octicons.css">
+<link  rel="stylesheet" type="text/css" href="/assets/css/modules/sidebar-search.css">
+<!-- <link rel="stylesheet" href="/assets/css/globals/responsive.css"> -->
+<!--  -->
 <script src="{{ "/js/jquery.min.js " | prepend: site.baseurl }}"></script>
 <script src="/assets/js/jquery-ui.js"></script>
 <script src="/assets/js/lunr.min.js"></script>
