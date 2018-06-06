@@ -78,59 +78,6 @@ swiftOCclass-dump knip  -H -o  /Users/devzkn/decrypted/knip/head
 
 >*  otool -l knip
 
-#### `tweak+ knhook ` 进行跟踪 
-
-```sh
-nic 
-11 
-MobileSubstrate Bundle filter: 可以使用frida-ps -Ua 进行查看
- List of applications to terminate upon installation: 使用 ps -e |grep No
-```
-
->* 修改`Makefile`
-
-```
-THEOS_DEVICE_IP=usb2222	#5C9
-TARGET = iphone:latest:8.0
-ARCHS = armv7 arm64
-THEOS=/opt/theos
-THEOS_MAKE_PATH=$(THEOS)/makefiles
-$(TWEAK_NAME)_CFLAGS += -Wno-error
-```
->* 新增 deploy sh
-
-```
-echo "" > ~/.ssh/known_hosts
-	cd `dirname $0` 
-	make clean
-	rm -rf ./packages
-	make package install
-```
-
->* 添加`knhook`
-
-```makefile
-KNHookClass/KNHook.m
-```
-```xm
-#import  "KNHookClass/KNHook.h"
-```
-
-```
-//寻找UIApplicationDelegate 实例的didFinishLaunchingWithOptions
-%hook _AppDelegate
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	// 打印某个类的所有方法的，查看所有方法的执行顺序
-		[KNHook hookClass:@""];// 具体的要结合hooper、cycript 进行定位, 
-    return %orig;
-}
-%end
-```
-
-```
-	%log;
-	%orig;
-```
 
 #### [cycript 进行快速分析](https://kunnan.github.io/2018/04/20/CycriptTricks/)
 
@@ -138,7 +85,6 @@ KNHookClass/KNHook.m
 ```cy
 [[[UIWindow keyWindow] rootViewController] _printHierarchy].toString()
 ```
-
 
 ####   使用 `console`进行log 分析
 
