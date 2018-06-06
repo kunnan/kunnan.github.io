@@ -146,17 +146,6 @@ KNHookClass/KNHook.m
 #### process:MobileSafari 远程调试
 
 
-######  Safari 远程调试
->* 1、首先，我们要打开Safari的远程调试功能
-
-```
-Safari的偏好设置  -->高级 --> 在菜单显示“开发”菜单
-```
-
->* 2、打开我们手机，设置-->Safari-->高级-->Web检查器
-
-
->* 将iPhone设备连接上Mac，打开Safari的开发菜单，就会发现我们的设备
 
 
 # 关键词 `jail`
