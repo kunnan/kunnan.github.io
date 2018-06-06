@@ -8,8 +8,17 @@
 
 
 >* [feed](https://kunnan.github.io/feed.xml)
->* [maxfong.github.com: 可以考虑的新博客模版](https://github.com/kunnan/maxfong.github.com)
->* [本人比较喜欢Jekyll, 如果你喜欢使用Hexo驱动们可以参考这个：马甲包混淆方案](https://github.com/iOSobfuscation/biqinglin.github.io)
+
+## 其他模版推荐
+
+>* [Jekyll: 搜索](https://github.com/kunnan/maxfong.github.com)
+>* [Jekyll:热门文章](https://github.com/justjavac/justjavac.github.com)
+>* [Jekyll: 看中了这个全部文章;接下来准备更换的版本，准备新作catalog和search ; Piasy.github.io](https://github.com/githubPagesio/Piasy.github.io)
+>* [Jekyll: Electron](https://github.com/githubPagesio/electronjs.org)
+>* [Jekyll: mobdevgroup ，catalog 比较漂亮](https://github.com/githubPagesio/mobdevgroup.github.io)
+>* [Jekyll:iOS%20Security,样式一般 ](https://github.com/githubPagesio/wufawei.github.com)
+>* [Hexo驱动：马甲包混淆方案](https://github.com/iOSobfuscation/biqinglin.github.io)
+>* [WordPress 模版： 搜索比较强大](https://github.com/iOSobfuscation/Kratos)
 
 ## 使用
 

@@ -16,6 +16,18 @@ tags:
 
 # 常用git脚本
 
+#### 切换到历史提交版本
+
+>* `git checkout 1b3acc187c1f78d666e2b428d32a1bceef6319b6`
+
+```
+ git checkout 1b3acc187c1f78d666e2b428d32a1bceef6319b6
+ You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+   git checkout -b <new-branch-name>
+```
+
 #### [GitHub创建仓库并提交到远程:kngitinit](https://github.com/zhangkn/KNBin/blob/master/kngitinit)
 
 ```
