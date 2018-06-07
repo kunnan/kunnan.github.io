@@ -9,20 +9,126 @@ author: kunnan
 subtitle: 马甲包混淆方案
 ---
 
+# 前言
+
+
+#### anti-class-dump
+
+>* [py 加固防dump-OC代码混淆器](https://github.com/iosaso/oc-obfuscator)
+>
+
+#### LLVM Obfuscator
+
+>* [`Hikari`](https://github.com/HikariObfuscator/Hikari)
 
 # 马甲包混淆方案
 
 >* 通过技术手段，多次上架同一款产品的方法.
 >* 另一种马甲包是内容和功能完全不合规，壳子本身功能正常是为了能通过审核，而一旦审核通过，大部分都会直接成为一个`UIWebView`展示内容，包括：赌博、色情、以及其他（我司是网赚平台）
 
-# 混淆方案组合一:`Hikari` 混淆调用树
+# I、混淆方案组合一:[`Hikari`](https://github.com/HikariObfuscator/Hikari) 混淆调用树
 
 
 
-# [混淆方案组合二 混淆方法名，类名](https://zhangkn.github.io/2018/04/iOSobfuscation/)
+>* 预编译完成的工具链
+
+Hikari的[Releases](https://github.com/HikariObfuscator/Hikari/releases)有预先编译好的工具链，将Hikari.xctoolchain解压到~/Library/Developer/Toolchains/ 或/Library/Developer/Toolchains/ 即可(区别是前者只有当前用户可用，后者所有用户都可使用)
+
+```
+/Users/devzkn/code/knHikari/Users/Naville/Library/Developer/Toolchains/Hikari.xctoolchain 
+
+ /Users/devzkn/Library/Developer/Toolchains/Hikari.xctoolchain
+```
+
+>* [ macOS Quick Installation: 假设您的macOS中有安装cmake和ninja(`brew install cmake`)](https://naville.gitbooks.io/hikaricn/content/Compile-&-Install.html)
+
+这个脚本假设当前工作目录不是用户的家目录(即~/) ，如果是的话请先cd到其他目录。
 
 
-#### [原版](https://blog.csdn.net/yiyaaixuexi/article/details/29201699)
+```sh
+git clone -b release_60 https://github.com/HikariObfuscator/Hikari.git Hikari \
+&& mkdir Build && cd Build && \
+cmake -G "Ninja" -DCMAKE_BUILD_TYPE=MinSizeRel -DLLVM_APPEND_VC_REV=on -DLLVM_CREATE_XCODE_TOOLCHAIN=on \
+-DCMAKE_INSTALL_PREFIX=~/Library/Developer/ ../Hikari && ninja &&ninja install-xcode-toolchain && git clone \
+https://github.com/HikariObfuscator/Resources.git ~/Hikari && rsync -ua \ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/ \ ~/Library/Developer/Toolchains/Hikari.xctoolchain/ && \
+rm ~/Library/Developer/Toolchains/Hikari.xctoolchain/ToolchainInfo.plist
+```
+
+>* [201806 fork](https://github.com/kunnan/Hikari)
+
+
+
+#### 1.1 使用
+
+
+>* Hikari目前支持下文所述的编译器标记
+
+```
+-enable-bcfobf 启用伪控制流  
+-enable-cffobf 启用控制流平坦化
+-enable-splitobf 启用基本块分割  
+-enable-subobf 启用指令替换  
+-enable-acdobf 启用反class-dump  
+-enable-indibran 启用基于寄存器的相对跳转，配合其他加固可以彻底破坏IDA/Hopper的伪代码(俗称F5)  
+-enable-strcry 启用字符串加密  
+-enable-funcwra 启用函数封装
+```
+
+>* -enable-allobf一次性启用前文所述的所有标记
+
+>* 对于Xcode而言所有的混淆标记应该加在Target的Other C Flags中
+
+```
+以clang为例，您需要在每个flag前加上-mllvm
+```
+
+
+
+
+#### 1.2 content/Intergrating-with-Xcode
+
+
+>* 对于工程中的每个Target.搜索Enable Index-While-Building并设置为NO
+
+```
+Build Setting -> Enable Index-While-Building Functionality -> ‘default’ change to ‘No’
+```
+>* 按照你的混淆需求在CFLAGS中增加混淆标记
+
+```
+开启混淆: 启用控制流平坦化、启用伪控制流, Build Settings -> OTHER_CFLAGS -> -mllvm -enable-cffobf -mllvm -enable-bcfobf
+```
+
+
+>* 记得关闭编译器优化(CFLAG加-O0,Xcode的Optimization Level设置为None,否则混淆会被编译器优化回去)
+
+```
+关闭编译优化 Build Settings -> OPTIMIZATION_LEVEL -> 0
+```
+
+>* 打开Xcode->Toolchains菜单, 选择 Hikari.
+
+```
+Build Settings -> Compiler for C/C++/Objective-C -> HikariObfuscator
+```
+>* [可选]关闭 bitcode
+
+#### 1.3 wiki
+
+>* [wiki](https://legacy.gitbook.com/book/naville/hikaricn/details)
+>
+
+#### 1.4 Known Issues
+
+>* Running AntiClassDump On A File Without ObjC Class will crash the executable.在没有ObjC类的源码里打开反class-dump后编译产物会崩溃
+
+#### 1.5 [HikariDemo](https://github.com/iOSobfuscation/KNHikariDemo)
+
+
+# II、[混淆方案组合二 混淆方法名，类名](https://zhangkn.github.io/2018/04/iOSobfuscation/)
+
+
+#### 2.1  [原版](https://blog.csdn.net/yiyaaixuexi/article/details/29201699)
 
 提供两个文件：func.list、confuse.sh
 
@@ -39,21 +145,23 @@ command + B 将生成的 codeObfuscation.h加入项目
 
 # 注意
 
+
 >使用这套方案，（2种）目的是为了混淆我们的SDK
 >```
 >1)目前暂未出现因为机审不过的情况，通常是因为马甲本身的功能不够丰富。
 >2)另外方案一有可能导致当前项目无法使用xib以及无法继承自定义类的情况，暂时无法解决，发生几率不高，但是还是建议在工程做完之后再修改编译方式。
 >```
 
-# 验证效果
+# III 、验证效果
 
-#### hopper 
+#### 3.1  hopper 
 
 >* `frida-ps -Ua`
 >* `kndump appname`
->
 
-#### class-dump
+![image](https://wx3.sinaimg.cn/large/af39b376gy1fs2bbq43e4j20h20bc3zt.jpg)
+
+#### 3.2 class-dump
 
 
 ```sh
@@ -72,40 +180,26 @@ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/AppStoreV10.2/Payload/Ap
 swiftOCclass-dump knip  -H -o  /Users/devzkn/decrypted/knip/head
 ```
 
-#### otool -tv
+#### 3.3 otool -tv
 
 >*  otool -hv knip
 
 >*  otool -l knip
 
 
-#### [cycript 进行快速分析](https://kunnan.github.io/2018/04/20/CycriptTricks/)
+#### 3.4  [cycript 进行快速分析](https://kunnan.github.io/2018/04/20/CycriptTricks/)
 
 
 ```cy
 [[[UIWindow keyWindow] rootViewController] _printHierarchy].toString()
 ```
 
-####   使用 `console`进行log 分析
+#### 3.5 使用 `console`进行log 分析
 
 
-#### process:MobileSafari 远程调试
+###### [destructor、constructor & knhook](https://kunnan.github.io/2018/06/05/__attribute__/)
 
-
-
-
-# 关键词 `jail`
-
-```
-subtaskCheckIDFA
-download
-```
-
-
-# 熟悉VUE ，了解js
-
-
-#  destructor、constructor
+>* [__attribute__](https://kunnan.github.io/2018/06/05/__attribute__/)
 
 ```
 static void __attribute__((destructor)) back_main1(void)
@@ -113,6 +207,7 @@ static void __attribute__((destructor)) back_main1(void)
 printf("Come to %s\n", __func__);
 }
 ```
+>* [knhook](https://kunnan.github.io/2018/06/06/hookClass_knhook_hookClassLog/)
 
 ```
 __attribute__((constructor)) static void before1()
@@ -122,13 +217,26 @@ __attribute__((constructor)) static void before1()
 }
 ```
 
-# See Also 
+#### 3.6 process:MobileSafari 远程调试
+
+
+# IV 、知识补充
+
+#### 还原符号表
+
+#### cmake
+
+>* `/Users/devzkn/Downloads/kevin－software/ios-Reverse_Engineering/llvm-3.9.0.src/build`
+
+>* `/Users/devzkn/code/iosre/Hikari/Hikari/build`
+
+
+# V、See Also
 
 >* [code:BQL_iOSProjectMix](https://github.com/iOSobfuscation/BQL_iOSProjectMix)
 >
 
 #### [WebViewJavascriptBridge](https://github.com/marcuswestin/WebViewJavascriptBridge)
-
 
 ```
 WebViewJavascriptBridge 的结构是 WebViewJavascriptBridge(使用 UIWebView) 和 WKWebViewJavascriptBridge(使用 WKWebView) 公用一个 WKWebViewJavascriptBridgeBase,
