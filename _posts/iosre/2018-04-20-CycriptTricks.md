@@ -11,7 +11,11 @@ author: kunnan
 subtitle: Powerful_private_methods
 ---
 
-### 前言
+# [前言](http://iphonedevwiki.net/index.php/Cycript)
+
+```
+usage: cycript [-c] [-p <pid|name>] [-r <host:port>] [<script> [<arg>...]]
+```
 
 Cycript 是一个能够理解Objective-C语法的javascript解释器， 它能够挂钩正在运行的进程， 以在运行时修改很多东西, 一般我们用于动态调试应用, 如果要调试的代码是用C编写的,通过[lldb](/images/posts/antiDebugger/lldb-commands-map.png)来调试.
 
@@ -32,7 +36,7 @@ _methodDescription
 iPhone:~ root# apt-get install cycript
 ```
 
-###  动态库的注入方式
+#  动态库的注入方式
 
 >* cycript注入动态库的方式
 
@@ -64,7 +68,7 @@ Usage: insert_dylib dylib_path binary_path [new_binary_path]
 
 
 
-### cycript的常用命令
+# cycript的常用命令
 
 >* List all subclasses
 ```
@@ -180,11 +184,59 @@ cy# [[UIApp keyWindow] _autolayoutTrace].toString()
 cy# a = choose(UILabel).toString()
 ```
 
+# 与MonkeyDev的结合使用
+
+#### cycript
+
+当运行app 之后才能使用端口6666
+
+```
+        CYListenServer(6666);
+```
+
+>* Download cycript(https://cydia.saurik.com/api/latest/3) then run: ./cycript -r 192.168.2.14:6666
+
+
+>* devzkndeMacBook-Pro:cycript_0.9.594 devzkn$ ./cycript -r 192.168.2.14:6666
+
+```
+cy# 
+cy# [[[UIWindow keyWindow] rootViewController] _printHierarchy].toString()
+"<WCAccountLoginFirstViewController 0x15a7ea00>, state: appeared, view: <UIView 0x165873c0>"
+```
 
 
 
+# Q&A
 
-### 参考
+>* Q: 10.13系统下用cycript报错:
+
+```
+dyld: Library not loaded: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/libruby.2.0.0.dylib
+Referenced from: /Users/Jveryl/Desktop/Crash/cycript_0/Cycript.lib/cycript-apl
+Reason: image not found
+Abort trap: 6
+```
+
+>* A: 先关闭系统的SIP，然后运行如下命令，把原来引用的位置创建符号链接到现在新版本的位置:
+
+
+```sh
+sudo mkdir -p /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/
+sudo ln -s /System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/lib/libruby.2.3.0.dylib /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/libruby.2.0.0.dylib
+```
+
+or 
+
+```
+brew install ruby@2.0
+
+
+devzkndeMacBook-Pro:Versions devzkn$  cp -a  /usr/local/Cellar/ruby@2.0/2.0.0-p648_6/lib/libruby.2.0.0.dylib /Users/devzkn/Downloads/kevinsoftware/ios-Reverse_Engineering/cycript_0.9.594/Cycript.lib
+```
+
+
+# 参考
 - [CycriptTricks](http://iphonedevwiki.net/index.php/Cycript_Tricks)
 - [debs](http://www.cycript.org/debs/?C=M;O=D)
 - [iOS Reverse Engineering Dev Community](https://github.com/iOS-Reverse-Engineering-Dev)
