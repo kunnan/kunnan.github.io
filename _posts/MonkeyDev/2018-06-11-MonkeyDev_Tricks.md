@@ -97,6 +97,12 @@ cy66
 
 # Q&A
 
+>* `Enable Strict Checking of objc_msgSend Calls` 设置为NO，否则`objc_msgSend `无法使用
+
+```
+"Enable Strict Checking of objc_msgSend Calls" is a compile time check, not run time, so there is no benefit to turning it off in production.
+```
+
 >* Q: 10.13系统下用cycript报错:
 
 ```
