@@ -125,6 +125,8 @@ Build Settings -> Compiler for C/C++/Objective-C -> HikariObfuscator
 #### 1.5 [HikariDemo](https://github.com/iOSobfuscation/KNHikariDemo)
 
 
+#### 1.6 [code backup](https://github.com/kunnan/KNHikari-20180526)
+
 # II、[混淆方案组合二 混淆方法名，类名](https://zhangkn.github.io/2018/04/iOSobfuscation/)
 
 
