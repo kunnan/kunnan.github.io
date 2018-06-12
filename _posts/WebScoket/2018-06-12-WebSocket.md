@@ -11,14 +11,14 @@ subtitle: 一种网络通信协议,提供全双工通信信道,以基于事件�
 
 
 
-# 简介
+# I 、简介
 
 WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。
 
 特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于[服务器推送技术](https://en.wikipedia.org/wiki/Push_technology)的一种。
 ![image](https://ws2.sinaimg.cn/large/af39b376gy1fs85o3sbesj20hg0e7q4v.jpg)
 
-#### 特点
+#### 1.1特点
 
 >* （1）建立在 TCP 协议之上，服务器端的实现比较容易。
 
@@ -36,7 +36,7 @@ WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器�
 ![image](https://ws2.sinaimg.cn/large/af39b376gy1fs85l6zx0kj20bm08ogo0.jpg)
 
 
-# [Socket](https://en.wikipedia.org/wiki/Network_socket) 与 [WebScoket](http://www.ruanyifeng.com/blog/2017/05/websocket.html)
+# II、[Socket](https://en.wikipedia.org/wiki/Network_socket) 与 [WebScoket](http://www.ruanyifeng.com/blog/2017/05/websocket.html)
 
 Socket 其实并不是一个协议。它工作在 OSI 模型会话层（第5层），是为了方便大家直接使用更底层协议（一般是 TCP 或 UDP ）而存在的一个抽象层。
 ![image](https://ws2.sinaimg.cn/large/af39b376gy1fs85kbjwcdj20f50dadhe.jpg)
@@ -45,7 +45,7 @@ Socket 其实并不是一个协议。它工作在 OSI 模型会话层（第5层�
 所以，从使用上来说，WebSocket 更易用，而 Socket 更灵活。
 
 
-# 代表框架
+#### 2.1 代表框架
 
 >* 基于Scoket原生：代表框架 CocoaAsyncSocket。
 >* 基于WebScoket：代表框架 SocketRocket。
@@ -53,8 +53,18 @@ Socket 其实并不是一个协议。它工作在 OSI 模型会话层（第5层�
 >* 基于XMPP：代表框架 XMPPFramework。
 
 
-# [客户端的 API](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
+#### 2.2 [客户端的 API](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
 
+
+#### 2.3 服务端的实现
+
+###### 2.3.1 常用的 Node 实现有以下三种
+
+>* µWebSockets
+>* Socket.IO
+>* WebSocket-Node
+>
+>* 一款非常特别的 WebSocket 服务器：[Websocketd](http://websocketd.com/)
 
 
 
