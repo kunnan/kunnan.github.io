@@ -145,6 +145,10 @@ cy#  [&](int a)->int{return a}
 cy# UIApp.keyWindow.recursiveDescription().toString()
 ```
 
+```
+ [UIWindow keyWindow].recursiveDescription().toString()
+```
+
 >* 通过view的nextResponder方法，可以找出它的下一个事件传递来源，常用来确定它所属的视图控制器
 ```
 cy# [#0x181009f0 nextResponder]
