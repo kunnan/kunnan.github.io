@@ -27,6 +27,12 @@ tags:
 >* 利用运行时API 进行获取、修改、操作保护的属性
 ><script src="https://gist.github.com/zhangkn/b040f5b395aa36e244b2aee59afdf7f4.js"></script>
 
+>* `objc_getClass `、`objc_msgSend `的配合使用
+
+```
+        id WCRedEnvelopesLogicMgr = [objc_getClass("WCRedEnvelopesLogicMgr") new];
+        objc_msgSend(WCRedEnvelopesLogicMgr, @selector(doSendHongBaoTask));
+```
 
 
 # 1、查询类信息
