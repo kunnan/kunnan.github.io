@@ -58,6 +58,12 @@ or
 \u4e8c\u7ef4\u7801\u6536\u6b3e 进行搜索找到对应按钮
 ```
 
+#### 1.3 定位`对象属性`
+
+>* _ivarDescription: Prints all names and values of instance variables of a specified object
+```
+cy# [#0x5822600 _ivarDescription].toString()
+```
 
 
 # II、 快速定位按钮对应的`allTargets `、`allControlEvents `、 `actionsForTarget `
@@ -109,4 +115,8 @@ cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmou
 /Users/devzkn/bin/knpost CycriptUsefulCommand 常用的cycript命令、分析思路 -t Cycript
 > #原来""的参数，需要自己加上""
 ```
+
+>* [CycriptTricks](https://kunnan.github.io/2018/04/20/CycriptTricks/)
+>* [UIButton_sendActionsForControlEvents](https://kunnan.github.io/2018/06/08/UIButton_sendActionsForControlEvents/)
+>* [csdn](https://blog.csdn.net/z929118967/article/details/78309400)
 
