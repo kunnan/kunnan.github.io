@@ -82,14 +82,19 @@ cy# [#0x170bab80 actionsForTarget:[[#0x170bab80 allTargets] allObjects][0] forCo
 @["receiveMoneyBtnPress:"]
 ```
 
-
-
+>* 2.1.3 NSLog: `allTargets `,`actionsForTarget`
+```       
+NSLog(@"allTargets: %@ actionsForTarget :%@",[normalRedEnvelopesButton allTargets],[normalRedEnvelopesButton actionsForTarget:[[normalRedEnvelopesButton allTargets] allObjects][0]forControlEvent:[normalRedEnvelopesButton allControlEvents]]);
+```
 
 #### 2.2  验证`执行方法`
 
 >* objc_msgSend
 ```
             objc_msgSend(vc, @selector(initView));
+```
+```
+    id data = objc_msgSend(MainFrameLogic, @selector(getSessionInfoByContact:), contact);
 ```
 >* `[]`
 ```
@@ -99,12 +104,29 @@ cy# [[[#0x170bab80 allTargets] allObjects][0] receiveMoneyBtnPress:nil]
 ```
 cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmount]
 ```
-#### 2.3 other 
+# III 、 other 
 
->* 2.3.1 `验证是否找对了view`
+
+#### 3.2 nextResponder 有助于分析控件的层级结构
+
+#### 3.2 获取属性
+
+>* _ivarDescription
+>* [self valueForKey:@"m_delegate"]
+>* class_getInstanceVariable
+>```
+>    Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
+    id inputToolView = object_getIvar(self, inputToolViewIvar);
+>```
+
+#### 3.3 setHidden
+>* 3.3.1 `验证是否找对了view`
 ```
  cy# [#0x189ce7e0 setHidden:0] 
 ```
+
+
+
 
 
 # See Also 
