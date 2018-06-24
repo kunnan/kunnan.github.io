@@ -109,6 +109,9 @@ cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmou
 
 # See Also 
 
+>* 微信资助二维码
+>![image](https://wx4.sinaimg.cn/large/af39b376gy1fsm4fqug79j207s07s3yc.jpg)
+
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
