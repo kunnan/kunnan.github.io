@@ -104,6 +104,13 @@ cy# [[[#0x170bab80 allTargets] allObjects][0] receiveMoneyBtnPress:nil]
 ```
 cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmount]
 ```
+
+>* sendActionsForControlEvents
+
+```
+    //    UIView  *normalRedEnvelopesButton  [self valueForKey:@"normalRedEnvelopesButton"];
+//        [normalRedEnvelopesButton sendActionsForControlEvents:UIControlEventTouchUpInside];// OnMakeWCRedEnvelopesButtonClick
+```
 # III 、 other 
 
 
