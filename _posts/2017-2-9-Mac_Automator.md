@@ -8,8 +8,7 @@ header-img: img/post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
     - Mac
-    - 效率
-    - 开发技巧
+    - Efficiency
 ---
 
 # 前言
