@@ -9,6 +9,10 @@ author: kunnan
 subtitle: SnippetsLab is an easy-to-use code snippets manager
 ---
 
+# 与alfred 的`workflow`结合使用
+
+> ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss20jlf8tj20mt0ha76r.jpg)
+
 # See Also 
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 

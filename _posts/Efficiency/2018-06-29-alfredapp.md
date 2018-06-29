@@ -9,11 +9,126 @@ author: kunnan
 subtitle: Alfred is an award-winning app for Mac OS X which boosts your efficiency with hotkeys, keywords, text expansion and more. Search your Mac and the web, and be more productive with custom actions to control your Mac
 ---
 
+# 前言
+
+####  [ `alfred`](https://github.com/idetool/Alfred3Powerpack/blob/master/14334408_Alfred%20Powerpack%203.6.903%20%5BCORE%5D.dmg)**彻底解决了输入输出的痛点，极大的减少了程序之间的切换成本和重复按键成本**;快速打开软件、自定义脚本执行
+
+> * 之前觉得Spotlight Search很牛逼，现在发现更好用
+> * ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss24h6i5uj20ja01sq34.jpg)
+
+> * `Spotlight Search`的默认快捷键：control+space
+> * 切换输入法的快捷键：command+space
+> * 打开Alfred的默认快捷键：option+space
 
 
-# Workflow
+
+# I、alfred能做什么？
+
+
+
+> * 默认情况下，alfred 至少能胜任 15 项工作：
+>
+>   1. 应用搜索
+>
+>   2. 文件或目录搜索
+>
+>   3. 文本内容搜索
+>
+>   4. 标记搜索
+>
+>   5. 快捷网页搜索
+>
+>   6. 书签搜索
+>
+>   7. 计算器
+>
+>   8. 词典搜索
+>
+>   9. 通讯录搜索
+>
+>   10. 剪切板搜索
+>
+>   11. 代码片段搜索
+>
+>   12. iTunes管理
+>
+>   13. 1Password搜索
+>
+>   14. 系统常用命令快捷操作
+>
+>   15. 直接唤起指定终端并执行命令
+>
+>   16. 获得 powerpack license 的 alfred 将获得强大的 workflows 功能，后续将专门讲解。( 付费版本、破解版本)
+>
+>       
+
+ 
+
+# II、file search 
+
+>* alfred preferences 面板：（`Cmd+,`唤起）—> features 栏—> file search 功能
+>* ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss4d3lks7j21ba0u2q9v.jpg) 
+
+
+#### 2.1.应用搜索
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1fss38arujaj20k3086dhh.jpg) 
+
+
+
+
+
+
+
+#### 2.2 文件或目录搜索
+
+ 输入 find 或 open 命令，以及待搜索的文件或目录名，列出磁盘中的相关文件，可以快速定位 finder
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1fss3b5sqw4j20ie08hdhn.jpg)
+
+#### 2.3. 文本内容搜索
+
+ 输入 in 命令，以及待搜索的文本
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1fss3ao1mbqj20je09ldi5.jpg)
+
+
+
+#### 2.4. 标记搜索
+
+ 输入 tags 命令，以及待搜索的标记颜色中文名称，列出打上相应标记的目录，可以快速定位标记目录
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1fss3cc3t1hj20jq075tag.jpg)
+
+
+
+
+
+# III、 快捷网页搜索
+
+
+
+
+> * 输入关键字如『wiki』空格后再输入搜索内容，最后再回车打开 wiki 网站，如下所示：
+> ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss49fuqzgj20ho05k74w.jpg)
+
+
+> * [『Add Custom Search』按钮新增你常用的网页搜索:](alfred://customsearch/github%20%7Bquery%7D/github/utf8/nospace/https%3A%2F%2Fgithub.com%2Fsearch%3Futf8%3D%25E2%259C%2593%26q%3D%7Bquery%7D%26type%3D)
+>
+> * ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss3s71py8j20ui0i9tho.jpg)
+>
+>   ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss432uwbmj210c0l4tdj.jpg)
+>   ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss4a0fp14j20if05gmxt.jpg)
+
+
+
+
+
+# [Workflow](https://www.alfredapp.com/help/workflows/)
 
 任何微小的工作，都可以拆分成多个步骤，这些步骤顺序相连，依次进行，最终输出成果，有些步骤可能存在多个分支，并且最终输出多个成果。这些步骤依次执行，并且向后传递阶段性信息的流，就是工作流。
+
+
 
 # 如何创建第一个 Workflow
 
@@ -91,11 +206,37 @@ subtitle: Alfred is an award-winning app for Mac OS X which boosts your efficien
 
 # See Also 
 
->* [开发效率提升：Mac生产力工具链推荐](https://github.com/kunnan/tool)
->* [效率神器alfred的workflow分享](https://github.com/Louiszhai/alfred-workflows)
+####  破解版资源
+
+> * [alfred361 for mac](http://www.sdifen.com/?s=alfred&submit=%E6%90%9C%E7%B4%A2)
 >
+> * [Alfred3Powerpack:V3.6.903](https://github.com/idetool/Alfred3Powerpack)
+>
+>   
+>
+>   
+
+#### workflow
+
+> * [workflow](http://www.packal.org/workflow/chrome-bookmarks-0)
+>
+> * [有心网友甚至罗列了一张表格来管理它，表格的每一行都解锁了一项](http://www.alfredworkflow.com/\)(注意并非所有的 workflow 都支持最新的 alfred 3.6.1版本）
+>
+> * [ Search Workflows...](http://www.packal.org/)
+>
+>   
+>
+>   
+>
+
+#### other
+
+>* [开发效率提升：Mac生产力工具链推荐](https://github.com/kunnan/tool)
+>* [alfred能做什么？](http://louiszhai.github.io/2018/05/31/alfred/#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAworkflow)
+>* [效率神器alfred的workflow分享](https://github.com/Louiszhai/alfred-workflows)
 >* [Alfred Workflows 收集表格www.alfredworkflow.com](http://www.alfredworkflow.com/)
 >* [Alfred 神器使用手册](https://sspai.com/post/44624)
+>* [alfred3 for mac 破解版](http://www.sdifen.com/alfred3.html)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
