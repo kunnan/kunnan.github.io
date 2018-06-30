@@ -524,6 +524,8 @@ devzkndeMacBook-Pro:DeleteMe devzkn$ kngi swift
 ```
 
 >* [usefulCommand](https://zhangkn.github.io/2017/12/usefulCommand/)
+>
+>  ![image](https://ws4.sinaimg.cn/large/af39b376gy1fst9ig8amoj20fq04yjw1.jpg)
 
 >* [https://zhangkn.github.io/2018/02/Electra/](https://zhangkn.github.io/2018/02/Electra/)
 
