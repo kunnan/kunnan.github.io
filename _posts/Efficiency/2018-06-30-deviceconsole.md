@@ -64,7 +64,9 @@ subtitle: An iOS system log tailer that doesn't suck. Improved
 # See Also 
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
+>* [A cross-platform protocol library to communicate with iOS devices: 提供了很多与iOS交互的工具，例如端口映射查看log](https://github.com/libimobiledevice/libimobiledevice)
 >* [Inter-processCommunicationByRrocketbootstrap](https://zhangkn.github.io/2018/01/Inter-processCommunicationByRrocketbootstrap/)
+>* 
 >
 ```
 /Users/devzkn/bin//knpost deviceconsole An iOS system log tailer that doesn't suck. Improved -t Efficiency
