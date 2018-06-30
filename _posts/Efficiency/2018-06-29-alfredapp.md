@@ -16,7 +16,7 @@ subtitle: Alfred is an award-winning app for Mac OS X which boosts your efficien
 > * 之前觉得Spotlight Search很牛逼，现在发现更好用
 > * ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss24h6i5uj20ja01sq34.jpg)
 
-> * `Spotlight Search`的默认快捷键：control+space
+> * `Spotlight Search`的默认唤起快捷键：control+space
 > * 切换输入法的快捷键：command+space
 > * 打开Alfred的默认快捷键：option+space
 
@@ -122,6 +122,67 @@ subtitle: Alfred is an award-winning app for Mac OS X which boosts your efficien
 
 
 
+# IV、书签搜索
+
+>* 书签搜索是 alfred3.x 版本中新加的功能，方便用户在浏览器的大量书签中快速搜索
+>![image](https://wx1.sinaimg.cn/large/af39b376gy1fss51vysdpj20i50hkdke.jpg)
+>
+
+
+
+# V 、Calculator
+
+>* ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss54175pdj20ic05laay.jpg)
+>
+
+
+
+# VI、Dictionnary
+>* ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss57gnyp5j20ia0aqtb5.jpg)
+
+
+
+# VII 、search contanct
+>* ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss599hdc5j20i20aiwgl.jpg)
+>
+
+
+
+# VIII、System 
+
+> * 系统常用命令快捷键
+> * `清空垃圾篓emptytrash`、`ejectall`等指令可能较为常用
+> * ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss6duldioj218w0vkk08.jpg)
+> * ![image](https://wx1.sinaimg.cn/large/af39b376gy1fss6e2j2gtj20uk0ian4r.jpg)
+> * [Qrcode URL生成二维码，如果网页中包含选中文本，则生成选中文本的二维码](https://chrome.google.com/webstore/detail/qrcode/cmpjmgpafdgofigbhbneckneoakpdhag?utm_source=chrome-ntp-icon)
+
+
+
+
+# IX、 alfred 设置界面的10个面板
+
+#### 9.0、从I-VIII 的章节，主要说明Features 面板的功能；9个面板如下所示：
+
+> * General（通用，用于设置是否开机启动，及设置唤起快捷键，通常设置为 `Alt+Space` 即可）
+> * Workflows（工作流）
+> * Appearance（外观，用于设置 alfred 输入窗口的外观、字体、颜色等）
+> * Advanced（高级）
+> * Remote（远程，用于远程管理，这意味着你需要在 App Store 购买一个 Alfred Remote 的app，然后便可以在手机上远程操作 mac）
+> * Powerpack（许可证，购买 powerpack 的用户便可以使用 workflow 功能）
+> * Usage（使用统计）
+> * Help（帮助，提供快速上手文档、使用文档、反馈bug、用户论坛等链接）
+> * Update（更新日志，可查看更新日志及更新到最新版）
+>
+>  
+
+#### 9.1 Appearance
+
+
+
+![image](https://ws4.sinaimg.cn/large/af39b376gy1fss6ohc7bij21p210gb1u.jpg)
+
+
+
 
 
 # [Workflow](https://www.alfredapp.com/help/workflows/)
@@ -223,7 +284,7 @@ subtitle: Alfred is an award-winning app for Mac OS X which boosts your efficien
 > * [有心网友甚至罗列了一张表格来管理它，表格的每一行都解锁了一项](http://www.alfredworkflow.com/\)(注意并非所有的 workflow 都支持最新的 alfred 3.6.1版本）
 >
 > * [ Search Workflows...](http://www.packal.org/)
->
+>* [效率神器alfred的workflow分享](https://github.com/Louiszhai/alfred-workflows)
 >   
 >
 >   
@@ -233,12 +294,10 @@ subtitle: Alfred is an award-winning app for Mac OS X which boosts your efficien
 
 >* [开发效率提升：Mac生产力工具链推荐](https://github.com/kunnan/tool)
 >* [alfred能做什么？](http://louiszhai.github.io/2018/05/31/alfred/#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAworkflow)
->* [效率神器alfred的workflow分享](https://github.com/Louiszhai/alfred-workflows)
 >* [Alfred Workflows 收集表格www.alfredworkflow.com](http://www.alfredworkflow.com/)
 >* [Alfred 神器使用手册](https://sspai.com/post/44624)
 >* [alfred3 for mac 破解版](http://www.sdifen.com/alfred3.html)
->* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
->
+>* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost)  
 ```
 /Users/devzkn/bin//knpost alfredapp Alfred is an award-winning app for Mac OS X which boosts your efficiency with hotkeys, keywords, text expansion and more. Search your Mac and the web, and be more productive with custom actions to control your Mac -t Efficiency
 > #原来""的参数，需要自己加上""

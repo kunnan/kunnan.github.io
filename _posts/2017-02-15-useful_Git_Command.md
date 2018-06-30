@@ -16,6 +16,37 @@ tags:
 
 # 常用git脚本
 
+#### 查看源地址
+
+> * git remote -v 
+
+```
+origin	git@github.com:kunnan/kunnan.github.io.git (fetch)
+origin	git@github.com:kunnan/kunnan.github.io.git (push)
+```
+
+> * `cat .git/config `
+>
+>   ```
+>   [core]
+>   	repositoryformatversion = 0
+>   	filemode = true
+>   	bare = false
+>   	logallrefupdates = true
+>   	ignorecase = true
+>   	precomposeunicode = true
+>   [branch "master"]
+>   [remote "origin"]
+>   	url = git@github.com:kunnan/kunnan.github.io.git
+>   	fetch = +refs/heads/*:refs/remotes/origin/*
+>   [branch "master"]
+>   	remote = origin
+>   	merge = refs/heads/master
+>   
+>   ```
+>
+>   
+
 #### 切换到历史提交版本
 
 >* `git checkout 1b3acc187c1f78d666e2b428d32a1bceef6319b6`
@@ -46,11 +77,14 @@ state without impacting any branches by performing another checkout.
 >* git push origin develop:develop
 >```sh 
 >git checkout -b develop
-#  提交本地develop分支作为远程的develop分支
-git push origin develop:develop
+>#  提交本地develop分支作为远程的develop分支
+>git push origin develop:develop
+>```
 # 本地分支和远程分支建立联系(使用git branch -vv 可以查看本地分支和远程分支的关联关系)
 #git branch --set-upstream-to=origin/远程分支的名字 本地分支的名字
 git branch --set-upstream-to=origin/develop develop
+>```
+>
 >```
 
 
@@ -142,7 +176,7 @@ git branch --set-upstream-to=origin/$1 $1
 	
 	克隆一个远程项目
 	git clone [url]
-	
+
 #### 添加文件到缓存区
 
 	添加所有变化的文件
@@ -156,8 +190,9 @@ git branch --set-upstream-to=origin/$1 $1
 	设置提交代码时的用户信息
 	git config [--global] user.name "[name]"
 	git config [--global] user.email "[email address]"
-	
-	
+
+
+​	
 #### 提交
 	提交暂存区到仓库区
 	git commit -m "msg"
@@ -177,21 +212,21 @@ git branch --set-upstream-to=origin/$1 $1
 	
 	# 重做上一次commit，并包括指定文件的新变化
 	$ git commit --amend [file1] [file2] ...
-	
+
 #### 远程同步
 
 	# 下载远程仓库的所有变动，
 	$ git fetch [remote]
 	
 	# 取回远程特定的cydia分支
-
+	
 	devzkndeMacBook-Pro:electra devzkn$ git fetch origin  cydia
 
 
 	# 总结： 创建并Switched本地分支，并取回合并远程的一个cydia分支
-
+	
 	devzkndeMacBook-Pro:electra devzkn$ git checkout -b cydia origin/cydia
-
+	
 	devzkndeMacBook-Pro:electra devzkn$ git fetch origin
 
 
@@ -219,7 +254,7 @@ git branch --set-upstream-to=origin/$1 $1
 	$ git push [remote] --all
 
 
-	
+​	
 #### 分支
 
 	# 列出所有本地分支
@@ -264,7 +299,7 @@ git branch --set-upstream-to=origin/$1 $1
 	# 删除远程分支:  git push origin :vpn
 	$ git push origin --delete [branch-name]
 	$ git branch -dr [remote/branch]
-	
+
 #### 标签Tags
 
 	添加标签 在当前commit
@@ -287,7 +322,7 @@ git branch --set-upstream-to=origin/$1 $1
 	
 	拉取
 	git fetch origin tag V1.0
-
+	
 	新建一个分支，指向某个tag
 	git checkout -b [branch] [tag]
 
@@ -353,9 +388,9 @@ git branch --set-upstream-to=origin/$1 $1
 	
 	# 显示当前分支的最近几次提交： git reset --hard b45959e ，利用这个命令查看回滚的版本ID
 	$ git reflog
-	
+
 #### 撤销
-	
+
 	# 恢复暂存区的指定文件到工作区
 	$ git checkout [file]
 	
@@ -387,14 +422,14 @@ git branch --set-upstream-to=origin/$1 $1
 	# 暂时将未提交的变化移除，稍后再移入
 	$ git stash
 	$ git stash pop
-	
+
 #### 其他
 
 	# 生成一个可供发布的压缩包
 	$ git archives
-
+	
 	#取消本地目录下关联的远程库;常常用于copyxx项目的基础上，创建新项目的场景
-
+	
 	git remote remove origin
 
 # 例子
@@ -404,6 +439,7 @@ git branch --set-upstream-to=origin/$1 $1
 >```
 >分支图: git log –graph –pretty=oneline
 >* 4af6e9bc9c463310fbb511397f3fd8ee079f2312 (HEAD -> master, origin/master, origin/HEAD) git_subtree
+>```
 * 4e8a4494a1ad9687a5923099a0157e6d7af1a866 push:
 *   bcc7c2aeb71a346a9e83ea4e9954d2b5f2d11e33 README.md
 |\  
@@ -428,6 +464,8 @@ git branch --set-upstream-to=origin/$1 $1
 * a549563432d80bfbe252093d0b3e72edb17a6bb5 KNapp的整体代码在KNAPP.zip 中（包括app工程以及静态库工程） https://github.com/zhangkn/KNCocoaTouchStaticLibrary https://github.com/zhangkn/KNAPP
 * c302d2953806deaa95ce86db64df75aee6c22dfd 10、配置bundle工程的infoPlist文件路径 ![这里写图片描述](http://img.blog.csdn.net/20170629190534799?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvejkyOTExODk2Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 * 0f9299d60f1787c599e66ca8ea5e410d85e7730c Initial Commit
+>```
+>
 >```
 
 # 使用 .gitignore 忽略 Git 仓库中的文件
