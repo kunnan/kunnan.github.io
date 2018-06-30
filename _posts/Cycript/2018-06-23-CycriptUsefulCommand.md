@@ -83,16 +83,18 @@ cy# [#0x170bab80 actionsForTarget:[[#0x170bab80 allTargets] allObjects][0] forCo
 ```
 
 >* 2.1.3 NSLog: `allTargets `,`actionsForTarget`
-```       
-NSLog(@"allTargets: %@ actionsForTarget :%@",[normalRedEnvelopesButton allTargets],[normalRedEnvelopesButton actionsForTarget:[[normalRedEnvelopesButton allTargets] allObjects][0]forControlEvent:[normalRedEnvelopesButton allControlEvents]]);
+>```       
+>NSLog(@"allTargets: %@ actionsForTarget :%@",[normalRedEnvelopesButton allTargets],[normalRedEnvelopesButton actionsForTarget:[[normalRedEnvelopesButton allTargets] allObjects][0]forControlEvent:[normalRedEnvelopesButton allControlEvents]]);
+>```
 ```
 
 #### 2.2  验证`执行方法`
 
->* objc_msgSend
+>* `objc_msgSend` : 好处： 不需要声明方法，即可执行使用
+​```objc
+            objc_msgSend(vc, @selector(initView));//  执行实例方法
 ```
-            objc_msgSend(vc, @selector(initView));
-```
+    objc_msgSend(objc_getClass("FTSContactMgr"), sel_registerName("setupgroupsyncdata"));//执行类方法
 ```
     id data = objc_msgSend(MainFrameLogic, @selector(getSessionInfoByContact:), contact);
 ```
@@ -152,3 +154,7 @@ cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmou
 >* [UIButton_sendActionsForControlEvents](https://kunnan.github.io/2018/06/08/UIButton_sendActionsForControlEvents/)
 >* [csdn](https://blog.csdn.net/z929118967/article/details/78309400)
 
+
+```
+
+```

@@ -28,6 +28,14 @@ subtitle: SnippetsLab is an easy-to-use code snippets manager
 #### imkira/mobiledevice
 
 > * [Command line utility for interacting with Apple's Private (Closed) Mobile Device Framewor:  安装app或ipa 包](https://github.com/imkira/mobiledevice)
+>
+>   
+
+#### [   以后跟iOS设备交互的时候，你可以考虑看下这个项目libimobiledevice。 提供了很多交互工具。](https://github.com/libimobiledevice/libimobiledevice/blob/master/tools/idevicesyslog.c)
+
+> * iproxy   端口转发（usbmuxd-1.0.8的升级版本，我目前还是一直使用旧版）
+
+
 
 #### Keystone Engine
 
