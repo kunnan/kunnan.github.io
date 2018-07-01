@@ -33,6 +33,17 @@ subtitle: 越狱设备
 >
 > * lipo、[debugserver](http://iphonedevwiki.net/index.php/Debugserver)、lldb、[toggle-pie](https://github.com/zhangkn/KNtoggle-pie)
 >
+> * charlesV4.2
+>
+>   ```
+>   调试我们的接口
+>   1、Compose:可直接自定义对应的请求，并执行该请求。这个对我们抓包用处很大。我们可以从中得到该接口的必填参数、验证我们生成的Sign等等的。
+>   2、Repeat：很简单就是执行一次重复请求操作
+>   3、Repeat Advanved：重复请求的高级操作，可自定义重复的次数、每隔多少秒执行、启动请求的线程数。这个功能对于我们的接口的压测是很有用的。
+>   ```
+>
+>   
+>
 > * otool 、objdump(同系列工具：jtool ) -h -hv -vl
 >
 > * strings “实用工具专门用于提取文件中的字符串内容”
