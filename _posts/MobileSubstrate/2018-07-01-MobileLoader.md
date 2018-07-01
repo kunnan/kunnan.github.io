@@ -25,7 +25,7 @@ subtitle: 将第三方动态库加载到运行的目标应用中
 >   int main() {
 >     const char kEnvName[] = "DYLD_INSERT_LIBRARIES";
 >     printf("%s=%s\n", kEnvName, getenv(kEnvName));
->     // CHECK: {{DYLD_INSERT_LIBRARIES=.*darwin-dummy-shared-lib-so.dylib.*}}
+>     // CHECK: DYLD_INSERT_LIBRARIES=.*darwin-dummy-shared-lib-so.dylib.*
 >     return 0;
 >   }
 >   ```
