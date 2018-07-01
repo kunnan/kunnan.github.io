@@ -88,7 +88,9 @@ It is recommended to use [frida-ios-dump](https://github.com/AloneMonkey/frida-i
 devzkndeMBP:bin devzkn$ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/AppStoreV10.2/Payload/AppStore.app/AppStore -H -o  /Users/devzkn/decrypted/AppStoreV10.2/head
 ```
 
+# V 、**Clutch**
 
+通过`posix_spawnp`生成一个新的进程，然后暂停进程并dump内存。
 
 
 # other 
