@@ -15,11 +15,19 @@ subtitle: 越狱设备
 
 
 
-> * `Tweak` 工具：Theos（是一个越狱开发工具包，安装简单,Logos语法简单）、iOSOpenDev、MonkeyDev（支持CocoaPods,非越狱集成环境) 可以用来开发iPhone tool 、iPhone tweak 等
+> * `Tweak` 工具：Theos（是一个越狱开发工具包,由 Dustin Howett 大神开发并开源到 GitHub 上，它的特点是搭建简单、Logos语法简单、编译发布简单）、iOSOpenDev、MonkeyDev（支持CocoaPods,非越狱集成环境) 可以用来开发iPhone tool 、iPhone tweak 等
 >
 > * [optool](https://github.com/zhangkn/KNBin/blob/master/optool) 依赖注入工具,可将dylib注入到二进制文件中
 >
-> *  usbmuxd-1.0.8: 端口转发
+> * usbmuxd-1.0.8: 端口转发
+>
+> * [class-dump:利用 Objective-C 语言的 runtime 特性，将存储在 Mach-O 文件中的 @interface 和 @protocol 信息提取出来，并生成相应的 .h 文件](https://github.com/zhangkn/MonkeyDev/blob/master/bin/class-dump)
+>
+>   ```shell
+>   devzkndeMacBook-Pro:KNMNV5.4.0 devzkn$  /Users/devzkn/Downloads/class-dump --arch armv7 KNMN.decrypted -H  -o ./header
+>   ```
+>
+>   
 >
 > * [Hopper](https://www.hopperapp.com/) ;(同系列产品： [radare2](https://github.com/radare/radare2)、 [IDA_Pro_v7.0(MacOS)*and_Hex-Rays_Decompiler*(ARMx64,ARM,x64,x86).zip](https://down.52pojie.cn/Tools/Disassemblers/))  hopper 支持伪代码
 >
