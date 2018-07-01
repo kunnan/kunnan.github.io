@@ -19,6 +19,8 @@ subtitle: 越狱设备
 >
 > * [optool](https://github.com/zhangkn/KNBin/blob/master/optool) 依赖注入工具,可将dylib注入到二进制文件中
 >
+> *  usbmuxd-1.0.8: 端口转发
+>
 > * [Hopper](https://www.hopperapp.com/) ;(同系列产品： [radare2](https://github.com/radare/radare2)、 [IDA_Pro_v7.0(MacOS)*and_Hex-Rays_Decompiler*(ARMx64,ARM,x64,x86).zip](https://down.52pojie.cn/Tools/Disassemblers/))  hopper 支持伪代码
 >
 > * lipo、[debugserver](http://iphonedevwiki.net/index.php/Debugserver)、lldb、[toggle-pie](https://github.com/zhangkn/KNtoggle-pie)
@@ -26,6 +28,8 @@ subtitle: 越狱设备
 > * otool 、objdump(同系列工具：jtool ) -h -hv -vl
 >
 > * strings “实用工具专门用于提取文件中的字符串内容”
+>
+> * [去掉PIE:toggle-pie: disable ASLR](https://github.com/zhangkn/KNtoggle-pie)
 >
 > * nm 旨在浏览mach-o可执行文件中的名称和符号 nm –help
 >
@@ -44,6 +48,8 @@ subtitle: 越狱设备
 > * [cycript](http://www.cycript.org/) 
 >
 > * [KNAFlexLoader:Tweak.xm,（mac 同系列工具： Reveal)](https://github.com/zhangkn/KNAFlexLoader/blob/master/Tweak.xm)
+>
+> * plutil
 >
 > * debugserver :Xcode附带的远程调试工具,它运行在iOS上,可以执行你在lldb(作为客户端)输入的指令同时返回执行结果到lldb上–即所谓的“远程调试”
 >
