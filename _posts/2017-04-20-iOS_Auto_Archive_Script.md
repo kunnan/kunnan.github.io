@@ -6,11 +6,9 @@ date:       2017-04-20
 author:    
 header-img: img/post-bg-hacker.jpg
 catalog: true
-tags:
-    - iOS
+tags:    
     - Xcode
-    - shell
-    - ruby
+    
 ---
 
 
@@ -57,7 +55,7 @@ builds one or more targets contained in an Xcode project, or builds a scheme con
         Release
 This project contains no schemes.
 >```
-	
+
 >* xcodebuild -workspace KNBaseWebViewControllerDemo.xcworkspace -list
 >```
 >Information about workspace "KNBaseWebViewControllerDemo":
@@ -66,19 +64,19 @@ This project contains no schemes.
         KNBaseWebViewController-KNBaseWebViewController
         Pods-KNBaseWebViewControllerDemo
         KNBaseWebViewControllerDemo
->```	
+>```
 
 
-# 自动打包流程
+# I、自动打包流程
 
-#### 1、 生成 archive
+#### 1.1、 生成 archive
 
 >*  `xcodebuild archive` 
 
 	xcodebuild archive -workspace ${project_name}.xcworkspace \
-                   -scheme ${scheme_name} \
-                   -configuration ${build_configuration} \
-                   -archivePath ${export_archive_path}
+	               -scheme ${scheme_name} \
+	               -configuration ${build_configuration} \
+	               -archivePath ${export_archive_path}
 
 - 参数一：项目类型：混合项目 workspace 用 `-workspace`， project 用 `-project`
 
@@ -100,7 +98,7 @@ This project contains no schemes.
 
 
 
-#### 2、 [导出ipa包](https://github.com/zhangkn/KNBin/blob/master/knipa)
+#### 1.2、 [导出ipa包](https://github.com/zhangkn/KNBin/blob/master/knipa)
 
 >*  xcodebuild -help
 >```
@@ -110,7 +108,7 @@ This project contains no schemes.
 >```
 
 
-###### 2.1、-exportOptionsPlist
+###### 1.2.1、-exportOptionsPlist
 
 >* Available keys for -exportOptionsPlist:
 >```
@@ -132,7 +130,7 @@ This project contains no schemes.
 >```
 
 
-#### 2.2、-exportArchive
+#### 1.2.2、-exportArchive
 
 >*  `xcodebuild -exportArchive -archivePath xcarchivepath -exportPath destinationpath -exportOptionsPlist path`
 
@@ -150,7 +148,7 @@ This project contains no schemes.
 
 
 
-# 上传到Fir
+# II 、上传到Fir
 
 将项目上传到 [Fir](https://fir.im)
 
@@ -165,10 +163,10 @@ This project contains no schemes.
 上传
 
 	fir publish "ipa_Path" -T "firApiToken"
-	
 
 
-# [自动打包脚本](https://github.com/zhangkn/KNBin/blob/master/knipa)
+
+# III、[自动打包脚本](https://github.com/zhangkn/KNBin/blob/master/knipa)
 
 
 >* knxcodeipa
@@ -191,6 +189,20 @@ This project contains no schemes.
 >* 附件：developmentExportOptionsPlist
 ><script src="https://gist.github.com/zhangkn/60125fb7f453953286e041713a757020.js"></script>
 
+
+
+# IV [BuildAppByHand](https://github.com/AloneMonkey/iOSREBook/tree/master/chapter-4/4.1%20App%E6%9E%84%E5%BB%BA/BuildAppByHand)
+
+- compile:使用 Clang 编译源文件；
+- link：将编译生成的目标文件链接成一个可执行文件；
+- storyboard：编译项目中的 storyboard 文件；
+- plist：生成 plist 文件；
+- asset：将需要的资源文件复制到 App 目录下；
+- dsym：生成符号文件；
+- codesign：对 App 进行签名；
+- package：打包。
+
+ 
 
 # see also
 

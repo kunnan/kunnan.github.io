@@ -74,9 +74,25 @@ or
 ```
 
 >* [按钮文字unicode转码](http://tool.chinaz.com/tools/unicode.aspx)
+>
+>  ```
+>  1、或者直接使用echo 进行查看即可
+>   echo -e "\xe8\x95\xbe\xe8\x95\xbe"
+>  2、 或者使用py进行查看中文
+>  devzkndeMacBook-Pro:2018wxrobot devzkn$ python
+>  Python 3.7.0b2 (default, Apr  4 2018, 15:42:50) 
+>   print ("\u901a\u8baf\u5f55")
+>   Use exit() or Ctrl-D (i.e. EOF) to exit
+>  3. devzkndeMacBook-Pro:2018wxrobot devzkn$ /usr/bin/python
+>  Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+>  >>> print "\xe8\x95\xbe\xe8\x95\xbe"
+>  >>> print u'\u901a\u8baf\u5f55'
+>  ```
+>
+>  
 
 ```
-\u4e8c\u7ef4\u7801\u6536\u6b3e 进行搜索找到对应按钮
+\u4e8c\u7ef4\u7801\u6536\u6b3e 进行搜索找到对应按钮; 或者通过按钮的frame 也可以大概的猜出
 ```
 
 > * 定位UIButton class 对应的对象，返回的是数组
@@ -156,7 +172,15 @@ cy# [#0x170bab80 actionsForTarget:[[#0x170bab80 allTargets] allObjects][0] forCo
 ```
 cy# [[[#0x170bab80 allTargets] allObjects][0] receiveMoneyBtnPress:nil]
 ```
->* valueForKey
+>* valueForKey: 利用KVC 获取属性
+>
+>  ```
+>  //利用属性的偏移加对象的地址来获取属性的对象
+>      Ivar t_rightViewsm_mainFrameViewController_scrollViewivar = class_getInstanceVariable(objc_getClass("MMUINavigationBar"), "_rightViews");
+>      id  t_rightViews = object_getIvar(navigationBar, t_rightViewsm_mainFrameViewController_scrollViewivar);
+>  ```
+>
+>  
 ```
 cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmount]
 ```
@@ -190,9 +214,111 @@ cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmou
 
 
 
+#### 3.4 AssociatedObject
+
+> * AssociatedObject
+>
+>   ```objc
+>   //1、key 的三种方式
+>   static const void *kAssociatedKey = &kAssociatedKey;// 使用kAssociatedKey 最为key
+>   //2、static  void *kAssociatedKey;//将&kAssociatedKey 做为key
+>   //3、@selector(associatedObject)
+>   
+>   objc_setAssociatedObject(myClass, kAssociatedKey, @"AssociatedObject1", OBJC_ASSOCIATION_RETAIN_NONATOMIC);    
+>       NSString* associatedString = objc_getAssociatedObject(myClass, kAssociatedKey);   
+>       NSLog(@"associatedString: %@", associatedString);
+>   ```
+>
+>   ```
+>   /**bool 类型 YES 不允许点击   NO 允许点击   设置是否执行点UI方法*/
+>   @property (nonatomic, assign) BOOL isIgnoreEvent;
+>   //runtime 动态绑定 属性
+>   - (void)setIsIgnoreEvent:(BOOL)isIgnoreEvent{
+>       // 注意BOOL类型 需要用OBJC_ASSOCIATION_RETAIN_NONATOMIC 不要用错，否则set方法会赋值出错
+>       objc_setAssociatedObject(self, @selector(isIgnoreEvent), @(isIgnoreEvent), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+>   }
+>   - (BOOL)isIgnoreEvent{
+>       //_cmd == @select(isIgnore); 和set方法里一致
+>       return [objc_getAssociatedObject(self, _cmd) boolValue];
+>   }
+>   ```
+>
+>   ```
+>   //结合@dynamic的 associatedObject例子
+>   @implementation NSObject (AssociatedObject)
+>   @dynamic associatedObject;
+>   - (void)setAssociatedObject:(id)object {
+>       objc_setAssociatedObject(self,
+>   @selector(associatedObject), object,
+>   OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+>   }
+>   - (id)associatedObject {
+>       return objc_getAssociatedObject(self,
+>   @selector(associatedObject));
+>   }
+>   ```
+>
+>   
+>
+>   ```
+>   @property (nonatomic, copy) NSString* newProperty;
+>   %new
+>   - (id)newProperty {
+>       return objc_getAssociatedObject(self, @selector(newProperty));
+>   }
+>   
+>   %new
+>   - (void)setNewProperty:(id)value {
+>       objc_setAssociatedObject(self, @selector(newProperty), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+>   }
+>   ```
+>
+>   
+
 
 
 # See Also 
+
+> * [Method Swizzling](https://kunnan.github.io/2017/02/04/Objective-C_Runtime_Cases/)
+>
+>   ```objc
+>   //可以用于日志记录和 Mock 测试。例如上报用户打开的界面所在VC的名称，就可以使用swizzling 统一处理
+>   void Swizzle(Class c, SEL orig, SEL new) {
+>       Method origMethod = class_getInstanceMethod(c, orig);
+>       Method newMethod = class_getInstanceMethod(c, new);
+>       if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))//给一个方法添加新的方法和实现;Adds a new method to a class with a given name and implementation.
+>           //若返回Yes说明类中没有该方法，然后再使用 `class_replaceMethod()` 方法进行取代
+>           class_replaceMethod(c, new, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));//取代了对于一个给定类的实现方法
+>       else
+>           //YES if the method was added successfully, otherwise NO (for example, the class already contains a method implementation with that name).
+>           method_exchangeImplementations(origMethod, newMethod);//交换两个类的实现方法
+>   }
+>   
+>   //当类加载之后，会调用一个名为 load 的类函数
+>   + (void)load{//不会碰到并发问题。 
+>       static dispatch_once_t onceToken;
+>       dispatch_once(&onceToken, ^{//由于我们只打算混淆一次，因此我们需要使用 dispatch_once
+>           Swizzle([UIViewController class], @selector(viewWillAppear:), @selector(autolog_viewWillAppear:));
+>           Swizzle([UIViewController class], @selector(viewWillDisappear:), @selector(autolog_viewWillDisAppear:));
+>           Swizzle([UIViewController class], @selector(presentViewController:animated:completion:), @selector(autoLog_presentViewController:animated:completion:));
+>           
+>           Swizzle([UIViewController class], @selector(dismissViewControllerAnimated:completion:), @selector(autoLog_dismissViewControllerAnimated:completion:));
+>       });
+>   }
+>   
+>   -(void)autolog_viewWillDisAppear:(BOOL)animated{
+>       
+>       if (![self isKindOfClass:[UINavigationController class]] && ![self isKindOfClass:[UITabBarController class]] && ![self isKindOfClass:[xxx class]] && ![self isKindOfClass:[xx class]]) {
+>           [MobClick endLogPageView:NSStringFromClass([self class])];//友盟统计模块
+>       }
+>       [self autolog_viewWillDisAppear:animated];//看似会陷入递归调用，
+>       //其实则不会，因为我们已经在`+ (void)load `方法中更换了`IMP`,他会调用`viewWillDisAppear:`方法，然后在后面添加我们需要添加的功能。
+>   
+>   }
+>   
+>   ```
+>
+>   
 
 >* 微信资助二维码
 >![image](https://wx4.sinaimg.cn/large/af39b376gy1fsm4fqug79j207s07s3yc.jpg)

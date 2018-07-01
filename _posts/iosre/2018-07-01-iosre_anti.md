@@ -55,8 +55,8 @@ subtitle: iOS 应用逆向与安全
 > * 抓包工具有 tcpdump, WireShark, Charles
 >
 >   ```
->   Wireshark可以详细的看到网络请求的三次握手，并且可支持spdy、tcp等等的网络协议抓包
->   charlesV4.2 的辅助功能：调试我们的接口(Compose、Repeat)
+>   1、Wireshark可以详细的看到网络请求的三次握手，并且可支持spdy、tcp、udp、http等等的网络协议抓包；原理：将网卡设置为混杂模式；正常情况下，网卡会过滤目标地址不是自己的数据包；将网卡设置为混杂模式，就会收到经过网卡的所有数据包
+>   2、charlesV4.2 的辅助功能：调试我们的接口(Compose、Repeat、breakpoints：临时修改、map:将本地请求重定向到一个文件或者将远程请求重定向到另一个请求、rewrite：对网络请求进行正则比配修改);支持http、https网络包的截取；原理是代理抓包。
 >   ```
 >
 >   

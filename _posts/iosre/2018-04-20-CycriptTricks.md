@@ -70,6 +70,14 @@ Usage: insert_dylib dylib_path binary_path [new_binary_path]
 
 # cycript的常用命令
 
+>* 或者对象的内存地址
+>
+>  ```
+>      NSLog(@"bgView address: %p", _bgView);
+>  ```
+>
+>  
+>
 >* List all subclasses
 ```
 cy# [c for each (c in ObjectiveC.classes) if (class_getSuperclass(c) && [c isSubclassOfClass:UIViewController])]
