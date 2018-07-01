@@ -12,6 +12,7 @@ subtitle: 常用的cycript命令、分析思路
 
 # [前言](http://iphonedevwiki.net/index.php/Cycript)
 
+使用cy 分析应用：查看界面、查找关键函数、验证代码执行效果
 
 # I 、Powerful private methods
 
@@ -24,6 +25,14 @@ nextResponder
 _autolayoutTrace
 recursiveDescription
 _methodDescription
+```
+
+#### 1.0   定位特定的class
+
+> * choose():get an array of existing objects of a certain class(当前堆栈中查找到特定类的对象数据)
+
+```
+cy# choose(UIButton).toString()
 ```
 
 #### 1、1 定位`view`
@@ -44,6 +53,18 @@ or
  [UIWindow keyWindow].recursiveDescription().toString()
 ```
 
+> * _autolayoutTrace:基于layout展示View架构
+>
+>   ```
+>   [[UIApp keyWindow] _autolayoutTrace].toString()
+>   ```
+>
+>   ```
+>   cy# [[UIWindow keyWindow] _autolayoutTrace].toString()
+>   ```
+
+
+
 #### 1.2  定位 `按钮地址`
 
 
@@ -58,6 +79,14 @@ or
 \u4e8c\u7ef4\u7801\u6536\u6b3e 进行搜索找到对应按钮
 ```
 
+> * 定位UIButton class 对应的对象，返回的是数组
+>
+>   ```
+>   cy# choose(UIButton).toString() 
+>   ```
+>
+>   
+
 #### 1.3 定位`对象属性`
 
 >* _ivarDescription: Prints all names and values of instance variables of a specified object
@@ -65,6 +94,31 @@ or
 cy# [#0x5822600 _ivarDescription].toString()
 ```
 
+#### 1.4 定位一些基本信息和路径 
+
+> 
+>
+> * 使用`?exit` 或者`control+d` 进行退出
+>
+> * bundleIdentifier
+>
+>   ```
+>   [[NSBundle mainBundle] bundleIdentifier]
+>   ```
+>
+> * 沙盒
+>
+>   ```
+>   [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
+>   ```
+>
+>   ```
+>   FOUNDATION_EXPORT NSString *NSHomeDirectory(void);
+>   cy# [NSHomeDirectory()]
+>   [@"/var/mobile/Containers/Data/Application/93E1B7BE-8916-411C-9228-35B9FD8DA825"]
+>   ```
+>
+>   
 
 # II、 快速定位按钮对应的`allTargets `、`allControlEvents `、 `actionsForTarget `
 
