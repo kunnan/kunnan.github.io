@@ -11,18 +11,75 @@ subtitle: 越狱设备
 
 
 
+# Desktop tools
 
 
 
+> * `Tweak` 工具：Theos（是一个越狱开发工具包，安装简单,Logos语法简单）、iOSOpenDev、MonkeyDev（支持CocoaPods,非越狱集成环境) 可以用来开发iPhone tool 、iPhone tweak 等
+>
+> * [optool](https://github.com/zhangkn/KNBin/blob/master/optool) 依赖注入工具,可将dylib注入到二进制文件中
+>
+> * [Hopper](https://www.hopperapp.com/) ;(同系列产品： [radare2](https://github.com/radare/radare2)、 [IDA_Pro_v7.0(MacOS)*and_Hex-Rays_Decompiler*(ARMx64,ARM,x64,x86).zip](https://down.52pojie.cn/Tools/Disassemblers/))  hopper 支持伪代码
+>
+> * lipo、[debugserver](http://iphonedevwiki.net/index.php/Debugserver)、lldb、[toggle-pie](https://github.com/zhangkn/KNtoggle-pie)
+>
+> * otool 、objdump(同系列工具：jtool ) -h -hv -vl
+>
+> * strings “实用工具专门用于提取文件中的字符串内容”
+>
+> * nm 旨在浏览mach-o可执行文件中的名称和符号 nm –help
+>
+>   ```
+>    nm -gUj Molon.decrypted |head -n 20
+>   ```
+>
+>   
+
+
+
+# Device Tools
+
+
+
+> * [cycript](http://www.cycript.org/) 
+>
+> * [KNAFlexLoader:Tweak.xm,（mac 同系列工具： Reveal)](https://github.com/zhangkn/KNAFlexLoader/blob/master/Tweak.xm)
+>
+> * debugserver :Xcode附带的远程调试工具,它运行在iOS上,可以执行你在lldb(作为客户端)输入的指令同时返回执行结果到lldb上–即所谓的“远程调试”
+>
+>   ```
+>   在设备使用Xcode调试过app之后，debugserver才会被Xcode安装到iOS的“/Developer/usr/bin/”目录下。
+>   ```
 
 # See Also 
 
 #### ios8-9
 
+###### Device Tools
+
+
+
+>  
+
 > * OpenSSH 
+>
 > * adv-cmds: 执行 ps 命令报错，需要安装这个工具；
+>
 > * appsync: 让系统不再验证签名，以免安装应用失败；
+>
 > * [Cydia Substrate：允许第三方开发者在越狱系统的方法中打一些补丁或扩展方法。](https://kunnan.github.io/2018/07/01/MobileLoader/)
+>
+> * [zhangkn.github.io](https://zhangkn.github.io/2017/01/iOS_Wifilist/)
+>
+> * [KNAFlexLoader:Tweak.xm,（mac 同系列工具： Reveal)](https://github.com/zhangkn/KNAFlexLoader/blob/master/Tweak.xm)
+>
+> * [cycript](http://www.cycript.org/) [frida](https://build.frida.re/frida/)
+>
+> * [frida-server](https://build.frida.re/frida/)
+>
+>   
+>
+>  
 
 
 
