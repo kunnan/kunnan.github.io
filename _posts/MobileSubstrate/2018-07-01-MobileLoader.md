@@ -96,6 +96,13 @@ subtitle: 将第三方动态库加载到运行的目标应用中
 
 
 > * [iOS11的越狱源码：](https://github.com/coolstar/electra/blob/master/docs/getting-started.md )
+>
+>   ```
+>   ios11 代码： dylib   干脆给他建立个软连接算了        /bin/ln -s   /usr/lib/TweakInject /Library/MobileSubstrate/DynamicLibraries
+>    symlink("/usr/lib/libsubstrate.dylib", "/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate");
+>   ```
+>
+>   
 
 
 
