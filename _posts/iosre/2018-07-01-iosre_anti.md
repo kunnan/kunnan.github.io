@@ -34,10 +34,22 @@ subtitle: iOS 应用逆向与安全
 **逆向流程：** 逆向的整个流程基本是相同的，而这些流程可以总结为：
 
 - 获取应用的 ipa 包，解密（如果是越狱应用则不需要解密），导出头文件；
+
 - 使用工具（cycript、[KNAFlexLoader:Tweak.xm,（mac 同系列工具： Reveal)](https://github.com/zhangkn/KNAFlexLoader/blob/master/Tweak.xm)、[knhook](https://github.com/zhangkn/hookClass/blob/master/hookClass/KNHookClass/KNHook.h)）通过界面查看 APP 的布局，从布局中找到对应的头文件，查看关键函数(使用[CycriptUsefulCommand](http://127.0.0.1:4000/2018/06/23/CycriptUsefulCommand/)以及[UIButton_sendActionsForControlEvents](https://kunnan.github.io/2018/06/08/UIButton_sendActionsForControlEvents/))；
+
 - 使用`tweak`[hook](http://127.0.0.1:4000/2018/06/06/hookClass_knhook_hookClassLog/)、执行相关函数的输入输出以及调用栈，分析验证关键函数；
-- 静态分析加动态调试进一步分析关键函数的实现逻辑；
+
+- 静态分析加动态调试进一步分析关键函数的实现逻辑
+
+  ```
+  1、使用hopper、ide分析代码逻辑，使用`lipo -info`   查看二进制文件的架构信息
+  2、使用`lipo xx -thin arm64 -output xx_arm64` 进行瘦身
+  ```
+
+  
+
 - 模拟或篡改原有 APP 的逻辑；
+
 - 制作tweak或者移植到非越狱设备。
 
 #### 1.1 静态分析
