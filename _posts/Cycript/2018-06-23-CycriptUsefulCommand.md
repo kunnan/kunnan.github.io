@@ -156,24 +156,34 @@ cy# [#0x170bab80 actionsForTarget:[[#0x170bab80 allTargets] allObjects][0] forCo
 >```       
 >NSLog(@"allTargets: %@ actionsForTarget :%@",[normalRedEnvelopesButton allTargets],[normalRedEnvelopesButton actionsForTarget:[[normalRedEnvelopesButton allTargets] allObjects][0]forControlEvent:[normalRedEnvelopesButton allControlEvents]]);
 >```
-```
 
 #### 2.2  验证`执行方法`
 
+#### ####### objc_msgSend 
+
+
+
 >* `objc_msgSend` : 好处： 不需要声明方法，即可执行使用
-​```objc
-            objc_msgSend(vc, @selector(initView));//  执行实例方法
+>  
+>
+>  ```
+>   objc_msgSend(vc, @selector(initView));//  执行实例方法
+>  ```
+>
+>  ​        
+>
+>  ```
+>  objc_msgSend(objc_getClass("CContactMgr"), sel_registerName("setupdoVerifybywxid:greetings:"),@"wxid_2za7tbmbhny722",@"hi");// 发送多个参数的函数
+>  ```
 ```
-    objc_msgSend(objc_getClass("FTSContactMgr"), sel_registerName("setupgroupsyncdata"));//执行类方法
+    objc_msgSend(objc_getClass("FTSContactMgr"), sel_registerName("setupgroupsyncdata"));//执行类方法，没有参数。
 ```
     id data = objc_msgSend(MainFrameLogic, @selector(getSessionInfoByContact:), contact);
-```
->* `[]`
-```
-cy# [[[#0x170bab80 allTargets] allObjects][0] receiveMoneyBtnPress:nil]
-```
->* valueForKey: 利用KVC 获取属性
->
+> * []
+> * cy# [[[#0x170bab80 allTargets] allObjects][0] receiveMoneyBtnPress:nil]
+
+###### valueForKey: 利用KVC 获取属性
+
 >  ```
 >  //利用属性的偏移加对象的地址来获取属性的对象
 >      Ivar t_rightViewsm_mainFrameViewController_scrollViewivar = class_getInstanceVariable(objc_getClass("MMUINavigationBar"), "_rightViews");
@@ -193,17 +203,35 @@ cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmou
 ```
 # III 、 other 
 
+#### 3.0 变量的定义
 
-#### 3.2 nextResponder 有助于分析控件的层级结构
+> * var xx =
+>
+>   ```
+>   var logic = [[NSClassFromString(@"CContactVerifyLogic") alloc] init];
+>   ```
+>
+>   
 
-#### 3.2 获取属性
+#### 3.1 nextResponder 有助于分析控件的层级结构
+
+#### 3.2 获取属性、 设置属性
 
 >* _ivarDescription
+>
 >* [self valueForKey:@"m_delegate"]
+>
+>* 设置KVC属性
+>
+>  ```
+>  cy# [logic setValue:@"hi" forKey:@"m_nsVerifyValue"];//设置object类型属性
+>              [logic setValue:@2 forKey:@"m_uiOpCode"];//设置int类型属性
+>  ```
+>
 >* class_getInstanceVariable
 >```
 >    Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
-    id inputToolView = object_getIvar(self, inputToolViewIvar);
+>   id inputToolView = object_getIvar(self, inputToolViewIvar);
 >```
 
 #### 3.3 setHidden
@@ -334,6 +362,10 @@ cy# [[#0x183d6e00 valueForKey:@"m_delegate"] WCPayFacingReceiveChangeToFixedAmou
 >* [UIButton_sendActionsForControlEvents](https://kunnan.github.io/2018/06/08/UIButton_sendActionsForControlEvents/)
 >* [csdn](https://blog.csdn.net/z929118967/article/details/78309400)
 
+
+```
+
+```
 
 ```
 
