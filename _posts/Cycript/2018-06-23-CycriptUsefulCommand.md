@@ -159,7 +159,7 @@ cy# [#0x170bab80 actionsForTarget:[[#0x170bab80 allTargets] allObjects][0] forCo
 
 #### 2.2  验证`执行方法`
 
-#### ####### objc_msgSend 
+###### objc_msgSend 
 
 
 
@@ -173,7 +173,7 @@ cy# [#0x170bab80 actionsForTarget:[[#0x170bab80 allTargets] allObjects][0] forCo
 >  ​        
 >
 >  ```
->  objc_msgSend(objc_getClass("CContactMgr"), sel_registerName("setupdoVerifybywxid:greetings:"),@"wxid_2za7tbmbhny722",@"hi");// 发送多个参数的函数
+>  objc_msgSend(objc_getClass("CContactMgr"), sel_registerName("setupdoVerifybywxid:greetings:"),@"wmbhny722",@"hi");// 发送多个参数的函数
 >  ```
 ```
     objc_msgSend(objc_getClass("FTSContactMgr"), sel_registerName("setupgroupsyncdata"));//执行类方法，没有参数。
