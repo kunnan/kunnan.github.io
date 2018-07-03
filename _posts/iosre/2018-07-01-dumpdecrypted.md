@@ -23,6 +23,18 @@ subtitle: Dumps decrypted mach-o files from encrypted applications、framework o
 Frida环境的搭建可以看下[这篇文章](https://zhangkn.github.io/2017/12/frida/#gsc.tab=0)
 
 #  II、[dumpdecrypted.dylib](https://github.com/stefanesser/dumpdecrypted)
+
+
+
+#### 签名动态库文件
+
+
+
+>*  列出可签名证书 `security find-identity -v -p codesigning `
+>* 为dumpecrypted.dylib签名 `codesign --force --verify --verbose --sign "iPhone Developer: xxx xxxx (xxxxxxxxxx)" dumpdecrypted.dylib `
+
+####  原理
+
 >*dumpdecrypted的原理：通过向宏 DYLD_INSERT_LIBRARIES 里写入动态库的完整路径，就可以在可执行文件加载的时候，将动态链接库插入。
 
 ```
@@ -91,6 +103,55 @@ devzkndeMBP:bin devzkn$ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/
 # V 、**Clutch**
 
 通过`posix_spawnp`生成一个新的进程，然后暂停进程并dump内存。
+
+
+
+# VI 架构不匹配的时候报：`mach-o, but wrong architecture`
+
+![image](https://ws1.sinaimg.cn/large/af39b376gy1fsvv7terqtj20g306u3zb.jpg)
+
+#### 解决方案
+
+> * 使用进行合并lipo -create 
+>
+>   ```
+>   lipo -create ./WeChat /Users/devzkn/decrypted/wx6.7.0/WeChat.decrypted -output ./WeChat
+>   ```
+>
+>   ```
+>   ➜  WeChat.app  lipo -create Frameworks/TXLiteAVSDK_Smart_No_VOD.framework/TXLiteAVSDK_Smart_No_VOD /Users/devzkn/decrypted/wx6.7.0/arm64/TXLiteAVSDK_Smart_No_VOD.decrypted -output Frameworks/TXLiteAVSDK_Smart_No_VOD.framework/TXLiteAVSDK_Smart_No_VOD
+>   ```
+>
+>   ```
+>   lipo -create /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/WCDB.framework/WCDB /Users/devzkn/decrypted/wx6.7.0/arm64/WCDB.decrypted -output  /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/WCDB.framework/WCDB
+>   ```
+>
+>   ```
+>   lipo -create /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/QMapKit.framework/QMapKit /Users/devzkn/decrypted/wx6.7.0/arm64/QMapKit.decrypted -output /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/QMapKit.framework/QMapKit
+>   ```
+>
+>   ```
+>   lipo -create /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/MMCommon.framework/MMCommon /Users/devzkn/decrypted/wx6.7.0/arm64/MMCommon.decrypted -output /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/MMCommon.framework/MMCommon
+>   ```
+>
+>   ```
+>   lipo -create /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/MultiMedia.framework/MultiMedia /Users/devzkn/decrypted/wx6.7.0/arm64/MultiMedia.decrypted -output /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/MultiMedia.framework/MultiMedia
+>   ```
+>
+>   ```
+>   lipo -create /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/mars.framework/mars /Users/devzkn/decrypted/wx6.7.0/arm64/mars.decrypted -output /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Frameworks/mars.framework/mars
+>   ```
+>
+>   系统库就不用合并了：
+>
+>   ```
+>   /Users/devzkn/decrypted/wx6.7.0/Payload/WeChat.app/Watch/WeChatWatchNative.app/PlugIns/WeChatWatchNativeExtension.appex/Frameworks/libswiftCore.dylib 
+>   ```
+>
+>   
+
+
+
 
 
 # other 
