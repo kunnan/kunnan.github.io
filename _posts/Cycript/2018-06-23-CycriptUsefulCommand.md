@@ -179,7 +179,18 @@ cy# [#0x170bab80 actionsForTarget:[[#0x170bab80 allTargets] allObjects][0] forCo
     objc_msgSend(objc_getClass("FTSContactMgr"), sel_registerName("setupgroupsyncdata"));//执行类方法，没有参数。
 ```
     id data = objc_msgSend(MainFrameLogic, @selector(getSessionInfoByContact:), contact);
+
+#### []
 > * []
+>
+>   ```
+>   //如果 objc_msgSend 过期了，例如iOS11的SDK 不支持了，可以使用[]来执行方法,解决问题。
+>       //objc_msgSend(objc_getClass("FTSContactMgr"), sel_registerName("setupgroupsyncdata"));
+>           [objc_getClass("FTSContactMgr") setupgroupsyncdata];
+>   ```
+>
+>   
+>
 > * cy# [[[#0x170bab80 allTargets] allObjects][0] receiveMoneyBtnPress:nil]
 
 ###### valueForKey: 利用KVC 获取属性
