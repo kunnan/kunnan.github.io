@@ -112,6 +112,8 @@ devzkndeMBP:bin devzkn$ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/
 
 #### 解决方案
 
+> * 使用[KNdumpdecryptedTweak](https://github.com/zhangkn/KNdumpdecryptedTweak)获取不同架构的二进制文件进行合并
+>
 > * 使用进行合并lipo -create 
 >
 >   ```
