@@ -60,6 +60,18 @@ devzkndeMacBook-Pro:2018wxrobot devzkn$ ln -s /Users/devzkn/decrypted/frida-ios-
 Target.plist -> /Users/devzkn/code/tweak/knwx2018/2018wxrobot/2018wxrobot/TargetApp/WeChat.app/Info.plist
 ```
 
+
+
+#### 方法跟踪日志
+
+ 
+
+###### 开启日志跟踪，直接配置MDConfig.plist
+
+- ENABLE: 设置为YES开启方法跟踪，默认为NO。
+
+ 
+
 # Cycript
 
 #### `cy66` 
