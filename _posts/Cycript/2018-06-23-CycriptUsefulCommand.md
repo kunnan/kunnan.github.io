@@ -2,7 +2,9 @@
 layout: post
 title: CycriptUsefulCommand
 date: 2018-06-23
-tag: Cycript
+tag: 
+    - Cycript
+    - Debug
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan

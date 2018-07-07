@@ -2,12 +2,55 @@
 layout: post
 title: UIButton_sendActionsForControlEvents
 date: 2018-06-08
-tag: objc
+tag: 
+    - objc
+    - Debug
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
 subtitle: iOS 代码触发button点击事件
 ---
+
+
+
+# 前言
+
+我之前一直使用本文的方法定位按钮的action事件，但如果你想提高定位效率，可以直接使用python脚本进行定位；
+
+> * 推荐两个开源框架
+>
+>   两个开源库：`[DerekSelander](https://github.com/DerekSelander)/**LLDB**`、`Chisel`
+>
+>   
+>
+>   > - [Chisel is a collection of LLDB commands to assist debugging iOS apps. ](https://github.com/zhangkn/chisel)
+>   >
+>   >   ```
+>   >   brew update
+>   >   brew install chisel
+>   >   ```
+>   >
+>   >   ```
+>   >   Add the following line to ~/.lldbinit to load chisel when Xcode launches:
+>   >     command script import /usr/local/opt/chisel/libexec/fblldb.py
+>   >   ```
+>   >
+>   >   
+>   >
+>   > - [A collection of LLDB aliases/regexes and Python scripts to aid in your debugging sessions ](https://github.com/DerekSelander/LLDB)
+>   >
+>   >   ```
+>   >   ➜  lldb git clone git@github.com:DerekSelander/LLDB.git
+>   >   Add the following command to your ~/.lldbinit file: command script import /path/to/lldb_commands/dslldb.py
+>   >   ```
+>   >
+>   >   
+
+
+
+> * 使用python脚本之后，就不用通过po 按钮的方法3次进行定位，而只需pactions 一次就行了 
+>
+>   ![image](https://wx4.sinaimg.cn/large/af39b376gy1ft19i7w670j20sq06labb.jpg)
 
 
 
@@ -35,7 +78,7 @@ subtitle: iOS 代码触发button点击事件
 #### 1.2  步骤2：寻找 `点击按钮对应的执行方法`
 
  UIButton 是继承 UIControl 的，而 UIControl 的话可以通过allTargets 与 allControlEvents查看所有的对象与事件，再使用actionsForTarget:forControlEvent:从而找到触发的方法
- 
+
 ```
 - (nullable NSArray<NSString *> *)actionsForTarget:(nullable id)target forControlEvent:(UIControlEvents)controlEvent;    // single event. returns NSArray of NSString selector names. returns nil if none
 ```
@@ -156,7 +199,7 @@ cy# [#0x18c0ad10 sendActionsForControlEvents:UIControlEventTouchUpInside]
 [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
 ```
 
- 
+
 # III、See Also 
 
 

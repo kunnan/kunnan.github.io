@@ -95,6 +95,7 @@ po [0x116e534e0 _ivarDescription]
 > - [A collection of LLDB aliases/regexes and Python scripts to aid in your debugging sessions ](https://github.com/DerekSelander/LLDB)
 >
 >   ```
+>   ➜  lldb git clone git@github.com:DerekSelander/LLDB.git
 >   Add the following command to your ~/.lldbinit file: command script import /path/to/lldb_commands/dslldb.py
 >   ```
 >
