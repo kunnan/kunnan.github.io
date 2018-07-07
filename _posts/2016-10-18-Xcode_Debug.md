@@ -114,7 +114,7 @@ Xcode可以把那些已经release掉得对象，变成“僵尸”，当我们�
 >Product ->Scheme->run->Diagnostics-> enable Zomble Objects
 >```
 
-# [lldb](https://zhangkn.github.io/2018/04/howToLocateTheBlockImplementation/)
+# I 、[lldb](https://zhangkn.github.io/2018/04/howToLocateTheBlockImplementation/)
 
 
 LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。
@@ -125,6 +125,10 @@ LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。
 ###### *help*
 在控制台输入`help`，显示控制台支持的lldb命令
 
+###### apropos 
+
+搜索相关的命令信息。
+
 ###### *print* 缩写`p` 
 
 print是 `expression --` 的缩写
@@ -132,15 +136,16 @@ print是 `expression --` 的缩写
 >* print 可以指定格式打印 `默认 p` `十六进制 p/x`、`二进制 p/t`
 >
 >```
-(lldb) p 16
-16
-(lldb) p/x 16
-0x10
-(lldb) p/t 16
-0b00000000000000000000000000010000
-(lldb) p/t (char)16
-0b00010000
-```
+>(lldb) p 16
+>16
+>(lldb) p/x 16
+>0x10
+>(lldb) p/t 16
+>0b00000000000000000000000000010000
+>(lldb) p/t (char)16
+>0b00010000
+>```
+
 
 你也可以使用 p/c 打印字符，或者 p/s 打印以空终止的字符串  p/d打印ACRSII(译者注：以 '\0' 结尾的字符串)。
 
@@ -161,21 +166,22 @@ print是 `expression --` 的缩写
 >* continue 
 >```
 >在 LLDB 中，你可以使用 process continue 命令来达到同样的效果，它的别名为 continue，或者也可以缩写为 c。
-```
+>```
 
 >* step over
 >```
 >LLDB 则可以使用 thread step-over，next，或者 n 命令。
-```
+>```
+
 
 >* step in
 >```
 >LLDB中使用 thread step in，step，或者 s 命令。注意，当前行不是函数调用时，next 和 step 效果是一样的。
-```
+>```
+
 >* step out
->
->
->
+
+
 ###### frame info
 
 会告诉你当前的行数和源码文件
@@ -192,6 +198,14 @@ frame #0: 0x000000010a53bcd4 DebuggerDance`main + 68 at main.m:17
 `(lldb) thread return NO`
 
 
+
+# II、Xcode 调试第三方应用
+
+> * [符号还原](https://github.com/kunnan/restore-symbol)
+>
+> * [ 重签名app](https://github.com/AloneMonkey/MonkeyDev/blob/master/Tools/pack.sh)
+>
+>   
 
 # instruments
 
@@ -210,6 +224,7 @@ frame #0: 0x000000010a53bcd4 DebuggerDance`main + 68 at main.m:17
 >* Debug View Hierarchy
 >```
 >从菜单中选择Debug > View Debugging > Capture View Hierarchy
+>```
 ```
 >* [我更喜欢的View调试方式KNAFlexLoader](https://zhangkn.github.io/2017/12/KNAFlexLoader/)
 >
@@ -251,3 +266,9 @@ frame #0: 0x000000010a53bcd4 DebuggerDance`main + 68 at main.m:17
 - [how-to-locate-the-block](http://iosre.com/t/when-you-come-across---nsxxxblock---0xrandomnumber-while-debugging-a-block-in-lldb-how-to-locate-the-block/4977)
 - [powerful-private-methods](http://iosre.com/t/powerful-private-methods-for-debugging-in-cycript-lldb/3414)
 
+
+```
+
+```
+
+```
