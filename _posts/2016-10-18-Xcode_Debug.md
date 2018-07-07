@@ -133,8 +133,9 @@ Xcode可以把那些已经release掉得对象，变成“僵尸”，当我们�
 
 # I 、[lldb](https://zhangkn.github.io/2018/04/howToLocateTheBlockImplementation/)
 
-
 LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。
+
+#### 1.0 
 
 
 #### 1.1基础
@@ -172,6 +173,20 @@ print是 `expression --` 的缩写
 ###### *po*
 
 打印对象，是 `e -o --`的缩写
+
+```
+ po [0x10b45cb90 _ivarDescription]
+ po [0x10b45cb90 _shortMethodDescription]
+ po [0x10b47c250 _ivarDescription]
+<SRWebSocket: 0x10b47c250>:
+in SRWebSocket:
+	_webSocketVersion (long): 13
+	_delegateOperationQueue (NSOperationQueue*): nil
+	_delegateDispatchQueue (NSObject<OS_dispatch_queue>*): <OS_dispatch_queue_main: 0x106a5cc80>
+	_workQueue (NSObject<OS_dispatch_queue>*): <OS_dispatch_queue: 0x10b47cec0>
+```
+
+
 
 
 
