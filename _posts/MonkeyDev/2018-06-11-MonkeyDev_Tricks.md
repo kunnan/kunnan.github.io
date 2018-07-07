@@ -72,6 +72,14 @@ Target.plist -> /Users/devzkn/code/tweak/knwx2018/2018wxrobot/2018wxrobot/Target
 
  
 
+
+
+# build
+
+> * 编译的时候，记得选择通用设备。
+
+![image](https://ws1.sinaimg.cn/large/af39b376gy1fsxypct1gij208t01cjrb.jpg)
+
 # Cycript
 
 #### `cy66` 
