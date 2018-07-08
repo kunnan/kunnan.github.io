@@ -87,6 +87,29 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 
 ####  查看`block`参数
 
+#### pblock 的源码 
+
+> * https://github.com/kunnan/chisel/blob/master/commands/FBClassDump.py
+>
+>   ```
+>   /usr/local/Cellar/chisel/1.8.0/libexec/commands/FBClassDump.py
+>   class FBPrintBlock(fb.FBCommand):
+>     def run(self, arguments, options):
+>           struct Block_descriptor_1 {
+>                     const char *signature;                         // IFF (1<<30)
+>   ```
+>
+>   ```
+>   def getMethods(klass):
+>       Method *methods = (Method *)class_copyMethodList((Class)$cls, &outCount);
+>         SEL name = (SEL)method_getName(methods[i]);
+>               char * encoding = (char *)method_getTypeEncoding(methods[i]);
+>         NSInteger args = (NSInteger)method_getNumberOfArguments(methods[i]);
+>   
+>   ```
+>
+>   
+
 ###### 没有参数的block
 
 > * `typedef void (^dispatch_block_t)(void); `
@@ -103,7 +126,7 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   
 >   (lldb) po $x23
 >   <__NSMallocBlock__: 0x1140c7060>
->   (lldb) pblock 0x1140c7060  # 应当block的参数类型比较特殊，比如ID什么的，不是具体的类型
+>   (lldb) pblock 0x1140c7060  # 应当block的参数类型比较特殊，比如ID什么的，不是具体的类型；或者当前的断点并不在block内部，才导致失败的
 >   Traceback (most recent call last):
 >     File "/usr/local/opt/chisel/libexec/fblldb.py", line 84, in runCommand
 >       command.run(args, options)
@@ -217,6 +240,271 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   ```
 >   cy# choose(UIButton).toString() 
 >   ```
+
+
+
+# other
+
+####   查看地址所在模块的信息: `image lookup -a 0x1922da0c8 `
+
+> * `-[UIApplication(UIApplicationKeyboardTesting) runTestForKeyboardBringupAndDismissalWithName:withShowKeyboardBlock:withHideKeyboardBlock:withExtraResultsBlock:withCleanupBlock:] `在文件中的偏移为：0x0000000187c720c8 
+>
+>   ```
+>   (lldb) image lookup -a 0x1922da0c8
+>         Address: UIKit[0x0000000187c720c8] (UIKit.__TEXT.__text + 7688388)
+>         Summary: UIKit`-[UIApplication(UIApplicationKeyboardTesting) runTestForKeyboardBringupAndDismissalWithName:withShowKeyboardBlock:withHideKeyboardBlock:withExtraResultsBlock:withCleanupBlock:]
+>   ```
+>
+>   
+>
+>   
+
+
+
+#### 在模块中查看与`xxx` 相关的符号信息
+
+> * **image lookup -rn** xxx
+>
+>   ```
+>   (lldb) image lookup -rn CContassctMgr 
+>   18 matches found in /Users/devzkn/Library/Developer/Xcode/DerivedData/weixin-fqltqjyxecppixbrhoqzzbtyrgmz/Build/Products/Debug-iphoneos/weixin.app/Frameworks/libweixinDylib.dylib:
+>           Address: libweixinDylib.dylib[0x0000000000038668] (libweixinDylib.dylib.__TEXT.__text + 200068)
+>           Summary: libweixinDylib.dylib`_logos_meta_method$friend$CContactMgr$setupdoVerifybywxid$greetings$(objc_class*, objc_selector*, NSString*, NSString*) at weixinDylib.xm:490        Address: libweixinDylib.dylib[0x0000000000037a9c] (libweixinDylib.dylib.__TEXT.__text + 197048)
+>   ```
+>
+>   
+
+# Custom Commands：
+
+
+
+#### 使用正则`command regex`，进行 自定义命令
+
+
+
+###### 对类的所有方法下断点并跟踪打印调用参数
+
+> * bclass: `help rb     Sets a breakpoint or set of breakpoints in the executable.`; 对类的所有方法进行下断点
+>
+> * ```
+>   command regex bclass 's/(.+)/rb \[%1 /'
+>   ```
+>
+>   ```
+>   command source ~/.lldbinit
+>   ```
+>
+>   ```
+>   Executing commands in '/Users/devzkn/.lldbinit'.
+>   command regex bclass 's/(.+)/rb \[%1 /'
+>   command regex ls 's/(.+)/po @import Foundation; [[NSFileManager
+>   defaultManager] contentsOfDirectoryAtPath:@"%1" error:nil]/'
+>   command regex dump_stuff "s/(.+)/image lookup -rn '\+\[\w+(\(\w+\))?\ \w+
+>   \]$' %1 /"
+>   command script import /usr/local/opt/chisel/libexec/fblldb.py
+>   command script import /Users/devzkn/code/lldb/LLDB/lldb_commands/dslldb.py
+>   ```
+>
+>   ```
+>   (lldb) bclass FLSocketManager
+>   Breakpoint 5: 41 locations.
+>   ```
+>
+>   
+>
+> * 跟踪打印调用参数: 给断点添加命令
+>
+>   ```
+>   br command add 5
+>   (lldb) br command add 5
+>   Enter your debugger command(s).  Type 'DONE' to end.
+>   > po $x0
+>   > x/s $x1
+>   > c
+>   > DONE
+>   ```
+>
+>   * 运行效果
+>
+>     ```
+>      po $x0
+>     FLSocketManager
+>      x/s $x1
+>     0x1069f1ef3: "shareManager"
+>      c
+>     Process 574 resuming
+>     Command #3 'c' continued the target.
+>      po $x0
+>     <FLSocketManager: 0x10bc62e70>
+>      x/s $x1
+>     0x1069f1f40: "fl_socketStatus"
+>     Process 574 resuming
+>     Command #3 'c' continued the target.
+>      po $x0
+>     FLSocketManager
+>     
+>     
+>      x/s $x1
+>     0x1069f1ef3: "shareManager"
+>     
+>      c
+>     Process 574 resuming
+>     
+>     Command #3 'c' continued the target.
+>      po $x0
+>     <FLSocketManager: 0x10bc62e70>
+>     
+>     
+>      x/s $x1
+>     0x1069f22ff: "fl_sendping:"
+>     
+>      c
+>     Process 574 resuming
+>     
+>     Command #3 'c' continued the target.
+>      po $x0
+>     FLSocketManager
+>     
+>     
+>      x/s $x1
+>     0x1069f1ef3: "shareManager"
+>     
+>      c
+>     Process 574 resuming
+>     
+>     Command #3 'c' continued the target.
+>      po $x0
+>     <FLSocketManager: 0x10bc62e70>
+>     
+>     
+>      x/s $x1
+>     0x1069f1f40: "fl_socketStatus"
+>     
+>      c
+>     Process 574 resuming
+>     
+>     Command #3 'c' continued the target.
+>     2018-07-07 17:34:35.776424 WeChat[574:252555] 发送中。。。
+>      po $x0
+>     <FLSocketManager: 0x10bc62e70>
+>     
+>     
+>      x/s $x1
+>     0x1069f1f50: "webSocket"
+>     
+>      c
+>     Process 574 resuming
+>     
+>     Command #3 'c' continued the target.
+>      po $x0
+>     <FLSocketManager: 0x10bc62e70>
+>     
+>     
+>      x/s $x1
+>     0x106afee54: "webSocket:didReceivePong:"
+>     ```
+>
+>     
+
+
+
+###### ls 、dump_stuff
+
+> * ls : `po `
+>
+>   ```
+>   command regex ls 's/(.+)/po @import Foundation; [[NSFileManager
+>   defaultManager] contentsOfDirectoryAtPath:@"%1" error:nil]/'
+>   
+>   ```
+>
+>   ```
+>   (lldb) ls /
+>   <__NSArrayM 0x1195f2fa0>(
+>   .Trashes,
+>   .cydia_no_stash,
+>   .file,
+>   .fseventsd,
+>   .installed_yaluX,
+>   Applications,
+>   Developer,
+>   Library,
+>   System,
+>   User,
+>   bin,
+>   boot,
+>   cores,
+>   dev,
+>   etc,
+>   lib,
+>   mnt,
+>   private,
+>   sbin,
+>   tmp,
+>   usr,
+>   var
+>   )
+>   
+>   ```
+>
+>   
+>
+> * dump_stuff: `image looup`
+>
+>   
+>
+>   ```
+>   command regex dump_stuff "s/(.+)/image lookup -rn '\+\[\w+(\(\w+\))?\ \w+
+>   \]$' %1 /"
+>   ```
+>
+>   
+
+#### `#!/usr/bin/python` 脚本调用lldb API 进行自定义命令
+
+> *  source the commands in lldbinit
+>
+>   ```
+>   command script import /path/to/fblldb.py
+>   script fblldb.loadCommandsInDirectory('/magical/commands/') ##loadCommandsInDirectory in the fblldb.py module
+>   ```
+>
+>   
+>
+> * example
+>
+>   ```
+>   #!/usr/bin/python
+>   # Example file with custom commands, located at /magical/commands/example.py
+>   
+>   import lldb
+>   import fblldbbase as fb
+>   
+>   def lldbcommands():
+>     return [ PrintKeyWindowLevel() ]
+>     
+>   class PrintKeyWindowLevel(fb.FBCommand):
+>     def name(self):
+>       return 'pkeywinlevel'
+>       
+>     def description(self):
+>       return 'An incredibly contrived command that prints the window level of the key window.'
+>       
+>     def run(self, arguments, options):
+>       # It's a good habit to explicitly cast the type of all return
+>       # values and arguments. LLDB can't always find them on its own.
+>       lldb.debugger.HandleCommand('p (CGFloat)[(id)[(id)[UIApplication sharedApplication] keyWindow] windowLevel]')
+>   
+>   ```
+>
+>   
+
+#### 小结
+
+> * 这两种方式最终都是可以从`~/.lldbinit`加载；
+
+> * 使用python脚本利用lldb的API进行自定义往往提供更强大的功能，更利于维护。
+> * 使用`command regex`往往是对现有原生的`command`进行进一步简单封装。
 
 # See Also 
 

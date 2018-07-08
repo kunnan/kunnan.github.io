@@ -135,7 +135,7 @@ Xcode可以把那些已经release掉得对象，变成“僵尸”，当我们�
 
 LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。
 
-#### 1.0 
+#### 1.0  register read --all 
 
 
 #### 1.1基础
@@ -309,8 +309,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 
 > * ## Commands
 >
->   ## 
->
 >   ```
 >   (lldb) pviews
 >   <iConsoleWindow: 0x10b093b70; baseClass = UIWindow; frame = (0 0; 320 568); gestureRecognizers = <NSArray: 0x10a7a2ce0>; layer = <UIWindowLayer: 0x10b07f110>>
@@ -321,6 +319,41 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 ###### 1.3.2 条件断点 
 
 ![image](https://wx4.sinaimg.cn/large/af39b376ly1ft13au3fxzj20k00zke81.jpg)
+
+
+
+#### 1.3.3  debug memory graph 
+
+#### 1.3.5 动态调用函数
+
+> * po : 打印对象，是 `e -o --`的缩写
+>
+>   ```
+>   (lldb) po [UIApplication sharedApplication]
+>   <UIApplication: 0x10a79bad0>
+>   ```
+>
+> * e 
+>
+>   ```
+>   (lldb) e UIApplication *$app = [UIApplication sharedApplication]
+>   (lldb) po $app
+>   <UIApplication: 0x10a79bad0>
+>   ```
+>
+>   
+
+#### 1.3.6 使用Xcode查看当前进行加载的模块
+
+> * debug->debug workflow ->share libraries 
+>
+>   ![image](https://wx4.sinaimg.cn/large/af39b376gy1ft1ee2ksq0j20mw0augm7.jpg)
+
+#### 1.3.7 查看地址指向的内存信息
+
+> * debug->debug workflows -> view memory
+>
+>   ![image](https://wx4.sinaimg.cn/large/af39b376gy1ft1ehmnxamj218q0hl41u.jpg)
 
 
 

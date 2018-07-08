@@ -11,7 +11,17 @@ subtitle: MonkeyDev 的使用小技巧
 
 # 前言
 
-本文主要以MonkeyApp 为例，Xcode是V8.3.3 
+本文主要以MonkeyApp 为例，Xcode是V8.3.3 ;
+
+> * 动态库其实是存放在目标app的Frameworks目录
+>
+>   ```
+>   /Users/devzkn/Library/Developer/Xcode/DerivedData/weixin-fqltqjyxecppixbrhoqzzbtyrgmz/Build/Products/Debug-iphoneos/weixin.app/Frameworks/libweixinDylib.dylib
+>   ```
+>
+>   
+
+
 
 
 # 创建MonkeyApp项目: 2018wxrobot
