@@ -11,6 +11,14 @@ subtitle: MonkeyDev 的使用小技巧
 
 # 前言
 
+
+
+#### 依赖环境
+
+> * theos
+> * ldid
+> * sshpass,或者设置免密码登录
+
 本文主要以MonkeyApp 为例，Xcode是V8.3.3 ;
 
 > * 动态库其实是存放在目标app的Frameworks目录
@@ -21,10 +29,102 @@ subtitle: MonkeyDev 的使用小技巧
 >
 >   
 
+# 0、创建logos tweak
 
 
 
-# 创建MonkeyApp项目: 2018wxrobot
+logostweak 依赖cydiasubsrate库，项目会自动链接。
+
+> * command +B ,以debug模式安装
+> * command+ shift+ i，将以release模式安装
+
+
+
+# I、captainHook tweak
+
+直接通过导入captionHook.h（利用了oc 的runtime特性） 文件，利用里面的宏进行hook。
+
+> * 它不需要语法转换，也不依赖cydiaSubstrate动态库。
+>
+> * 原理分析： 对特定文件进行预处理，当然也可以转换为汇编代码。
+>
+>   ![image](https://wx1.sinaimg.cn/large/af39b376gy1ft29irxda2j20dq0cctbk.jpg)
+>
+>
+> * 例子
+>
+>   ```
+>   #import <Foundation/Foundation.h>
+>   #import "CaptainHook/CaptainHook.h"
+>   @interface ViewController : NSObject
+>   @property (nonatomic, retain) NSString* newProperty;
+>   - (void)addMethod:(NSString*) output;
+>   @end
+>   CHDeclareClass(ViewController)// 声明一个类
+>   CHPropertyRetainNonatomic(ViewController, NSString*, newProperty, setNewProperty);//增加属性；当然使用AssociatedObject 也是很简单
+>   CHDeclareMethod1(void, ViewController, addMethod, NSString*, output){// 增加方法
+>       NSLog(@"add method %@", output);
+>   }
+>   CHOptimizedMethod2(self, void, ViewController, instanceMethodUsername, NSString*, username, password, NSString*, password){//hook 目标函数
+>       NSString* ppassword = CHIvar(self,_password,__strong NSString*);// 获取私有属性，当然我更信息KVC的方式；[#0x183d6e00 valueForKey:@"m_delegate"]
+>       CHDebugLog(@"private password: %@", ppassword);    
+>       ppassword = [self valueForKey:@"_password"];    
+>       CHDebugLog(@"kvc password: %@", ppassword);    
+>       self.newProperty = @"set new property";    
+>       CHDebugLog(@"new property is:%@", self.newProperty);    
+>       [self addMethod:@"output"];    
+>       CHDebugLog(@"hook instance method username: %@, password: %@", username, password);    
+>       CHSuper2(ViewController, instanceMethodUsername, username, password, password);//调用原函数实现
+>   }
+>   CHOptimizedClassMethod2(self, void, ViewController, classMethodUsername, NSString*, username, password, NSString*, password){//hook类方法
+>       CHDebugLog(@"hook class method username: %@, password: %@", username, password);
+>       CHSuper2(ViewController, classMethodUsername, username, password, password);
+>   }
+>   CHConstructor{//注册hook，加载类
+>       CHLoadLateClass(ViewController);//加载类
+>       CHHook2(ViewController, instanceMethodUsername, password);//注册hook
+>       CHHook2(ViewController, classMethodUsername, password);//注册hook    
+>       CHHook0(ViewController, newProperty);//注册hook
+>       CHHook1(ViewController, setNewProperty);//注册hook
+>   }
+>   ```
+>
+>   > * 扩展知识
+>   >
+>   >   *  彩英associatedObject增加属性
+>   >
+>   >     ```
+>   >     //结合@dynamic的 associatedObject例子
+>   >     @implementation NSObject (AssociatedObject)
+>   >     @dynamic associatedObject;
+>   >     - (void)setAssociatedObject:(id)object {
+>   >         objc_setAssociatedObject(self,
+>   >     @selector(associatedObject), object,
+>   >     OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+>   >     }
+>   >     - (id)associatedObject {
+>   >         return objc_getAssociatedObject(self,
+>   >     @selector(associatedObject));
+>   >     }
+>   >     ```
+>   >
+>   >     
+
+
+
+# II 、cli : command-line tool
+
+[命令行工具，常用来新增一个守护进程的工具类](https://zhangkn.github.io/2017/12/iphoneDaemonTool/)
+
+
+
+
+
+
+
+
+
+# # III、创建MonkeyApp项目: 2018wxrobot
 
 >* 项目结构
 
