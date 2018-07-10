@@ -179,8 +179,11 @@ Target.plist -> /Users/devzkn/code/tweak/knwx2018/2018wxrobot/2018wxrobot/Target
 ###### 开启日志跟踪，直接配置MDConfig.plist
 
 - ENABLE: 设置为YES开启方法跟踪，默认为NO。
+- 在`Build Settings`里面设置`MONKEYDEV_RESTORE_SYMBOL`为`YES`，方便后面设置符号断点
 
  
+
+
 
 
 
