@@ -56,6 +56,18 @@ logostweak 依赖cydiasubsrate库，项目会自动链接。
 >   >
 >   >   
 
+
+
+#### 错误的定位
+
+
+
+> *  *** Terminating app  
+>
+>   ```
+>    *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[SpringBoard getsandboxPathWithBundleIdentifier:]: unrecognized selector sent to instance 0x160e0600'
+>   ```
+
 # I、captainHook tweak
 
 直接通过导入captionHook.h（利用了oc 的runtime特性） 文件，利用里面的宏进行hook。
