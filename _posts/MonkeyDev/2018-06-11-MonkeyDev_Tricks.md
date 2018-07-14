@@ -40,6 +40,22 @@ logostweak 依赖cydiasubsrate库，项目会自动链接。
 
 
 
+> * 忽略一些编译警告
+>
+>   ![image](https://ws2.sinaimg.cn/large/af39b376ly1ft95b3rpvxj20r404baa5.jpg)
+>
+>   ```
+>   .mm   -fno-objc-arc
+>   ```
+>
+>   > * 效果类似于makefile的`-Wno-error`编译参数
+>   >
+>   >   ```
+>   >   $(TWEAK_NAME)_CFLAGS += -Wno-error
+>   >   ```
+>   >
+>   >   
+
 # I、captainHook tweak
 
 直接通过导入captionHook.h（利用了oc 的runtime特性） 文件，利用里面的宏进行hook。
