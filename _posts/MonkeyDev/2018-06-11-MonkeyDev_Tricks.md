@@ -60,8 +60,6 @@ logostweak 依赖cydiasubsrate库，项目会自动链接。
 
 #### 错误的定位
 
-
-
 > *  *** Terminating app  
 >
 >   ```
