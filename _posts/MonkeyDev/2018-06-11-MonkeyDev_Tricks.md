@@ -58,7 +58,29 @@ logostweak 依赖cydiasubsrate库，项目会自动链接。
 
 
 
+#### 例子
+
+> * [tweak中使用ws 的例子](https://github.com/zhangkn/KN_ws_tweak)
+> * [仅供学习：tweak 项目 快速搭建CocoaAsyncSocket（建连、断开、重连、心跳、通用请求）](https://github.com/zhangkn/KNCocoaAsyncSocketDemo)
+> * [去掉AlipayWallet的ptrace 反调试保护，进行lldb调试（学习demo）---仅用于参考学习](https://github.com/zhangkn/KNAlipayWalletTweakDemo)
+
 #### 错误的定位
+
+> * 使用HBLogDebug  进行打印日志
+>
+>   ```
+>   #ifdef DEBUG
+>   # define NSLog(...) HBLogDebug(__VA_ARGS__)
+>   #else
+>   # define NSLog(...) {}
+>   #endif
+>   ```
+>
+>   ```
+>    [1;36m[wxControlTweak] [m[0;36m/Users/devzkn/code/tweak/knwx2018/wxControlTweak/SocketManager/Manager/FLSocketManager.m:175[m [0;30;46mDEBUG:[m :( Websocket Failed With Error Error Domain=com.squareup.SocketRocket Code=504 "Timeout Connecting to Server" UserInfo=0x18dc0c80 {NSLocalizedDescription=Timeout Connecting to Server}
+>   ```
+>
+>   
 
 > *  *** Terminating app  
 >
