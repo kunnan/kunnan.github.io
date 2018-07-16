@@ -58,6 +58,18 @@ subtitle: 硬件信息的获取和修改
 >
 >   
 
+# 例子
+
+#### [使用capstone进行MGCopyAnswer方法地址获取，使用MSHookFunction 进行hook的例子](https://github.com/kunnan/MobileGestaltHooking)
+
+One of the most abused API is `MGCopyAnswer` in libMobileGestalt, but directly hooking it will instantly crash the process with an `invalid instruction`. 
+
+Fortunately, we have [Capstone Engine](http://www.capstone-engine.org/), which is a powerful disassembler based on LLVM’s MC to save the day.
+
+> * [HookingMGCopyAnswerLikeABoss](https://mayuyu.io/2017/06/26/HookingMGCopyAnswerLikeABoss/)
+
+
+
 # See Also 
 
 >* [**libMobileGestalt.dylib** **strings**](https://github.com/keith/Xcode.app-strings/blob/e8ae4a1bcd21100e5faf30abd8c218af2c6a3b84/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libMobileGestalt.dylib)
