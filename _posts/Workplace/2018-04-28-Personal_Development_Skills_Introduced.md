@@ -35,7 +35,7 @@ subtitle: 实时最新的个人简历
 
 ###### 1.1 熟悉的领域
 
->* iOS 逆向开发,熟悉iphone/tweak、iphone/tool、cydia repo 制作、cocoapods的Specs repo制作(using-pod-lib-create、private-cocoapods)
+>* iOS 逆向开发,熟悉iphone/tweak、iphone/tool、cydia repo 制作、cocoapods的Specs repo制作(using-pod-lib-create、private-cocoapods)、使用capstone 对二进制文件进行反汇编来定位方法的地址，以便于MSHookFunction 。
 ```
 利用lldb、hopper、theos、MonkeyDev、运行时常用的API 进行开发。
 >结合lldb、Cycript、hopper、KNHook、以及AFLEXLoader进行分析快速找到入口。
@@ -44,13 +44,14 @@ subtitle: 实时最新的个人简历
 ###### 1、2 例子
 
 >* [iphone/tool 项目例子：MobileWiFi.framework的使用](https://github.com/sbtweaks/wifiutil)
+>* [capstoneHook64_capstoneHook32 for libMobileGestalt](https://kunnan.github.io/2018/07/16/capstoneHook64_capstoneHook32/)
 >* [iphone/tweak类型举例： tweak集成CocoaAsyncSocket](https://github.com/zhangkn/KNCocoaAsyncSocketDemo)
 >* [The zhangkn CocoaPods Specs](https://github.com/zhangkn/Specs)
 >* [分析工具: KNHook ](https://github.com/zhangkn/hookClass)
 >* [常见的自动化的功能的实现例子](https://github.com/jbtewaks)
 ```
 自动设置永不锁屏、自动处理进程通信的问题、网络异常的时候自动关闭VPN（防止VPN有效性过期）,
-并且自动断开Wi-Fi，再次重新连接（防止IP有效期超时）
+并且自动断开Wi-Fi，再次重新连接（防止IP有效期超时）、重启sb、在sb 进行搭建界面
 ```
 
 >* 具体的通用技能
@@ -162,6 +163,7 @@ jQuery、JSP、css、html、数据库(sql基本操作)、j2ee(Spring + Struts +H
 >AppStore应用协助审核，马甲包制作； 
 >App代码加密和混淆工具开发； 
 >AppStore排行榜提升，ASO关键词优化； 
+>```
 ```
 
 >* 2017/07 -- 至今
@@ -284,3 +286,5 @@ https://github.com/zhangkn/KNAPP
 > #原来""的参数，需要自己加上""
 ```
 
+
+```

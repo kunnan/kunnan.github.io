@@ -109,6 +109,43 @@ subtitle: 分析SpringBoard的一些类和方法
 
 
 
+#### _UIAlertControllerShimPresenterWindow 
+
+> * @interface 
+>
+>   ```
+>   @class UIAlertController;
+>   
+>   @interface _UIAlertControllerShimPresenterWindow : UIWindow {
+>   
+>   	UIAlertController* _alertController;
+>   
+>   }
+>   
+>   @property (nonatomic,retain,readonly) UIAlertController * alertController; 
+>   +(char)_isSystemWindow;
+>   -(id)init;
+>   -(char)_shouldAutorotateToInterfaceOrientation:(int)arg1 ;
+>   -(UIAlertController *)alertController;
+>   -(void)presentAlertController:(id)arg1 animated:(char)arg2 completionBlock:(/*^block*/id)arg3 ;
+>   -(id)_presentationViewController;
+>   @end
+>   ```
+>
+>   * _ivarDescription 
+>
+>     ```
+>     cy# [#0x18629ca0 _ivarDescription].toString()
+>     `<_UIAlertControllerShimPresenterWindow: 0x18629ca0>:
+>     in _UIAlertControllerShimPresenterWindow:
+>     \t_alertController (UIAlertController*): nil
+>     in UIWindow:
+>     \t_delegate (id): <_UIAlertShimPresentingViewController: 0x16f232a0>
+>     \t_windowLevel (float): 2000
+>     ```
+>
+>     
+
 # 常用的一些API
 
 
