@@ -161,9 +161,19 @@ cy# [#0x170bab80 actionsForTarget:[[#0x170bab80 allTargets] allObjects][0] forCo
 
 #### 2.2  验证`执行方法`
 
-###### objc_msgSend 
+###### performSelector
 
+> * performSelector
+>
+>   ```
+>       NSLog(@"正在 处理服务端的消息推送 json :%@ _ivarDescription:%@",tmp,[tmp performSelector:@selector(_ivarDescription)]);
+>   ```
+>
+>   
 
+###### objc_msgSend  
+
+iOS11 之后不能使用了。推荐使用performSelector
 
 >* `objc_msgSend` : 好处： 不需要声明方法，即可执行使用
 >  
