@@ -75,6 +75,34 @@ else{
 
 
 
+#### plist
+
+> * plist
+>
+>   ```
+>   <?xml version="1.0" encoding="UTF-8"?>
+>   <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+>   <plist version="1.0">
+>   <dict>
+>   	<key>Filter</key>
+>   	<dict>
+>   		<key>Bundles</key>
+>   		<array>
+>   			<string>com.apple.UIKit</string>
+>   		</array>
+>           <key>Executables</key>
+>           <array>
+>               <string>MobileGestaltHelper</string>
+>           </array>
+>           <key>Mode</key>
+>           <string>Any</string>
+>   	</dict>
+>   </dict>
+>   </plist>
+>   ```
+>
+>   
+
 # capstoneHook32 
 
 ####             if (insn[j].id == ARM_INS_BL){ 
