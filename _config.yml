@@ -159,4 +159,12 @@ friends: [
         title: "sspai",
         href: "https://sspai.com/user/832301/updates"
     }
+    ,{
+        title: "timac feed",
+        href: "https://blog.timac.org/index.xml"
+    }
+    ,{
+        title: "mgcopyanswer",
+        href: "https://blog.timac.org/?tag=mgcopyanswer"
+    }
 ]

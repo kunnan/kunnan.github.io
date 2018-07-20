@@ -11,8 +11,15 @@ subtitle: 符号化
 
 
 
-
 # 前言
+
+> * symbolicatecrash 
+>
+>   ```
+>   ➜  ~ symbolicatecrash --dsym=/Users/devzkn/Library/Developer/Xcode/DerivedData/wxControlTweak-dyfansxvurxnxgafqnbogimgkqpb/Build/Products/Debug-iphoneos/wxControlTweak.dylib.dSYM LatestCrashkn.ips | open -f
+>   ```
+>
+>   
 
 >* 每次编译后生成的 dSYM 文件
 
