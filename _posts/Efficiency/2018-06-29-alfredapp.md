@@ -122,6 +122,20 @@ subtitle: Alfred is an award-winning app for Mac OS X which boosts your efficien
 
 
 
+
+
+#### [search engine queryURL](chrome://settings/searchEngines)
+
+
+
+> *    从chrome的chrome://settings/searchEngines 获取你经常使用的搜索URL
+>
+>   ![image](https://ws1.sinaimg.cn/large/af39b376gy1ftpcrkczwhj20es09374q.jpg)
+>
+>   ![image](https://ws1.sinaimg.cn/large/af39b376gy1ftpcjr1yh3j214v0950u1.jpg)
+
+
+
 # IV、书签搜索
 
 >* 书签搜索是 alfred3.x 版本中新加的功能，方便用户在浏览器的大量书签中快速搜索
