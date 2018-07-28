@@ -37,6 +37,20 @@ subtitle: lldb 调试常用的命令
 
 
 
+
+
+# other
+
+
+
+> * im li appname
+>
+>   ```
+>   得到文件加载到虚拟内存的偏移
+>   ```
+>
+>   
+
 # See Also 
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
