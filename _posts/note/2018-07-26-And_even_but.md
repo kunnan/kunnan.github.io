@@ -29,6 +29,10 @@ subtitle: 也许 甚至 但
 >
 >     ![image](https://ws1.sinaimg.cn/large/af39b376gy1ftqo7b0sxhj216q0mwgp6.jpg)
 >
+>   * 解决角色期待上的矛盾
+>
+>     ![image](https://ws1.sinaimg.cn/large/af39b376gy1ftrq34ka0tj20ls0chtc0.jpg)
+>
 >   * 吐槽
 >
 >     ![image](https://ws3.sinaimg.cn/large/af39b376gy1ftn8r8fheyj20c201mglw.jpg)
