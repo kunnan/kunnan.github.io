@@ -11,7 +11,61 @@ subtitle: 设备udid的收集
 
 
 
+
+
 # UUIDString
+
+> * app自己生成udid保存到钥匙串
+>
+>   ```
+>   - (NSString *)strUUID{
+>   
+>       if (_strUUID == nil || [_strUUID isEqualToString:@""]) {
+>   
+>           
+>   
+>           KNKeychainItemWrapper *wrapper = [[KNchainItemWrapper alloc] initWithIdentifier:@"wkneiknlkniu"accessGroup:nil];
+>   
+>           // 读测试
+>   
+>           NSString *strMD5 = [wrapper  objectForKey:(__bridge id)kSecAttrAccount];
+>   
+>   
+>   
+>           NSLog(@"读出md5:%@",strMD5);
+>   
+>           if (strMD5 == nil || [strMD5 isEqualToString:@""])
+>   
+>           {
+>   
+>               strMD5 = [MD5Generator MD5];
+>   
+>               [wrapper setObject:strMD5 forKey:(__bridge id)kSecAttrAccount];
+>   
+>               
+>   
+>   
+>   
+>               NSLog(@"写入MD5:%@",strMD5);
+>   
+>           }
+>   
+>           _strUUID = strMD5;
+>   
+>           NSLog(@"strUUID:%@", strMD5);
+>   
+>       }
+>   
+>       
+>   
+>       return _strUUID;
+>   
+>   }
+>   
+>   
+>   ```
+>
+>   
 
 
 
@@ -260,7 +314,7 @@ subtitle: 设备udid的收集
 >    -ret:0
 >    -[<UIDevice: 0x16ac14e0> _setBatteryLevel:1 ]
 >    -[<UIDevice: 0x16ac14e0> _setBatteryState:3 ]
->   
+>     
 >    ```
 >
 >   ```
