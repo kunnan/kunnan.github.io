@@ -18,6 +18,24 @@ subtitle: 设备udid的收集
 > * app自己生成udid保存到钥匙串
 >
 >   ```
+>    -[<SafeSingleItemWrapper: 0x16212720> initSafeWithIdentifier:Ksid accessGroup:unknown ]
+>   
+>   ```
+>
+>   ```
+>    --[<SingleItemWrapper: 0x16212570> initWithIdentifier:Ksid accessGroup:unknown ]
+>   
+>   ```
+>
+>   ```
+>    [MMKeychain load:wx.dat accessGroup:unknown migratable:0 ]
+>     [MMKeychain load:com.tencent.xin.updateresinfo accessGroup:teamid.com.tencent.xin migratable:1 ]
+>   
+>   ```
+>
+>   
+>
+>   ```
 >   - (NSString *)strUUID{
 >   
 >       if (_strUUID == nil || [_strUUID isEqualToString:@""]) {
