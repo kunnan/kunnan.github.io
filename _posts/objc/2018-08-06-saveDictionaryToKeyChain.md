@@ -33,15 +33,15 @@ subtitle: 保存字典字符串到钥匙串
     //
     if (_Wrapperdic == nil) {
         
-        CMPayKeychainItemWrapper *wrapper = [[CMPayKeychainItemWrapper alloc] initWithIdentifier:@"U.KNcom.tencent.xin"accessGroup:nil];
+        CMPayKeychainItemWrapper *wrapper = [[CMPayKeychainItemWrapper alloc] initWithIdentifier:keyChainwrapinitWithIdentifierkey accessGroup:nil];
         
         NSString *strtmpwrapper = [wrapper  objectForKey:(__bridge id)kSecValueData];// 这个保存的只能字符串。 因此我要使用 字典转字符串，到时候再转一次回字典
         //2018-08-06 14:33:22.689 WeChat[4790:562979] *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[__NSCFConstantString count]: unrecognized selector sent to instance 0x63b2490'
 //        NSDictionary *tmp =
         NSMutableDictionary * tmpwrapper = nil;
         
-        NSLog(@"strtmpwrapper :%@",strtmpwrapper);
-        if (strtmpwrapper == nil) {
+        NSLog(@"strtmpwrapper :%@ strtmpwrapperlength:%d",strtmpwrapper,strtmpwrapper.length);
+        if (strtmpwrapper == nil ) {
             tmpwrapper = nil;
             
         }else {
@@ -62,6 +62,9 @@ subtitle: 保存字典字符串到钥匙串
                 // 保存字段对象
                 tmpwrapper = [NSMutableDictionary dictionaryWithCapacity:2];
                 // 转为json 字符串
+                [tmpwrapper setValue:@"ss" forKey:@"test"];// 防止//2018-08-06 16:01:55.264 WeChat[5121:581395] json 解析错误: --- error Error Domain=NSCocoaErrorDomain Code=3840 "The operation couldn’t be completed. (Cocoa error 3840.)" (No value.) UserInfo=0x1959bb00 {NSDebugDescription=No value.}
+
+                NSLog(@"保存一个null 字典 tmpwrapper:%@",tmpwrapper);
                 [wrapper setObject:[KNconvertHexStrToString dictionnaryObjectToString:tmpwrapper] forKey:(__bridge id)kSecValueData];// reason: '*** setObjectForKey: key cannot be nil'
             }
             
