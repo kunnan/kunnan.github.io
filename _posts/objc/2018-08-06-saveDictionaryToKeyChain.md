@@ -86,7 +86,15 @@ subtitle: 保存字典字符串到钥匙串
 
 
 
+#### initWithIdentifier
+
+这个值不能随便修改，最好和bid 一致。获取xx+bid: UVXCYJX.KNcom.tencent.xin 
+
+推荐： teamid+ bid
+
 > * 想保存更多信息，除了采用json 字符串，当然好可以使用更多的`initWithIdentifier `
+>
+>   ![image](https://wx4.sinaimg.cn/large/af39b376gy1fu025a8z5gj20w206cjrr.jpg)
 
 # See Also 
 
