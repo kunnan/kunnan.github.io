@@ -152,7 +152,15 @@ subtitle: 怎样把自己嫁出去
 >
 >     
 
-# V、做出选择
+# V、做出选择,勇敢行动: 奇妙经历的起点
+
+> * 所有美好的关系，都开始于彼此的驯养
+
+# VI、致敬时刻
+
+
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1fu234k58baj20zk0k07wh.jpg)
 
 # See Also 
 
