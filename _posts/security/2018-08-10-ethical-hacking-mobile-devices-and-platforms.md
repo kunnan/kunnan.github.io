@@ -63,7 +63,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
    
 
-  #### II、Application data storage
+  # 2、Application data storage
 
    There are three main storage options:
 
@@ -192,7 +192,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
  
 
-#### III、Stored Data Protection
+#### I、Stored Data Protection
 
   
 
@@ -226,7 +226,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
  
 
-#### IV 、Cached and temp data
+#### II 、Cached and temp data
 
 iOS stores an unencrypted screen shot of the app when it goes to the background which can be used to recover any sensitive information that is visible on that screen.
 
@@ -246,7 +246,7 @@ iOS stores an unencrypted screen shot of the app when it goes to the background 
 
  
 
- #### V 、URL handlers
+ #### III 、URL handlers
 
  
 
@@ -262,7 +262,7 @@ Some apps might use URL handlers to pass sensitive information between processes
 >
 >      
 
-#### VI 、Binary protection
+#### IV 、Binary protection
 
  Many apps uses extra flags to secure the app binary, like: Data Execution Prevention (`DEP`), `Postion Independent Executable` & `ASLR`.
 It’s good to check for those flags.
@@ -274,9 +274,11 @@ It’s good to check for those flags.
 
 
 
-# 2、iOS Security
+# 3、iOS Security
 
-
+> * This process provides a secure way of loading the System.
+>
+>    
 
 ```
    --------        ---------------       ---------       ---------- 
@@ -284,6 +286,259 @@ It’s good to check for those flags.
    | rom  |  -->   | Boot loader |  -->  | load  |  -->  | Load   |
    --------        ---------------       ---------       ----------
 ```
+
+ 
+
+- `Boot rom hardware` contains `RO` code to bootstrap the system and Apple’s public key. 
+
+- Public key is used to verify the integrity of the `Low level boot loader` code
+- `Low level boot loader` takes the 2nd stage boot called `iBoot load` code from flash memory and verifies its signature before loading.
+- `iBoot load` verifies the Kernel code in similar fashion before loading it.
+
+ 
+
+#### I、 Application Sandboxing
+
+- all apps run in sandboxes, but not all apps use all security features provided by the iOS
+- Interactions outside the sandbox have to be explicit. For example accessing microphone, camera, media etc.
+
+ 
+
+#### II、Exploitation protection
+
+
+
+- Memory pages can be marked as “Write but not execute” (using ARM chip `W^X`feature, similar to `DEP` for Windows users)
+- `ASLR` - makes sure that code & data are not stored together, so it makes exploitaion of fixed memory addresses more difficult
+- `Position-independent execution` (`PIE`) - allows application to work from any location in memory
+- `Stack canaries` - can be used to check for malicious or accidental stack overwrites. A function can always check whether “`canary`” is stil alive.
+
+ 
+
+#### III、Interesting folders on iOS devices
+
+
+
+###### 1)/var/mobile 
+
+```
+iPhone:/var/mobile root# ls -rlt
+total 0
+drwxr-xr-x  5 mobile mobile  170 Dec 28  2014 Containers/
+drwxr-xr-x  2 mobile mobile  102 Dec 28  2014 MobileSoftwareUpdate/
+drwx------  2 mobile mobile   68 Dec 28  2014 Downloads/
+drwxr-xr-x  3 mobile mobile  102 Dec 28  2014 Documents/
+drwx--x--x 63 mobile mobile 2210 Dec 23  2017 Library/
+drwxr-xr-x  2 mobile mobile   68 May 11 18:25 nztdata/
+drwxr-xr-x  2 mobile mobile   68 May 11 18:25 importdata/
+drwxr-xr-x  2 mobile mobile   68 May 11 18:25 iggdata/
+drwxr-xr-x  2 mobile mobile   68 May 11 18:25 exportdata/
+drwxr-x--- 18 mobile mobile  918 Aug  2 17:04 Media/
+
+```
+
+
+
+- /var/mobile 
+
+  
+
+  * `/var/mobile/Library/SMS `
+
+    - contains files like `sms.db` - with all SMS msgs in clear text
+
+      ```
+      -rw-r--r-- 1 mobile mobile   4096 Dec 28  2014 sms.db
+      drwxr-xr-x 3 mobile mobile    102 Dec 27  2017 Drafts/
+      drwxr-xr-x 2 mobile mobile    102 Aug  6 16:45 EmergencyAlerts/
+      -rw-r--r-- 1 mobile mobile 733392 Aug  8 08:52 sms.db-wal
+      -rw-r--r-- 1 mobile mobile  32768 Aug  8 08:52 sms.db-shm
+      ```
+
+      
+
+     
+
+  * `/var/mobile/Library/Accounts` :contains files like Accounts3.sqlite
+
+    * `wal` is a temporary write-ahead logging file
+    * `shm` is an index file for `wal`
+
+    
+
+    ```
+    iPhone:/var/mobile root# ls -lrt /var/mobile/Library/Accounts
+    total 328
+    -rw-r--r-- 1 mobile mobile  98304 Dec 28  2014 Accounts3.sqlite
+    -rw-r--r-- 1 mobile mobile 201912 Jun  4 21:26 Accounts3.sqlite-wal
+    -rw-r--r-- 1 mobile mobile  32768 Aug  3 14:01 Accounts3.sqlite-shm
+    
+    ```
+
+    
+
+  * `/var/mobile/Media`  : contains books, photos etc
+
+    * Recordings 
+
+      
+
+      ```
+      iPhone:/var/mobile/Media root# ls -rlt Recordings
+      total 60
+      -rw-r--r-- 1 mobile mobile     0 Jul  4 16:41 Recordings.db-wal
+      -rw-r--r-- 1 mobile mobile 28672 Jul  4 16:41 Recordings.db
+      -rw-r--r-- 1 mobile mobile 32768 Aug  3 15:17 Recordings.db-shm
+      
+      ```
+
+      
+
+    ```
+    drwxr-xr-x  5 mobile mobile      238 Jan 18  2018 Books/
+    drwxr-xr-x 11 mobile mobile      782 Jul 26 15:28 PhotoData/
+    drwxr-xr-x  2 mobile mobile      170 Apr 23  2017 Radio/
+    drwxr-xr-x  4 mobile mobile      136 Apr 21  2017 Photos/
+    
+    ```
+
+    
+
+  * `/var/mobile/Applications` -> contain a bunch of UUIDs sandbox folders for each application
+
+  * `/var/mobile/Containers` -> similar as above.
+    * ls -lrt
+
+      ```
+      iPhone:/var/mobile root# ls -lrt Containers
+      total 0
+      drwxr-xr-x 3 mobile mobile 102 Dec 28  2014 Shared/
+      drwxr-xr-x 5 mobile mobile 170 Dec 28  2014 Data/
+      drwxr-xr-x 4 mobile mobile 136 Dec 28  2014 Bundle/
+      ```
+
+      
+
+    * `iPhone:/var/mobile root# ps -e |grep WeChat `
+
+      ```
+      iPhone:/var/mobile root# ps -e |grep WeChat
+       6367 ??        39:01.72 /var/mobile/Containers/Bundle/Application/0EF4E0E0-E22B-4F87-A734-8BC3A25B2E3A/weixin.app/WeChat
+      ```
+
+      
+
+      
+
+
+
+
+
+  
+
+   
+
+   
+
+  
+
+  ###### 2)/var/stash 
+
+- `/var/stash`
+
+  * lrwxr-xr-x 1 root wheel 13 Oct 28  2017 **/var/stash** -> **/var/db/stash**/ 
+
+    * :/var/db/stash/_.TvfJPY/Applications/Cydia.app 
+
+      
+
+      ```
+      -rw-r--r-- 1 root wheel   16223 Feb 16  2017 Default-568h\@2x.png
+      -rwxr-xr-x 1 root wheel 2093808 Feb 16  2017 Cydia*
+      lrwxr-xr-x 1 root wheel       5 Feb 16  2017 store -> Cydia*
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 zh-Hant.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 zh-Hans.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 vi.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 tr.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 th.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 sv.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 ru.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 pt.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 pt-br.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 pl.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 nl.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 ko.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 ja.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 it.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 he.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 fr.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 es.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 en.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 el.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 de.lproj/
+      drwxr-xr-x 2 root admin     136 Apr 23  2017 ar.lproj/
+      drwxr-xr-x 2 root admin     102 Oct 28  2017 menes/
+      drwxr-xr-x 2 root admin     102 Oct 28  2017 Sources/
+      drwxr-xr-x 2 root admin    1428 Oct 28  2017 Sections/
+      drwxr-xr-x 2 root admin     306 Oct 28  2017 Purposes/
+      iPhone:/var/db/stash/_.TvfJPY/Applications/Cydia.app root# 
+      
+      ```
+
+      
+
+    ```
+    iPhone:~ root# ls -lrt /var/db/stash/
+    total 28
+    drwxr-xr-x 3 root admin 102 Apr 23  2017 _.TvfJPY/
+    -rw-r--r-- 1 root wheel  13 Apr 23  2017 _.TvfJPY.lnk
+    drwxr-xr-x 3 root admin 102 Apr 23  2017 _.E131Zh/
+    drwxr-xr-x 3 root admin 102 Apr 23  2017 _.Kjwk6z/
+    -rw-r--r-- 1 root wheel  18 Apr 23  2017 _.E131Zh.lnk
+    drwxr-xr-x 3 root admin 102 Apr 23  2017 _.eZ1ZLT/
+    -rw-r--r-- 1 root wheel  18 Apr 23  2017 _.Kjwk6z.lnk
+    -rw-r--r-- 1 root wheel  12 Apr 23  2017 _.7LJr2g.lnk
+    drwxr-xr-x 3 root admin 102 Apr 23  2017 _.7LJr2g/
+    drwxr-xr-x 3 root admin 102 Apr 23  2017 _.wB3TqU/
+    -rw-r--r-- 1 root wheel  12 Apr 23  2017 _.eZ1ZLT.lnk
+    -rw-r--r-- 1 root wheel  10 Apr 23  2017 _.wB3TqU.lnk
+    -rw-r--r-- 1 root wheel  22 Dec  8  2017 _.BOpzrd.lnk
+    drwxr-xr-x 3 root admin 102 Dec  8  2017 _.BOpzrd/
+    
+    ```
+
+    
+
+ 
+
+
+
+#### IV、 iOS testing tools
+
+- Once iOS device is jailbroken and you install `openssh` via `Cydia` you can change root password with `passwd`
+
+- [`Clutch`]([Clutch](https://cydia.iphonecake.com/)) - identify all encrypted applications and reverse engineer them to allos src code analysis. It decrypts an app and dumps it into an ipa file.
+
+  * `chmod +x /usr/bin/Clutch` - this has to be done before running
+  * `Clutch -i` → list all encrypted applications
+
+     
+
+-  Erica - allows to view plist files in human readable mode
+   * example usage: `plutil Info.plist`
+
+
+   
+
+ 
+
+#### V、Extracting properties and class headers
+
+
+
+
+
+ 
 
  
 
