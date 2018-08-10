@@ -228,6 +228,22 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
 # IV 、Cached and temp data
 
+iOS stores an unencrypted screen shot of the app when it goes to the background which can be used to recover any sensitive information that is visible on that screen.
+
+ 
+
+> * Request & Response data is stored in SQLite DB called `cached.db`.
+>
+>   ```
+>       const char* path = "/private/var/mobile/Library/MusicLibrary/AccountCache.sqlitedb";
+>           const char* path = "/private/var/mobile/Library/Accounts/Accounts3.sqlite";
+>               const char* path = "/private/var/mobile/Library/com.apple.itunesstored/kvs.sqlitedb";
+>   ```
+>
+>   
+
+  
+
  
 
  
