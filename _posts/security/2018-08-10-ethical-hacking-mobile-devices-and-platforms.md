@@ -11,7 +11,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
 
 
-# iOS applications
+# I 、iOS applications
 
  
 
@@ -63,7 +63,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
    
 
-  # Application data storage
+  # II、Application data storage
 
    There are three main storage options:
 
@@ -192,7 +192,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
  
 
-# Stored Data Protection
+# III、Stored Data Protection
 
   
 
@@ -218,13 +218,15 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
    
 
- 
+  
 
-- -  
-
- 
+  
 
  
+
+ 
+
+# IV 、Cached and temp data
 
  
 
