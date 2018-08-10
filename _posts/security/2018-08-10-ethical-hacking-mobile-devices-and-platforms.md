@@ -201,12 +201,22 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
  
 
 - All app data is encrypted at rest (using a file system key)
+
 - When devices is turned on, then data is unlocked (decrypted)
+
 - File access permissions:
+
   - No protection
   - Complete protection - the file in inaccessible when device is locked
   - Complete unless open - the file in accessible if application has it open when the device is locked
   - Complete until first user authentication - the file is always accessible after the first unlock. (This is the default setting)
+
+- Key Chain - has multiple security options, like:
+
+  - Write only if passcode is set
+  - Read on this device only
+
+   
 
  
 
