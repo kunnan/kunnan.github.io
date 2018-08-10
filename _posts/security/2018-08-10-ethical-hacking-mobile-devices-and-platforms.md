@@ -10,8 +10,8 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 ---
 
 
-
-# I 、iOS applications
+# 1、iOS applications
+####  I 、iOS applications
 
  
 
@@ -63,7 +63,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
    
 
-  # II、Application data storage
+  #### II、Application data storage
 
    There are three main storage options:
 
@@ -192,7 +192,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
  
 
-# III、Stored Data Protection
+#### III、Stored Data Protection
 
   
 
@@ -226,7 +226,7 @@ subtitle: Application data storage；Stored Data Protection；Cached and temp da
 
  
 
-# IV 、Cached and temp data
+#### IV 、Cached and temp data
 
 iOS stores an unencrypted screen shot of the app when it goes to the background which can be used to recover any sensitive information that is visible on that screen.
 
@@ -246,7 +246,7 @@ iOS stores an unencrypted screen shot of the app when it goes to the background 
 
  
 
- # V 、URL handlers
+ #### V 、URL handlers
 
  
 
@@ -258,15 +258,36 @@ Some apps might use URL handlers to pass sensitive information between processes
 >
 >   * [processCommunicationByRrocketbootstrap](https://zhangkn.github.io/2018/01/Inter-processCommunicationByRrocketbootstrap/)
 >
->   * ### URL handlers
+>   *  URL handlers
 >
 >      
 
- # 
+#### VI 、Binary protection
+
+ Many apps uses extra flags to secure the app binary, like: Data Execution Prevention (`DEP`), `Postion Independent Executable` & `ASLR`.
+It’s good to check for those flags.
+
+> * ASLR 
+>   * [removePIE](https://github.com/zhangkn/removePIE)
+>   * [toggle-pie changes the MH_PIE flag of the MACH-O header on iOS applications to disable ASLR on applications. Works on iOS 8 and 32/64-bit binaries (including FAT binaries).     ](https://github.com/zhangkn/KNtoggle-pie)
+> * [有关iOS安全加固的几种方法，代码混淆，类名方法名混淆等攻防技术](https://github.com/zhangkn/KYSecurityDefense)
 
 
 
+# 2、iOS Security
 
+
+
+```
+   --------        ---------------       ---------       ---------- 
+   | Boot |        | Low level   |       | iBoot |       | Kernel |
+   | rom  |  -->   | Boot loader |  -->  | load  |  -->  | Load   |
+   --------        ---------------       ---------       ----------
+```
+
+ 
+
+ 
 
 # See Also 
 

@@ -311,6 +311,7 @@ subtitle: Alfred is an award-winning app for Mac OS X which boosts your efficien
 >* [Alfred Workflows 收集表格www.alfredworkflow.com](http://www.alfredworkflow.com/)
 >* [Alfred 神器使用手册](https://sspai.com/post/44624)
 >* [alfred3 for mac 破解版](http://www.sdifen.com/alfred3.html)
+>* [优雅的使用Sublime-Text3](http://huluo666.cn/2018/03/29/%E4%BC%98%E9%9B%85%E7%9A%84%E4%BD%BF%E7%94%A8Sublime-Text3/)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost)  
 ```
 /Users/devzkn/bin//knpost alfredapp Alfred is an award-winning app for Mac OS X which boosts your efficiency with hotkeys, keywords, text expansion and more. Search your Mac and the web, and be more productive with custom actions to control your Mac -t Efficiency
