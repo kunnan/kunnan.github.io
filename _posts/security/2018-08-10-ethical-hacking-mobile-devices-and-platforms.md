@@ -528,7 +528,7 @@ drwxr-x--- 18 mobile mobile  918 Aug  2 17:04 Media/
    * example usage: `plutil Info.plist`
 
 
-   
+
 
 - [Class-Dump-Z](https://kowalcj0.github.io/post/2018/ethical-hacking-mobile-devices-and-platforms/cydia.radar.org) -
 - IPA Installer
@@ -536,12 +536,28 @@ drwxr-x--- 18 mobile mobile  918 Aug  2 17:04 Media/
 - IDA Pro
 - [Snoop It](https://www.nesolabs.de/) - used for dynamic analysis of application operation.
 - [hopperapp](htpps://www.hopperapp.com) - handy disassembler
+- [the static analysis of iOS application](https://zhangkn.github.io/2017/01/iOS_Wifilist/)
 
  
 
-#### V、Extracting properties and class headers
+###### Extracting properties and class headers
 
 
+
+> * ipainstaller -c your app.ipa
+>
+>   * ```
+>     replace installed encrypted app with its decrypted ipa counterpart, this is
+>      useful cos we can extract properties list and class headers
+>     ```
+>
+> * clutch
+>
+>   * clutch -i : list all encrypted apps
+>
+>   * clutch -d 8 : decrypt selected app into an ipa file (which essentially is a zip file)
+>
+>     
 
 
 
