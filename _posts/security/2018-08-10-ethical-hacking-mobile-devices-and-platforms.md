@@ -530,6 +530,13 @@ drwxr-x--- 18 mobile mobile  918 Aug  2 17:04 Media/
 
    
 
+- [Class-Dump-Z](https://kowalcj0.github.io/post/2018/ethical-hacking-mobile-devices-and-platforms/cydia.radar.org) -
+- IPA Installer
+- WinSCP - handy when exchanging files between phone and laptop
+- IDA Pro
+- [Snoop It](https://www.nesolabs.de/) - used for dynamic analysis of application operation.
+- [hopperapp](htpps://www.hopperapp.com) - handy disassembler
+
  
 
 #### V、Extracting properties and class headers
