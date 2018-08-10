@@ -246,7 +246,27 @@ iOS stores an unencrypted screen shot of the app when it goes to the background 
 
  
 
+ # V 、URL handlers
+
  
+
+Some apps might use URL handlers to pass sensitive information between processes (they will be listed in `Info.plist` under `URLTypes` section)
+
+
+
+> * pass sensitive information between processes
+>
+>   * [processCommunicationByRrocketbootstrap](https://zhangkn.github.io/2018/01/Inter-processCommunicationByRrocketbootstrap/)
+>
+>   * ### URL handlers
+>
+>      
+
+ # 
+
+
+
+
 
 # See Also 
 
