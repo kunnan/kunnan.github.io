@@ -569,7 +569,11 @@ drwxr-x--- 18 mobile mobile  918 Aug  2 17:04 Media/
 
 # See Also 
 
+>* The OWASP blog has global announcements - [Click Here](http://owasp.blogspot.com/)
+>
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
+>
+>* [*The Open Web Application Security Project, an onlinecommunity, produces freely-available articles, methodologies, documentation, tools, andtechnologies in the field of web application security.*](https://www.owasp.org/index.php/OWASP_Guide_Project)
 >
 ```
 /Users/devzkn/bin//knpost ethical-hacking-mobile-devices-and-platforms Application data storage；Stored Data Protection；Cached and temp data；URL handlers；Binary protection；iOS Security -t security
