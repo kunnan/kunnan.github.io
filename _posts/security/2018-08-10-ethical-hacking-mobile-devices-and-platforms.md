@@ -319,7 +319,81 @@ It’s good to check for those flags.
 
 
 
-###### 1)/var/mobile 
+###### 3.1  /var/Keychains/ 
+
+
+
+> * ls -lrt /var/Keychains/ 
+>
+>   * [**keychain-2.db*** ](https://github.com/zhangkn)
+>
+>     * dumpKeychainEntitlements 
+>
+>       
+>
+>       ```
+>       void dumpKeychainEntitlements() {
+>       	NSLog(@"==============开始打印enttltments.xml这个文件===================>");
+>       	NSString *databasePath = @"/var/Keychains/keychain-2.db";
+>           const char *dbpath = [databasePath UTF8String];
+>           sqlite3 *keychainDB;
+>           sqlite3_stmt *statement;
+>       	NSMutableString *entitlementXML = [NSMutableString stringWithString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+>                                              "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n"
+>                                              "<plist version=\"1.0\">\n"
+>                                              "\t<dict>\n"
+>                                              "\t\t<key>keychain-access-groups</key>\n"
+>                                              "\t\t<array>\n"];
+>       	
+>           if (sqlite3_open(dbpath, &keychainDB) == SQLITE_OK) {
+>               const char *query_stmt = "SELECT DISTINCT agrp FROM genp UNION SELECT DISTINCT agrp FROM inet";
+>       		
+>               if (sqlite3_prepare_v2(keychainDB, query_stmt, -1, &statement, NULL) == SQLITE_OK) {
+>       			while(sqlite3_step(statement) == SQLITE_ROW) {
+>       				NSString *group = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 0)];
+>       				
+>                       [entitlementXML appendFormat:@"\t\t\t<string>%@</string>\n", group];
+>                       [group release];
+>                   }
+>                   sqlite3_finalize(statement);
+>               }
+>               else {
+>                   printToStdOut(@"Unknown error querying keychain database\n");
+>       		}
+>       		[entitlementXML appendString:@"\t\t</array>\n"
+>                "\t</dict>\n"
+>                "</plist>\n"];
+>       		sqlite3_close(keychainDB);
+>       		printToStdOut(@"%@", entitlementXML);
+>       	} else {
+>       		printToStdOut(@"Unknown error opening keychain database\n");
+>       	}
+>       }
+>       
+>       ```
+>
+>       
+>
+>   ```
+>   iPhone:~/Media root# ls -lrt /var/Keychains/
+>   total 4400
+>   -rw------- 1 _securityd wheel       0 Jan  1  1970 caissuercache.sqlite3
+>   -rw------- 1 _securityd wheel   16384 Dec  1  2017 TrustStore.sqlite3
+>   -rw------- 1 _securityd wheel     512 Jul 19 11:57 caissuercache.sqlite3-journal
+>   -rw------- 1 _securityd wheel   49152 Jul 26 10:26 ocspcache.sqlite3
+>   -rwx--x--x 1 _securityd wheel  274432 Aug  6 15:26 keychain-2.db*
+>   -rw------- 1 _securityd wheel   32768 Aug  6 16:34 ocspcache.sqlite3-shm
+>   -rwx--x--x 1 _securityd wheel   32768 Aug  6 16:35 keychain-2.db-shm*
+>   -rwx--x--x 1 _securityd wheel 1895232 Aug 10 14:30 keychain-2.db-wal*
+>   -rw------- 1 _securityd wheel 2195992 Aug 12 04:16 ocspcache.sqlite3-wal
+>   
+>   ```
+>
+>   
+
+####  
+
+###### 3.2)/var/mobile 
 
 ```
 iPhone:/var/mobile root# ls -rlt
@@ -442,7 +516,7 @@ drwxr-x--- 18 mobile mobile  918 Aug  2 17:04 Media/
 
   
 
-  ###### 2)/var/stash 
+  ###### 3.3)/var/stash 
 
 - `/var/stash`
 
