@@ -2,7 +2,7 @@
 layout: post
 title: Find_and_contact_your_target_person
 date: 2018-08-12
-tag: ReadaBookEveryDay
+tag: How_to_be_a_master_of_network_management
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
