@@ -13,7 +13,52 @@ subtitle: List of handy commands that will allow you to find out more about the 
 
 # Local Host Enumeration
 
+
+
+
+
+
+
 #### Basic Linux profiling
+
+###### id 
+
+###### `whoami`
+
+
+
+- `whoami`
+
+  
+
+###### users 
+
+- `users` -> list users logged in on the systems
+
+ 
+
+###### **➜**  **kunnan.github.io.git** **git:(****master)** **✗** cat /etc/passwd   to find out all users registered on the system
+
+```
+nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false
+root:*:0:0:System Administrator:/var/root:/bin/sh
+daemon:*:1:1:System Services:/var/root:/usr/bin/false
+
+```
+
+
+
+###### finger 
+
+```
+➜  kunnan.github.io.git git:(master) finger
+Login    Name                 TTY  Idle  Login  Time   Office  Phone
+devzkn   devzkn              *con   20d  Jul 23 16:15
+devzkn   devzkn               s00   10d  Jul 23 16:16
+
+```
+
+
 
 ##### last
 
@@ -98,6 +143,14 @@ devzkn   s010     -                26Jul18     - w
 >
 >   
 
+###### uname
+
+
+
+**➜**  **kunnan.github.io.git** **git:(****master****)** **✗** uname -a 
+
+Darwin devzkndeMBP.lan 17.2.0 Darwin Kernel Version 17.2.0: Fri Sep 29 18:27:05 PDT 2017; root:xnu-4570.20.62~3/RELEASE_X86_64 x86_64
+
 ######  who -a
 
 - `who -a` system level view of processes
@@ -123,6 +176,46 @@ devzkn   ttys012  Jul 27 16:48   .   	 76665	term=0 exit=0
    .       run-level 3
 
 ```
+
+######  cat /etc/shells 
+
+- `cat /etc/shells` -> list available shells
+
+ ```
+/bin/bash
+/bin/csh
+/bin/ksh
+/bin/sh
+/bin/tcsh
+/bin/zsh
+
+ ```
+
+
+
+###### df
+
+* df -h human friendly disk space summary
+
+  ```
+  Filesystem      Size   Used  Avail Capacity iused               ifree %iused  Mounted on
+  /dev/disk1s1   234Gi  195Gi   33Gi    86% 4506476 9223372036850269331    0%   /
+  devfs          342Ki  342Ki    0Bi   100%    1184                   0  100%   /dev
+  /dev/disk1s4   234Gi  5.0Gi   33Gi    14%       5 9223372036854775802    0%   /private/var/vm
+  map -hosts       0Bi    0Bi    0Bi   100%       0                   0  100%   /net
+  map auto_home    0Bi    0Bi    0Bi   100%       0                   0  100%   /home
+  /dev/disk2s1    81Mi   35Mi   46Mi    44%     122          4294967157    0%   /Volumes/Install DB4S 3.10.1
+  /dev/disk3s2   154Mi  137Mi   16Mi    90%    5271          4294962008    0%   /Volumes/QQ
+  
+  ```
+
+  
+
+* `df -a` -> disk space info
+
+ 
+
+
 
 
 
