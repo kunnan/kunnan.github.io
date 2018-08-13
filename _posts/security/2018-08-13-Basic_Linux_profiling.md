@@ -55,6 +55,48 @@ subtitle: List of handy commands that will allow you to find out more about the 
 >
 >     
 >
+>   * `netstat -nt` -> shows TCP connection in numeric addresses
+>
+>    
+>
+>   * `netstat -lx` -> shows all listening ports
+>
+>    
+>
+>   * `netstat -au `limit to just active UDP connections
+>
+>     
+>     ```
+>     ➜  kunnan.github.io.git git:(master) ✗ netstat -au
+>     Active LOCAL (UNIX) domain sockets
+>     Address          Type   Recv-Q Send-Q            Inode             Conn             Refs          Nextref Addr
+>     896930067373e98f stream      0      0                0 896930067373dc47                0                0 /var/run/mDNSResponder
+>     896930067373dc47 stream      0      0                0 896930067373e98f                0                0
+>     896930067373ddd7 stream      0      0                0 896930067373c59f                0                0 /var/run/mDNSResponder
+>     896930067373c59f stream      0      0                0 896930067373ddd7                0                0
+>     896930067373d21f stream      0      0                0 896930067373d9ef                0                0 /var/run/mDNSResponder
+>     
+>     ```
+>
+>     
+>
+>   * netstat -i show active network interfaces
+>
+>     
+>
+>     ```
+>     ➜  kunnan.github.io.git git:(master) netstat -i 
+>     Name  Mtu   Network       Address            Ipkts Ierrs    Opkts Oerrs  Coll
+>     lo0   16384 <Link#1>                       3883611     0  3883611     0     0
+>     lo0   16384 127           localhost        3883611     -  3883611     -     -
+>     lo0   16384 localhost   ::1                3883611     -  3883611     -     -
+>     lo0   16384 fe80::1%lo0 fe80:1::1          3883611     -  3883611     -     -
+>     gif0* 1280  <Link#2>                             0     0        0     0     0
+>     
+>     ```
+>
+>     
+>
 >   * `netstat -a` -> will include listeners (both ipv4 and ipv6)
 >
 >   * ``netstat -rn`  shows routing info + remote ip address in numeric form
@@ -93,6 +135,8 @@ subtitle: List of handy commands that will allow you to find out more about the 
 >     ```
 >
 >     
+>
+>    
 >
 >    
 >
