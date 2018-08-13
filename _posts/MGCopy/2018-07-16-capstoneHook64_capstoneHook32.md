@@ -112,6 +112,7 @@ else{
 # code
 
 > * [MobileGestaltHooking](https://github.com/kunnan/MobileGestaltHooking/blob/master/Tweak/Makefile)
+> * [修改设备信息ChangeCode.m](https://github.com/zhangkn/knaso/blob/master/ASO/ChangeCode/ChangeCode.m )
 
 # See Also 
 
