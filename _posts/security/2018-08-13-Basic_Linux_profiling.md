@@ -15,11 +15,98 @@ subtitle: List of handy commands that will allow you to find out more about the 
 
 
 
+#### 1、Basic local host/network profiling
+
+> * `ifconfig`
+>
+> * `route`
+>
+> * netstat shows active TCP connections, just like on linux
+>
+>   ```
+>   ➜  kunnan.github.io.git git:(master) ✗ netstat
+>   Active Internet connections
+>   Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)    
+>   tcp4       0      0  devzkndembp.lan.58630  ti-in-f139.1e100.https SYN_SENT   
+>   tcp4       0      0  devzkndembp.lan.58629  ti-in-f139.1e100.https SYN_SENT   
+>   
+>   ```
+>
+>   * **➜**  **kunnan.github.io.git** **git:(****master)** **✗** netstat -s   shows summary statistics, number of active, passive & failed connections etc
+>
+>     
+>
+>     ```
+>     	0 packet sent
+>     		0 data packet (0 byte)
+>     		0 data packet (0 byte) retransmitted
+>     		0 resend initiated by MTU discovery
+>     		0 ack-only packet (0 delayed)
+>     		0 URG only packet
+>     		0 window probe packet
+>     		0 window update packet
+>     		0 control packet
+>     		0 data packet sent after flow control
+>     		0 checksummed in software
+>     			0 segment (0 byte) over IPv4
+>     			0 segment (0 byte) over IPv6
+>     
+>     ```
+>
+>     
+>
+>   * `netstat -a` -> will include listeners (both ipv4 and ipv6)
+>
+>   * ``netstat -rn`  shows routing info + remote ip address in numeric form
+>
+>     
+>     ```
+>     Routing tables
+>     
+>     Internet:
+>     Destination        Gateway            Flags        Refs      Use   Netif Expire
+>     default            192.168.2.1        UGSc           80       12     en0
+>     default            192.168.2.1        UGScI           2        0     en7
+>     127                127.0.0.1          UCS             0        0     lo0
+>     127.0.0.1          127.0.0.1          UH              3  3694808     lo0
+>     169.254            link#6             UCS             2        0     en0
+>     169.254            link#5             UCSI            0        0     en7
+>     169.254.155.207    f4:4d:30:92:9b:8f  UHLSW           0        0     en7
+>     
+>     ```
+>
+>     
+>
+>     
+>
+>   *  `netstat -a -p UDP  `  limit output to UDP listeners
+>
+>     ```
+>     Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)    
+>     udp4       0      0  *.51580                *.*                               
+>     udp6       0      0  *.51925                *.*                               
+>     udp4       0      0  *.51925                *.*                               
+>     udp6       0      0  *.57414                *.*                               
+>     udp4       0      0  *.57414                *.*                               
+>     udp6       0      0  *.51476                *.*                               
+>     
+>     ```
+>
+>     
+>
+>    
+>
+>    
+>
+>    
+
+ 
 
 
 
 
-#### Basic Linux profiling
+
+#### 2、Basic Linux profiling
 
 ###### id 
 
