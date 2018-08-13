@@ -17,6 +17,20 @@ subtitle: 揭秘层与层之间的关系
 >* 复杂的程序都要分层，这是程序设计的要求。
 比如，复杂的电商还会分数`据库层、缓存层、Compose 层、Controller 层和接入层`，每一层专注做本层的事情
 
+## OSI Model
+
+| Layer | Name         | Role                                                 | Protocols         | PDU     | Address |
+| ----- | ------------ | ---------------------------------------------------- | ----------------- | ------- | ------- |
+| 7     | Application  | Initiate contact with the network                    | HTTP, FTP, SMTP   | DATA    |         |
+| 6     | Presentation | Format data , optional compression and encapsulation |                   | Data    |         |
+| 5     | Session      | Initiates, maintains and tear down session           |                   | Data    |         |
+| 4     | Transport    | Transport data                                       | TCP, UDP          | Segment | Port    |
+| 3     | Network      | Addressing and routing                               | IP, ICMP (ARP)    | Packet  | IP      |
+| 2     | Data link    | Frame formation                                      | Ethernet II (ARP) | Frame   | MAC     |
+| 1     | Physical     | Data is transmitter on the media                     |                   | Bits    |         |
+
+ 
+
 # 程序是如何工作的？
 
 ![image](https://wx4.sinaimg.cn/large/006tBeITgy1frmgpgx22fj30zs0zkdke.jpg)
