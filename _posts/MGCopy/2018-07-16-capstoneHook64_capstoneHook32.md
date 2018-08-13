@@ -116,6 +116,7 @@ else{
 
 # See Also 
 
+>* [LibMobileGestalt.dylib](<http://iphonedevwiki.net/index.php/LibMobileGestalt.dylib>)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```

@@ -2,7 +2,9 @@
 layout: post
 title: UUIDString
 date: 2018-07-31
-tag: UUID
+tag: 
+- UUID
+- MGCopy
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
@@ -11,7 +13,10 @@ subtitle: 设备udid的收集
 
 
 
+# 前言
 
+> * 很多设备的udid 都是基于CFUUIDCreate、CFUUIDCreateString 进行创建
+>   * OpenUDID  采用CFUUIDCreate、CFUUIDCreateString 进行创建 
 
 # UUIDString
 
