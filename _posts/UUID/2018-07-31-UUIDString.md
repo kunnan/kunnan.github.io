@@ -15,6 +15,8 @@ subtitle: 设备udid的收集
 
 # 前言
 
+> * 另外，我发现，普通app如果使用sysctlbyname 函数进行设备信息的时候，使用 capstone 进行hook libMobileGestalt的方法，有些属性是失效的。 比如hw.machine，即设备类型iPhone5,2 这个时候，你就要针对app的获取信息对应的方法进行处理 
+>   * `-[UIDevice getSysInfoByName:hw.machine ]  `,[具体的情况请看这里](https://kunnan.github.io/2018/07/31/UUIDString/#uidevice)
 > * 很多设备的udid 都是基于CFUUIDCreate、CFUUIDCreateString 进行创建
 >   * OpenUDID  采用CFUUIDCreate、CFUUIDCreateString 进行创建 
 
@@ -629,7 +631,7 @@ subtitle: 设备udid的收集
 >
 >   
 >
-> * platform ： 目前使用libMobileGestalt.dylib 没用进行修改到，我们可以直接修改uidevice 对应的方法---使用sysctlbyname 函数，就比较不容易hook到。
+> * platform ： 使用capstone 进行hook 动态库libMobileGestalt.dylib，修改设备类型的时候 ，有些属性是失效的。 比如hw.machine，即设备类型iPhone5,2 ；这个时候我们可以直接修改获取信息 对应的方法---------原因：`使用sysctlbyname 函数，就比较不容易hook到。`
 >
 >   
 >
