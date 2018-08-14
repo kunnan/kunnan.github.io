@@ -25,7 +25,7 @@ subtitle: Common hook methods in iOS
 >
 >   * [substitute:A free runtime modification library.](https://github.com/coolstar/substitute)
 >
->   * cydia substrate
+>   * cydia substrate: `通过inline hook的方式修改目标函数内存中的汇编指令，使其调转到自己的代码块，以达到修改程序的目的，同时支持method swizzle`
 >
 >     * ios11 使用Electra 越狱之后，存放dylib的path: `/usr/lib/TweakInject`
 >
