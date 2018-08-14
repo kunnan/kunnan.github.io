@@ -17,7 +17,7 @@ subtitle: Common hook methods in iOS
 >
 >   * 利用[运行时AP](https://kunnan.github.io/tags/#Runtime)I ，Method Swizzling ：  通过修改oc 函数的IMP达到替换方法实现的目的
 >
->   * fishhook： 
+>   * fishhook： 通过修改内存中懒加载和非懒加载符号表指针所指向的地址来达到修改方法的目的，作用于主模块懒加载和非懒加载表的符号，在越狱和非越狱环境都可以使用。
 >
 >   * [substitute:A free runtime modification library.](https://github.com/coolstar/substitute)
 >
