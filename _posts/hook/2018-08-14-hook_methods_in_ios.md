@@ -19,6 +19,8 @@ subtitle: Common hook methods in iOS
 >
 >   * [fishhook：A library that enables dynamically rebinding symbols in Mach-O binaries running on iOS.](https://github.com/facebook/fishhook) 通过修改内存中懒加载和非懒加载符号表指针所指向的地址来达到修改方法的目的，作用于主模块懒加载和非懒加载表的符号，在越狱和非越狱环境都可以使用。
 >
+>      * facebook 开源的一个非常小的重新绑定动态符号的库
+>
 >      * How it works
 >
 >         ![image](https://wx3.sinaimg.cn/large/af39b376gy1fu976jnsf3j20jo0pc76u.jpg)
@@ -26,6 +28,14 @@ subtitle: Common hook methods in iOS
 >   * [substitute:A free runtime modification library.](https://github.com/coolstar/substitute)
 >
 >   * cydia substrate: `通过inline hook的方式修改目标函数内存中的汇编指令，使其调转到自己的代码块，以达到修改程序的目的，同时支持method swizzle`
+>
+>     * ` __attribute__((constructor)) `
+>
+>       ```
+>       static __attribute__((constructor)) void myinit() 
+>       ```
+>
+>       
 >
 >     * ios11 使用Electra 越狱之后，存放dylib的path: `/usr/lib/TweakInject`
 >
@@ -70,8 +80,75 @@ subtitle: Common hook methods in iOS
 >
 > 
 
+
+
+
+
+# I、[MethodSwizzling](https://github.com/hooktweaks/iOSREBook/blob/master/chapter-6/6.4-Hook/MethodSwizzling/MethodSwizzling/HookManager.m) 
+
+
+
+# II、[fishhook](https://github.com/hooktweaks/iOSREBook/tree/master/chapter-6/6.4-Hook/FishHook/FishHook/fishhook)
+
+
+
+# III、[cydiasubstrate](https://github.com/hooktweaks/iOSREBook/blob/master/chapter-6/6.4-Hook/cydiasubstrate/Tweak.xm)
+
+cydiasubstrate 提供了针对oc的runtime hook和针对c c++函数的inline hook 
+
+#### 3.1 inline hook
+
+
+
+```
+#include <substrate.h>
+#include <objc/runtime.h>
+
+@class ViewController;
+
+static void (*originMethodImp)(ViewController*, SEL, id);
+
+static void newMethodImp(ViewController* self, SEL _cmd, id sender) { 
+	NSLog(@"-[<ViewController: %p> Hook clickMe:%@]", self, sender); 
+	originMethodImp(self, _cmd, sender); 
+}
+
+int (*oldopen)(const char *, int, ...);
+
+int newopen(const char *path, int oflag, ...) {
+    va_list ap = {0};
+    mode_t mode = 0;
+    
+    if ((oflag & O_CREAT) != 0) {
+        va_start(ap, oflag);
+        mode = va_arg(ap, int);
+        va_end(ap);
+        printf("MSHookFunction | Calling real open('%s', %d, %d)\n", path, oflag, mode);
+        return oldopen(path, oflag, mode);
+    } else {
+        printf("MSHookFunction | Calling real open('%s', %d)\n", path, oflag);
+        return oldopen(path, oflag, mode);
+    }
+}
+
+static __attribute__((constructor)) void myinit() {
+
+    Class targetClass = objc_getClass("ViewController");
+    
+	MSHookMessageEx(targetClass,@selector(clickMe:),(IMP)&newMethodImp,(IMP*)&originMethodImp);
+
+	MSHookFunction(open, newopen, &oldopen);
+
+}
+
+```
+
+
+
 # See Also 
 
+>* [cydiarepo](https://github.com/zhangkn/cydiarepo)
+>* [MonkeyDev-Xcode-Templates](https://github.com/zhangkn/MonkeyDev-Xcode-Templates)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
