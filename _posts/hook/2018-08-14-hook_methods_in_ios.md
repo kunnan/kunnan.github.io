@@ -206,6 +206,64 @@ swift 提供了 swift-demangle  对符号表进行解析
 >
 >   
 
+#### 4.3 针对name mangling  这种情况，我们直接对该方法所在的地址使用MSHookFunction进行hook
+
+先获取符号地址，然后直接hook
+
+> * 1) 获取符号地址,hook 没有参数的函数
+>
+>   ```
+>   static void (*orig_ViewController_randomFunction)(void) = NULL;
+>   
+>   void hook_ViewController_randomFunction() {
+>      orig_ViewController_randomFunction();
+>      NSLog(@"Hooked random function");
+>   }
+>   
+>   %ctor {
+>       %init(ViewController = objc_getClass("HookExampleApp.ViewController"));
+>       MSHookFunction(MSFindSymbol(NULL, "__T014HookExampleApp14ViewControllerC14randomFunctionyyF"),
+>                      (void*)hook_ViewController_randomFunction,
+>                      (void**)&orig_ViewController_randomFunction);
+>   }
+>   
+>   ```
+>
+>   
+>
+>   
+
+
+
+> * [有参数的例子： swift方法的参数和oc中的方法不一样，self作为最后一个参数传递，并没有selector。](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-6/6.4-Hook/HookSwift/Tweak.xm)
+>
+>   ```
+>   #include <substrate.h>
+>   #include <objc/runtime.h>
+>   
+>   static int (*origin_custom_method)(int,id) = NULL;
+>   
+>   int new_custom_method(int number, id _self)
+>   {
+>   	NSLog(@"Hooked!!!");
+>   	number = 20;
+>       return origin_custom_method(number, _self);   
+>   }
+>   
+>   __attribute__((constructor))
+>   int main(void){
+>   	NSLog(@"Load!!!");
+>       MSHookFunction(MSFindSymbol(NULL,"__T09SwiftDemo14ViewControllerC12CustomMethodS2i6number_tF"),
+>            (void*)new_custom_method,
+>            (void**)&origin_custom_method);
+>      
+>      return 0;
+>   }
+>   
+>   ```
+>
+>   
+
 
 
 # See Also 
