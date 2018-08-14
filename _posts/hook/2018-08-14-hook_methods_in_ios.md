@@ -15,6 +15,10 @@ subtitle: Common hook methods in iOS
 
 > * iOS    中常见的hook方式
 >
+>   * [hooking-swift-methods](https://kunnan.github.io/2018/06/06/hooking-swift-methods/)
+>
+>   * [Hooking & Executing Code with dlopen & dlsym ---Easy mode:hooking C methods](https://github.com/zhangkn/hookingCmethods)
+>
 >   * 利用[运行时AP](https://kunnan.github.io/tags/#Runtime)I ，Method Swizzling ：  通过修改oc 函数的IMP达到替换方法实现的目的
 >
 >   * [fishhook：A library that enables dynamically rebinding symbols in Mach-O binaries running on iOS.](https://github.com/facebook/fishhook) 通过修改内存中懒加载和非懒加载符号表指针所指向的地址来达到修改方法的目的，作用于主模块懒加载和非懒加载表的符号，在越狱和非越狱环境都可以使用。
@@ -98,7 +102,7 @@ cydiasubstrate 提供了针对oc的runtime hook和针对c c++函数的inline hoo
 
 #### 3.1 inline hook
 
-
+> * 对open 函数进行了inline hook 
 
 ```
 #include <substrate.h>
@@ -142,6 +146,14 @@ static __attribute__((constructor)) void myinit() {
 }
 
 ```
+
+
+
+# IV 、 [swifthook](https://github.com/hooktweaks/iOSREBook/blob/master/chapter-6/6.4-Hook/HookSwift/Tweak.xm) : 使用MSHookFunction、MSFindSymbol
+
+> * [hooking-swift-methods](https://kunnan.github.io/2018/06/06/hooking-swift-methods/)
+
+swift和c++类似，在编译期间就会确定调用方法的地址，而不需要通过oc  的runtime进行动态查找，所以效率自然提高了很多。
 
 
 
