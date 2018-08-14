@@ -153,7 +153,58 @@ static __attribute__((constructor)) void myinit() {
 
 > * [hooking-swift-methods](https://kunnan.github.io/2018/06/06/hooking-swift-methods/)
 
-swift和c++类似，在编译期间就会确定调用方法的地址，而不需要通过oc  的runtime进行动态查找，所以效率自然提高了很多。
+swift和c++类似，在编译期间就会确定调用方法的地址，而不需要通过oc  的runtime进行动态查找，所以效率自然提高了很多。同时swift还兼容了oc的动态特性。
+
+> * [class-dump srouce](https://github.com/iOSHacking/class-dump)
+>   * [class-dump Executable File ](https://github.com/AloneMonkey/MonkeyDev/blob/master/bin/class-dump)
+
+#### 4.1 swift 的name mangling(名字重整)
+
+> * name mangling 是为了解决程序实体的名字必须唯一的问题而将函数类型、函数名称、参数类型、返回类型编码到名字中的一种方法，用于从编译器中向链接器传递更多的语义信息。
+>
+>   * 使用nm 命令读取可执行文件的符号表
+>
+>     * __T014HookExampleApp14ViewControllerC14randomFunctionyyF
+>
+>       ```
+>       nm <AppName>
+>       ..
+>       T __T014HookExampleApp14ViewControllerC14randomFunctionyyF
+>       ..
+>       nm <AppName> | xcrun swift-demangle
+>       ..
+>       T _HookExampleApp.ViewController.randomFunction() -> ()
+>       ..
+>       
+>       ```
+>
+>       
+
+
+
+#### 4.2 swift-demangle
+
+swift 提供了 swift-demangle  对符号表进行解析
+
+
+
+> * swift-demangle
+>
+>   * `xcrun swift-detangle -expand`
+>
+>   ```
+>   nm <AppName>
+>   ..
+>   T __T014HookExampleApp14ViewControllerC14randomFunctionyyF
+>   ..
+>   nm <AppName> | xcrun swift-demangle
+>   ..
+>   T _HookExampleApp.ViewController.randomFunction() -> ()
+>   ..
+>   
+>   ```
+>
+>   
 
 
 
