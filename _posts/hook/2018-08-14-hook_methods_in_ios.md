@@ -19,9 +19,24 @@ subtitle: Common hook methods in iOS
 >
 >   * fishhook： 
 >
+>   * [substitute:A free runtime modification library.](https://github.com/coolstar/substitute)
+>
 >   * cydia substrate
 >
 >     * ios11 使用Electra 越狱之后，存放dylib的path: `/usr/lib/TweakInject`
+>
+>       
+>
+>       * [docs/getting-started.md](https://github.com/coolstar/electra/blob/master/docs/getting-started.md)
+>
+>         * Substitute is used as the hooking framework instead of substrate
+>           
+>
+>       * [Electra](Electra iOS 11.0 - 11.1.2 jailbreak toolkit based on async_awake)
+>
+>       * [electra1131](https://github.com/coolstar/electra1131)
+>
+>       * [electra-ipas](https://github.com/coolstar/electra-ipas)
 >
 >       * Framework 存放的path
 >
@@ -32,19 +47,22 @@ subtitle: Common hook methods in iOS
 >
 >         
 >
->       *  干脆给他建立个软连接算了       ` /bin/ln -s   /usr/lib/TweakInject /Library/MobileSubstrate/DynamicLibraries `
+>       * 干脆给他建立个软连接算了       ` /bin/ln -s   /usr/lib/TweakInject /Library/MobileSubstrate/DynamicLibraries `
 >
->         *  先备份` cp -r /Library/MobileSubstrate/DynamicLibraries ~/`，再删除，再创建ln
+>         * 先备份` cp -r /Library/MobileSubstrate/DynamicLibraries ~/`，再删除，再创建ln
 >
 >           ```
 >                # rm -rf /Library/MobileSubstrate/DynamicLibraries
 >           ```
 >
->           
 >
+>       ​    
+>     
 >     * `/Library/MobileSubstrate/DynamicLibraries/`
 >
 >   
+>
+> 
 
 # See Also 
 
