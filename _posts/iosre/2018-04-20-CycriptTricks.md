@@ -94,6 +94,10 @@ subtitle: Powerful_private_methods
 >       ![image](https://ws1.sinaimg.cn/large/af39b376gy1fuagvw4fajj20od0ecjsj.jpg)
 >
 >   * 善用lldb、cy 动态调试;[hookClass_knhook_hookClassLog](https://kunnan.github.io/2018/06/06/hookClass_knhook_hookClassLog/)打印类的执行方法,以及结合[class-dump](https://kunnan.github.io/2018/07/01/class-dump/)、[Keychain-Dumper](https://kunnan.github.io/2018/05/30/Keychain-Dumper/) 等静态分析工具
+>
+>     * 对单个类的所有方法进行下断点
+>       * `br set -r '\[classname .*\]'`
+>
 >     
 
 
