@@ -13,6 +13,44 @@ subtitle: Powerful_private_methods
 
 # [前言](http://iphonedevwiki.net/index.php/Cycript)
 
+#### 分析一个程序功能的实现手段
+
+> 
+>
+>  
+>
+> * I、界面没有明显事件的，可以获取当前的控制器进行跟踪
+>
+>   * 使用cy、lldb 分析应用：查看界面、查找关键函数、验证代码执行效果
+>     * [CycriptUsefulCommand](https://kunnan.github.io/2018/06/23/CycriptUsefulCommand/)
+>
+> * II、 有按钮点击事件的界面，可以寻找对应的action
+>
+>   * 利用lldb 的第三方脚本执行`pactions`
+>
+>     * [Chisel is a collection of LLDB commands to assist debugging iOS apps.](https://github.com/zhangkn/chisel)
+>
+>       ```
+>       brew update
+>       brew install chisel
+>       ```
+>
+>       ```
+>       Add the following line to ~/.lldbinit to load chisel when Xcode launches:
+>         command script import /usr/local/opt/chisel/libexec/fblldb.py
+>       ```
+>
+>     * [A collection of LLDB aliases/regexes and Python scripts to aid in your debugging sessions](https://github.com/DerekSelander/LLDB)
+>
+>       ```
+>       ➜  lldb git clone git@github.com:DerekSelander/LLDB.git
+>       Add the following command to your ~/.lldbinit file: command script import /path/to/lldb_commands/dslldb.py
+>       ```
+>
+>   * [UIButton_sendActionsForControlEvents](https://kunnan.github.io/2018/06/08/UIButton_sendActionsForControlEvents/)
+
+#### usage
+
 ```
 usage: cycript [-c] [-p <pid|name>] [-r <host:port>] [<script> [<arg>...]]
 ```
