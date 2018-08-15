@@ -106,7 +106,7 @@ subtitle: Powerful_private_methods
 >
 >       ![image](https://ws1.sinaimg.cn/large/af39b376gy1fuagvw4fajj20od0ecjsj.jpg)
 >
->   * 善用lldb、cy 动态调试;[hookClass_knhook_hookClassLog](https://kunnan.github.io/2018/06/06/hookClass_knhook_hookClassLog/)打印类的执行方法,以及结合[class-dump](https://kunnan.github.io/2018/07/01/class-dump/)、[Keychain-Dumper](https://kunnan.github.io/2018/05/30/Keychain-Dumper/) 等静态分析工具
+>   * 善用lldb、cy 动态调试;[hookClass_knhook_hookClassLog](https://kunnan.github.io/2018/06/06/hookClass_knhook_hookClassLog/)打印类的执行方法,以及结合[class-dump](https://kunnan.github.io/2018/07/01/class-dump/)、[Keychain-Dumper](https://kunnan.github.io/2018/05/30/Keychain-Dumper/) 、[MachOExplorer](https://github.com/zhangkn/MachOExplorer)等静态分析工具
 >
 >     * 对单个类的所有方法进行下断点
 >       * `br set -r '\[classname .*\]'`
@@ -359,6 +359,8 @@ devzkndeMacBook-Pro:Versions devzkn$  cp -a  /usr/local/Cellar/ruby@2.0/2.0.0-p6
 
 > * [recode](https://github.com/kunnan/recode)
 >
+> * [A dynamic library tweak for WeChat macOS - 首款微信 macOS 客户端撤回拦截与多开](https://github.com/Sunnyyoung/WeChatTweak-macOS)
+>
 > * [在任意页面, 当接收到异步消息, 通知当前页面弹出一个按钮提示, 点击按钮 push 对应聊天页面, pop 可返回原来的页面.](https://sherlockz.github.io/2017/10/22/ios-hook/)
 >
 >   * [code](https://github.com/sherlockZ/LKMessageSwitchPod)
@@ -366,6 +368,35 @@ devzkndeMacBook-Pro:Versions devzkn$  cp -a  /usr/local/Cellar/ruby@2.0/2.0.0-p6
 >   
 
 
+
+#### [深入iOS底层系列](https://www.jianshu.com/nb/21164557)
+
+
+
+#### md
+
+> * [markdown-img-upload](https://github.com/githubPagesio/markdown-img-upload)
+>
+> * [iOS Markdown 转换及预览](https://www.eyrefree.org/post/EFMarkdown/)
+>
+>   
+
+
+
+#### githubPagesio
+
+> * [eyrefree.github.io](https://github.com/githubPagesio/eyrefree.github.io)
+> * [https://feicong.github.io](https://feicong.github.io/)
+> * [https://everettjf.github.io](https://everettjf.github.io/)
+
+
+
+#### GitHub 
+
+> * [《iOS应用逆向与安全》随书源码](https://github.com/AloneMonkey/iOSREBook)
+> * [macOS软件安全与逆向分析》随书源码 ](https://github.com/feicong/macbook)
+> * [Lua程序逆向分析 ](https://github.com/feicong/lua_re/blob/master/lua/lua_re.md)
+> * [MachOExplorer](https://github.com/everettjf/MachOExplorer)
 
 #### other
 
