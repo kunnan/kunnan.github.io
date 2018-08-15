@@ -50,6 +50,9 @@ subtitle: 动态库： 静态库、动态库的区别，编译和注入；导出
 >
 >     * optool
 >     * insert_dylib
+>     *  如果需要修改`LC_ID_DYLIDB、`、`LC_LOAD_DYLIB`,可以使用`install_name_tool`
+>       * `install_name_toll -id xxx imputfile`
+>       * `install_name_toll -change old new imputfile`
 >
 >   * 通过`cydia substrate`提高的注入，配置plist文件，并将对应的plist、dylib文件放入指定目录（ /Layout/Library/MobileSubstrate/DynamicLibraries/、/usr/lib/TweakInject）；其实也是通过`DYLD_INSERT_LIBRARIES`将自己注入，然后遍历`DynamicLibraries`目录下的plist文件，再将符合规则的动态库通过`dlopen`打开
 >
