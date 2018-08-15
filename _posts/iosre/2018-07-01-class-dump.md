@@ -17,6 +17,24 @@ subtitle: Generate Objective-C headers from Mach-O files
 
 
 
+# usage
+
+
+
+> 
+>
+> - [可以dump混编的](https://github.com/AloneMonkey/MonkeyDev/tree/master/bin)
+>
+>   * `class-dump  --arch arm64  AppStore -H -o -A ./header`
+>     * 加上-A可以显示方法在文件中的实现地址
+>   * `[class-dump](https://github.com/AloneMonkey/MonkeyDev/blob/master/bin/class-dump)` 
+>
+>   ```
+>   devzkndeMBP:bin devzkn$ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/AppStoreV10.2/Payload/AppStore.app/AppStore -H -o  /Users/devzkn/decrypted/AppStoreV10.2/head
+>   ```
+
+ 
+
 
 
 # See Also 
