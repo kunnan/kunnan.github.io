@@ -19,16 +19,39 @@ subtitle: Powerful_private_methods
 >
 >  
 >
-> * 0、测试第一响应者是哪个控件
+> * 0、从系统API、特有的界面结构（数据源、代理机制）入手分析
 >
->   * b `canPerformAction :withSender:`
+>   
 >
->     ```
->     - (BOOL)canPerformAction:(SEL)action withSender:(nullable id)sender NS_AVAILABLE_IOS(3_0);
->     // Allows an action to be forwarded to another target. By default checks -canPerformAction:withSender: to either return self, or go up the responder chain.
->     ```
+>   * uitableview 的delegate、datasource
 >
->     
+>   * 测试第一响应者是哪个控件： b `canPerformAction :withSender:`
+>
+>     * 判断action，进行处理
+>
+>     * [例子](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-7/7.1%20%E8%B6%8A%E7%8B%B1%E9%80%86%E5%90%91/WhatsAppTweak/WhatsAppTweak/WhatsAppTweak.xm)
+>
+>       ```
+>       -(BOOL)canPerformAction:(SEL) action withSender:(id) sender{
+>           if(action == @selector(message_collect:)){
+>               return YES;
+>           }else{
+>               return %orig;
+>           }
+>       }
+>       
+>       ```
+>
+>       
+>
+>     ![image](https://ws1.sinaimg.cn/large/af39b376gy1fuaft9t4vvj21600k0q6x.jpg)
+>
+>   ```
+>   - (BOOL)canPerformAction:(SEL)action withSender:(nullable id)sender NS_AVAILABLE_IOS(3_0);
+>   // Allows an action to be forwarded to another target. By default checks -canPerformAction:withSender: to either return self, or go up the responder chain.
+>   ```
+>
+>   
 >
 > * I、界面没有明显事件的，可以获取当前的控制器进行跟踪
 >
