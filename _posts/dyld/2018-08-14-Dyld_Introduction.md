@@ -44,19 +44,42 @@ subtitle: 动态库： 静态库、动态库的区别，编译和注入；导出
 >   * `xcrun --sdk iphoneos clang++ dynamiclib -arch arm64  -framework Foundation Person.mm -o  target.dylib  -fvisibility=hidden` 
 >   * [Makefile: `$(CC) -dynamiclib -arch $(ARCH) $(FRAMEWORK) $(SOURCE) -o $(TARGET) $(VERSION)`](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-6/6.5-%E5%8A%A8%E6%80%81%E5%BA%93/OC%20dylib/Makefile)
 >
-> * 动态库注入放入几种方式
+> * [动态库注入放入几种方式](https://kunnan.github.io/2018/04/20/CycriptTricks/#%E5%8A%A8%E6%80%81%E5%BA%93%E7%9A%84%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F)
 >
->   * 通过增加load command 的`LC_LOAD_DYLIB`或者`LC_LOAD_WEAK_DYLIB`,指定动态库的路径来实现注入
+>   * I 、`cycript注入动态库的方式`
+>
+>     ```
+>     在挂载的进程上创建一个挂起的线程, 然后在这个线程里申请一片用于加载动态库的内存,然后恢复线程,动态库就被注入(通过 taskfor_pid函数获取目标进程句柄，然后通过在进程内创建新线程并执行自己的代码。)
+>     
+>     ```
+>
+>   * II `通过增加load command 的`LC_LOAD_DYLIB`或者`LC_LOAD_WEAK_DYLIB`,指定动态库的路径来实现注入`
 >
 >     * optool
+>
 >     * insert_dylib
+>
+>       * [insert_dylib:# Command line utility for inserting a dylib load command into a Mach-O binary](https://github.com/Tyilo/insert_dylib)
+>
+>       * ```
+>         #通过修改可执行文件的Load Commands来实现的. 在Load Commands中增加一个LC_LOAD_DYLIB , 写入dylib路径
+>         Usage: insert_dylib dylib_path binary_path [new_binary_path]
+>         
+>         1、现在iOS上的绝大多数以root权限运行的App，都是通过setuid + bash来实现的
+>         2、App运行所需要的信息，一般都存放在其MachO头部43中，其中dylib的信息是由load commands指定的
+>         这些信息是以静态的方式存放在二进制文件里（不是由DYLD_INSERT_LIBRARIES动态指定），而又是由dyld动态加载的，所以我们给它起了个“偏静态”的名字--在此App得到执行时，dyld会查看其MachO头部中的load commands，并把里面LC_LOAD_DYLIB相关的dylib给加载到进程的内存空间
+>         ```
+>
+>          
+>
 >     *  如果需要修改`LC_ID_DYLIDB、`、`LC_LOAD_DYLIB`,可以使用`install_name_tool`
+>
 >       * `install_name_toll -id xxx imputfile`
 >       * `install_name_toll -change old new imputfile`
 >
 >   * 通过`cydia substrate`提高的注入，配置plist文件，并将对应的plist、dylib文件放入指定目录（ /Layout/Library/MobileSubstrate/DynamicLibraries/、/usr/lib/TweakInject）；其实也是通过`DYLD_INSERT_LIBRARIES`将自己注入，然后遍历`DynamicLibraries`目录下的plist文件，再将符合规则的动态库通过`dlopen`打开
 >
->   * 通过设置环境变量`DYLD_INSERT_LIBRARIES`指定要注入的动态库path
+>   * `III 、通过设置环境变量`DYLD_INSERT_LIBRARIES`指定要注入的动态库path`
 >
 >     * 利用环境变量 DYLD_INSERT_LIBRARY 来添加动态库dumpdecrypted.dylib
 >
