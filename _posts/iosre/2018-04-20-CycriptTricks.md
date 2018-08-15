@@ -83,6 +83,8 @@ subtitle: Powerful_private_methods
 >
 >   * [UIButton_sendActionsForControlEvents](https://kunnan.github.io/2018/06/08/UIButton_sendActionsForControlEvents/)
 
+#### 小结
+
 > *  分析小结
 >
 >   * [利用MonkeyDev-Xcode-Templates 模板中的一些tool 进行分析](https://github.com/kunnan/MonkeyDev-Xcode-Templates)
@@ -91,7 +93,7 @@ subtitle: Powerful_private_methods
 >
 >       *   方法跟踪的使用例子
 >
->         * * 不修改plist 直接动态添加(在lldb、cy 进行执行MDMethodTrace)
+>         * * 不修改plist 直接动态添加(在lldb、cy 进行执行MDMethodTrace);---如果发现Xcode的console 没有log,而console.app 有log,可以尝试使用printf来替换nslog 进行输出
 >
 >           ```
 >           po [MDMethodTrace addClassTrace:@"classname"]
@@ -113,7 +115,7 @@ subtitle: Powerful_private_methods
 
 
 
-#### usage
+#### cycript usage
 
 ```
 usage: cycript [-c] [-p <pid|name>] [-r <host:port>] [<script> [<arg>...]]
