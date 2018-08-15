@@ -12,7 +12,7 @@ subtitle: hookClassLog 打印类的执行方法
 
 # [knhook](https://github.com/zhangkn/hookClass/blob/master/hookClass/KNHookClass/KNHook.h)
 
-
+> * [code:hookClassLog 打印类的执行方法](https://github.com/zhangkn/hookClass)
 
 #### I、 `tweak+ knhook ` 进行跟踪 
 
@@ -85,6 +85,7 @@ __attribute__((constructor)) static void before1(){
 
 # See Also 
 
+>* [ANYMethodLog.m](https://github.com/AloneMonkey/MonkeyDev-Xcode-Templates/blob/f844b149417c299f6b443d86407a3723d2036a19/MonkeyAppLibrary.xctemplate/Config/ANYMethodLog.m)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
