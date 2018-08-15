@@ -388,15 +388,38 @@ devzkndeMacBook-Pro:Versions devzkn$  cp -a  /usr/local/Cellar/ruby@2.0/2.0.0-p6
 > * [eyrefree.github.io](https://github.com/githubPagesio/eyrefree.github.io)
 > * [https://feicong.github.io](https://feicong.github.io/)
 > * [https://everettjf.github.io](https://everettjf.github.io/)
+> * https://github.com/Naville/Naville.github.io
 
 
 
 #### GitHub 
 
 > * [《iOS应用逆向与安全》随书源码](https://github.com/AloneMonkey/iOSREBook)
+> * [《自己动手构造编译系统：编译、汇编与链接》随书源码](https://github.com/fanzhidongyzby/cit)
 > * [macOS软件安全与逆向分析》随书源码 ](https://github.com/feicong/macbook)
 > * [Lua程序逆向分析 ](https://github.com/feicong/lua_re/blob/master/lua/lua_re.md)
 > * [MachOExplorer](https://github.com/everettjf/MachOExplorer)
+> * [LLVM Obfuscator <https://keybase.io/team/hikari> ](https://github.com/HikariObfuscator/Hikari)
+> * [Electra for iOS 11.0 - 11.3.1](https://github.com/coolstar/electra1131)
+
+
+
+#### GitHub user
+
+> * [Naville](https://github.com/Naville)
+> * [coolstar](https://github.com/coolstar/electra1131)
+> * 
+
+#### 工具
+
+> * [ssh快速登录工具 ](https://github.com/fanzhidongyzby/fastlogin)
+
+
+
+# site
+
+> * [http://iosre.com/](http://iosre.com/)
+> * 
 
 #### other
 
