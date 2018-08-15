@@ -19,6 +19,17 @@ subtitle: Powerful_private_methods
 >
 >  
 >
+> * 0、测试第一响应者是哪个控件
+>
+>   * b `canPerformAction :withSender:`
+>
+>     ```
+>     - (BOOL)canPerformAction:(SEL)action withSender:(nullable id)sender NS_AVAILABLE_IOS(3_0);
+>     // Allows an action to be forwarded to another target. By default checks -canPerformAction:withSender: to either return self, or go up the responder chain.
+>     ```
+>
+>     
+>
 > * I、界面没有明显事件的，可以获取当前的控制器进行跟踪
 >
 >   * 使用cy、lldb 分析应用：查看界面、查找关键函数、验证代码执行效果
