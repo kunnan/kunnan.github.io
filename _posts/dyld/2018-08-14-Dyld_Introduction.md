@@ -39,10 +39,33 @@ subtitle: 动态库： 静态库、动态库的区别，编译和注入；导出
 
 
 
-> * 
+> * 动态库注入放入几种方式
+>
+>   * 通过增加load command 的`LC_LOAD_DYLIB`或者`LC_LOAD_WEAK_DYLIB`,指定动态库的路径来实现注入
+>
+>     * optool
+>     * insert_dylib
+>
+>   * 通过`cydia substrate`提高的注入，配置plist文件，并将对应的plist、dylib文件放入指定目录（ /Layout/Library/MobileSubstrate/DynamicLibraries/、/usr/lib/TweakInject）；其实也是通过`DYLD_INSERT_LIBRARIES`将自己注入，然后遍历`DynamicLibraries`目录下的plist文件，再将符合规则的动态库通过`dlopen`打开
+>
+>   * 通过设置环境变量`DYLD_INSERT_LIBRARIES`指定要注入的动态库path
+>
+>     * 利用环境变量 DYLD_INSERT_LIBRARY 来添加动态库dumpdecrypted.dylib
+>
+>       ```
+>       DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/01ECB9D1-858D-4BC6-90CE-922942460859/KNWeChat.app/KNWeChat
+>       
+>       ```
+>
+>       
+
+#    导出和隐藏符号
+
+
 
 # See Also 
 
+>* [dumpdecrypted](https://zhangkn.github.io/2017/12/dumpdecrypted/)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
