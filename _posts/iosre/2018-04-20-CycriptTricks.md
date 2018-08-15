@@ -89,6 +89,17 @@ subtitle: Powerful_private_methods
 >
 >     * [MonkeyAppLibrary.xctemplate](https://github.com/kunnan/MonkeyDev-Xcode-Templates/tree/master/MonkeyAppLibrary.xctemplate)
 >
+>       *   方法跟踪的使用例子
+>
+>         * * 不修改plist 直接动态添加(在lldb、cy 进行执行MDMethodTrace)
+>
+>           ```
+>           po [MDMethodTrace addClassTrace:@"classname"]
+>           e [MDMethodTrace addClassTrace:@"classname"]
+>           ```
+>
+>           
+>
 >     * 设置环境变量`MallocStackLogging`=1,以便查看malloc的堆栈
 >
 >       ![image](https://ws1.sinaimg.cn/large/af39b376gy1fuagvw4fajj20od0ecjsj.jpg)
