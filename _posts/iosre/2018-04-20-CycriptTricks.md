@@ -352,7 +352,25 @@ devzkndeMacBook-Pro:Versions devzkn$  cp -a  /usr/local/Cellar/ruby@2.0/2.0.0-p6
 ```
 
 
-# 参考
+# see also
+
+
+#### wx
+
+> * [recode](https://github.com/kunnan/recode)
+>
+> * [在任意页面, 当接收到异步消息, 通知当前页面弹出一个按钮提示, 点击按钮 push 对应聊天页面, pop 可返回原来的页面.](https://sherlockz.github.io/2017/10/22/ios-hook/)
+>
+>   * [code](https://github.com/sherlockZ/LKMessageSwitchPod)
+>
+>   
+
+
+
+#### other
+
+
+
 - [CycriptTricks](http://iphonedevwiki.net/index.php/Cycript_Tricks)
 - [debs](http://www.cycript.org/debs/?C=M;O=D)
 - [iOS Reverse Engineering Dev Community](https://github.com/iOS-Reverse-Engineering-Dev)
@@ -362,7 +380,6 @@ devzkndeMacBook-Pro:Versions devzkn$  cp -a  /usr/local/Cellar/ruby@2.0/2.0.0-p6
 - [JiaXianhua blog](https://jiaxianhua.github.io/)
 - [weak_classdump](https://github.com/limneos/weak_classdump)
 - [Powerful private methods for debugging in Cycript & LLDB](http://iosre.com/t/powerful-private-methods-for-debugging-in-cycript-lldb/3414)
-
 - [颤抖吧，■■■■■■■■！手把手教你hook以root权限运行的App](http://iosre.com/t/igrimace-hook-root-app/440)
 ```
 现在iOS上的绝大多数以root权限运行的App，都是通过setuid + bash来实现的
