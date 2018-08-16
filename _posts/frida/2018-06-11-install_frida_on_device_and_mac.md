@@ -77,7 +77,7 @@ subtitle: Frida的安装
 
 
 
-- [具体的操作步骤](https://zhangkn.github.io/2017/12/dumpdecrypted/)
+- 2.2.1[具体的操作步骤](https://zhangkn.github.io/2017/12/dumpdecrypted/)
 
   - 找到app二进制文件对应的目录
 
@@ -109,7 +109,7 @@ subtitle: Frida的安装
 
     
 
-- dumpdecrypted的原理：通过向宏 DYLD_INSERT_LIBRARIES 里写入动态库的完整路径，就可以在可执行文件加载的时候，将动态链接库插入。
+- 2.2.2 dumpdecrypted的原理：通过向宏 DYLD_INSERT_LIBRARIES 里写入动态库的完整路径，就可以在可执行文件加载的时候，将动态链接库插入。
 
   - 
 
@@ -135,24 +135,11 @@ subtitle: Frida的安装
 
       
 
->
-
->             
-
->
->​           
 
 
->
->
->​         
->
->​       
->
->​       
->
->​        
->
+###### 2.3 其他比较成熟的开源工具
+
+
 >   * 3、[比较成熟的工具`pip3 install objection`:  objection - runtime mobile exploration](https://github.com/sensepost/objection)
 >
 >     * Dump the iOS keychain, and export it to a file.
