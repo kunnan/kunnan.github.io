@@ -65,24 +65,60 @@ subtitle: Frida的安装
 >
 >           * `DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/01ECB9D1-858D-4BC6-90CE-922942460859/KNWeChat.app/KNWeChat`
 >
->         * 
+>           
 >
 >           
 >
 >       * dumpdecrypted的原理：通过向宏 DYLD_INSERT_LIBRARIES 里写入动态库的完整路径，就可以在可执行文件加载的时候，将动态链接库插入。
->       ```
->         把自己通过DYLD_INSERT_LIBRARIES这个环境变量注入到已经通过系统加载器解密的 mach-o文件(因此要求程序是运行状态)，再把解密后的内存数据 dump出来--并没有破解 appstore的加密算法
->       ```
 >
->         
+>         * 
 >
->       
+>           >         把自己通过DYLD_INSERT_LIBRARIES这个环境变量注入到已经通过系统加载器解密的 mach-o文件(因此要求程序是运行状态)，再把解密后的内存数据 dump出来--并没有破解 appstore的加密算法
 >
->       
+>         * CydiaSubstrate.framework 本质也是使用环境变量
 >
->        
+>           *  使用find 命令查看即可验证这点
 >
->   * [比较成熟的工具`pip3 install objection`:  objection - runtime mobile exploration](https://github.com/sensepost/objection)
+>             ```
+>             find / -name “.” | xargs grep “DYLD_INSERT_LIBRARIES” > ~/text.text
+>             ```
+>
+>             ```
+>             iPhone:~ root# cat  text.text
+>             Binary file /Developer/Library/PrivateFrameworks/DTDDISupport.framework/libViewDebuggerSupport.dylib matches
+>             Binary file /Developer/usr/lib/libBacktraceRecording.dylib matches
+>             Binary file /Library/Frameworks/CydiaSubstrate.framework/Libraries/SubstrateLauncher.dylib matches
+>             Binary file /Library/Frameworks/CydiaSubstrate.framework/Libraries/SubstrateLoader.dylib matches
+>             Binary file /System/Library/Caches/com.apple.xpcd/xpcd_cache.dylib matches
+>             /System/Library/LaunchDaemons/com.apple.searchd.plist:		<key>no_DYLD_INSERT_LIBRARIES</key>
+>             ```
+>
+>             
+>
+
+>
+
+>
+
+>
+
+>             
+
+>
+>​           
+
+
+>
+>
+>​         
+>
+>​       
+>
+>​       
+>
+>​        
+>
+>   * 3、[比较成熟的工具`pip3 install objection`:  objection - runtime mobile exploration](https://github.com/sensepost/objection)
 >
 >     * Dump the iOS keychain, and export it to a file.
 >     * Dump data from common storage such as NSUserDefaults and the shared NSHTTPCookieStorage.
