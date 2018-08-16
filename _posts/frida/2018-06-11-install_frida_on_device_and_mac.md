@@ -206,8 +206,28 @@ App Store     com.apple.AppStore
 devzkndeMacBook-Pro:bin devzkn$ sudo pip install --upgrade frida --ignore-installed six
 ```
 
-
 # See Also 
+
+
+
+#### 签名
+
+* 查询可签名证书
+
+```
+exit 0devzkndeMacBook-Pro:.git devzkn$ security find-identity -v -p codesigning
+```
+
+
+
+* 为dumpecrypted.dylib签名的例子
+
+```
+codesign --force --verify --verbose --sign "iPhone Developer: xxx xxxx (xxxxxxxxxx)" dumpdecrypted.dylib
+
+```
+
+#### other 
 
 >* [https://zhangkn.github.io/2017/12/codeshare.frida.re/](https://zhangkn.github.io/2017/12/codeshare.frida.re/)
 >
