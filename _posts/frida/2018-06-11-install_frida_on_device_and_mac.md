@@ -57,7 +57,13 @@ subtitle: Frida的安装
 >
 >           
 >
->         * 利用环境变量 DYLD_INSERT_LIBRARY 来添加动态库dumpdecrypted.dylib
+>         * 利用环境变量 DYLD_INSERT_LIBRARY 来添加动态库dumpdecrypted.dylib:
+>
+>           > 第一个path为dylib，目标path 为app二进制文件对应的目录
+>
+>           >  
+>
+>           * `DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/01ECB9D1-858D-4BC6-90CE-922942460859/KNWeChat.app/KNWeChat`
 >
 >         * 
 >
