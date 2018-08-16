@@ -11,14 +11,25 @@ subtitle: Frida的安装
 
 # 前言
 
-> * 1、Frida是跨平台的注入工具，通过注入js于native的js引擎进行交互，从而执行native的代码进行hook和动态调用
->
->   
->
->   
->
->   * 使用frida-ps 查看app 信息
->     *  frida-ps -Uai
+
+
+#### 1）frida 的基本命令操作
+
+
+
+1、Frida是跨平台的注入工具，通过注入js于native的js引擎进行交互，从而执行native的代码进行hook和动态调用
+
+- 使用frida-ps 查看app 信息
+
+  - frida-ps -Uai
+
+    
+
+#### 2） Frida 工具
+
+#### 2.1 基础的工具
+
+> * 1、frida-ps -Uai
 >
 > * 2、使用Frida调试分析Windows、macOS、Linux、Android、iOS软件，现在时下再流行不过了。我常用它来提高逆向的效率
 >
@@ -35,70 +46,94 @@ subtitle: Frida的安装
 >
 >     * 2.2.1 使用frida-ios-dump-master 只需先用frida-ps查看applications Name ，之后执行dump.py 即可在dump.py 目录下生成砸壳之后的ipa包。
 >
->     * 2.2.2 [dumpdecrypted.dylib
+>       ```
+>       ➜  kunnan.github.io.git git:(master) ✗ cat ~/bin/kndump
+>       #!/bin/sh
+>       # iphone 的配置Start Cydia and add Frida’s repository by navigating to Manage -> Sources -> Edit -> Add and entering https://build.frida.re
+>       # frida-ps -Uai 查看，来获取参数
+>       # devzkndeMBP:bin devzkn$ frida-ps -Ua
+>         # PID  Name       Identifier        
+>       # -----  ---------  ------------------
+>       # 14790  App Store  com.apple.AppStore
+>       # usage: devzkndeMacBook-Pro:~ devzkn$ kndump 邮件
+>       # ./dump.py 'App Store'
+>       # dump app   
+>       echo "" > ~/.ssh/known_hosts
+>       cd ~/decrypted/frida-ios-dump-master 
+>       rm -rf ./Payload
+>       /usr/bin/python ./dump.py $1
+>       open .
+>       exit 0%  
+>       ```
 >
->       * [具体的操作步骤](https://zhangkn.github.io/2017/12/dumpdecrypted/)
->
->         * 找到app二进制文件对应的目录
->
->           * `ps -e|grep /var/mobile/Container*`
->
->         * cypriot -p appname: 获取沙盒路径
->
->           * cy# [NSHomeDirectory()] 
->
->         * 将砸壳工具dumpdecrypt.dylib拷贝到ducument目录下； //目的是为了获取写的权限
->
->           
->
->           > ```
->           > devzkndeMacBook-Pro:dumpdecrypted-master devzkn$ scp ./dumpdecrypted.dylib root@192.168.2.212://var/mobile/Containers/Data/Application/91E7D6CF-A3D3-435B-849D-31BB53ED185B/Documents
->           > ```
->
->           
->
->         * 利用环境变量 DYLD_INSERT_LIBRARY 来添加动态库dumpdecrypted.dylib:
->
->           > 第一个path为dylib，目标path 为app二进制文件对应的目录
->
->           >  
->
->           * `DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/01ECB9D1-858D-4BC6-90CE-922942460859/KNWeChat.app/KNWeChat`
->
->           
->
->           
->
->       * dumpdecrypted的原理：通过向宏 DYLD_INSERT_LIBRARIES 里写入动态库的完整路径，就可以在可执行文件加载的时候，将动态链接库插入。
->
->         * 
->
->           >         把自己通过DYLD_INSERT_LIBRARIES这个环境变量注入到已经通过系统加载器解密的 mach-o文件(因此要求程序是运行状态)，再把解密后的内存数据 dump出来--并没有破解 appstore的加密算法
->
->         * CydiaSubstrate.framework 本质也是使用环境变量
->
->           *  使用find 命令查看即可验证这点
->
->             ```
->             find / -name “.” | xargs grep “DYLD_INSERT_LIBRARIES” > ~/text.text
->             ```
->
->             ```
->             iPhone:~ root# cat  text.text
->             Binary file /Developer/Library/PrivateFrameworks/DTDDISupport.framework/libViewDebuggerSupport.dylib matches
->             Binary file /Developer/usr/lib/libBacktraceRecording.dylib matches
->             Binary file /Library/Frameworks/CydiaSubstrate.framework/Libraries/SubstrateLauncher.dylib matches
->             Binary file /Library/Frameworks/CydiaSubstrate.framework/Libraries/SubstrateLoader.dylib matches
->             Binary file /System/Library/Caches/com.apple.xpcd/xpcd_cache.dylib matches
->             /System/Library/LaunchDaemons/com.apple.searchd.plist:		<key>no_DYLD_INSERT_LIBRARIES</key>
->             ```
->
->             
+>       
 >
 
->
 
->
+
+
+
+###### 2.2 dumpdecrypted
+
+
+
+- [具体的操作步骤](https://zhangkn.github.io/2017/12/dumpdecrypted/)
+
+  - 找到app二进制文件对应的目录
+
+    - `ps -e|grep /var/mobile/Container*`
+
+  - cypriot -p appname: 获取沙盒路径
+
+    - cy# [NSHomeDirectory()] 
+
+  - 将砸壳工具dumpdecrypt.dylib拷贝到ducument目录下； //目的是为了获取写的权限
+
+    
+
+    > ```
+    > devzkndeMacBook-Pro:dumpdecrypted-master devzkn$ scp ./dumpdecrypted.dylib root@192.168.2.212://var/mobile/Containers/Data/Application/91E7D6CF-A3D3-435B-849D-31BB53ED185B/Documents
+    > ```
+
+    
+
+  - 利用环境变量 DYLD_INSERT_LIBRARY 来添加动态库dumpdecrypted.dylib:
+
+    > 第一个path为dylib，目标path 为app二进制文件对应的目录
+
+    > 
+
+    - `DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/01ECB9D1-858D-4BC6-90CE-922942460859/KNWeChat.app/KNWeChat`
+
+    
+
+    
+
+- dumpdecrypted的原理：通过向宏 DYLD_INSERT_LIBRARIES 里写入动态库的完整路径，就可以在可执行文件加载的时候，将动态链接库插入。
+
+  - 
+
+    > 把自己通过DYLD_INSERT_LIBRARIES这个环境变量注入到已经通过系统加载器解密的 mach-o文件(因此要求程序是运行状态)，再把解密后的内存数据 dump出来--并没有破解 appstore的加密算法
+
+  - CydiaSubstrate.framework 本质也是使用环境变量
+
+    - 使用find 命令查看即可验证这点
+
+    ```
+      find / -name “.” | xargs grep “DYLD_INSERT_LIBRARIES” > ~/text.text
+    ```
+
+    ```
+      iPhone:~ root# cat  text.text
+      Binary file /Developer/Library/PrivateFrameworks/DTDDISupport.framework/libViewDebuggerSupport.dylib matches
+      Binary file /Developer/usr/lib/libBacktraceRecording.dylib matches
+      Binary file /Library/Frameworks/CydiaSubstrate.framework/Libraries/SubstrateLauncher.dylib matches
+      Binary file /Library/Frameworks/CydiaSubstrate.framework/Libraries/SubstrateLoader.dylib matches
+      Binary file /System/Library/Caches/com.apple.xpcd/xpcd_cache.dylib matches
+      /System/Library/LaunchDaemons/com.apple.searchd.plist:		<key>no_DYLD_INSERT_LIBRARIES</key>
+    ```
+
+      
 
 >
 
