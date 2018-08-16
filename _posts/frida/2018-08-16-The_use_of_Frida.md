@@ -188,7 +188,49 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 
 
 
+###### 3.3 步骤小结
 
+> * 注入进程获取session
+>
+> * 注入js文件，设置回调
+>
+> * python发送消息给js,js执行函数返回
+>
+>   * installed,将结果返回给python`send({app : result}); `
+>
+>     ```
+>     function installed(){
+>     	const workspace = LSApplicationWorkspace.defaultWorkspace();
+>     	const apps = workspace.allApplications();
+>     	var result;
+>     	for(var index = 0; index < apps.count(); index++){
+>     		var proxy = apps.objectAtIndex_(index);
+>     		result = result + proxy.localizedName().toString() + '\t' + proxy.bundleIdentifier().toString()+'\t'+getDataDocument(proxy.bundleIdentifier().toString())+'\n';
+>     	}
+>     	send({app : result}); 
+>     };
+>     
+>     ```
+>
+>     
+>
+> * python处理回调，输出内容
+>
+>   * def on_message(message, data):
+>
+>     ```
+>     #从JS接受信息
+>     def on_message(message, data):
+>     	if message.has_key('payload'):
+>     		payload = message['payload']
+>     		if isinstance(payload, dict):
+>     			deal_message(payload)
+>     		else:
+>     			print payload
+>     
+>     ```
+>
+>     
 
 # See Also 
 
