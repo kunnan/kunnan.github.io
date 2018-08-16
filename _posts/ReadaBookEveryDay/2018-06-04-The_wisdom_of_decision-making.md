@@ -2,7 +2,7 @@
 layout: post
 title: The_wisdom_of_decision-making
 date: 2018-06-04
-tag: iosre
+tag: ReadaBookEveryDay
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
