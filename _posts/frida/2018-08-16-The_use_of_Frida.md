@@ -11,7 +11,7 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 
 
 
-# Frida 的初级使用：通过Frida提高的python接口获取一些信息 
+# I 、Frida 的初级使用：通过Frida提高的python接口获取一些信息 
 
 #### [`main.py`,编写代码增加入口函数](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-7/7.3%20Frida%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8/Frida/main.py)
 
@@ -95,7 +95,7 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 
 
 
-正常获取安装app的信息，可以通过LSApplicationWorkspace 的私有API来实现。
+正常获取安装app的信息(bid、sandboxPath)，可以通过LSApplicationWorkspace 的私有API来实现。
 
 `这里的重点是js 和python的通信`
 
@@ -254,6 +254,123 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 >     ```
 >
 >     
+
+
+
+#### 4、枚举某个进程加载的模块信息
+
+> * 直接attach
+>
+>   ```
+>   	# session = device.attach(u'WhatsApp')
+>   
+>   ```
+>
+>   
+>
+> * 调用`enumerate_modules`
+>
+>   * `listModulesoOfProcess(session)`
+>
+>     ```
+>     #枚举某个进程的所有模块信息
+>     def listModulesoOfProcess(session):
+>     	moduels = session.enumerate_modules()
+>     	moduels.sort(key = lambda item : item.base_address)
+>     	for module in moduels:
+>     		outWrite('%-40s\t%-10s\t%-10s\t%s' % (module.name, hex(module.base_address), hex(module.size), module.path))
+>     	session.detach()
+>     
+>     ```
+>
+>     
+
+#### 5.显示界面UI
+
+
+
+> * attach进程
+>
+>   ```
+>   	# session = device.attach(u'WhatsApp')
+>   
+>   ```
+>
+>   
+>
+> * loadJsFile
+>
+>   ```
+>   	# script = loadJsFile(session, UI_JS)
+>   
+>   ```
+>
+>   
+
+> * [js code](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-7/7.3%20Frida%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8/Frida/js/ui.js)
+>
+>   ```
+>   ObjC.schedule(ObjC.mainQueue, function(){
+>   
+>   	const window = ObjC.classes.UIWindow.keyWindow();
+>   
+>   	const rootControl = window.rootViewController();
+>   
+>   	const control = rootControl['- _printHierarchy']();
+>   
+>   	send({ ui: control.toString() });
+>   });
+>   ObjC.schedule(ObjC.mainQueue, function(){
+>   
+>     	const window = ObjC.classes.UIWindow.keyWindow();
+>     	
+>     	const ui = window.recursiveDescription().toString();
+>   	
+>     	send({ ui: ui });
+>   });
+>   
+>   ```
+>
+>   
+
+
+
+# II、高级用法：动态的监控class 
+
+之前都是调用Frida提供的python接口，或者注入js调用native函数；而Frida还提供了动态拦截函数的功能。
+
+
+
+这些高级功能本质上都是js提供的API，实现步骤都是先attach进程、加载js文件，接着调用Frida提供的API实现特定的功能，最后通过python的消息通信来show ret.
+
+> * [jscode](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-7/7.3%20Frida%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8/Frida/js/hook.js)
+>
+>   * ObjC.classes 保存了当前应用中所有已经注册的class
+>
+>   * Interceptor 是一个拦截器：在函数调用之前和函数调用返回的时候进行拦截
+>
+>   * ApiResolver 能够获取符合某个正则表达式的所有方法
+>
+>     ```
+>     var resolver = new ApiResolver('objc');
+>     
+>     ```
+>
+>     
+>
+> * code
+>
+>   ```
+>   	# 6. 动态Hook
+>   	session = device.attach(u'WhatsApp')
+>   	script = loadJsFile(session, HOOK_JS)
+>   	sys.stdin.read()
+>   
+>   ```
+>
+>   
+
+
 
 # See Also 
 
