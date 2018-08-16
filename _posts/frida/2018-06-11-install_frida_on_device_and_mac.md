@@ -11,10 +11,90 @@ subtitle: Frida的安装
 
 # 前言
 
-> * Frida是跨平台的注入工具，通过注入js于native的js引擎进行交互，从而执行native的代码进行hook和动态调用
-> * 使用Frida调试分析Windows、macOS、Linux、Android、iOS软件，现在时下再流行不过了。我常用它来提高逆向的效率
->   * https://zhangkn.github.io/2017/12/codeshare.frida.re/
->   * 本文重点推荐使用[frida-ios-dump-master](https://github.com/zhangkn/frida-ios-dump)，而非dumpdecrypted.dylib
+> * 1、Frida是跨平台的注入工具，通过注入js于native的js引擎进行交互，从而执行native的代码进行hook和动态调用
+>
+>   
+>
+>   
+>
+>   * 使用frida-ps 查看app 信息
+>     *  frida-ps -Uai
+>
+> * 2、使用Frida调试分析Windows、macOS、Linux、Android、iOS软件，现在时下再流行不过了。我常用它来提高逆向的效率
+>
+>   * 2.1https://zhangkn.github.io/2017/12/codeshare.frida.re/
+>
+>     * objc-method-observer
+>       * frida --codeshare mrmacete/objc-method-observer -U -p 10490
+>     * ios-app-info：使用-U -p 参数 查看app的信息
+>       * frida --codeshare dki/ios-app-info -U -p 4929  
+>
+>   * 2.2 本文重点推荐使用[frida-ios-dump-master](https://github.com/zhangkn/frida-ios-dump)，而非dumpdecrypted.dylib
+>
+>     * [frida-ios-dump-master](https://github.com/AloneMonkey/frida-ios-dump) 就是在[dump-ios](https://codeshare.frida.re/@lichao890427/dump-ios/)基础之上进行改造的 
+>
+>     * 2.2.1 使用frida-ios-dump-master 只需先用frida-ps查看applications Name ，之后执行dump.py 即可在dump.py 目录下生成砸壳之后的ipa包。
+>
+>     * 2.2.2 [dumpdecrypted.dylib
+>
+>       * [具体的操作步骤](https://zhangkn.github.io/2017/12/dumpdecrypted/)
+>
+>         * 找到app二进制文件对应的目录
+>
+>           * `ps -e|grep /var/mobile/Container*`
+>
+>         * cypriot -p appname: 获取沙盒路径
+>
+>           * cy# [NSHomeDirectory()] 
+>
+>         * 将砸壳工具dumpdecrypt.dylib拷贝到ducument目录下； //目的是为了获取写的权限
+>
+>           
+>
+>           > ```
+>           > devzkndeMacBook-Pro:dumpdecrypted-master devzkn$ scp ./dumpdecrypted.dylib root@192.168.2.212://var/mobile/Containers/Data/Application/91E7D6CF-A3D3-435B-849D-31BB53ED185B/Documents
+>           > ```
+>
+>           
+>
+>         * 利用环境变量 DYLD_INSERT_LIBRARY 来添加动态库dumpdecrypted.dylib
+>
+>         * 
+>
+>           
+>
+>       * dumpdecrypted的原理：通过向宏 DYLD_INSERT_LIBRARIES 里写入动态库的完整路径，就可以在可执行文件加载的时候，将动态链接库插入。
+>       ```
+>         把自己通过DYLD_INSERT_LIBRARIES这个环境变量注入到已经通过系统加载器解密的 mach-o文件(因此要求程序是运行状态)，再把解密后的内存数据 dump出来--并没有破解 appstore的加密算法
+>       ```
+>
+>         
+>
+>       
+>
+>       
+>
+>        
+>
+>   * [比较成熟的工具`pip3 install objection`:  objection - runtime mobile exploration](https://github.com/sensepost/objection)
+>
+>     * Dump the iOS keychain, and export it to a file.
+>     * Dump data from common storage such as NSUserDefaults and the shared NSHTTPCookieStorage.
+>     * Dump various formats of information in human readable forms.
+>     * Watch for method executions by targeting all methods in a class, or just a single method.
+>     * Dump encoded `.plist` files in a human readable format without relying on external parsers.
+>
+>     * Monitor the iOS pasteboard.
+>
+>      
+>
+>      
+>
+>      
+>
+>      
+>
+>      
 
  
 
