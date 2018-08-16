@@ -93,6 +93,42 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 
 #### 枚举安装应用程序信息
 
+
+
+正常获取安装app的信息，可以通过LSApplicationWorkspace 的私有API来实现。
+
+> * frida 获取app信息的步骤
+>
+>   * 注入进程（sb），获取session
+>
+>     ```
+>     	# session = device.attach(u'SpringBoard')
+>     
+>     ```
+>
+>     
+>
+>   * 在进程里通过注入js代码去执行native函数，调用私有API获取信息，由js返回，在和python通信，从而将信息输出到控制台
+>
+>     *  注入js文件，设置回调
+>
+>       * 加载js文件
+>
+>         ```
+>         #加载JS文件脚本
+>         def loadJsFile(session, filename):
+>         	source = ''
+>         	with codecs.open(filename, 'r', 'utf-8') as f:
+>         		source = source + f.read()
+>         	script = session.create_script(source)
+>         	script.on('message', on_message)#设置js返回数据的python回调
+>         	script.load()# 加载js文件
+>         	return script
+>         
+>         ```
+>
+>         
+
 ```
 	# session = device.attach(u'SpringBoard')
 	# script = loadJsFile(session, APP_JS)
@@ -113,6 +149,22 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 >
 >   * [app.js](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-7/7.3%20Frida%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8/Frida/js/app.js)
 >
+>     * getDataDocument
+>
+>       ```
+>       function getDataDocument(appid){
+>       	const dataUrl = LSApplicationProxy.applicationProxyForIdentifier_(appid).dataContainerURL();
+>       	if(dataUrl){
+>       		return dataUrl.toString() + '/Documents';
+>       	}else{
+>       		return "null";
+>       	}
+>       }
+>       
+>       ```
+>
+>       
+>
 >     ```
 >     function installed(){
 >     	const workspace = LSApplicationWorkspace.defaultWorkspace();
@@ -122,7 +174,7 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 >     		var proxy = apps.objectAtIndex_(index);
 >     		result = result + proxy.localizedName().toString() + '\t' + proxy.bundleIdentifier().toString()+'\t'+getDataDocument(proxy.bundleIdentifier().toString())+'\n';
 >     	}
->     	send({app : result}); 
+>     	send({app : result}); # 将ret 返回python
 >     };
 >     ```
 >
