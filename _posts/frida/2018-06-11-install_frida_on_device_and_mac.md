@@ -9,7 +9,20 @@ author: kunnan
 subtitle: Frida的安装
 ---
 
-#  install frida-server through Cydia
+# 前言
+
+> * Frida是跨平台的注入工具，通过注入js于native的js引擎进行交互，从而执行native的代码进行hook和动态调用
+> * 使用Frida调试分析Windows、macOS、Linux、Android、iOS软件，现在时下再流行不过了。我常用它来提高逆向的效率
+>   * https://zhangkn.github.io/2017/12/codeshare.frida.re/
+>   * 本文重点推荐使用[frida-ios-dump-master](https://github.com/zhangkn/frida-ios-dump)，而非dumpdecrypted.dylib
+
+ 
+
+
+
+#   I 、install frida-server through Cydia
+
+为了使用Frida，需要在Mac和iOS上面分别安装Frida。
 
 >* 1、 install frida-server through Cydia:Start Cydia and add Frida's repository by navigating to Manage -> Sources -> Edit -> Add and entering `https://build.frida.re`
 
@@ -52,6 +65,24 @@ devzkndeMacBook-Pro:bin devzkn$ sudo pip install --upgrade frida --ignore-instal
 
 # See Also 
 
+>* [https://zhangkn.github.io/2017/12/codeshare.frida.re/](https://zhangkn.github.io/2017/12/codeshare.frida.re/)
+>
+>* Frida环境的搭建可以看下[这篇文章](https://zhangkn.github.io/2017/12/frida/#gsc.tab=0)
+>
+>* [dumpdecrypted](https://zhangkn.github.io/2017/12/dumpdecrypted/)
+>
+>  * 本文重点推荐使用[frida-ios-dump-master](https://github.com/zhangkn/frida-ios-dump)，而非dumpdecrypted.dylib。
+>
+>  * [Frida还能玩脱壳]( https://github.com/dstmath/frida-unpack)
+>
+>  * [A universal memory dumper using Frida](https://github.com/zhangkn/fridump)
+>
+>  * [Yet another frida based iOS dumpdecrypted](https://github.com/ChiChou/frida-ipa-dump)
+>
+>     
+>
+>* [使用Frida动态分析软件，你想要的姿势全部在这里](https://mp.weixin.qq.com/s/s_zR1Gq_MNj17vDVDuoDKg)
+>
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```

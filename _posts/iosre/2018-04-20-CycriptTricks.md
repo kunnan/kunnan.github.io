@@ -389,6 +389,7 @@ devzkndeMacBook-Pro:Versions devzkn$  cp -a  /usr/local/Cellar/ruby@2.0/2.0.0-p6
 > * [https://feicong.github.io](https://feicong.github.io/)
 > * [https://everettjf.github.io](https://everettjf.github.io/)
 > * https://github.com/Naville/Naville.github.io
+> * https://github.com/kowalcj0/kowalcj0.github.io
 
 
 
@@ -413,6 +414,9 @@ devzkndeMacBook-Pro:Versions devzkn$  cp -a  /usr/local/Cellar/ruby@2.0/2.0.0-p6
 #### 工具
 
 > * [ssh快速登录工具 ](https://github.com/fanzhidongyzby/fastlogin)
+> * Deobfuscation
+>   * [Advanced JavaScript Deobfuscation via Partial Evaluation](https://github.com/mindedsecurity/JStillery)
+>     * [基于 AST 变换的简易 Javascript 反混淆辅助工具 ](https://github.com/ChiChou/etacsufbo)
 
 
 
