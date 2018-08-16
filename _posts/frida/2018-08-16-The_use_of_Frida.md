@@ -192,7 +192,30 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 
 > * 注入进程获取session
 >
+>   ```
+>   	# session = device.attach(u'SpringBoard')
+>   
+>   ```
+>
+>   
+>
 > * 注入js文件，设置回调
+>
+>   * 加载JS文件脚本,设置回调`script.on('message', on_message)`
+>
+>     ```
+>     def loadJsFile(session, filename):
+>     	source = ''
+>     	with codecs.open(filename, 'r', 'utf-8') as f:
+>     		source = source + f.read()
+>     	script = session.create_script(source)
+>     	script.on('message', on_message)
+>     	script.load()
+>     	return script
+>     
+>     ```
+>
+>     
 >
 > * python发送消息给js,js执行函数返回
 >
