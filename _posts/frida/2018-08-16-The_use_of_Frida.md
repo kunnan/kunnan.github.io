@@ -37,7 +37,7 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 
 
 
-#### 获取USB设备信息
+#### 1、获取USB设备信息
 
 > * 获取USB设备
 >
@@ -74,7 +74,7 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 >
 >     
 
-#### 枚举运行进程信息
+#### 2、枚举运行进程信息
 
 > * listRunningProcess
 >
@@ -91,11 +91,15 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 >
 >   
 
-#### 枚举安装应用程序信息
+#### 3、枚举安装应用程序信息
 
 
 
 正常获取安装app的信息，可以通过LSApplicationWorkspace 的私有API来实现。
+
+`这里的重点是js 和python的通信`
+
+###### 3.1python代码
 
 > * frida 获取app信息的步骤
 >
@@ -137,6 +141,8 @@ subtitle: 通过Frida提高的python接口、注入js调用native的函数、利
 
 
 ```
+
+###### 3.2 js 代码
 
 > * js
 >
