@@ -227,6 +227,19 @@ codesign --force --verify --verbose --sign "iPhone Developer: xxx xxxx (xxxxxxxx
 
 ```
 
+
+
+#### [可以dump混编的](https://github.com/zhangkn/KNBin/blob/master/swiftOCclass-dump)
+
+> * -A 可以查看方法在文件的实现地址
+
+```
+devzkndeMBP:bin devzkn$ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/AppStoreV10.2/Payload/AppStore.app/AppStore -H -o -A /Users/devzkn/decrypted/AppStoreV10.2/head
+
+```
+
+
+
 #### other 
 
 >* [https://zhangkn.github.io/2017/12/codeshare.frida.re/](https://zhangkn.github.io/2017/12/codeshare.frida.re/)
