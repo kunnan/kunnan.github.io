@@ -206,6 +206,109 @@ App Store     com.apple.AppStore
 devzkndeMacBook-Pro:bin devzkn$ sudo pip install --upgrade frida --ignore-installed six
 ```
 
+
+
+# II 、debug
+
+动态调试py 脚本（dump.py）的例子
+
+> * 1、pdb.py can be invoked as a script to debug other scripts.: ` python -m pdb  xxxxpy arg`
+>
+>   ```
+>   python -m pdb  ./dump.py 微信
+>   ```
+>
+>   * Pdb help
+>
+>     ```
+>     (Pdb) h
+>     Documented commands (type help <topic>):
+>     ========================================
+>     EOF    bt         cont      enable  jump  pp       run      unt   
+>     a      c          continue  exit    l     q        s        until 
+>     alias  cl         d         h       list  quit     step     up    
+>     args   clear      debug     help    n     r        tbreak   w     
+>     b      commands   disable   ignore  next  restart  u        whatis
+>     break  condition  down      j       p     return   unalias  where 
+>     ```
+>
+>     
+
+
+
+#### pdb 常用命令
+
+ 
+
+ 
+
+- break 或b : 设置断点	设置断点
+
+- continue或c: 继续执行程序
+
+- list 或l	: 查看当前行的代码段
+
+- step 或s	: 进入函数
+
+- return 或r : 执行代码直到从当前函数返回
+
+- exit 或 q : 中止并退出
+
+- next 或 n	: 执行下一行
+
+- pp	: 打印变量的值
+
+  ```
+  (Pdb) pp os.getcwd()
+  '/Users/devzkn/Downloads/kevin\xef\xbc\x8dsoftware/ios-Reverse_Engineering/frida-ios-dump-master'
+  ```
+
+  * python print 汉字
+
+    ```
+    (Pdb) print sys.argv
+    ['./dump.py', '\xe5\xbe\xae\xe4\xbf\xa1']
+    (Pdb) print sys.argv[1]
+    微信
+    ```
+
+    
+
+
+
+#### Q&A
+
+  
+
+  
+
+[具体请看这里](https://zhangkn.github.io/2017/12/frida/)
+
+> * #### Failed to spawn 的替代方案
+>
+>   >  
+>   >
+>   > > - 1、先使用frida-ps -Uai 查看PID
+>   >
+>   > > - 2、使用 frida -p attach
+>
+> * -sh: /usr/sbin/frida-server: Bad CPU type in executable
+>
+>   ```
+>   installed Frida for 32-bit devices
+>   
+>   ```
+>
+> * frida-server 没有启动
+>
+>   ```
+>   iPhone:/usr/sbin root# killall SpringBoard
+>   iPhone:/usr/sbin root# ps -e |grep frida-server
+>    2290 ttys000    0:00.01 grep frida-server
+>   ```
+>
+>   
+
 # See Also 
 
 
