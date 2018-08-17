@@ -668,6 +668,66 @@ void AntiDebug_006(){
 
 
 
+#### 其他方法获取进程的调试状态
+
+
+
+> * 获取异常端口
+>
+>   ```
+>   void AntiDebug_007(){
+>       struct macosx_exception_info{
+>           exception_mask_t masks[EXC_TYPES_COUNT];
+>           mach_port_t ports[EXC_TYPES_COUNT];
+>           exception_behavior_t behaviors[EXC_TYPES_COUNT];
+>           thread_state_flavor_t flavors[EXC_TYPES_COUNT];
+>           mach_msg_type_number_t cout;
+>       };
+>       struct macosx_exception_info *info = malloc(sizeof(struct macosx_exception_info));
+>       task_get_exception_ports(mach_task_self(),
+>                                EXC_MASK_ALL,
+>                                info->masks,
+>                                &info->cout,
+>                                info->ports,
+>                                info->behaviors,
+>                                info->flavors);
+>       for(uint32_t i = 0; i < info->cout; i ++){
+>           if(info->ports[i] != 0 || info->flavors[i] == THREAD_STATE_NONE){
+>               NSLog(@"debugger detected via exception ports (null port)!\n");
+>           }
+>       }
+>   }
+>   
+>   ```
+>
+>   
+>
+> * isatty
+>
+>   ```
+>   void AntiDebug_008(){
+>       if (isatty(1)) {
+>           NSLog(@"Being Debugged isatty");
+>       }
+>   }
+>   
+>   ```
+>
+>   
+>
+> * ioctl
+>
+>   ```
+>   void AntiDebug_009(){
+>       if (!ioctl(1, TIOCGWINSZ)) {
+>           NSLog(@"Being Debugged ioctl");
+>       }
+>   }
+>   
+>   ```
+>
+>   
+
 # See Also 
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
