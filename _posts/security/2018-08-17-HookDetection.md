@@ -76,8 +76,48 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 
 
 
+# restrict section 
+
+ 当旧版的dylb 检测到存在`__RESTRICT`、`__restrict` 这样的section时候，DYLD_INSERT_LIBRARIES 环境变量会被忽略，导致注入失败。
+
+> * 在Project的 `Other Linker Flags` 增加 
+>
+>   ```
+>   -Wl,-sectcreate,__RESTRICT,__restrict,/dev/null
+>   
+>   ```
+>
+>   
+
+
+
+在新版的dylb以及iOS10中，发现dylb 已经不检测这个section.而且option 自带unrestrict。
+
+
+
+> * 去掉保护: anti RESTRICT
+>
+>   * `ps -e | grep /var` 找到AppBinary路径
+>
+>   * 二进制编辑器（iHex等）修改__RESTRICT和__restrict为其他值。（比如：__RRRRRRRR和__rrrrrrrr。保证长度不变就行啦）
+>
+>   * `ldid -S AppBinary` 重签名。或者Cydia中安装 `AppSync`。
+>
+>     
+>
+>    
+>
+>    
+>
+>    
+>
+>   
+
+
+
 # See Also 
 
+>* [simple-ios-antidebugging-and-antiantidebugging/](https://everettjf.github.io/2015/12/28/simple-ios-antidebugging-and-antiantidebugging/)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
