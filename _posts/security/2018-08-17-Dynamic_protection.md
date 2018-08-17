@@ -290,7 +290,7 @@ subtitle: 反调试、反反调试、反注入、hook检测、完整性校验
 
 
 
-# syscall
+#### syscall
 
 
 
@@ -632,6 +632,39 @@ subtitle: 反调试、反反调试、反注入、hook检测、完整性校验
 >     
 >
 >     
+
+
+
+
+
+#### ARM  (通过汇编调用svc实现用户态到内核态的转换)
+
+
+
+```
+void AntiDebug_006(){
+#ifdef __arm__
+    asm volatile(
+                 "mov r0,#31\n"
+                 "mov r1,#0\n"
+                 "mov r2,#0\n"
+                 "mov r12,#26\n"
+                 "svc #80\n"
+                 );
+#endif
+#ifdef __arm64__
+    asm volatile(
+                 "mov x0,#26\n"
+                 "mov x1,#31\n"
+                 "mov x2,#0\n"
+                 "mov x3,#0\n"
+                 "mov x16,#0\n"
+                 "svc #128\n"
+                 );
+#endif
+}
+
+```
 
 
 
