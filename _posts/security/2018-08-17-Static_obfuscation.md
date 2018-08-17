@@ -17,10 +17,19 @@ subtitle: 静态混淆，使用宏进行替换字符串，或者解析mach-o中�
 
 > * 本文的重点是讲解最原始的方法：字符串替换
 >   * 宏定义,[这里有更详细的讲解iOSobfuscation](https://zhangkn.github.io/2018/04/iOSobfuscation/)
->     * [**ios-class-guard**:Simple Objective-C obfuscator for Mach-O executables](https://github.com/Polidea/ios-class-guard)
+>     * [**ios-class-guard**:Simple Objective-C obfuscator for Mach-O executables
+>       * 此项目是class-dump的fork，过滤系统库符号，生成需要混淆的符号
 >   * 修改二进制文件对应的section
 
 
+
+# [ 宏定义的例子请看这](https://github.com/AloneMonkey/iOSREBook/tree/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.2%20%E9%9D%99%E6%80%81%E6%B7%B7%E6%B7%86/TargetApp/TargetApp)
+
+
+
+#  二进制文件修改
+
+从`__TEXT,objc_classname`和`__TEXT,objc_methname` 中读取对应的类名和方法名。
 
 # See Also 
 
