@@ -115,6 +115,66 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 
 
 
+# 注入检测
+
+通过`_dylb_get_image_name`判断加载模块中是否有异常进行注入检测
+
+[search _dyld_get_image_name](https://github.com/AloneMonkey/iOSREBook/search?p=2&q=_dyld_get_image_name&type=&utf8=%E2%9C%93)
+
+
+
+> * `const char* *_dyld_get_image_name*(uint32_t image_index)`
+>
+>   * 发现其他不在白名单内的库
+>
+>     ```
+>     int ckeckInjector() 
+>     {
+>     	// see if libSystem is in list of images
+>     	uint32_t count = _dyld_image_count();
+>     	for(uint32_t i=0; i < count; ++i) {
+>     		const char*  name = _dyld_get_image_name(i);
+>     		if ( strstr(name, "DynamicLibraries") != NULL ) {
+>     			PASS("always-libSystem");
+>     			return 1;
+>     		}
+>     	}
+>     
+>     	FAIL("always-libSystem");
+>     	return 0;
+>     }
+>     
+>     ```
+>
+>     
+>
+>   * app crashes when libSystem cannot be found
+>
+>     ```
+>     int main() 
+>     {
+>     	// see if libSystem is in list of images
+>     	uint32_t count = _dyld_image_count();
+>     	for(uint32_t i=0; i < count; ++i) {
+>     		const char*  name = _dyld_get_image_name(i);
+>     		if ( strstr(name, "/libSystem.") != NULL ) {
+>     			PASS("always-libSystem");
+>     			return 0;
+>     		}
+>     	}
+>     
+>     	FAIL("always-libSystem");
+>     	return 0;
+>     }
+>     
+>     ```
+>
+>     
+>
+>   
+
+
+
 # See Also 
 
 >* [simple-ios-antidebugging-and-antiantidebugging/](https://everettjf.github.io/2015/12/28/simple-ios-antidebugging-and-antiantidebugging/)
