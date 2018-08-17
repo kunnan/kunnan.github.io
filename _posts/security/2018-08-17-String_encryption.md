@@ -42,7 +42,22 @@ subtitle: 字符串加密,使用clang-c接口将源代码转换成抽象语法�
 >
 >     
 
+> * [另外一个解析字符串的code](https://github.com/zhangkn/KNParseClangLib)
+>
+>   
 
+#### 解析字符串的代码分析
+
+###### [clang-c/Index.h](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.1%20%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/LibClangParse/LibClangParse/clang-c/Index.h)
+
+> * `enum CXChildVisitResult printVisitor(CXCursor cursor, CXCursor parent, CXClientData client_data) {`: \brief Visitor invoked for each cursor found by a traversal.
+>
+>   
+>
+>   * CXChildVisitResult
+>     * CXChildVisit_Break
+>     * CXChildVisit_Continue
+>     * CXChildVisit_Recurse
 
 # See Also 
 
