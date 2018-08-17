@@ -17,6 +17,33 @@ subtitle: 字符串加密,使用clang-c接口将源代码转换成抽象语法�
 
 
 
+> * [details](https://clang.llvm.org/doxygen/group__CINDEX.html#details)
+>
+>   ![image](https://ws4.sinaimg.cn/large/af39b376gy1fucjqbyo2oj20bk0wldhu.jpg)
+
+#### [拿到字符串的开始和结束的位置，然后再进行字符串加密操作](https://github.com/zhangkn/KNParseClangLib)
+
+
+
+# 字符串加密
+
+
+
+> * [解析字符串的code](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-8/8.1%20%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/LibClangParse/LibClangParse/main.m)
+>
+>   * 导入一些必要的头文件[clang-c](https://github.com/AloneMonkey/iOSREBook/tree/master/chapter-8/8.1%20%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/LibClangParse/LibClangParse/clang-c)
+>
+>   * ​    先使用dlopen 将其加载到内存并获取需要使用的函数指针
+>
+>     ```
+>             void *hand = dlopen("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib",RTLD_LAZY);
+>     
+>     ```
+>
+>     
+
+
+
 # See Also 
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
