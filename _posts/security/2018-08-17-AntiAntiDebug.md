@@ -31,8 +31,6 @@ subtitle: 反反调试：针对ptrace\sysctl\syscall,采用hook函数-》判断�
 
 
 
-
-
 # 非越狱hook
 
 非越狱hook的原理和越狱hook的一样，只是将hook的工具修改为fishhook.
@@ -49,14 +47,22 @@ subtitle: 反反调试：针对ptrace\sysctl\syscall,采用hook函数-》判断�
 >   __attribute__((constructor)) static void entry(){
 >       NSLog(@"[AntiAntiDebug Init]");
 >       
->       rebind_symbols((struct rebinding[1]){{"ptrace", my_ptrace, (void*)&orig_ptrace}},1);
+>       rebind_symbols(
+>       (struct rebinding[1])
+>       {
+>       {"ptrace", my_ptrace, (void*)&orig_ptrace}
+>       },1);
 >       
->       rebind_symbols((struct rebinding[1]){{"dlsym", my_dlsym, (void*)&orig_dlsym}},1);
+>       rebind_symbols((struct rebinding[1]){
+>       {"dlsym", my_dlsym, (void*)&orig_dlsym}
+>       },1);
 >       
 >       //some app will crash with _dyld_debugger_notification
 >       // rebind_symbols((struct rebinding[1]){{"sysctl", my_sysctl, (void*)&orig_sysctl}},1);
 >       
->       rebind_symbols((struct rebinding[1]){{"syscall", my_syscall, (void*)&orig_syscall}},1);
+>       rebind_symbols((struct rebinding[1]){
+>       {"syscall", my_syscall, (void*)&orig_syscall}
+>       },1);
 >   }
 >   
 >   
