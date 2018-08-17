@@ -55,9 +55,9 @@ subtitle: 字符串加密,使用clang-c接口将源代码转换成抽象语法�
 >   
 >
 >   * CXChildVisitResult
->     * CXChildVisit_Break
->     * CXChildVisit_Continue
->     * CXChildVisit_Recurse
+>     * CXChildVisit_Break 结束遍历
+>     * CXChildVisit_Continue 跳过当前节点的额遍历，不再遍历它的孩子节点
+>     * CXChildVisit_Recurse 继续遍历它的孩子节点
 
 # See Also 
 
