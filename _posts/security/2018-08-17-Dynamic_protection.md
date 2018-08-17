@@ -296,7 +296,7 @@ subtitle: 反调试、反反调试、反注入、hook检测、完整性校验
 
 `int	 syscall(int, ...); `
 
-
+为了实现从用户态到内核态的切换，系统提供了 系统调用syscall函数，从下面可以知道ptrace对应的编号是26，因此`syscall(26,31,0,0,0);`  相当于调用了ptrace `ptrace(PT_DENY_ATTACH, 0, 0, 0);`
 
 > * [Kernel Syscalls](https://www.theiphonewiki.com/wiki/Kernel_Syscalls)
 >
