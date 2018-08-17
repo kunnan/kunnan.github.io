@@ -15,6 +15,22 @@ subtitle: 反反调试：针对ptrace\sysctl\syscall,采用hook函数-》判断�
 
 
 
+> * [AntiAntiDebugTweak.xm](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/AntiAntiDebugTweak/AntiAntiDebugTweak/AntiAntiDebugTweak.xm)
+>
+>   ```
+>   %ctor{
+>       MSHookFunction((void *)MSFindSymbol(NULL,"_ptrace"),(void*)my_ptrace,(void**)&orig_ptrace);
+>       MSHookFunction((void *)sysctl,(void*)my_sysctl,(void**)&orig_sysctl);
+>       MSHookFunction((void *)syscall,(void*)my_syscall,(void**)&orig_syscall);
+>       NSLog(@"[AntiAntiDebug] Module loaded!!!");
+>   }
+>   
+>   ```
+>
+>   
+
+
+
 
 
 # 非越狱hook
@@ -22,6 +38,8 @@ subtitle: 反反调试：针对ptrace\sysctl\syscall,采用hook函数-》判断�
 非越狱hook的原理和越狱hook的一样，只是将hook的工具修改为fishhook.
 
 > 
+>
+> * [AntiAntiDebug.m](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/AntiAntiDebug/AntiAntiDebug.m)
 >
 > * [AntiAntiDebug.m](https://github.com/AloneMonkey/MonkeyDev-Xcode-Templates/blob/master/MonkeyAppLibrary.xctemplate/AntiAntiDebug/AntiAntiDebug.m) 此代码已经集成在[MonkeyAppLibrary.xctemplate](https://github.com/AloneMonkey/MonkeyDev-Xcode-Templates/tree/master/MonkeyAppLibrary.xctemplate)
 >
@@ -45,6 +63,45 @@ subtitle: 反反调试：针对ptrace\sysctl\syscall,采用hook函数-》判断�
 >   ```
 >
 >   
+
+# [AntiAntiDebug.py](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/AntiAntiDebug/AntiAntiDebug.py) 反反调试脚本;如果有定时器定时检测，建议写tweak(越狱hook、非越狱hook)
+
+
+
+> * [Debug](https://kunnan.github.io/tags/#Debug)
+>
+>   * [Chisel_fblldb.py_lldbinit](https://kunnan.github.io/2018/07/07/Chisel_fblldb.py_lldbinit/) : lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之后，重启Xcode，或者直接在lldb交互模式下输入`command source ~/.lldbinit`来加载脚本
+>
+>     * 两个开源库：`[DerekSelander](https://github.com/DerekSelander)/**LLDB**`、`Chisel`
+>
+>       
+>
+>       > 
+>       >
+>       > - [Chisel is a collection of LLDB commands to assist debugging iOS apps.](https://github.com/zhangkn/chisel)
+>       >
+>       >   ```
+>       >   brew update
+>       >   brew install chisel
+>       >   ```
+>       >
+>       >   ```
+>       >   Add the following line to ~/.lldbinit to load chisel when Xcode launches:
+>       >     command script import /usr/local/opt/chisel/libexec/fblldb.py
+>       >   ```
+>       >
+>       > - [A collection of LLDB aliases/regexes and Python scripts to aid in your debugging sessions](https://github.com/DerekSelander/LLDB)
+>       >
+>       >   ```
+>       >   ➜  lldb git clone git@github.com:DerekSelander/LLDB.git
+>       >   Add the following command to your ~/.lldbinit file: command script import /path/to/lldb_commands/dslldb.py
+>       >   ```
+
+
+
+
+
+
 
 
 
