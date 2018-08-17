@@ -6,7 +6,7 @@ tag: security
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
-subtitle: 反注入: 注入检查机制，获取加载的模块名，判断是否都在白名单中;hook 检测：method swizzle、符号表替换、inline hook
+subtitle: 反注入：注入检查机制，获取加载的模块名，判断是否都在白名单中;hook 检测：method swizzle、符号表替换、inline hook
 ---
 
 
