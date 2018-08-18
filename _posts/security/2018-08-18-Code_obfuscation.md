@@ -150,7 +150,33 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 
 
+#### CodeGen 生成 IR 代码 
 
+
+
+> * 1）各种类，方法，成员变量等的结构体的生成，并将其放到对应的Mach-O的section中。  
+> * 2）Non-Fragile ABI 合成 OBJCIVAR$_ 偏移值常量。  
+> * 3）ObjCMessageExpr 翻译成相应版本的 objc_msgSend，super 翻译成 objc_msgSendSuper。  
+> * 4）strong，weak，copy，atomic 合成 @property 自动实现 setter 和 getter。  
+> * 5）@synthesize 的处理。  
+> * 6）生成 block_layout 数据结构  
+> * 7）block 和 weak  
+> * 8）_block_invoke  
+> * 9）ARC 处理，插入 objc_storeStrong 和 objc_storeWeak 等 ARC 代码。ObjCAutoreleasePoolStmt 转 objc_autorealeasePoolPush / Pop。自动添加 [super dealloc]。给每个 ivar 的类合成 .cxx_destructor 方法自动释放类的成员变量。  
+
+#### IR 结构
+
+```
+LLVM IR 有三种表示格式，第一种是 bitcode 这样的存储格式，以 .bc 做后缀，第二种是可读的以 .ll，第三种是用于开发时操作 LLVM IR 的内存格式
+```
+
+> * llc 编译器是专门编译 LLVM IR 的编译器用来生成汇编文件。  
+> *  Driver
+>   * Driver 是 Clang 面对用户的接口，用来解析 Option 设置，判断决定调用的工具链，最终完成整个编译过程。  
+> *  Translate:Translate 就是把相关的参数对应到不同平台上不同的工具。
+> * 每次编译后生成的 dSYM 文件 -
+>   * dSYM 文件里存储了函数地址映射，这样调用栈里的地址可以通过 dSYM 这个映射表能够获得具体函数的位置。一般都会用来处理 crash 时获取到的调用栈 .crash 文件将其符号化  
+>     * https://zhangkn.github.io/2018/03/symbolicatecrash/
 
 # 什么是LLVM？
 
