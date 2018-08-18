@@ -242,10 +242,84 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 
 
 
+#### load command
+
+> * [获取加载的动态库](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/MachOParser/MachOParser/MachOParser.mm): 读取load command  中的 LC_LOAD_DYLIB、LC_LOAD_WEAK_DYLIB信息
+>
+>   
+>
+>   
+>
+>   ```
+>   
+>   //获取加载的动态库
+>   NSArray* MachOParser::find_load_dylib(){
+>       NSMutableArray* array = [[NSMutableArray alloc] init];;
+>       mach_header_t *header = (mach_header_t*)base;
+>       segment_command_t *cur_seg_cmd;
+>       uintptr_t cur = (uintptr_t)this->base + sizeof(mach_header_t);
+>       for (uint i = 0; i < header->ncmds; i++,cur += cur_seg_cmd->cmdsize) {
+>           cur_seg_cmd = (segment_command_t*)cur;
+>           if(cur_seg_cmd->cmd == LC_LOAD_DYLIB || cur_seg_cmd->cmd == LC_LOAD_WEAK_DYLIB){
+>               dylib_command *dylib = (dylib_command*)cur_seg_cmd;
+>               char* name = (char*)((uintptr_t)dylib + dylib->dylib.name.offset);
+>               NSString* dylibName = [NSString stringWithUTF8String:name];
+>               [array addObject:dylibName];
+>           }
+>       }
+>       return [array copy];
+>   }
+>   
+>   ```
+>
+>   
+
+
+
+#### 代码检测：获取内存中运行代码的md5值
+
+如果内存中的代码被修改了，那么获取的md5的值就会不一样。
+
+
+
+> * [获取运行代码md5](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/MachOParser/MachOParser/MachOParser.mm)
+>
+>   ```
+>   NSString* MachOParser::get_text_data_md5(){
+>       NSMutableString *result = [NSMutableString string];
+>       section_info_t *section = this->find_section("__TEXT", "__text");
+>       local_addr startAddr =  section->addr;
+>       unsigned char hash[CC_MD5_DIGEST_LENGTH];
+>       CC_MD5((const void *)startAddr, (CC_LONG)section->section->size, hash);
+>       for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+>           [result appendFormat:@"%02x",hash[i]];
+>       }
+>       return [result copy];
+>   }
+>   
+>   ```
+>
+>   
+
+#### 重签名检测
+
+
+
+> * 判断bid
+> * 获取embedded.mobileprovision文件信息
+> * 从可执行文件的LC_CODE_SIGNATURE 读取信息
+>   * [MachOParser.mm](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/MachOParser/MachOParser/MachOParser.mm)
+
+
+
+
+
 
 
 # See Also 
 
+>* [AntiJailbreak.m](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/DynamicProtect/DynamicProtect/AntiJailbreak.m)
+>* [CaptainHook.h](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/HookDetection/InsertDylib/CaptainHook.h)
 >* [simple-ios-antidebugging-and-antiantidebugging/](https://everettjf.github.io/2015/12/28/simple-ios-antidebugging-and-antiantidebugging/)
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
