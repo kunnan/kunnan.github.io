@@ -106,7 +106,11 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 
 
-#### 4\Clang 使用的例子
+#### 4\Clang 使用的例子 : 从源码到可执行文件
+
+
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1fudxjai910j207706eaar.jpg)
 
 > * 1、 先通过-E查看clang在预编译处理这步做了什么: 包括宏的替换，头文件的导入 
 >   * `clang -E main.m  `
