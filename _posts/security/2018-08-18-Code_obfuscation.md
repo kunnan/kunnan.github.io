@@ -259,18 +259,54 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 ![image](https://wx1.sinaimg.cn/large/af39b376gy1fudxjai910j207706eaar.jpg)
 
-> * 1、 先通过-E查看clang在预编译处理这步做了什么: 包括宏的替换，头文件的导入 
+> * 1、 先通过-E查看clang在预编译处理这步做了什么: 包括宏的替换，macro宏的展开  import/include头文件的导入，以及#if等处理
+>
+>   
 >   * `clang -E main.m  `
-> *  2、预处理完成后就会进行词法分析，这里会把代码切成一个个 Token，比如大小括号，等于号还有字符串等
+>
+>   * 后来Xcode新建的项目里面去掉了pch文件，引入了moduels的概念，把一些通用的库打成modules的形式，然后导入，默认会加上-fmodules参数。
+>
+>     * clang -E -fmodules main.m 
+>
+>       * 这样的话，只需要@import一下就能导入对应库的modules模块了。  
+>
+>         ```
+>         @import Foundation; 
+>         
+>         ```
+>
+>         
+>
+> * 2、预处理完成后就会进行词法分析，这里会把代码切成一个个 Token，比如大小括号，等于号还有字符串等
+>
+>   * clang -fmodules -fsyntax-only -Xclang -dump-tokens main.m 
+>
 > * 3、然后是语法分析，验证语法是否正确，然后将所有节点组成抽象语法树 AST 
+>
+>   * clang -fmodules -fsyntax-only -Xclang -ast-dump main.m 
+>
 > * 4、IR中间代码的生成：CodeGen 会负责将语法树自顶向下遍历逐步翻译成 LLVM IR，IR 是编译过程的前端的输出后端的输入 
+>   * 可以在中间代码层次去做一些优化工作，我们在Xcode的编译设置里面也可以设置优化级别`-O1`,`-O3`,`-Os`。 还可以去写一些自己的Pass，这里需要解释一下什么是Pass。
+>
+>      
+>
 >   * 1、Pass 教程： http://llvm.org/docs/WritingAnLLVMPass.html  
+>
+>     * Pass就是LLVM系统转化和优化的工作的一个节点，每个节点做一些工作，这些工作加起来就构成了LLVM整个系统的优化和转化。
+>
+>   
+>
 >   * 2、如果开启了 bitcode 苹果会做进一步的优化，有新的后端架构还是可以用这份优化过的 bitcode 去生成。  
->   * clang -emit-llvm -c main.m -o main.bc  
-> *  5、生成汇编 
+>     *  生成字节码 (LLVM Bitcode)
+>       * 在Xcode7中默认生成bitcode就是这种的中间形式存在， 开启了bitcode，那么苹果后台拿到的就是这种中间代码，苹果可以对bitcode做一个进一步的优化，如果有新的后端架构，仍然可以用这份bitcode去生成
+>     * clang -emit-llvm -c main.m -o main.bc  
+>
+> * 5、生成汇编 
 >   * clang -S -fobjc-arc main.m -o main.s  
+>
 > * 6、 生成目标文件
 >   * clang -fmodules -c main.m -o main.o  
+>
 > * 7、生成可执行文件
 >   * clang main.o -o main  
 
