@@ -506,7 +506,13 @@ cmake --build .
 
 
 
-> * pass 处理编译过程中代码的额转换以及优化工作。所有的pass都是pass的子类，不同的passs实现不同的作用，可以分别继承不同的pass类实现对应的功能
+> * [pass 处理编译过程中代码的额转换以及优化工作。所有的pass都是pass的子类，不同的passs实现不同的作用，可以分别继承不同的pass类实现对应的功能](https://github.com/TrustedCloud/private-llvm/blob/7c6e1aa9a4b94213e24e647641dd39c7418e05a1/tools/opt/PassPrinters.h#L4)
+>   * ModulePass
+>   * *CallGraphSCCPass*
+>   * FunctionPass
+>   * BasicBlockPass
+>   * RegionPass
+>   * LoopPass
 
 
 
