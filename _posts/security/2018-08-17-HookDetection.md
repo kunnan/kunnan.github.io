@@ -175,6 +175,58 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 
 
 
+#  `hook 检测`CheckHook
+
+
+
+根据不同的方法定制不同的检查方法
+
+
+
+> * Method Swizzling: 原理是替换imp,通过`dladdr`函数得到imp地址所在的模块`info.dli_fname`，如果不是主二进制模块，就可以认定是被hook 了
+>
+>   ```
+>   bool CheckHookForOC(const char* clsname,const char* selname){
+>       Dl_info info;
+>       SEL sel = sel_registerName(selname);
+>       Class cls = objc_getClass(clsname);
+>       Method method = class_getInstanceMethod(cls, sel);
+>       if(!method){
+>           method = class_getClassMethod(cls, sel);
+>       }
+>       IMP imp = method_getImplementation(method);
+>       
+>       if(!dladdr((void*)imp, &info)){
+>           return false;
+>       }
+>       
+>       printf("%s\n", info.dli_fname);
+>       
+>       if(!strncmp(info.dli_fname, "/System/Library/Frameworks", 26)){
+>           return false;
+>       }
+>       
+>       if(!strcmp(info.dli_fname, _dyld_get_image_name(0))){
+>           return false;
+>       }
+>       
+>       return true;
+>   }
+>   
+>   ```
+>
+>   
+>
+> * 
+>
+>   
+>
+>   
+
+
+
+
+
 # See Also 
 
 >* [simple-ios-antidebugging-and-antiantidebugging/](https://everettjf.github.io/2015/12/28/simple-ios-antidebugging-and-antiantidebugging/)
