@@ -60,7 +60,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 
 
-#### 编译的完整步骤
+#### 1\编译的完整步骤
 
 > * 1）编译信息写入辅助文件，创建文件架构 .app 文件  
 > * 2）处理文件打包信息  
@@ -77,7 +77,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 
 
-#### clang 命令参数
+#### 2\clang 命令参数
 
 
 
@@ -94,7 +94,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 
 
-#### xcode 编译器的相关设置
+#### 3\xcode 编译器的相关设置
 
 > * Build Phases：构建可执行文件的规则 
 >   * 1）指定 target 的依赖项目，在 target build 之前需要先 build 的依赖。在 Compile Source 中指定所有必须编译的文件，  
@@ -106,7 +106,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 
 
-#### Clang 使用的例子
+#### 4\Clang 使用的例子
 
 > * 1、 先通过-E查看clang在预编译处理这步做了什么: 包括宏的替换，头文件的导入 
 >   * `clang -E main.m  `
@@ -125,7 +125,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 ![image](https://wx1.sinaimg.cn/large/af39b376gy1fudwnnhg90j20yq0hvtee.jpg)
 
-#### Clang Static Analyzer静态代码分析： https://code.woboq.org/llvm/clang/
+#### 5\Clang Static Analyzer静态代码分析： https://code.woboq.org/llvm/clang/
 
 
 
@@ -150,7 +150,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 
 
-#### CodeGen 生成 IR 代码 
+#### 6\CodeGen 生成 IR 代码 
 
 
 
@@ -164,7 +164,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 > * 8）_block_invoke  
 > * 9）ARC 处理，插入 objc_storeStrong 和 objc_storeWeak 等 ARC 代码。ObjCAutoreleasePoolStmt 转 objc_autorealeasePoolPush / Pop。自动添加 [super dealloc]。给每个 ivar 的类合成 .cxx_destructor 方法自动释放类的成员变量。  
 
-#### IR 结构
+#### 7\ IR 结构
 
 ```
 LLVM IR 有三种表示格式，第一种是 bitcode 这样的存储格式，以 .bc 做后缀，第二种是可读的以 .ll，第三种是用于开发时操作 LLVM IR 的内存格式
@@ -180,7 +180,31 @@ LLVM IR 有三种表示格式，第一种是 bitcode 这样的存储格式，以
 
 # 什么是LLVM？
 
-llvm 是一系列 
+llvm 是一系列   分模块和可重用的编译工具链，他提供了一种代码编写良好的中间表示（IR），可以作为多种语言的后端，还可以提供与编程无关的优化和针对多种CPU的代码生成功能。
+
+> * LLVM架构的主要组成部分
+>
+>   * 前端：前端用来获取源代码然后将它转变为某种中间表示，我们可以选择不同的编译器来作为LLVM的前端，如gcc，clang。
+>   * Pass(通常翻译为“流程”)：Pass用来将程序的中间表示之间相互变换。一般情况下，Pass可以用来优化代码，这部分通常是我们关注的部分。
+>   * 后端：后端用来生成实际的机器码
+>
+> * [llvm 编译的整个流程介绍](http://www.alonemonkey.com/2016/12/21/learning-llvm/)
+>
+>   * The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.
+>
+>   
+
+
+
+#### 传统的编译器的架构如下
+
+![image](https://wx1.sinaimg.cn/large/af39b376gy1fudx0dl8s6j20d60240sm.jpg)
+
+
+
+#### LLVM的架构如下
+
+![img](http://7xtdl4.com1.z0.glb.clouddn.com/script_1482136601642.png)
 
 
 
