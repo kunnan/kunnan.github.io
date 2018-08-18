@@ -24,7 +24,9 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >     * 其中的 clang static analyzer 主要是进行语法分析，语义分析和生成中间代码，当然这个过程会对代码进行检查，出错的和需要警告的会标注出来。
 >     * lld 是 Clang / LLVM 的内置链接器，clang 必须调用链接器来产生可执行文件。 
 
-> *  编译器处理过程
+> *  LLVM编译一个源文件的过程：`预处理 -> 词法分析 -> Token -> 语法分析 -> AST -> 代码生成 -> LLVM IR -> 优化 -> 生成汇编代码 -> Link -> 目标文件`
+>
+>    
 >
 >   * 1、预处理  
 >
@@ -128,6 +130,12 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >   * clang main.o -o main  
 
 ![image](https://wx1.sinaimg.cn/large/af39b376gy1fudwnnhg90j20yq0hvtee.jpg)
+
+> 8\整体的流程
+>
+> ![image](https://wx1.sinaimg.cn/large/af39b376gy1fudxkw5w6bj20tm02aq2t.jpg)
+
+
 
 #### 5\Clang Static Analyzer静态代码分析： https://code.woboq.org/llvm/clang/
 
