@@ -60,6 +60,151 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 
 
+# 可以用Clang做什么？
+
+
+
+> * [libclang进行语法分析](https://github.com/zhangkn/KNParseClangLib/blob/master/ParseClangLib/main.m)
+>
+>   * [可以使用libclang里面提供的方法对源文件进行语法分析，分析它的语法树，遍历语法树上面的每一个节点。可以用于检查拼写错误，或者做字符串加密。](https://github.com/zhangkn/KNParseClangLib)
+>     * https://kunnan.github.io/2018/08/17/String_encryption/
+>
+> * LibTooling: 
+>
+>   * 我们也可以自己写一个这样的工具去遍历、访问、甚至修改语法树。 目录:`llvm/tools/clang/tools`
+>
+>     ```
+>     #include "clang/Driver/Options.h"
+>     #include "clang/AST/AST.h"
+>     #include "clang/AST/ASTContext.h"
+>     #include "clang/AST/ASTConsumer.h"
+>     #include "clang/AST/RecursiveASTVisitor.h"
+>     #include "clang/Frontend/ASTConsumers.h"
+>     #include "clang/Frontend/FrontendActions.h"
+>     #include "clang/Frontend/CompilerInstance.h"
+>     #include "clang/Tooling/CommonOptionsParser.h"
+>     #include "clang/Tooling/Tooling.h"
+>     #include "clang/Rewrite/Core/Rewriter.h"
+>     using namespace std;
+>     using namespace clang;
+>     using namespace clang::driver;
+>     using namespace clang::tooling;
+>     using namespace llvm;
+>     Rewriter rewriter;
+>     int numFunctions = 0;
+>     static llvm::cl::OptionCategory StatSampleCategory("Stat Sample");
+>     class ExampleVisitor : public RecursiveASTVisitor<ExampleVisitor> {
+>     private:
+>         ASTContext *astContext; // used for getting additional AST info
+>     public:
+>         explicit ExampleVisitor(CompilerInstance *CI) 
+>           : astContext(&(CI->getASTContext())) // initialize private members
+>         {
+>             rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
+>         }
+>         virtual bool VisitFunctionDecl(FunctionDecl *func) {
+>             numFunctions++;
+>             string funcName = func->getNameInfo().getName().getAsString();
+>             if (funcName == "do_math") {
+>                 rewriter.ReplaceText(func->getLocation(), funcName.length(), "add5");
+>                 errs() << "** Rewrote function def: " << funcName << "\n";
+>             }    
+>             return true;
+>         }
+>         virtual bool VisitStmt(Stmt *st) {
+>             if (ReturnStmt *ret = dyn_cast<ReturnStmt>(st)) {
+>                 rewriter.ReplaceText(ret->getRetValue()->getLocStart(), 6, "val");
+>                 errs() << "** Rewrote ReturnStmt\n";
+>             }        
+>             if (CallExpr *call = dyn_cast<CallExpr>(st)) {
+>                 rewriter.ReplaceText(call->getLocStart(), 7, "add5");
+>                 errs() << "** Rewrote function call\n";
+>             }
+>             return true;
+>         }
+>     };
+>     class ExampleASTConsumer : public ASTConsumer {
+>     private:
+>         ExampleVisitor *visitor; // doesn't have to be private
+>     public:
+>         // override the constructor in order to pass CI
+>         explicit ExampleASTConsumer(CompilerInstance *CI)
+>             : visitor(new ExampleVisitor(CI)) // initialize the visitor
+>         { }
+>         // override this to call our ExampleVisitor on the entire source file
+>         virtual void HandleTranslationUnit(ASTContext &Context) {
+>             visitor->TraverseDecl(Context.getTranslationUnitDecl());
+>         }
+>     };
+>     class ExampleFrontendAction : public ASTFrontendAction {
+>     public:
+>         virtual std::unique_ptr<ASTConsumer> CreateASTConsumer(CompilerInstance &CI, StringRef file) {
+>              return llvm::make_unique<ExampleASTConsumer>(&CI); // pass CI pointer to ASTConsumer
+>         }
+>     };
+>     int main(int argc, const char **argv) {
+>         // parse the command-line args passed to your code
+>         CommonOptionsParser op(argc, argv, StatSampleCategory);        
+>         // create a new Clang Tool instance (a LibTooling environment)
+>         ClangTool Tool(op.getCompilations(), op.getSourcePathList());
+>         // run the Clang Tool, creating a new FrontendAction (explained below)
+>         int result = Tool.run(newFrontendActionFactory<ExampleFrontendAction>().get());
+>         errs() << "\nFound " << numFunctions << " functions.\n\n";
+>         // print out the rewritten source code ("rewriter" is a global var.)
+>         rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
+>         return result;
+>     }
+>     
+>     ```
+>
+>     * 上面的代码通过遍历语法树，去修改里面的方法名和返回变量名：
+>
+>       ```
+>       before:
+>       void do_math(int *x) {
+>           *x += 5;
+>       }
+>       int main(void) {
+>           int result = -1, val = 4;
+>           do_math(&val);
+>           return result;
+>       }
+>       after:
+>       ** Rewrote function def: do_math
+>       ** Rewrote function call
+>       ** Rewrote ReturnStmt
+>       Found 2 functions.
+>       void add5(int *x) {
+>           *x += 5;
+>       }
+>       int main(void) {
+>           int result = -1, val = 4;
+>           add5(&val);
+>           return val;
+>       }
+>       
+>       ```
+>
+>       * 那么，我们看到`LibTooling`对代码的语法树有完全的控制，那么我们可以基于它去检查命名的规范，甚至做一个代码的转换，比如实现OC转Swift。
+>
+>          
+>
+>   * 对语法树有完全的控制权，可以作为一个单独的命令使用，如：`clang-format`
+>
+>     ```
+>     	
+>     clang-format main.m
+>     
+>     ```
+>
+> * ClangPlugin: `对语法树有完全的控制权，作为插件注入到编译流程中，可以影响build和决定编译过程。目录:`llvm/tools/clang/examples
+>
+>   * 可以用来定义一些编码规范，比如代码风格检查，命名检查等等
+>
+>   
+>
+>   
+
 
 
 #### 1\编译的完整步骤
@@ -227,7 +372,19 @@ llvm 是一系列   分模块和可重用的编译工具链，他提供了一种
 
  基于LLVM进行代码混淆时，只需关注中间层表示（IR）
 
+#### 基于LLVM，我们可以做什么？
 
+
+
+> * 做语法树分析，实现语言转换OC转Swift、JS or 其它语言，字符串加密。
+> * 编写ClangPlugin，命名规范，代码规范，扩展功能。
+> * 编写Pass，代码混淆优化。
+>
+>  
+>
+>  
+>
+>  
 
 # II \ 安装编译LLVM
 
