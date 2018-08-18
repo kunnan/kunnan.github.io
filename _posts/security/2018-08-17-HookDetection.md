@@ -221,6 +221,7 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >
 >   * 非懒加载的指针指向真实的地址，而懒加载的指针在没有解析到真实的地址之前指向`__stub_helper`;so ，遍历符号表中的每一个指针，然后判断指针是不是指向`__stub_helper`或者系统模块，就可以判断是否被hook。
 >     * 结合fishhook代码以及macho文件结构的基础分析，结合`dladdr`函数来实现代码。
+>     * `dladdr查看函数的内存空间信息, 验证函数的指针来自程序, 还是苹果的库, 还是未知.`
 >
 > * inline hook: 替换函数内部的前几条指令跳转
 >
@@ -309,6 +310,7 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 > * 获取embedded.mobileprovision文件信息
 > * 从可执行文件的LC_CODE_SIGNATURE 读取信息
 >   * [MachOParser.mm](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/MachOParser/MachOParser/MachOParser.mm)
+>     * 1.拿到当前的签名文件的签名信息和编译前的签名信息比对
 
 
 
