@@ -15,6 +15,14 @@ subtitle: 反调试、反反调试、反注入、hook检测、完整性校验
 
 加解密方法、动态传参的分析就依赖动态调试去分析动态解密之后的内容、方法传递的参数。
 
+
+
+#### 动态分析防护 
+
+ptrace ,syscall sysctl,dlsym等  
+
+
+
 #    反调试[AntiDebug.](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/DynamicProtect/DynamicProtect/AntiDebug.h)
 
 > * [code for antiDebug](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/DynamicProtect/DynamicProtect/AntiDebug.m)
