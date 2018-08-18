@@ -123,6 +123,33 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 > * 7、生成可执行文件
 >   * clang main.o -o main  
 
+![image](https://wx1.sinaimg.cn/large/af39b376gy1fudwnnhg90j20yq0hvtee.jpg)
+
+#### Clang Static Analyzer静态代码分析： https://code.woboq.org/llvm/clang/
+
+
+
+> * 静态分析前会对源代码分词成 Token，这个过程称为词法分析（Lexical Analysis）  
+>
+>   * `编译的概念（词法->语法->语义->IR->优化->CodeGen） 在 clang static analyzer 里到处可见。  `
+>
+> * Token 可以分为以下几类 
+>
+>   * 关键字：语法中的关键字，if else while for 等。  
+>   * 标识符：变量名  
+>   * 字面量：值，数字，字符串  
+>   * 特殊符号：加减乘除等符号  
+>
+> * 语法分析（Semantic Analysis）将 token 先按照语法组合成语义生成 VarDecl 节点，然后将这些节点按照层级关系构成抽象语法树 Abstract Syntax Tree (AST)。
+>
+>   
+>
+>   
+
+
+
+
+
 
 
 # 什么是LLVM？
