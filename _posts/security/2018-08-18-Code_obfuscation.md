@@ -178,7 +178,7 @@ LLVM IR 有三种表示格式，第一种是 bitcode 这样的存储格式，以
 >   * dSYM 文件里存储了函数地址映射，这样调用栈里的地址可以通过 dSYM 这个映射表能够获得具体函数的位置。一般都会用来处理 crash 时获取到的调用栈 .crash 文件将其符号化  
 >     * https://zhangkn.github.io/2018/03/symbolicatecrash/
 
-# 什么是LLVM？
+# I \什么是LLVM？
 
 llvm 是一系列   分模块和可重用的编译工具链，他提供了一种代码编写良好的中间表示（IR），可以作为多种语言的后端，还可以提供与编程无关的优化和针对多种CPU的代码生成功能。
 
@@ -214,6 +214,86 @@ llvm 是一系列   分模块和可重用的编译工具链，他提供了一种
 |                                                              |
 
  基于LLVM进行代码混淆时，只需关注中间层表示（IR）
+
+
+
+# II \ 安装编译LLVM
+
+#### 下载
+
+> * 1.直接从官网下载:<http://releases.llvm.org/download.html>
+>
+> * 2.svn获取
+>
+>   * svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
+>
+>   * ```
+>     cd llvm/tools
+>     svn co http://llvm.org/svn/llvm-project/cfe/trunk clang
+>     cd ../projects
+>     svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt
+>     cd ../tools/clang/tools
+>     svn co http://llvm.org/svn/llvm-project/clang-tools-extra/trunk extra
+>     
+>     ```
+>
+>      
+>
+> * 3.git获取
+>
+>   ```
+>   git clone http://llvm.org/git/llvm.git
+>   cd llvm/tools
+>   git clone http://llvm.org/git/clang.git
+>   cd ../projects
+>   git clone http://llvm.org/git/compiler-rt.git
+>   cd ../tools/clang/tools
+>   git clone http://llvm.org/git/clang-tools-extra.git
+>   
+>   ```
+
+
+
+#### 编译
+
+
+
+最新的LLVM只支持cmake来编译了，首先安装cmake。
+
+```
+brew install cmake
+
+```
+
+
+
+编译：
+
+```
+mkdir build
+cmake /path/to/llvm/source
+cmake --build .
+
+```
+
+> * 编译生成Xcode项目的命令
+>
+>   ```
+>   mkdir build
+>   cd build
+>   cmake -G xcode CMAKE_BUILD_TYPE="Debug" ../llvm
+>   open LLVM.xcodeproj
+>   ```
+>
+>   * 打开Xcode的时候，选择`munually manage sechme`,选择需要编译的Target（clang），接下来执行`command+R`
+>
+> * 编译完成后，就能在`build/bin/`目录下面找到生成的工具了。
+>
+>   * clang 的版本和Xcode的版本不一样，苹果在开源的LLVM中增加了自己的修改
+
+ 
+
+
 
 # See Also 
 
