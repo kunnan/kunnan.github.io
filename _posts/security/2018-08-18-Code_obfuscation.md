@@ -502,7 +502,7 @@ cmake --build .
 
 
 
-# **PassDemo**
+# III 、**PassDemo**
 
 
 
@@ -518,7 +518,11 @@ cmake --build .
 
 
 
-接下来重点介绍如何编写、编译、加载、运行一个pass
+> * 接下来重点介绍如何编写、编译、加载、运行一个pass
+>
+>   * [官方的demo在`lib/Transfroms/hello` 中](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/PassDemo/Hello.cpp)
+>
+>     ![image](https://wx1.sinaimg.cn/large/af39b376gy1fudz7ut679j20yz0k9afg.jpg)
 
 
 
