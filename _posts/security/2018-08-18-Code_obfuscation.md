@@ -56,6 +56,75 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >
 >     * 将多个目标对象文件合并为一个可执行文件 (或者一个动态库)  
 
+
+
+
+
+#### 编译的完整步骤
+
+> * 1）编译信息写入辅助文件，创建文件架构 .app 文件  
+> * 2）处理文件打包信息  
+> * 3）执行 CocoaPod 编译前脚本，checkPods Manifest.lock  
+> * 4）编译.m文件，使用 CompileC 和 clang 命令  
+> * 5）链接需要的 Framework  
+> * 6）编译 xib  
+> * 7）拷贝 xib ，资源文件  
+> * 8）编译 ImageAssets  
+> * 9）处理 info.plist  
+> * 10）执行 CocoaPod 脚本  
+> * 11）拷贝标准库  
+> * 12）创建 .app 文件和签名  
+
+
+
+#### clang 命令参数
+
+
+
+> * -x 编译语言比如objective-c  
+> * -arch 编译的架构，比如arm7  
+> * -f 以-f开头的。  
+> * -W 以-W开头的，可以通过这些定制编译警告  
+> * -D 以-D开头的，指的是预编译宏，通过这些宏可以实现条件编译  
+> * -iPhoneSimulator10.1.sdk 编译采用的iOS SDK版本  
+> * -I 把编译信息写入指定的辅助文件  
+> * -F 需要的Framework  
+> * -c 标识符指明需要运行预处理器，语法分析，类型检查，LLVM生成优化以及汇编代码生成.o文件  
+> * -o 编译结果  
+
+
+
+#### xcode 编译器的相关设置
+
+> * Build Phases：构建可执行文件的规则 
+>   * 1）指定 target 的依赖项目，在 target build 之前需要先 build 的依赖。在 Compile Source 中指定所有必须编译的文件，  
+>   * 2）在 Link Binary With Libraries 里会列出所有的静态库和动态库，它们会和编译生成的目标文件进行链接。  
+>   * 3）build phase 还会把静态资源拷贝到 bundle 里。  
+>   * 4)可以通过在 build phases 里添加自定义脚本来做些事情，比如像 CocoaPods 所做的那样。  
+> * Build Rules: 指定不同文件类型如何编译 
+> *  Build Settings : 在 build 的过程中各个阶段的选项的设置
+
+
+
+#### Clang 使用的例子
+
+> * 1、 先通过-E查看clang在预编译处理这步做了什么: 包括宏的替换，头文件的导入 
+>   * `clang -E main.m  `
+> *  2、预处理完成后就会进行词法分析，这里会把代码切成一个个 Token，比如大小括号，等于号还有字符串等
+> * 3、然后是语法分析，验证语法是否正确，然后将所有节点组成抽象语法树 AST 
+> * 4、IR中间代码的生成：CodeGen 会负责将语法树自顶向下遍历逐步翻译成 LLVM IR，IR 是编译过程的前端的输出后端的输入 
+>   * 1、Pass 教程： http://llvm.org/docs/WritingAnLLVMPass.html  
+>   * 2、如果开启了 bitcode 苹果会做进一步的优化，有新的后端架构还是可以用这份优化过的 bitcode 去生成。  
+>   * clang -emit-llvm -c main.m -o main.bc  
+> *  5、生成汇编 
+>   * clang -S -fobjc-arc main.m -o main.s  
+> * 6、 生成目标文件
+>   * clang -fmodules -c main.m -o main.o  
+> * 7、生成可执行文件
+>   * clang main.o -o main  
+
+
+
 # 什么是LLVM？
 
 llvm 是一系列 
