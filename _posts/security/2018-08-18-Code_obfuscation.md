@@ -500,6 +500,16 @@ cmake --build .
 
 
 
+
+
+# **PassDemo**
+
+
+
+> * pass 处理编译过程中代码的额转换以及优化工作。所有的pass都是pass的子类，不同的passs实现不同的作用，可以分别继承不同的pass类实现对应的功能
+
+
+
 # See Also 
 
 >* https://zhangkn.github.io/2018/03/Hopper/
