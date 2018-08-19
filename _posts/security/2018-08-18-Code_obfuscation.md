@@ -24,9 +24,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >     * 其中的 clang static analyzer 主要是进行语法分析，语义分析和生成中间代码，当然这个过程会对代码进行检查，出错的和需要警告的会标注出来。
 >     * lld 是 Clang / LLVM 的内置链接器，clang 必须调用链接器来产生可执行文件。 
 
-> *  LLVM编译一个源文件的过程：`预处理 -> 词法分析 -> Token -> 语法分析 -> AST -> 代码生成 -> LLVM IR -> 优化 -> 生成汇编代码 -> Link -> 目标文件`
->
->    
+> * LLVM编译一个源文件的过程：`预处理 -> 词法分析 -> Token -> 语法分析 -> AST -> 代码生成 -> LLVM IR -> 优化 -> 生成汇编代码 -> Link -> 目标文件`
 >
 >   * 1、预处理  
 >
@@ -47,8 +45,6 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >       * LLVM IR 有三种表示格式，第一种是 bitcode 这样的存储格式，以 .bc 做后缀，第二种是可读的以 .ll，第三种是用于开发时操作 LLVM IR 的内存格式
 >     * 生成特定目标代码  
 >     * 输出汇编代码  
->
->     
 >
 >   * 4、汇编器  
 >
@@ -201,9 +197,6 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >
 >   * 可以用来定义一些编码规范，比如代码风格检查，命名检查等等
 >
->   
->
->   
 
 
 
@@ -261,7 +254,7 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 > * 1、 先通过-E查看clang在预编译处理这步做了什么: 包括宏的替换，macro宏的展开  import/include头文件的导入，以及#if等处理
 >
->   
+>
 >   * `clang -E main.m  `
 >
 >   * 后来Xcode新建的项目里面去掉了pch文件，引入了moduels的概念，把一些通用的库打成modules的形式，然后导入，默认会加上-fmodules参数。
@@ -274,8 +267,6 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >         @import Foundation; 
 >         
 >         ```
->
->         
 >
 > * 2、预处理完成后就会进行词法分析，这里会把代码切成一个个 Token，比如大小括号，等于号还有字符串等
 >
@@ -302,12 +293,15 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >     * clang -emit-llvm -c main.m -o main.bc  
 >
 > * 5、生成汇编 
+>
 >   * clang -S -fobjc-arc main.m -o main.s  
 >
 > * 6、 生成目标文件
+>
 >   * clang -fmodules -c main.m -o main.o  
 >
 > * 7、生成可执行文件
+>
 >   * clang main.o -o main  
 
 ![image](https://wx1.sinaimg.cn/large/af39b376gy1fudwnnhg90j20yq0hvtee.jpg)
@@ -335,9 +329,6 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 >
 > * 语法分析（Semantic Analysis）将 token 先按照语法组合成语义生成 VarDecl 节点，然后将这些节点按照层级关系构成抽象语法树 Abstract Syntax Tree (AST)。
 >
->   
->
->   
 
 
 
@@ -385,7 +376,6 @@ llvm 是一系列   分模块和可重用的编译工具链，他提供了一种
 >
 >   * The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.
 >
->   
 
 
 
@@ -553,8 +543,6 @@ cmake --build .
 >       
 >       ```
 >
->       
->
 >     * 编译脚本指定使用编译源文件 Hello.cpp 生成  $(LEVEL)/lib/LLVMHello.dylib 动态库，该文件可以被opt 通过-load 参数动态加载。
 >
 >       ![image](https://wx3.sinaimg.cn/large/af39b376gy1fuerby37ccj20lj0efn0o.jpg)
@@ -608,8 +596,6 @@ cmake --build .
 >     
 >     ```
 >
->     
->
 > * 初始化passID
 >
 >   * code: 因为LLVM将使用ID的地址去识别一个pass，因此初始化的value不重要
@@ -619,10 +605,6 @@ cmake --build .
 >     
 >     ```
 >
->     
->
->     
->
 > * 注册pass hello，指定命令行参数为“hello”，名字说明为“hello world pass” 
 >
 >   * code
@@ -631,8 +613,6 @@ cmake --build .
 >     static RegisterPass<Hello> X("hello", "Hello World Pass");
 >     
 >     ```
->
->     
 >
 > * 选中target LLVMhello 执行command+B，生成build/debug/lib/LLVMHello.dylib 
 >
@@ -667,8 +647,6 @@ cmake --build .
 >     
 >     ```
 >
->     
->
 > * [hello1 code](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/PassDemo/Hello.cpp)
 >
 
@@ -698,8 +676,6 @@ cmake --build .
 >     
 >     ```
 >
->     
->
 > * 编译源文件 生成bitcode: 因为Pass是作用于中间代码，所以我们首先要生成一份中间代码
 >
 >   * path/to/build/deBug/bin/clang -emit-llvm -c test.mm -o test.bc
@@ -715,15 +691,11 @@ cmake --build .
 >   ./opt -load ../lib/LLVMHello.dylib -help
 >   ```
 >
->   
->
 > * passManager 提供了`-time-passes`参数用于输出pass的时间占比
 >
 >   ```
 >   ./opt -load ../lib/LLVMHello.dylib -hello -time-passes -disable-output ~/LLVM/test.bc
 >   ```
->
->   
 >
 > * 编辑/llvm-3.9.0.src/tools/opt/CMakeLists.txt 将LLVMHello模块添加到opt 的依赖，这样在执行opt的时候能自动检测LLVMHello模块有没有被修改，如果被修改了。需要重新编译LLVMHello模块
 >
@@ -743,15 +715,8 @@ cmake --build .
 >     )
 >   ```
 >
->   
 >
->   
->
->   
->
->   
->
->  
+> 
 
 # 其他操作
 
@@ -839,7 +804,6 @@ cmake --build .
 >       
 >       ```
 >
->       
 
 
 
@@ -877,7 +841,7 @@ cmake --build .
 >
 > * 2.创建源文件： llvm-3.9.0.src/lib/Transforms  存放源代码
 >
->   
+>
 >
 >   ```
 >   cd llvm/lib/Transforms/
@@ -899,8 +863,6 @@ cmake --build .
 >       add_dependencies(LLVMObfuscation intrinsics_gen)
 >     
 >     ```
->
->     
 >
 >   * LLVMBuild.txt:
 >
@@ -1104,8 +1066,6 @@ cmake --build .
 >   
 >   ```
 >
->   
->
 > * 然后在`populateModulePassManager`这个函数中添加如下代码：
 >
 >   ```
@@ -1228,8 +1188,6 @@ cmake --build .
 >     
 >     ```
 >
->     
->
 >   * lib/Transforms/Obfuscation/CMakeLists.txt
 >
 >     ```
@@ -1248,8 +1206,6 @@ cmake --build .
 >
 >     * 将`add_llvm_library` 修改为`add_llvm_loadable_module`编译成动态库，通过opt 加载调试（如果添加到passManager中，编译成静态库，同样可以通过opt加载调试）
 >
->       
->
 >   * 主要包含的三个pass，用于不同程序的混淆
 >
 >     * BogusControlFlow： 增加虚假的控制流程和无用的代码
@@ -1262,7 +1218,7 @@ cmake --build .
 
 > * open xcode ,安装command+B ,选择LLVMObfuscation的scheme，编译生成动态库
 >
-> * 分析BogusControlFlow
+> * 1） 分析BogusControlFlow
 >
 >   * [BogusControlFlow.cpp](https://github.com/zhangkn/obfuscator/blob/llvm-4.0/lib/Transforms/Obfuscation/BogusControlFlow.cpp)
 >
@@ -1282,8 +1238,6 @@ cmake --build .
 >         
 >         ```
 >
->         
->
 >       * // Check if the number of applications is correct
 >
 >         ```
@@ -1293,8 +1247,6 @@ cmake --build .
 >               }
 >         
 >         ```
->
->         
 >
 >       * // If fla annotations
 >
@@ -1308,11 +1260,44 @@ cmake --build .
 >         ```
 >
 >         * void bogus(Function &F) { 分析
->           * // Put all the function's block in a list  把方法中的所有block放到一个list  中。
 >
-> * 使用[**Graphviz**](http://graphviz.org/) 查看流程图，设置**dot**文件的默认打开方式。
+>           * // Put all the function's block in a list  把方法中的所有block放到一个list  中。然后分别取出，调用`addBogusFlow`增加虚假控制流程
+>
+>             ```
+>                           addBogusFlow(basicBlock, F);//     * Add bogus flow to a given basic block, according to the header's description
+>             
+>                 virtual void addBogusFlow(BasicBlock * basicBlock, Function &F){
+>             
+>             ```
+>
+>           * `addBogusFlow` 首先调用`createAlteredBasicBlock`复制原来的BasicBlock，然后修改其变量，引用并插入一些脏数据，接着创建一个恒为true的条件跳转到原来BasicBlock。false的分支跳转到复制的BasicBlock，复制的BasicBlock跳转回原来的BasicBlock。最后，创建一个恒为true的条件跳转到原BasicBlock的结束位置，false分支跳转到复制的BasicBlock。
+>
+>             * `BasicBlock *alteredBB = createAlteredBasicBlock(originalBB, *var3, &F);`
+>
+>   * 使用[**Graphviz**](http://graphviz.org/) 查看流程图，设置**dot**文件的默认打开方式。
+>   * 调试过程使用`po originalBB->dump()` 打印对应的结果信息及浏览当前的流程图。
+>   * po F.viewCFG()
+>   * build/Debug/llvm-dis test_after.bc -o test_after.ll` 将混淆处理之后的bitcode转换为可读的bitcode代码
+>
+> * 2）[Flattening.cpp](https://github.com/zhangkn/obfuscator/blob/llvm-4.0/lib/Transforms/Obfuscation/Flattening.cpp) 扁平化功能的实现分析
+>
+>   * `opt -load ./lib/LLVMObfusaction.dylib -debug -flattening path/to/test.bc -o path/to/test_atfer.bc`
+>
+>     * 一旦进入runOnFunction 函数，判断是否需要混淆；如果需要混淆，就调用flatten 方法，保存所有的BasicBlock；如果个数小于等于1 就认为`Nothing to flatten` 直接返回；然后移除第一个BasicBlock`Remove first BB`.
+>
+>     * ` Get a pointer on the first BB` 接着判断第一个BasicBlock是不是条件判断或者分支，如果是就使用splitBasicBlock 将其分开，并移除第一个BasicBlock。
+>
+>     * 分别创建一个loopEntry和一个loopEnd的BasicBlock，分别将第一个BasicBlock和loopEnd跳转到loopEntry，创建一个指向loopEnd的switchDefault，并将loopEntry 指向switchDefault。
+>
+>     * `Put all BB in the switch` 将之前保存的BasicBlock分别添加到switch分支中。
+>
+>     * 将switch中的所有的BasicBlock 指向loopEnd  并调整switch case。
+>
+> * 3）最后一个Substitution 将一些计算指令替换成一些复杂的转换表达式（这种混淆在开启编译器优化之后都会失效，除非指定了不优化函数）
 
 
+
+ # 
 
 # See Also 
 
