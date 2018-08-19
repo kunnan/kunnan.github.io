@@ -546,6 +546,15 @@ cmake --build .
 >     
 >     ```
 >
+>     * 修改`.../Transforms/CMakeLists.txt`, 加上刚刚写的模块`hello`
+>
+>       ```
+>       add_subdirectory(hello)
+>       
+>       ```
+>
+>       
+>
 >     * 编译脚本指定使用编译源文件 Hello.cpp 生成  $(LEVEL)/lib/LLVMHello.dylib 动态库，该文件可以被opt 通过-load 参数动态加载。
 >
 >       ![image](https://wx3.sinaimg.cn/large/af39b376gy1fuerby37ccj20lj0efn0o.jpg)
@@ -625,6 +634,8 @@ cmake --build .
 >
 >     
 >
+> * 选中target LLVMhello 执行command+B，生成build/debug/lib/LLVMHello.dylib 
+>
 > * hello2 : `Hello World Pass (with getAnalysisUsage implemented) `
 >
 >   * code 
@@ -663,8 +674,599 @@ cmake --build .
 
 
 
+
+
+#### 使用opt  加载动态库，并指定参数
+
+之前在代码中通过RegisterPass 注册了pass，现在可以准备一个测试用的源文件，通过opt -load 命令去加载动态库并指定参数hello
+
+
+
+> * 测试的源文件[test.mm](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/PassDemo/test.mm)
+>
+>   * code
+>
+>     ```
+>     #include <stdio.h>
+>     int add(int x, int y) {
+>         return x + y;
+>     }
+>     int main(){
+>         printf("%d",add(3,4));
+>         return 0;
+>     }
+>     
+>     ```
+>
+>     
+>
+> * 编译源文件 生成bitcode: 因为Pass是作用于中间代码，所以我们首先要生成一份中间代码
+>
+>   * path/to/build/deBug/bin/clang -emit-llvm -c test.mm -o test.bc
+>
+> * 然后加载Pass
+>
+>   * 在Xcode中将opt的target添加到scheme中。编辑scheme的启动参数，按command+R执行。
+>   * ../build/bin/opt -load ../build/lib/LLVMHello.dylib -simplepass < test.bc > after_test.bc 
+>
+> * 通过-help   参数查看注册的pass参数
+>
+>   ```
+>   ./opt -load ../lib/LLVMHello.dylib -help
+>   ```
+>
+>   
+>
+> * passManager 提供了`-time-passes`参数用于输出pass的时间占比
+>
+>   ```
+>   ./opt -load ../lib/LLVMHello.dylib -hello -time-passes -disable-output ~/LLVM/test.bc
+>   ```
+>
+>   
+>
+> * 编辑/llvm-3.9.0.src/tools/opt/CMakeLists.txt 将LLVMHello模块添加到opt 的依赖，这样在执行opt的时候能自动检测LLVMHello模块有没有被修改，如果被修改了。需要重新编译LLVMHello模块
+>
+>   ```
+>   add_llvm_tool(opt
+>     AnalysisWrappers.cpp
+>     BreakpointPrinter.cpp
+>     GraphPrinters.cpp
+>     NewPMDriver.cpp
+>     PassPrinters.cpp
+>     PrintSCC.cpp
+>     opt.cpp
+>   
+>   
+>   DEPENDS
+>   LLVMHello
+>     )
+>   ```
+>
+>   
+>
+>   
+>
+>   
+>
+>   
+>
+>  
+
+# 其他操作
+
+
+
+#### 1、如果编写的pass用到了其他pass提供的函数功能，需要在`getAnalysisUsage ` 中进行声明
+
+[Hello.cpp](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/PassDemo/Hello.cpp)
+
+> * 例如想获取程序中存在的循环信息
+>
+>   * 导入头文件llvm/Analysis/LoopInfo.h,并在`getAnalysisUsage ` 中进行调用
+>
+>   * code 
+>
+>     ```
+>     namespace {
+>       // Hello2 - The second implementation with getAnalysisUsage implemented.
+>       struct Hello2 : public FunctionPass {
+>         static char ID; // Pass identification, replacement for typeid
+>         Hello2() : FunctionPass(ID) {}
+>     
+>         bool runOnFunction(Function &F) override {
+>           ++HelloCounter;
+>           errs() << "Hello: ";
+>           errs().write_escaped(F.getName()) << '\n';
+>           return false;
+>         }
+>     
+>         // We don't modify the program, so we preserve all analyses.
+>         void getAnalysisUsage(AnalysisUsage &AU) const override {
+>         AU.addRequired<LoopInfoWrapperPass>();
+>           AU.setPreservesAll();
+>         }
+>       };
+>     }
+>     
+>     char Hello2::ID = 0;
+>     static RegisterPass<Hello2>
+>     Y("hello2", "Hello World Pass (with getAnalysisUsage implemented)");
+>     
+>     ```
+>
+>     * 通过它提供的接口就可以获取循环的个数
+>
+>       ```
+>       #include "llvm/Pass.h"
+>       #include "llvm/IR/Function.h"
+>       #include "llvm/Support/raw_ostream.h"
+>       #include "llvm/Analysis/LoopInfo.h"
+>       
+>       using namespace llvm;
+>       
+>       namespace{
+>           struct Hello : public FunctionPass{
+>               static char ID;
+>               
+>               Hello() : FunctionPass(ID){}
+>               
+>               virtual void getAnalysisUsage(AnalysisUsage &AU) const override{
+>                   AU.addRequired<LoopInfoWrapperPass>();
+>                   AU.setPreservesAll();
+>               }
+>               
+>               bool runOnFunction(Function &F) override{
+>                   errs() << "Hello: ";
+>                   errs().write_escaped(F.getName()) << "\n";
+>                   
+>                   LoopInfo &LI = getAnalysis<LoopInfoWrapperPass>().getLoopInfo();
+>                   int loopCounter = 0;
+>                   for (LoopInfo::iterator i = LI.begin(), e = LI.end(); i != e; ++i) {
+>                       loopCounter++;
+>                   }
+>                   
+>                   errs() << "loop num:" << loopCounter << "\n";
+>                   
+>                   return false;
+>               }
+>           };
+>       }
+>       
+>       char Hello::ID = 0;
+>       
+>       static RegisterPass<Hello> X("hello", "hello world pass", false, false);
+>       
+>       ```
+>
+>       
+
+
+
+#### 2、*LLVMSimplePass*（写的Pass只是把a+b简单的替换成了a-(-b),只是一个演示，怎么去写自己的Pass，并且作用于代码）
+
+
+
+> * 1.创建头文件 :`llvm-3.9.0.src/include/llvm/Transforms  `统一存放头文件
+>
+>   ```
+>   cd llvm/include/llvm/Transforms/
+>   mkdir Obfuscation
+>   cd Obfuscation
+>   touch SimplePass.h
+>   
+>   ```
+>
+>   * 写入内容：
+>
+>     ```c++
+>     #include "llvm/IR/Function.h"
+>     #include "llvm/Pass.h"
+>     #include "llvm/Support/raw_ostream.h"
+>     #include "llvm/IR/Intrinsics.h"
+>     #include "llvm/IR/Instructions.h"
+>     #include "llvm/IR/LegacyPassManager.h"
+>     #include "llvm/Transforms/IPO/PassManagerBuilder.h"
+>     // Namespace
+>     using namespace std;
+>     namespace llvm {
+>     	Pass *createSimplePass(bool flag);
+>     }
+>     
+>     ```
+>
+> * 2.创建源文件： llvm-3.9.0.src/lib/Transforms  存放源代码
+>
+>   
+>
+>   ```
+>   cd llvm/lib/Transforms/
+>   mkdir Obfuscation
+>   cd Obfuscation
+>   touch CMakeLists.txt
+>   touch LLVMBuild.txt
+>   touch SimplePass.cpp
+>   
+>   ```
+>
+>   * CMakeLists.txt
+>
+>     ```
+>     add_llvm_loadable_module(LLVMObfuscation
+>       SimplePass.cpp
+>       
+>       )
+>       add_dependencies(LLVMObfuscation intrinsics_gen)
+>     
+>     ```
+>
+>     
+>
+>   * LLVMBuild.txt:
+>
+>     ```
+>     
+>     [component_0]
+>     type = Library
+>     name = Obfuscation
+>     parent = Transforms
+>     library_name = Obfuscation
+>     
+>     ```
+>
+>   * SimplePass.cpp:
+>
+>     ```
+>     #include "llvm/Transforms/Obfuscation/SimplePass.h"
+>     using namespace llvm;
+>     namespace {
+>         struct SimplePass : public FunctionPass {
+>             static char ID; // Pass identification, replacement for typeid
+>             bool flag;
+>              
+>             SimplePass() : FunctionPass(ID) {}
+>             SimplePass(bool flag) : FunctionPass(ID) {
+>             	this->flag = flag;
+>             }
+>              
+>             bool runOnFunction(Function &F) override {
+>             	if(this->flag){
+>                     Function *tmp = &F;
+>                     // 遍历函数中的所有基本块
+>                     for (Function::iterator bb = tmp->begin(); bb != tmp->end(); ++bb) {
+>                         // 遍历基本块中的每条指令
+>                         for (BasicBlock::iterator inst = bb->begin(); inst != bb->end(); ++inst) {
+>                             // 是否是add指令
+>                             if (inst->isBinaryOp()) {
+>                                 if (inst->getOpcode() == Instruction::Add) {
+>                                     ob_add(cast<BinaryOperator>(inst));
+>                                 }
+>                             }
+>                         }
+>                     }
+>                 }
+>                 return false;
+>             }
+>              
+>             // a+b === a-(-b)
+>             void ob_add(BinaryOperator *bo) {
+>                 BinaryOperator *op = NULL;
+>                  
+>                 if (bo->getOpcode() == Instruction::Add) {
+>                     // 生成 (－b)
+>                     op = BinaryOperator::CreateNeg(bo->getOperand(1), "", bo);
+>                     // 生成 a-(-b)
+>                     op = BinaryOperator::Create(Instruction::Sub, bo->getOperand(0), op, "", bo);
+>                      
+>                     op->setHasNoSignedWrap(bo->hasNoSignedWrap());
+>                     op->setHasNoUnsignedWrap(bo->hasNoUnsignedWrap());
+>                 }
+>                  
+>                 // 替换所有出现该指令的地方
+>                 bo->replaceAllUsesWith(op);
+>             }
+>         };
+>     }
+>      
+>     char SimplePass::ID = 0;
+>      
+>     // 注册pass 命令行选项显示为simplepass
+>     static RegisterPass<SimplePass> X("simplepass", "this is a Simple Pass");
+>     Pass *llvm::createSimplePass() { return new SimplePass(); }
+>     
+>     ```
+>
+> * 修改`.../Transforms/LLVMBuild.txt`, 加上刚刚写的模块`Obfuscation`
+>
+>   ```
+>   ;===- ./lib/Transforms/LLVMBuild.txt ---------------------------*- Conf -*--===;
+>   ;
+>   ;                     The LLVM Compiler Infrastructure
+>   ;
+>   ; This file is distributed under the University of Illinois Open Source
+>   ; License. See LICENSE.TXT for details.
+>   ;
+>   ;===------------------------------------------------------------------------===;
+>   ;
+>   ; This is an LLVMBuild description file for the components in this subdirectory.
+>   ;
+>   ; For more information on the LLVMBuild system, please see:
+>   ;
+>   ;   http://llvm.org/docs/LLVMBuild.html
+>   ;
+>   ;===------------------------------------------------------------------------===;
+>   
+>   [common]
+>   subdirectories = IPO InstCombine Instrumentation Scalar Utils Vectorize ObjCARC Obfuscation
+>   
+>   [component_0]
+>   type = Group
+>   name = Transforms
+>   parent = Libraries
+>   
+>   ```
+>
+> * 修改`.../Transforms/CMakeLists.txt`, 加上刚刚写的模块`Obfuscation`
+>
+>   ```
+>   add_subdirectory(Obfuscation)
+>   
+>   ```
+>
+> * 编译生成：`LLVMSimplePass.dylib`
+>
+>    
+>
+> * 因为Pass是作用于中间代码，所以我们首先要生成一份中间代码：
+>
+>   ```
+>   clang -emit-llvm -c test.c -o test.bc
+>   
+>   ```
+>
+> * 然后加载Pass优化：
+>
+>   ```
+>   ../build/bin/opt -load ../build/lib/LLVMSimplePass.dylib -simplepass < test.bc > after_test.bc
+>   
+>   ```
+>
+> * 
+>
+
+
+
+###### 将Pass加入PassManager管理
+
+
+
+上面我们是单独去加载Pass动态库，这里我们将Pass加入PassManager，这样我们就可以直接通过clang的参数去加载我们的Pass了。
+
+ 
+
+> * 首先在`llvm/lib/Transforms/IPO/PassManagerBuilder.cpp`添加头文件。
+>
+>   ```
+>   //===- PassManagerBuilder.cpp - Build Standard Pass -----------------------===//
+>   //
+>   //                     The LLVM Compiler Infrastructure
+>   //
+>   // This file is distributed under the University of Illinois Open Source
+>   // License. See LICENSE.TXT for details.
+>   //
+>   //===----------------------------------------------------------------------===//
+>   //
+>   // This file defines the PassManagerBuilder class, which is used to set up a
+>   // "standard" optimization sequence suitable for languages like C and C++.
+>   //
+>   //===----------------------------------------------------------------------===//
+>   
+>   #include "llvm/Transforms/IPO/PassManagerBuilder.h"
+>   #include "llvm-c/Transforms/PassManagerBuilder.h"
+>   #include "llvm/ADT/SmallVector.h"
+>   #include "llvm/Analysis/BasicAliasAnalysis.h"
+>   #include "llvm/Analysis/CFLAndersAliasAnalysis.h"
+>   #include "llvm/Analysis/CFLSteensAliasAnalysis.h"
+>   #include "llvm/Analysis/GlobalsModRef.h"
+>   #include "llvm/Analysis/Passes.h"
+>   #include "llvm/Analysis/ScopedNoAliasAA.h"
+>   #include "llvm/Analysis/TargetLibraryInfo.h"
+>   #include "llvm/Analysis/TypeBasedAliasAnalysis.h"
+>   #include "llvm/IR/DataLayout.h"
+>   #include "llvm/IR/LegacyPassManager.h"
+>   #include "llvm/IR/ModuleSummaryIndex.h"
+>   #include "llvm/IR/Verifier.h"
+>   #include "llvm/Support/CommandLine.h"
+>   #include "llvm/Support/ManagedStatic.h"
+>   #include "llvm/Target/TargetMachine.h"
+>   #include "llvm/Transforms/IPO.h"
+>   #include "llvm/Transforms/IPO/ForceFunctionAttrs.h"
+>   #include "llvm/Transforms/IPO/FunctionAttrs.h"
+>   #include "llvm/Transforms/IPO/InferFunctionAttrs.h"
+>   #include "llvm/Transforms/Instrumentation.h"
+>   #include "llvm/Transforms/Scalar.h"
+>   #include "llvm/Transforms/Scalar/GVN.h"
+>   #include "llvm/Transforms/Vectorize.h"
+>   #include "llvm/Transforms/Obfuscation/SimplePass.h"
+>   
+>   using namespace llvm;
+>   
+>   ```
+>
+> * 添加如下code
+>
+>   ```
+>   static cl::opt<bool> SimplePass("simplepass", cl::init(false),
+>                              cl::desc("Enable simple pass"));
+>   static cl::opt<bool>
+>   RunLoopVectorization("vectorize-loops", cl::Hidden,
+>                        cl::desc("Run the Loop vectorization passes"));
+>   
+>   ```
+>
+>   
+>
+> * 然后在`populateModulePassManager`这个函数中添加如下代码：
+>
+>   ```
+>   void PassManagerBuilder::populateModulePassManager(
+>       legacy::PassManagerBase &MPM) {
+>     // Allow forcing function attributes as a debugging and tuning aid.
+>     MPM.add(createForceFunctionAttrsLegacyPass());
+>   MPM.add(createSimplePass(SimplePass));
+>   
+>   ```
+>
+> * 最后在IPO这个目录的`LLVMBuild.txt`中添加库的支持，否则在编译的时候会提示链接错误。具体内容如下：
+>
+>   ```
+>   ;===- ./lib/Transforms/IPO/LLVMBuild.txt -----------------------*- Conf -*--===;
+>   ;
+>   ;                     The LLVM Compiler Infrastructure
+>   ;
+>   ; This file is distributed under the University of Illinois Open Source
+>   ; License. See LICENSE.TXT for details.
+>   ;
+>   ;===------------------------------------------------------------------------===;
+>   ;
+>   ; This is an LLVMBuild description file for the components in this subdirectory.
+>   ;
+>   ; For more information on the LLVMBuild system, please see:
+>   ;
+>   ;   http://llvm.org/docs/LLVMBuild.html
+>   ;
+>   ;===------------------------------------------------------------------------===;
+>   
+>   [component_0]
+>   type = Library
+>   name = IPO
+>   parent = Transforms
+>   library_name = ipo
+>   required_libraries = Analysis Core InstCombine IRReader Linker Object ProfileData Scalar Support TransformUtils Vectorize Instrumentation Obfuscation
+>   
+>   ```
+>
+> * 修改Pass的CMakeLists.txt为静态库形式：
+>
+>   ```
+>   add_llvm_library(LLVMipo
+>     ArgumentPromotion.cpp
+>     BarrierNoopPass.cpp
+>     ConstantMerge.cpp
+>     CrossDSOCFI.cpp
+>     DeadArgumentElimination.cpp
+>     ElimAvailExtern.cpp
+>     ExtractGV.cpp
+>     ForceFunctionAttrs.cpp
+>     FunctionAttrs.cpp
+>     FunctionImport.cpp
+>     GlobalDCE.cpp
+>     GlobalOpt.cpp
+>     IPConstantPropagation.cpp
+>     IPO.cpp
+>     InferFunctionAttrs.cpp
+>     InlineAlways.cpp
+>     InlineSimple.cpp
+>     Inliner.cpp
+>     Internalize.cpp
+>     LoopExtractor.cpp
+>     LowerTypeTests.cpp
+>     MergeFunctions.cpp
+>     PartialInlining.cpp
+>     PassManagerBuilder.cpp
+>     PruneEH.cpp
+>     SampleProfile.cpp
+>     StripDeadPrototypes.cpp
+>     StripSymbols.cpp
+>     WholeProgramDevirt.cpp
+>   
+>     ADDITIONAL_HEADER_DIRS
+>     ${LLVM_MAIN_INCLUDE_DIR}/llvm/Transforms
+>     ${LLVM_MAIN_INCLUDE_DIR}/llvm/Transforms/IPO
+>     )
+>   
+>   add_dependencies(LLVMipo intrinsics_gen)
+>   
+>   ```
+>
+> * 最后再编译一次。
+>
+>   * 那么我们可以这么去调用：
+>
+>     ```
+>     ../build/bin/clang -mllvm -simplepass test.c -o after_test
+>     
+>     ```
+
+基于Pass，我们可以做什么？ 我们可以编写自己的Pass去混淆代码，以增加他人反编译的难度。
+
+![image](https://wx3.sinaimg.cn/large/af39b376gy1fuetapenhaj20mz0bdgnf.jpg)
+
+
+
+#  IV、[OLLVM](https://github.com/AloneMonkey/iOSREBook/tree/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/TestOLLVM) 源码分析，并从基于clang4.0 迁移到clang6.0
+
+
+
+> * [code](https://github.com/obfuscator-llvm/obfuscator/tree/llvm-4.0/lib/Transforms/Obfuscation): 基于llvm的代码混淆技术主要基于中间层代码的pass。
+>
+>   ![image](https://wx3.sinaimg.cn/large/af39b376gy1fueu397yqpj20vo0g2n0l.jpg)
+>
+>   * /lib/Transforms/CMakeLists.txt
+>
+>     ```
+>     add_subdirectory(Utils)
+>     add_subdirectory(Instrumentation)
+>     add_subdirectory(InstCombine)
+>     add_subdirectory(Scalar)
+>     add_subdirectory(IPO)
+>     add_subdirectory(Vectorize)
+>     add_subdirectory(Hello)
+>     add_subdirectory(ObjCARC)
+>     add_subdirectory(Coroutines)
+>     add_subdirectory(Obfuscation)
+>     
+>     ```
+>
+>     
+>
+>   * lib/Transforms/Obfuscation/CMakeLists.txt
+>
+>     ```
+>     add_llvm_library(LLVMObfuscation
+>       CryptoUtils.cpp
+>       Substitution.cpp
+>       BogusControlFlow.cpp
+>       Utils.cpp
+>       SplitBasicBlocks.cpp
+>       Flattening.cpp
+>       )
+>     
+>     add_dependencies(LLVMObfuscation intrinsics_gen)
+>     
+>     ```
+>
+>     * 将`add_llvm_library` 修改为`add_llvm_loadable_module`编译成动态库，通过opt 加载调试（如果添加到passManager中，编译成静态库，同样可以通过opt加载调试）
+>
+>       
+>
+>   * 主要包含的三个pass，用于不同程序的混淆
+>
+>     * BogusControlFlow： 增加虚假的控制流程和无用的代码
+>     * Flattening： 使代码扁平化
+>     * Substitution： 增肌算术表达式的复杂度
+
+
+
+
+
+
+
+
+
 # See Also 
 
+>* https://github.com/zhangkn/obfuscator
 >* https://zhangkn.github.io/2018/03/Hopper/
 >  * LLVM IR 有三种表示格式，第一种是 bitcode 这样的存储格式，以 .bc 做后缀，第二种是可读的以 .ll，第三种是用于开发时操作 LLVM IR 的内存格式
 >  * 当虚拟内存系统进行映射时，segment 和 section 会以不同的参数和权限被映射。  
