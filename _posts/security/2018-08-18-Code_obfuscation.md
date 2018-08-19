@@ -1484,7 +1484,7 @@ cmake --build .
 >
 >        * 关闭编译优化 Build Settings -> OPTIMIZATION_LEVEL -> 0 
 >
->        * 
+>
 >
 >          > 开启混淆, Build Settings -> OTHER_CFLAGS -> `-mllvm -enable-cffobf` `-mllvm -enable-bcfobf`
 >
@@ -1492,8 +1492,26 @@ cmake --build .
 >
 >     * [混淆方案组合一:[`Hikari`](https://github.com/HikariObfuscator/Hikari) 混淆调用树](https://kunnan.github.io/2018/06/05/iosObfuscation/#i%E6%B7%B7%E6%B7%86%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E4%B8%80hikari-%E6%B7%B7%E6%B7%86%E8%B0%83%E7%94%A8%E6%A0%91)
 >
+>       ![image](https://wx3.sinaimg.cn/large/af39b376gy1fuf2rms6moj20bt053my6.jpg)
+>
 
-# 
+# VI、静态库（**StaticLib**）混淆---基于编译器混淆的案例
+
+
+
+编译器混淆是基于中间代码（bitcode）进行的。那么编译生成一个带bitcode的静态库是不是就可以提取其中的bitcode进行混淆？答案是也是
+
+
+
+
+
+
+
+
+
+
+
+
 
 # See Also 
 
