@@ -1307,7 +1307,8 @@ cmake --build .
 >         
 >         ```
 >
->         
+>         * void bogus(Function &F) { 分析
+>           * // Put all the function's block in a list  把方法中的所有block放到一个list  中。
 >
 > * 使用[**Graphviz**](http://graphviz.org/) 查看流程图，设置**dot**文件的默认打开方式。
 
