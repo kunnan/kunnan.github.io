@@ -526,7 +526,31 @@ cmake --build .
 
 
 
+#### 配置编译环境
 
+> * 在lib/Transforms/新建一个文件夹 Hello 
+>
+> * 配置编译脚本去编译源代码
+>
+>   * [CMakeLists.txt](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/PassDemo/CMakeLists.txt)
+>
+>     ```
+>     add_llvm_loadable_module( LLVMHello
+>       Hello.cpp
+>     
+>       DEPENDS
+>       intrinsics_gen
+>       PLUGIN_TOOL
+>       opt
+>       )
+>     
+>     ```
+>
+>     * 编译脚本指定使用编译源文件 Hello.cpp 生成  $(LEVEL)/lib/LLVMHello.dylib 动态库，该文件可以被opt 通过-load 参数动态加载。
+>
+>       ![image](https://wx3.sinaimg.cn/large/af39b376gy1fuerby37ccj20lj0efn0o.jpg)
+>
+> * 
 
 # See Also 
 
