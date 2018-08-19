@@ -1533,7 +1533,7 @@ cmake --build .
 >
 > * 最后将混淆之后的静态库集成到app中。（此时的静态库没有了bitcode，因此整个主app也不能开启bitcode）
 
-
+小结： 从静态库提出bitcode ，使用带有混淆功能的clang 重新编译bitcode进行混淆之后，生成呼吸之后的静态库。
 
 # 思考题
 
@@ -1558,6 +1558,18 @@ cmake --build .
 >   
 >   ```
 >
+>   * 如果是替换Xcode编译器即采用xctoolchain的形式的时候，对于Xcode而言所有的混淆标记应该加在Target的Other C Flags中
+>
+>     * 开启混淆
+>
+>       ```
+>       开启混淆: 启用控制流平坦化、启用伪控制流, Build Settings -> OTHER_CFLAGS -> -mllvm -enable-cffobf -mllvm -enable-bcfobf
+>       
+>       ```
+>
+>   * 如果是单独使用带有混淆功能的clang，也是一样需要在每一个flag前加上-mllvm
+>
+>     * `build/Debug/bin/clang -arch arm64 -isysroot  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs -fobjec-arc -c result.bc -mllvm -bcf -mllvm -sub -mllvm -fla -o result.o`
 
 
 
