@@ -550,7 +550,118 @@ cmake --build .
 >
 >       ![image](https://wx3.sinaimg.cn/large/af39b376gy1fuerby37ccj20lj0efn0o.jpg)
 >
-> * 
+> * open Xcode 重新build，在项目里面添加LLVMHello 的target为secheme；在过程中找到 loadable modules 下面LLVMHello 里面的hello.cpp ，开始编写代码。
+
+
+
+#### 编写代码
+
+
+
+![image](https://wx3.sinaimg.cn/large/af39b376gy1fueri4vamvj223w1kw462.jpg)
+
+
+
+> * 编写一个pass操作function，输出一些相关信息，需要使用如下头文件
+>
+>   * `#include "llvm/IR/Function.h" `
+>
+>   * `#include "llvm/Pass.h" `
+>
+>   * `#include "llvm/Support/raw_ostream.h" `
+>
+>     * 这些头文件里面的方法属于LLVM命名空间，需要声明使用LLVM命名空间
+>
+>       ```
+>       using namespace llvm;
+>       
+>       ```
+>
+> * 编写一个匿名空间；C++的匿名空间和c的static 关键词一样，定义在匿名空间中的变量仅对当前文件可见。
+>
+>   * code
+>
+>     ```
+>     namespace {
+>       // Hello - The first implementation, without getAnalysisUsage.
+>       struct Hello : public FunctionPass {// 定义hello类继承自FunctionPass；功能不同的pass 会继承对应的父类
+>         static char ID; // Pass identification, replacement for typeid 定义可供LLVM 标示的passID
+>         Hello() : FunctionPass(ID) {}
+>     
+>         bool runOnFunction(Function &F) override {//定义一个runOnFunction 重载继承父类的抽象虚函数，这个函数里面可以针对函数进行特殊处理（打印每个方法的名字）。
+>           ++HelloCounter;
+>           errs() << "Hello: ";
+>           errs().write_escaped(F.getName()) << '\n';
+>           return false;
+>         }
+>       };
+>     }
+>     
+>     ```
+>
+>     
+>
+> * 初始化passID
+>
+>   * code: 因为LLVM将使用ID的地址去识别一个pass，因此初始化的value不重要
+>
+>     ```
+>     char Hello::ID = 0;
+>     
+>     ```
+>
+>     
+>
+>     
+>
+> * 注册pass hello，指定命令行参数为“hello”，名字说明为“hello world pass” 
+>
+>   * code
+>
+>     ```
+>     static RegisterPass<Hello> X("hello", "Hello World Pass");
+>     
+>     ```
+>
+>     
+>
+> * hello2 : `Hello World Pass (with getAnalysisUsage implemented) `
+>
+>   * code 
+>
+>     ```
+>     namespace {
+>       // Hello2 - The second implementation with getAnalysisUsage implemented.
+>       struct Hello2 : public FunctionPass {
+>         static char ID; // Pass identification, replacement for typeid
+>         Hello2() : FunctionPass(ID) {}
+>     
+>         bool runOnFunction(Function &F) override {
+>           ++HelloCounter;
+>           errs() << "Hello: ";
+>           errs().write_escaped(F.getName()) << '\n';
+>           return false;
+>         }
+>     
+>         // We don't modify the program, so we preserve all analyses.
+>         void getAnalysisUsage(AnalysisUsage &AU) const override {
+>           AU.setPreservesAll();
+>         }
+>       };
+>     }
+>     
+>     char Hello2::ID = 0;
+>     static RegisterPass<Hello2>
+>     Y("hello2", "Hello World Pass (with getAnalysisUsage implemented)");
+>     
+>     ```
+>
+>     
+>
+> * [hello1 code](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/PassDemo/Hello.cpp)
+>
+
+
 
 # See Also 
 
