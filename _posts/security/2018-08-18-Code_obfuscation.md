@@ -1258,7 +1258,16 @@ cmake --build .
 
 
 
+#### 编译生成动态库，分析BogusControlFlow
 
+> * open xcode ,安装command+B ,选择LLVMObfuscation的scheme，编译生成动态库
+> * 分析BogusControlFlow
+>   * [BogusControlFlow.cpp](https://github.com/zhangkn/obfuscator/blob/llvm-4.0/lib/Transforms/Obfuscation/BogusControlFlow.cpp)
+>   * 编辑 scheme启动参数，添加-debug 来打印调试信息
+>   * 在`runOnFunction` 下断点，该方法会在处理方法的时候自动调用
+>     * 在runOnFunction 中先判断参数是否合法，在判断是否需要混淆，从而指定全混淆或者在满足某些函数属性的情况下混淆
+>       * 
+> * 
 
 
 
