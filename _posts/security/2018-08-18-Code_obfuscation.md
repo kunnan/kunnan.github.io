@@ -1261,15 +1261,55 @@ cmake --build .
 #### 编译生成动态库，分析BogusControlFlow
 
 > * open xcode ,安装command+B ,选择LLVMObfuscation的scheme，编译生成动态库
+>
 > * 分析BogusControlFlow
+>
 >   * [BogusControlFlow.cpp](https://github.com/zhangkn/obfuscator/blob/llvm-4.0/lib/Transforms/Obfuscation/BogusControlFlow.cpp)
+>
 >   * 编辑 scheme启动参数，添加-debug 来打印调试信息
+>
 >   * 在`runOnFunction` 下断点，该方法会在处理方法的时候自动调用
+>
 >     * 在runOnFunction 中先判断参数是否合法，在判断是否需要混淆，从而指定全混淆或者在满足某些函数属性的情况下混淆
->       * 
-> * 
-
-
+>
+>       * // Check if the percentage is correct
+>
+>         ```
+>               if (ObfTimes <= 0) {
+>                 errs()<<"BogusControlFlow application number -bcf_loop=x must be x > 0";
+>         		return false;
+>               }
+>         
+>         ```
+>
+>         
+>
+>       * // Check if the number of applications is correct
+>
+>         ```
+>               if ( !((ObfProbRate > 0) && (ObfProbRate <= 100)) ) {
+>                 errs()<<"BogusControlFlow application basic blocks percentage -bcf_prob=x must be 0 < x <= 100";
+>         		return false;
+>               }
+>         
+>         ```
+>
+>         
+>
+>       * // If fla annotations
+>
+>         ```
+>               if(toObfuscate(flag,&F,"bcf")) {
+>                 bogus(F);
+>                 doF(*F.getParent());
+>                 return true;
+>               }
+>         
+>         ```
+>
+>         
+>
+> * 使用[**Graphviz**](http://graphviz.org/) 查看流程图，设置**dot**文件的默认打开方式。
 
 
 
