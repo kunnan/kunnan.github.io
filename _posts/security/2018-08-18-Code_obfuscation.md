@@ -1297,10 +1297,207 @@ cmake --build .
 
 
 
- # 
+# V 、替换Xcode编译器，在编译时将用带混淆工程的clang进行编译工程
+
+要想通过clang 加载pass，就不能采用这种动态库方式（add_llvm_loadable_module），而是要编译成静态库(add_llvm_library)并加入passManager的管理机制定义的clang 传入的参数去调用pass
+
+> * 编辑lib/Transforms/Obfuscation/CMakeLists.txt 将add_llvm_loadable_module 修改为add_llvm_library
+>
+> * 复制lib/Transforms/Obfuscation/LLVMBuild.txt到对应的位置
+>
+> * 在lib/Transforms/IPO/LLVMBuild.txt 的required_libraries 增加Obfuscation
+>
+>   ```
+>   required_libraries = Analysis BitWriter Core InstCombine IRReader Linker Object ProfileData Scalar Support TransformUtils Vectorize Instrumentation Obfuscation
+>   
+>   ```
+>
+> * 在lib/Transforms/LLVMBuild.txt 的subdirectories中加入Obfuscation
+>
+>   ```
+>   subdirectories = Coroutines IPO InstCombine Instrumentation Scalar Utils Vectorize ObjCARC Obfuscation
+>   
+>   ```
+>
+> * 编辑[PassManagerBuilder.cpp](https://github.com/zhangkn/obfuscator/blob/llvm-4.0/lib/Transforms/IPO/PassManagerBuilder.cpp)，导入头文件以及指定参数
+>
+>   ```
+>   #include "llvm/Transforms/Obfuscation/BogusControlFlow.h"
+>   #include "llvm/Transforms/Obfuscation/Flattening.h"
+>   #include "llvm/Transforms/Obfuscation/Split.h"
+>   #include "llvm/Transforms/Obfuscation/Substitution.h"
+>   #include "llvm/CryptoUtils.h"
+>   
+>   ```
+>
+>   * 增加混淆参数`// Flags for obfuscation`
+>
+>     ```
+>     static cl::opt<bool> Flattening("fla", cl::init(false),
+>                                     cl::desc("Enable the flattening pass"));
+>     
+>     static cl::opt<bool> BogusControlFlow("bcf", cl::init(false),
+>                                           cl::desc("Enable bogus control flow"));
+>     
+>     static cl::opt<bool> Substitution("sub", cl::init(false),
+>                                       cl::desc("Enable instruction substitutions"));
+>     
+>     static cl::opt<std::string> AesSeed("aesSeed", cl::init(""),
+>                                         cl::desc("seed for the AES-CTR PRNG"));
+>     
+>     static cl::opt<bool> Split("split", cl::init(false),
+>                                cl::desc("Enable basic block splitting"));
+>     
+>     
+>     ```
+>
+>     * 在`PassManagerBuilder::PassManagerBuilder() {` 中初始化随机生成器`// Initialization of the global cryptographically``secure pseudo-random generator`
+>
+>       ```
+>           // Initialization of the global cryptographically
+>           // secure pseudo-random generator
+>           if(!AesSeed.empty()) {
+>               if(!llvm::cryptoutils->prng_seed(AesSeed.c_str()))
+>       			exit(1);
+>           }
+>       
+>       ```
+>
+>     * 在`void PassManagerBuilder::populateModulePassManager(`中增加混淆的pass`// Allow forcing function attributes as a debugging and tuning aid.`
+>
+>       ```
+>         // Allow forcing function attributes as a debugging and tuning aid.
+>         MPM.add(createForceFunctionAttrsLegacyPass());
+>       
+>         MPM.add(createSplitBasicBlock(Split));
+>         MPM.add(createBogus(BogusControlFlow));
+>         MPM.add(createFlattening(Flattening));
+>       ...
+>           if (PrepareForThinLTO)
+>             // Rename anon globals to be able to export them in the summary.
+>             MPM.add(createNameAnonGlobalPass());
+>       
+>           MPM.add(createSubstitution(Substitution));
+>           addExtensionsToPM(EP_EnabledOnOptLevel0, MPM);
+>           return;
+>         }
+>       
+>       ```
+>
+> * 重新编译生成clang
+>
+> * 测试clang
+>
+>   * `build/Debug/bin/clang test.mm -o test -mllvm -sub -fla -mllvm -bcf` 看看是否有混淆效果
+>
+> * 增加Xcode使用的编译工具链
+>
+>   * 方式一比较笨，不建议使用
+>
+>     * setup
+>
+>       ```
+>       $ cd /Applications/Xcode.app/Contents/PlugIns/Xcode3Core.ideplugin/Contents/SharedSupport/Developer/Library/Xcode/Plug-ins/
+>       $ sudo cp -r Clang\ LLVM\ 1.0.xcplugin/ Obfuscator.xcplugin
+>       $ cd Obfuscator.xcplugin/Contents/
+>       $ sudo plutil -convert xml1 Info.plist
+>       $ sudo vim Info.plist
+>       
+>       ```
+>
+>     * change:   修改info，plist
+>
+>       ```
+>       <string>com.apple.compilers.clang</string> -> <string>com.apple.compilers.obfuscator</string>
+>       <string>Clang LLVM 1.0 Compiler Xcode Plug-in</string> -> <string>Obfuscator Xcode Plug-in</string>
+>       
+>       ```
+>
+>       * then 
+>
+>         ```
+>         $ sudo plutil -convert binary1 Info.plist
+>         $ cd Resources/
+>         $ sudo mv Clang\ LLVM\ 1.0.xcspec Obfuscator.xcspec
+>         $ sudo vim Obfuscator.xcspec
+>         
+>         ```
+>
+>         * change Obfuscator.xcspec
+>
+>           ```
+>           <key>Description</key>
+>           <string>Apple LLVM 9.0 compiler</string> -> <string>Obfuscator 4.0 compiler</string>
+>           <key>ExecPath</key>
+>           <string>clang</string> -> <string>/$(install步骤里面的build文件路径)/bin/clang</string>
+>           <key>Identifier</key>
+>           <string>com.apple.compilers.llvm.clang.1_0</string> -> <string>com.apple.compilers.llvm.obfuscator.4_0</string>
+>           <key>Name</key>
+>           <string>Apple LLVM 9.0</string> -> <string>Obfuscator 4.0</string>
+>           <key>Vendor</key>
+>           <string>Apple</string> -> <string>HEIG-VD</string>
+>           <key>Version</key>
+>           <string>9.0</string> -> <string>4.0</string>
+>           
+>           ```
+>
+>      * then 修改English.lproj 环境配置
+>
+>        ```
+>        $ cd English.lproj/
+>        $ sudo mv Apple\ LLVM\ 9.0.strings "Obfuscator 3.4.strings"
+>        $ sudo plutil -convert xml1 Obfuscator\ 3.4.strings
+>        $ sudo vim Obfuscator\ 3.4.strings
+>        
+>        ```
+>
+>        * change
+>
+>          ```
+>          <key>Description</key>
+>          <string>Apple LLVM 9.0 compiler</string> -> <string>Obfuscator 4.0 compiler</string>
+>          <key>Name</key>
+>          <string>Apple LLVM 9.0</string> -> <string>Obfuscator 4.0</string>
+>          <key>Vendor</key>
+>          <string>Apple</string> -> <string>HEIG-VD</string>
+>          <key>Version</key>
+>          <string>7.0</string> -> <string>4.0</string>
+>          
+>          ```
+>
+>      * then : 
+>
+>        ```
+>        $ sudo plutil -convert binary1 Obfuscator\ 3.4.strings
+>        
+>        ```
+>
+>      * 修改完成之后，重启Xcode 开始使用
+>
+>        * Build Settings -> Compiler for C/C++/Objective-C -> Obfuscator 4.0 
+>
+>        * Build Setting -> Enable Index-While-Building Functionality -> ‘default’ change to ‘No’ 
+>
+>          * 开源的clang并不能识别：Xcode9 新增的swift_index_store_enable 参数
+>
+>        * 关闭 bitcode 
+>
+>        * 关闭编译优化 Build Settings -> OPTIMIZATION_LEVEL -> 0 
+>
+>        * 
+>
+>          > 开启混淆, Build Settings -> OTHER_CFLAGS -> `-mllvm -enable-cffobf` `-mllvm -enable-bcfobf`
+>
+>   * [`方式二简单简捷 推荐使用`： macOS快速安装 (macOS Quick Installation)](https://github.com/HikariObfuscator/Hikari)
+>
+>     * [混淆方案组合一:[`Hikari`](https://github.com/HikariObfuscator/Hikari) 混淆调用树](https://kunnan.github.io/2018/06/05/iosObfuscation/#i%E6%B7%B7%E6%B7%86%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E4%B8%80hikari-%E6%B7%B7%E6%B7%86%E8%B0%83%E7%94%A8%E6%A0%91)
+>
+
+# 
 
 # See Also 
 
+>* [马甲包混淆方案/#more](http://biqinglin.com/2018/05/06/%E9%A9%AC%E7%94%B2%E5%8C%85%E6%B7%B7%E6%B7%86%E6%96%B9%E6%A1%88/#more)
 >* https://github.com/zhangkn/obfuscator
 >* https://zhangkn.github.io/2018/03/Hopper/
 >  * LLVM IR 有三种表示格式，第一种是 bitcode 这样的存储格式，以 .bc 做后缀，第二种是可读的以 .ll，第三种是用于开发时操作 LLVM IR 的内存格式
