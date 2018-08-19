@@ -1503,13 +1503,61 @@ cmake --build .
 
 
 
+` 这样就不需要通过源文件进行编译了，只需要提供一个带bitcode的静态库文件即可进行混淆`---商业机密，因此不需要得到源码也可以轻松的混淆了。哈哈哈
 
 
 
+> * 新建一个静态工程，为了让其在非archive模式下也生成bitcode，需要在build setting的other c flags 中增加`-fembed-bitcode`参数
+>
+>   * [StaticLib](https://github.com/AloneMonkey/iOSREBook/tree/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/StaticLib)
+>
+> * 将`__LLVM,__bitcode`的section里面的bitcode代码提取出来
+>
+>   * mkdir objects
+>
+>   * cd objects
+>
+>   * ar -x ../[StaticLib.a](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/StaticLib/afterollvm/StaticLib.a)
+>
+>   * `regedit ./StaticLib.o -extract "__LLVM" "__bitcode" result.bc`
+>
+>     * /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/segedit
+>
+> * 使用带混淆功能的clang将其重新编译成目标文件，生存的result.o 就是混淆后的object文件。将其重新打包成.a文件
+>
+>   * `build/Debug/bin/clang -arch arm64 -isysroot  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs -fobjec-arc -c result.bc -mllvm -bcf -mllvm -sub -mllvm -fla -o result.o`
+>   * rm __.SYMDEF\ SORTED
+>   * ar -crs result.a result.o
+>   * ranlib result.a
+>     *  ranlib - add or update the table of contents of archive libraries
+>
+> * 最后将混淆之后的静态库集成到app中。（此时的静态库没有了bitcode，因此整个主app也不能开启bitcode）
 
 
 
+# 思考题
 
+将核心代码封装成静态库（包含bitcode的静态库），提供给我，进行混淆处理治理之后，再将混淆之后的静态库给他。-----目的是避免提供源代码给我。
+
+接下来他们再将核心的静态库集成到app中进行上架。
+
+> * bitcode 是中间表示形式，常用于代码优化。
+>
+
+#### 尝试使用`/Users/devzkn/Library/Developer/Toolchains/Hikari.xctoolchain/usr/bin/clang` 进行混淆
+
+
+
+> * /Users/devzkn/Library/Developer/Toolchains/Hikari.xctoolchain/usr/bin/clang
+>
+>   ```
+>   ➜  bin /Users/devzkn/Library/Developer/Toolchains/Hikari.xctoolchain/usr/bin/clang -help
+>   OVERVIEW: clang LLVM compiler
+>   
+>   USAGE: clang-6.0 [options] <inputs>
+>   
+>   ```
+>
 
 
 
