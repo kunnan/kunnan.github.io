@@ -1486,7 +1486,7 @@ cmake --build .
 >
 >        * 关闭编译优化 Build Settings -> OPTIMIZATION_LEVEL -> 0 
 >
->
+> ![image](https://wx3.sinaimg.cn/large/af39b376ly1fug9km577uj20r103u3yt.jpg)
 >
 >          > 开启混淆, Build Settings -> OTHER_CFLAGS -> `-mllvm -enable-cffobf` `-mllvm -enable-bcfobf`
 >

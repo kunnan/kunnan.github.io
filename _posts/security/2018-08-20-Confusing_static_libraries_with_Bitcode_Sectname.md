@@ -19,6 +19,16 @@ subtitle: 混淆带有bitcode sectname 的静态库
 
 
 
+> * 关于bitcode的注意事项
+>   * 关闭bitcode 之后，此时的test 20-08-2018, 4.41 PM.xcarchive 是没有对应的dSYMs文件
+>   * · Xcode 7默认开启Bitcode，如果应用开启Bitcode，那么其集成的其他第三方库也需要是Bitcode编译的包才能真正进行Bitcode编译 
+>   * 开启Bitcode编译后，编译产生的.app体积会变大(中间代码，不是用户下载的包)，且.dSYM文件不能用来崩溃日志的符号化(用户下载的包是Apple服务重新编译产生的，有产生新的符号文件)
+>   *  通过Archive方式上传AppStore的包，可以在Xcode的Organizer工具中下载对应安装包的新的符号文件　　　
+>     * `/Users/devzkn/Library/Developer/Xcode/Archives`
+>     * ![image](https://wx3.sinaimg.cn/large/af39b376ly1fug97469duj20lt088wf2.jpg)
+
+
+
 # 将`__LLVM,__bitcode`的section里面的bitcode代码提取出来： ../libStaticLib.a -》result.bc
 
 - __bitcode
@@ -194,6 +204,34 @@ subtitle: 混淆带有bitcode sectname 的静态库
 
 > * https://github.com/ConfuseStaticLibraries/KNtestStaticLib
 > * [StaticLib](https://github.com/ConfuseStaticLibraries/iOSREBook/tree/master/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/StaticLib)
+
+
+
+#  使用Xcode混淆的方式，前提是要得到源码
+
+![image](https://wx3.sinaimg.cn/large/af39b376ly1fug8p7x9y5j217i0j6dmg.jpg)
+>* `-mllvm -enable-cffobf -mllvm -enable-bcfobf`
+
+![image](https://wx3.sinaimg.cn/large/af39b376ly1fug9o2xu3zj20xa09xwfq.jpg)
+
+![image](https://wx3.sinaimg.cn/large/af39b376ly1fug9ovzyt8j20vu091gmt.jpg)
+
+
+
+> * 如果现在默认的编译器，就会报如下错误
+>
+>   ```
+>   clang (LLVM option parsing): Unknown command line argument '-enable-cffobf'.  Try: 'clang (LLVM option parsing) -help'
+>   clang (LLVM option parsing): Did you mean '-enable-ipra'?
+>   clang (LLVM option parsing): Unknown command line argument '-enable-bcfobf'.  Try: 'clang (LLVM option parsing) -help'
+>   clang (LLVM option parsing): Did you mean '-enable-ipra'?
+>   Command /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang failed with exit code 1
+>   
+>   ```
+>
+>   * 因为此时使用的前端是/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang ，无法识别这个混淆标志；2⃣而带有混淆功能的clang是`/Users/devzkn/Library/Developer/Toolchains/Hikari.xctoolchain/usr/bin/clang`
+>     * Hikari的[Releases](https://github.com/HikariObfuscator/Hikari/releases)有预先编译好的工具链，将Hikari.xctoolchain解压到~/Library/Developer/Toolchains/ 或/Library/Developer/Toolchains/ 即可(区别是前者只有当前用户可用，后者所有用户都可使用)
+>
 
 
 

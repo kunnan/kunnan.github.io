@@ -77,6 +77,8 @@ rm ~/Library/Developer/Toolchains/Hikari.xctoolchain/ToolchainInfo.plist
 >* -enable-allobf一次性启用前文所述的所有标记
 
 >* 对于Xcode而言所有的混淆标记应该加在Target的Other C Flags中
+>
+>  ![image](https://wx3.sinaimg.cn/large/af39b376ly1fug9km577uj20r103u3yt.jpg)
 
 ```
 以clang为例，您需要在每个flag前加上-mllvm
@@ -94,6 +96,8 @@ rm ~/Library/Developer/Toolchains/Hikari.xctoolchain/ToolchainInfo.plist
 Build Setting -> Enable Index-While-Building Functionality -> ‘default’ change to ‘No’
 ```
 >* 按照你的混淆需求在CFLAGS中增加混淆标记
+>
+>  ![image](https://wx3.sinaimg.cn/large/af39b376ly1fug9km577uj20r103u3yt.jpg)
 
 ```
 开启混淆: 启用控制流平坦化、启用伪控制流, Build Settings -> OTHER_CFLAGS -> -mllvm -enable-cffobf -mllvm -enable-bcfobf
@@ -107,6 +111,7 @@ Build Setting -> Enable Index-While-Building Functionality -> ‘default’ chan
 ```
 
 >* 打开Xcode->Toolchains菜单, 选择 Hikari.
+>
 
 ```
 Build Settings -> Compiler for C/C++/Objective-C -> HikariObfuscator
