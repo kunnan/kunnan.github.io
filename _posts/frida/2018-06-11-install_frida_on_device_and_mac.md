@@ -332,6 +332,26 @@ devzkndeMBP:bin devzkn$ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/
 
 
 
+# Q&A
+
+#### Failed to enumerate processes: unable to communicate with remote frida-server; please ensure that major versions match and that the remote Frida has the feature you are trying to use
+
+
+
+> * update your frida to ensure that the frida and frida-server version matches
+>
+>   ```
+>   iPhone:~ root# frida-server --version 
+>   12.0.8
+>   ➜  ~ frida --version
+>   10.6.28
+>   
+>   ```
+>
+>   * 升级保证版本一致即可。另外要重新打开terminal  才会生效。
+
+
+
 #### other 
 
 >* [/www.frida.re/docs/ios/](https://www.frida.re/docs/ios/)

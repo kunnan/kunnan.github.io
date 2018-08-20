@@ -45,7 +45,7 @@ subtitle: 混淆带有bitcode sectname 的静态库
 
 
 
-# 
+![image](https://ws2.sinaimg.cn/large/af39b376ly1fug8aycdp2j206s00pmx1.jpg)
 
 #### 步骤
 
