@@ -136,8 +136,29 @@ subtitle: 混淆带有bitcode sectname 的静态库
 >
 >
 >   > - 最后将混淆之后的静态库集成到app中。（此时的静态库没有了bitcode，因此整个主app也不能开启bitcode）
+>   >   * ld: '/Users/devzkn/code/testCode/KNtestStaticLib/KNtestStaticLib/result.a(result.o)' does not contain bitcode. You must rebuild it with bitcode enabled (Xcode setting ENABLE_BITCODE), obtain an updated library from the vendor, or disable bitcode for this target. for architecture arm64
+>   >   * ![image](https://ws1.sinaimg.cn/large/af39b376gy1fufysix44oj20ct0baq4d.jpg)
+>   >   * ![image](https://ws1.sinaimg.cn/large/af39b376gy1fufypeoe9ij20od0a8t9m.jpg)
+
+小结： 从静态库提出bitcode ，使用带有混淆功能的clang 重新编译bitcode进行混淆生成混淆之后的目标文件。并将目标文件进行打包成.a
 
 
+
+#### 混淆之后的效果
+
+![image](https://ws1.sinaimg.cn/large/af39b376gy1fufyylzjclj20m90ma0xa.jpg)
+
+
+
+# 
+
+# ![image](https://ws1.sinaimg.cn/large/af39b376gy1fufz1japbnj21c20n7grs.jpg)
+
+
+
+> * 混淆之前的样子
+>
+>   ![image](https://ws1.sinaimg.cn/large/af39b376gy1fufz395atcj20zn0bfwgr.jpg)
 
 # See Also 
 
