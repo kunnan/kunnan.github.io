@@ -350,6 +350,8 @@ Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全
 
 #### 7\ IR 结构
 
+![img](https://ming1016.github.io/uploads/deeply-analyse-llvm/09.png)
+
 ```
 LLVM IR 有三种表示格式，第一种是 bitcode 这样的存储格式，以 .bc 做后缀，第二种是可读的以 .ll，第三种是用于开发时操作 LLVM IR 的内存格式
 ```
