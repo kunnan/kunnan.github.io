@@ -190,7 +190,11 @@ subtitle: 混淆带有bitcode sectname 的静态库
 
 
 
+# demo code
 
+> * https://github.com/ConfuseStaticLibraries/KNtestStaticLib
+
+# 
 
 # See Also 
 
