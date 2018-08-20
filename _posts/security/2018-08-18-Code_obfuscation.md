@@ -1527,7 +1527,7 @@ cmake --build .
 >
 > * 使用带混淆功能的clang将其重新编译成目标文件，生存的result.o 就是混淆后的object文件。将其重新打包成.a文件
 >
->   * `build/Debug/bin/clang -arch arm64 -isysroot  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs -fobjec-arc -c result.bc -mllvm -bcf -mllvm -sub -mllvm -fla -o result.o`
+>   * `build/Debug/bin/clang -arch arm64 -isysroot  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs -fobjc-arc -c result.bc -mllvm -bcf -mllvm -sub -mllvm -fla -o result.o`
 >   * rm __.SYMDEF\ SORTED
 >   * ar -crs result.a result.o
 >   * ranlib result.a
@@ -1535,7 +1535,7 @@ cmake --build .
 >
 > * 最后将混淆之后的静态库集成到app中。（此时的静态库没有了bitcode，因此整个主app也不能开启bitcode）
 
-小结： 从静态库提出bitcode ，使用带有混淆功能的clang 重新编译bitcode进行混淆之后，生成呼吸之后的静态库。
+小结： 从静态库提出bitcode ，使用带有混淆功能的clang 重新编译bitcode进行混淆生成混淆之后的目标文件。并将目标文件进行打包成.a
 
 # 思考题
 
@@ -1571,7 +1571,7 @@ cmake --build .
 >
 >   * 如果是单独使用带有混淆功能的clang，也是一样需要在每一个flag前加上-mllvm
 >
->     * `build/Debug/bin/clang -arch arm64 -isysroot  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs -fobjec-arc -c result.bc -mllvm -bcf -mllvm -sub -mllvm -fla -o result.o`
+>     * `build/Debug/bin/clang -arch arm64 -isysroot  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs -fobjc-arc -c result.bc -mllvm -bcf -mllvm -sub -mllvm -fla -o result.o`
 
 
 

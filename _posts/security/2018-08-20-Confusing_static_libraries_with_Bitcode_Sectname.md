@@ -65,11 +65,79 @@ subtitle: 混淆带有bitcode sectname 的静态库
 >   
 >   ```
 >
-> * rm __.SYMDEF\ SORTED
+> * **➜**  **objects** `segedit  ./StaticLib.o -extract "__LLVM" "__bitcode" result.bc`
 >
-> * 
+>   ```
+>   ➜  objects tree -L 2
+>   .
+>   ├── StaticLib.o
+>   ├── __.SYMDEF\ SORTED
+>   └── result.bc
+>   
+>   ```
+>
 
-# 
+# 用带混淆功能的clang重新编译bc 文件，生成目标文件
+
+ 使用带混淆功能的clang将其重新编译成目标文件，生存的result.o 就是混淆后的object文件。将其重新打包成.a文件
+
+ 
+
+> * **➜**  **objects** `/Users/devzkn/Library/Developer/Toolchains/Hikari.xctoolchain/usr/bin/clang -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs -fobjc-arc -c result.bc -mllvm -enable-cffobf -mllvm -enable-bcfobf -o result.o`
+>
+>   ```
+>   warning: ignoring debug info with an invalid version (700000003) in result.bc
+>   warning: overriding the module target triple with arm64-apple-ios5.0.0 [-Woverride-module]
+>   Failed To Loading Symbol Configuration From:/Users/devzkn/Hikari/SymbolConfig.json
+>   Running BogusControlFlow On -[StaticLib myMethod:number:]
+>   Running ControlFlowFlattening On -[StaticLib myMethod:number:]
+>   Doing Post-Run Cleanup
+>   Hikari Out
+>   1 warning generated.
+>   
+>   ```
+>
+>   ```
+>   ➜  objects tree -L 2
+>   .
+>   ├── StaticLib.o
+>   ├── __.SYMDEF\ SORTED
+>   ├── result.bc
+>   └── result.o
+>   
+>   ```
+>
+> * **➜**  **objects** rm __.SYMDEF\ SORTED
+>
+>   ```
+>   ➜  objects tree -L 2           
+>   .
+>   ├── StaticLib.o
+>   ├── result.bc
+>   └── result.o
+>   
+>   
+>   ```
+>
+> * **➜**  **objects`**ar -crs result.a result.o`
+>
+>   ```
+>   ➜  objects tree -L 2                
+>   .
+>   ├── StaticLib.o
+>   ├── result.a
+>   ├── result.bc
+>   └── result.o
+>   
+>   ```
+>
+> * **➜**  **objects`**ranlib result.a`
+>
+>
+>
+>   > - 最后将混淆之后的静态库集成到app中。（此时的静态库没有了bitcode，因此整个主app也不能开启bitcode）
+
+
 
 # See Also 
 
