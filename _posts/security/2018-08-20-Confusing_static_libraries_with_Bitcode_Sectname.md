@@ -160,6 +160,38 @@ subtitle: 混淆带有bitcode sectname 的静态库
 >
 >   ![image](https://ws1.sinaimg.cn/large/af39b376gy1fufz395atcj20zn0bfwgr.jpg)
 
+# # Hikari目前支持下文所述的编译器标记
+
+
+
+```
+-enable-bcfobf 启用伪控制流  
+-enable-cffobf 启用控制流平坦化
+-enable-splitobf 启用基本块分割  
+-enable-subobf 启用指令替换  
+-enable-acdobf 启用反class-dump  
+-enable-indibran 启用基于寄存器的相对跳转，配合其他加固可以彻底破坏IDA/Hopper的伪代码(俗称F5)  
+-enable-strcry 启用字符串加密  
+-enable-funcwra 启用函数封装
+```
+
+>  
+>
+> > - -enable-allobf一次性启用前文所述的所有标记
+>
+> >  
+> >
+> > > - 对于Xcode而言所有的混淆标记应该加在Target的Other C Flags中
+> >
+> > ```
+> > 以clang为例，您需要在每个flag前加上-mllvm
+> > 
+> > ```
+
+
+
+
+
 # See Also 
 
 
