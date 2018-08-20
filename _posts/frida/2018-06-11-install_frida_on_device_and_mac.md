@@ -23,7 +23,6 @@ subtitle: Frida的安装
 
   - frida-ps -Uai
 
-    
 
 #### 2） Frida 工具
 
@@ -66,7 +65,6 @@ subtitle: Frida的安装
 >       exit 0%  
 >       ```
 >
->       
 >
 
 
@@ -89,13 +87,11 @@ subtitle: Frida的安装
 
   - 将砸壳工具dumpdecrypt.dylib拷贝到ducument目录下； //目的是为了获取写的权限
 
-    
+
 
     > ```
     > devzkndeMacBook-Pro:dumpdecrypted-master devzkn$ scp ./dumpdecrypted.dylib root@192.168.2.212://var/mobile/Containers/Data/Application/91E7D6CF-A3D3-435B-849D-31BB53ED185B/Documents
     > ```
-
-    
 
   - 利用环境变量 DYLD_INSERT_LIBRARY 来添加动态库dumpdecrypted.dylib:
 
@@ -104,10 +100,6 @@ subtitle: Frida的安装
     > 
 
     - `DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/01ECB9D1-858D-4BC6-90CE-922942460859/KNWeChat.app/KNWeChat`
-
-    
-
-    
 
 - 2.2.2 dumpdecrypted的原理：通过向宏 DYLD_INSERT_LIBRARIES 里写入动态库的完整路径，就可以在可执行文件加载的时候，将动态链接库插入。
 
@@ -232,7 +224,6 @@ devzkndeMacBook-Pro:bin devzkn$ sudo pip install --upgrade frida --ignore-instal
 >     break  condition  down      j       p     return   unalias  where 
 >     ```
 >
->     
 
 
 
@@ -246,17 +237,17 @@ devzkndeMacBook-Pro:bin devzkn$ sudo pip install --upgrade frida --ignore-instal
 
 - continue或c: 继续执行程序
 
-- list 或l	: 查看当前行的代码段
+	 list 或l	: 查看当前行的代码段
 
-- step 或s	: 进入函数
+	 step 或s	: 进入函数
 
 - return 或r : 执行代码直到从当前函数返回
 
 - exit 或 q : 中止并退出
 
-- next 或 n	: 执行下一行
+	 next 或 n	: 执行下一行
 
-- pp	: 打印变量的值
+	 pp	: 打印变量的值
 
   ```
   (Pdb) pp os.getcwd()
@@ -272,7 +263,6 @@ devzkndeMacBook-Pro:bin devzkn$ sudo pip install --upgrade frida --ignore-instal
     微信
     ```
 
-    
 
 
 
@@ -307,7 +297,6 @@ devzkndeMacBook-Pro:bin devzkn$ sudo pip install --upgrade frida --ignore-instal
 >    2290 ttys000    0:00.01 grep frida-server
 >   ```
 >
->   
 
 # See Also 
 
@@ -345,6 +334,26 @@ devzkndeMBP:bin devzkn$ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/
 
 #### other 
 
+>* [/www.frida.re/docs/ios/](https://www.frida.re/docs/ios/)
+>
+>  * Download the latest `FridaGadget.dylib` for iOS and sign it:
+>
+>    ```
+>    $ mkdir Frameworks
+>    $ cd Frameworks
+>    $ frida_version=x.y.z
+>    $ curl https://github.com/frida/frida/releases/download\
+>    /$frida_version/frida-gadget-$frida_version-ios-univers\
+>    al.dylib.xz | xz -d > FridaGadget.dylib
+>    $ security find-identity -p codesigning -v
+>      1) A30E15162B3EB979D2572783BF3… "Developer ID Application: …"
+>      2) E18BA16DF86318F0ECA4BE17C03… "iPhone Developer: …"
+>         2 valid identities found
+>    $ codesign -f -s E18BA16DF86318F0ECA4BE17C03… FridaGadget.dylib
+>    FridaGadget.dylib: replacing existing signature
+>    
+>    ```
+>
 >* [https://zhangkn.github.io/2017/12/codeshare.frida.re/](https://zhangkn.github.io/2017/12/codeshare.frida.re/)
 >
 >* Frida环境的搭建可以看下[这篇文章](https://zhangkn.github.io/2017/12/frida/#gsc.tab=0)
