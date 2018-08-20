@@ -1521,7 +1521,7 @@ cmake --build .
 >
 >   * ar -x ../[StaticLib.a](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/StaticLib/afterollvm/StaticLib.a)
 >
->   * `regedit ./StaticLib.o -extract "__LLVM" "__bitcode" result.bc`
+>   * `segedit ./StaticLib.o -extract "__LLVM" "__bitcode" result.bc`
 >
 >     * /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/segedit
 >

@@ -47,7 +47,27 @@ subtitle: 混淆带有bitcode sectname 的静态库
 
 # 
 
+#### 步骤
 
+> * mkdir objects
+>
+> * **➜**  **~** cd objects
+>
+> * **➜**  **objects** ar -x ../libStaticLib.a
+>
+>   ```
+>   ➜  objects tree -L 2
+>   .
+>   ├── StaticLib.o
+>   └── __.SYMDEF\ SORTED
+>   
+>   0 directories, 2 files
+>   
+>   ```
+>
+> * rm __.SYMDEF\ SORTED
+>
+> * 
 
 # 
 
