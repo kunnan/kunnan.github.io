@@ -193,8 +193,9 @@ subtitle: 混淆带有bitcode sectname 的静态库
 # demo code
 
 > * https://github.com/ConfuseStaticLibraries/KNtestStaticLib
+> * [StaticLib](https://github.com/ConfuseStaticLibraries/iOSREBook/tree/master/chapter-8/8.4%20%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/StaticLib)
 
-# 
+
 
 # See Also 
 
