@@ -77,7 +77,7 @@ subtitle: 混淆带有bitcode sectname 的静态库
 >   ```
 >
 
-# 用带混淆功能的clang重新编译bc 文件，生成目标文件：  result.bc-》result.o-》result.a
+# 用带混淆功能的clang重新编译bc 文件，生成目标文件:`result.bc->result.o->result.a`
 
  使用带混淆功能的clang将其重新编译成目标文件，生存的result.o 就是混淆后的object文件。将其重新打包成.a文件
 
