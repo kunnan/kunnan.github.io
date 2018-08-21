@@ -19,6 +19,7 @@ subtitle: Method Swizzling
 
 # See Also 
 
+>*  [Objective C message tracing tool for iOS/macOS](https://github.com/zhangkn/AppleTrace)
 >*  https://kunnan.github.io/2017/02/04/Objective-C_Runtime_Cases/
 >*  [SwizzlePod](https://github.com/AloneMonkey/SwizzlePod)功能介绍: [ZKSwizzle](https://github.com/alexzielenski/ZKSwizzle) 和 [jrswizzle](https://github.com/rentzsch/jrswizzle) 的组合。
 >*  [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
