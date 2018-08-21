@@ -39,7 +39,20 @@ CHConstructor{
 
 ```
 
-
+> * [DingtalkPod](https://github.com/deskOfDafa/DingtalkPod/blob/master/DingtalkPod/dingdingDylib.m)
+>
+>   * 功能介绍：修改钉钉位置打卡，调用 DingtalkPod 中 -(void)setLocation:(CLLocationCoordinate2D)location即可
+>
+>   * code: 主要还是hook原生的
+>
+>     ```
+>     CHConstructor{
+>         CHLoadLateClass(CLLocation);
+>         CHClassHook(0, CLLocation, coordinate);
+>     }
+>     
+>     ```
+>
 
 # See Also 
 
