@@ -13,6 +13,8 @@ subtitle: Method Swizzling
 
 # [CydiaSubstrate.zip](https://github.com/AloneMonkey/MonkeyDevPod/blob/master/CydiaSubstrate/CydiaSubstrate.zip)
 
+# [CaptainHook:Common hooking/monkey patching headers for Objective-C on Mac OS X and iPhone OS. MIT licensed](https://github.com/AloneMonkey/CaptainHook)
+
 
 
 # See Also 
