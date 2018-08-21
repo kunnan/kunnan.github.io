@@ -44,6 +44,7 @@ CHConstructor{
 # See Also 
 
 >* [WeChatLocationHook.m](https://github.com/zhangkn/WeChatPod/blob/master/WechatPod/Hook/WeChatLocationHook.m)
+>* https://github.com/AloneMonkey/MonkeyDevSpecs#wechatpod
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
