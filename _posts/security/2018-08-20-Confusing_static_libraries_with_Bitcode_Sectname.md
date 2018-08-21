@@ -253,6 +253,8 @@ subtitle: 混淆带有bitcode sectname 的静态库
 >
 >* [deeply-analyse-llvm/](https://ming1016.github.io/2017/03/01/deeply-analyse-llvm/)
 >
+>* [云栖社区](https://yq.aliyun.com/users/1788082404927770?spm=5176.11156381.0.0.3c866bceLTZLWD&do=login&accounttraceid=6665b2c3-6dfe-455e-9c2a-2ded296eeb83)
+>
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
