@@ -23,7 +23,10 @@ subtitle: 混淆带有bitcode sectname 的静态库
 >   * 关闭bitcode 之后，此时的test 20-08-2018, 4.41 PM.xcarchive 是没有对应的dSYMs文件
 >   * · Xcode 7默认开启Bitcode，如果应用开启Bitcode，那么其集成的其他第三方库也需要是Bitcode编译的包才能真正进行Bitcode编译 
 >   * 开启Bitcode编译后，编译产生的.app体积会变大(中间代码，不是用户下载的包)，且.dSYM文件不能用来崩溃日志的符号化(用户下载的包是Apple服务重新编译产生的，有产生新的符号文件)
->   *  通过Archive方式上传AppStore的包，可以在Xcode的Organizer工具中下载对应安装包的新的符号文件　　　
+>     * 例子：[MachOView]([http://sourceforge.net/projects/machoview/](https://link.jianshu.com/?t=http://sourceforge.net/projects/machoview/)) `将“MachOView”拖到Application文件夹，就可以像其他程序一样启动了`[code](https://github.com/gdbinit/MachOView/releases/tag/Capstone)
+>     * ![image](https://wx1.sinaimg.cn/large/af39b376gy1fuh1yqkhqyj20gt05zmxc.jpg)
+>   * 通过Archive方式上传AppStore的包，可以在Xcode的Organizer工具中下载对应安装包的新的符号文件　　　
+>     * ![image](https://wx3.sinaimg.cn/large/af39b376ly1fug9skns7zj20ty0fddh2.jpg)
 >     * `/Users/devzkn/Library/Developer/Xcode/Archives`
 >     * ![image](https://wx3.sinaimg.cn/large/af39b376ly1fug97469duj20lt088wf2.jpg)
 
