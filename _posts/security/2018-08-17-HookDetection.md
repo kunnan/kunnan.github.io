@@ -304,8 +304,24 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 # See Also 
 
 >* [AntiJailbreak.m](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/DynamicProtect/DynamicProtect/AntiJailbreak.m)
+>
 >* [CaptainHook.h](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/HookDetection/InsertDylib/CaptainHook.h)
+>
 >* [simple-ios-antidebugging-and-antiantidebugging/](https://everettjf.github.io/2015/12/28/simple-ios-antidebugging-and-antiantidebugging/)
+>
+>* [2018-04-18-KSSystemInfoJailBreakHelperWtloginPlatformInfo.md](https://github.com/zhangkn/zhangkn.github.io/blob/6227e0e8a1c46694a116b2aa79584c6597727558/_posts/2018-04-18-KSSystemInfoJailBreakHelperWtloginPlatformInfo.md): `调用 _dyld_image_count() 获得加载的动态库的数量，_dyld_get_image_name() 获得名字，然后遍历他们的名字，看看有没有 “MobileSubstrate” 关键字，有的话就是越狱的`
+>
+>  ```
+>  #import <mach-o/dyld.h>  
+>  
+>  int count = _dyld_image_count();
+>  for (int i=0; i<count; i++) {
+>      printf("%s", _dyld_get_image_name(i));
+>      // 如果 _dyld_get_image_name() 里面包含 MobileSubstrate 就是越狱了
+>  }
+>  
+>  ```
+>
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
