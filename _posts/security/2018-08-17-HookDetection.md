@@ -68,8 +68,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >                # rm -rf /Library/MobileSubstrate/DynamicLibraries
 >           ```
 >
->       
->
 >     - `/Library/MobileSubstrate/DynamicLibraries/`
 
  
@@ -87,7 +85,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >   
 >   ```
 >
->   
 
 
 
@@ -103,7 +100,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >
 >   * `ldid -S AppBinary` 重签名。或者Cydia中安装 `AppSync`。
 >
->     
 >
 >    
 >
@@ -111,7 +107,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >
 >    
 >
->   
 
 
 
@@ -125,7 +120,7 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 
 > * `const char* *_dyld_get_image_name*(uint32_t image_index)`
 >
->   * 发现其他不在白名单内的库
+>   * 发现其他不在白名单内的库:`调用 _dyld_image_count() 获得加载的动态库的数量，_dyld_get_image_name() 获得名字，然后遍历他们的名字，看看有没有 “MobileSubstrate” 关键字，有的话就是越狱的`
 >
 >     ```
 >     int ckeckInjector() 
@@ -145,8 +140,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >     }
 >     
 >     ```
->
->     
 >
 >   * app crashes when libSystem cannot be found
 >
@@ -169,9 +162,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >     
 >     ```
 >
->     
->
->   
 
 
 
@@ -215,8 +205,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >   
 >   ```
 >
->   
->
 > * 符号表替换: 因为fishhook是基于懒加载符号表和非懒加载符号表进行替换的，因此通过遍历符号表中的指针就可以判断app是否被hook 了。
 >
 >   * 非懒加载的指针指向真实的地址，而懒加载的指针在没有解析到真实的地址之前指向`__stub_helper`;so ，遍历符号表中的每一个指针，然后判断指针是不是指向`__stub_helper`或者系统模块，就可以判断是否被hook。
@@ -229,9 +217,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >   * 检测方法： 分析函数的内存前几条指令中有没有跳转来判断是不是inline hook。
 >     * 如果hook 替换某条指令或者patch内存中的一些指令，这个时候采用“计算代码的哈希值进行验证”
 >
->   
->
->   
 
 
 
@@ -247,9 +232,9 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 
 > * [获取加载的动态库](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/MachOParser/MachOParser/MachOParser.mm): 读取load command  中的 LC_LOAD_DYLIB、LC_LOAD_WEAK_DYLIB信息
 >
->   
 >
->   
+>
+>
 >
 >   ```
 >   
@@ -273,7 +258,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >   
 >   ```
 >
->   
 
 
 
@@ -300,7 +284,6 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >   
 >   ```
 >
->   
 
 #### 重签名检测
 
