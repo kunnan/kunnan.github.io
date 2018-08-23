@@ -220,6 +220,41 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 
 
 
+
+
+#### 其他方式检测，比如使用`callStackSymbols`
+
+
+
+> * `[NSThread callStackSymbols]`
+>
+>   ```
+>   %hook NSBundle
+>   - (NSString *)bundleIdentifier
+>   {
+>   %log;
+>   
+>   NSArray* symbos = [NSThread callStackSymbols];// 调用栈  NSArray<NSString *> *callStackSymbols
+>       NSRange range = [[symbos objectAtIndex:1] rangeOfString:@"1   WeChat"];//    1   WeChat                              0x0000000101da865c _ZN13ClearDataItem11compareTimeERKNSt3__110shared_ptrIS_EES4_ + 772608
+>   NSString* old = %orig;
+>   
+>   if (range.location != NSNotFound){
+>   
+>   return @"com.tencent.xin";//  可以自己定制返回一些；判断检测是否包含其他动态库的名称`libweixinDylib.dylib `,或者是否包含`logos_method` 字符，如果有就可以认定hook 了
+>   }
+>   
+>   return old;
+>   }
+>   %end
+>   
+>   ```
+>
+>   ![image](https://wx2.sinaimg.cn/large/af39b376gy1fujmi8lud7j20xs09jtcy.jpg)
+>
+>   ![image](https://wx2.sinaimg.cn/large/af39b376gy1fujmitsklsj20uf0bijwc.jpg)
+
+
+
 # 完整性校验
 
 
@@ -290,7 +325,40 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 
 
 > * 判断bid
+>
+>   * 可能存在被hook的情况
+>
+>     ```objc
+>     %hook NSBundle
+>     - (NSString *)bundleIdentifier
+>     {
+>     %log;
+>     //  LOGSTACK();
+>     NSArray* symbos = [NSThread callStackSymbols];// 调用栈  NSArray<NSString *> *callStackSymbols
+>     
+>         NSRange range = [[symbos objectAtIndex:1] rangeOfString:@"1   WeChat"];//    1   WeChat                              0x0000000101da865c _ZN13ClearDataItem11compareTimeERKNSt3__110shared_ptrIS_EES4_ + 772608
+>     
+>         NSLog(@"symbos  :%@", symbos);
+>     
+>     NSString* old = %orig;
+>     
+>     if (range.location != NSNotFound){
+>     WXLog(@"orgin:%@,change to:com.tencent.xin", old);
+>     return @"com.tencent.xin";
+>     }
+>     
+>     WXLog(@"bundle id :%@", old);
+>     return old;
+>     }
+>     
+>     %end
+>     
+>     ```
+>
+>     * 如果目前此代码制作用于WeChat，因此不用判断进行名称，直接ret 特定bid 即可
+>
 > * 获取embedded.mobileprovision文件信息
+>
 > * 从可执行文件的LC_CODE_SIGNATURE 读取信息
 >   * [MachOParser.mm](https://github.com/AloneMonkey/iOSREBook/blob/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/MachOParser/MachOParser/MachOParser.mm)
 >     * 1.拿到当前的签名文件的签名信息和编译前的签名信息比对
@@ -354,6 +422,23 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >        return;
 >    }
 >    ```
+>
+>* **NSBundle _ivarDescription**
+>
+>  ```
+>  2018-08-23 15:09:49.683283 WeChat[351:52520]  hook NSBundle orgin:com.tencent.xin,change to:com.tencent.xin  NSBundle _ivarDescription:<NSBundle: 0x174090a40>:
+>  in NSBundle:
+>  	_flags (unsigned long): 100859904
+>  	_cfBundle (id): <__NSCFType: 0x108800560>
+>  	_reserved2 (unsigned long): 0
+>  	_principalClass (Class): (null)
+>  	_initialPath (id): @"/var/containers/Bundle/Application/00EC395E-4EC3-4B32-9CC7-6BE7C1164177/weixin.app"
+>  	_resolvedPath (id): @"/var/containers/Bundle/Application/00EC395E-4EC3-4B32-9CC7-6BE7C1164177/weixin.app"
+>  	_reserved3 (id): nil
+>  	_lock (id): <NSLock: 0x1740de370>
+>  in NSObject:
+>  
+>  ```
 >
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
