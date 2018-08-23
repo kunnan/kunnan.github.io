@@ -322,6 +322,39 @@ subtitle: 反注入：注入检查机制，获取加载的模块名，判断是�
 >  
 >  ```
 >
+>  * `void -[ClientCheckMgr registerAddImageCallBack](void * self, void * _cmd) {`
+>
+>    ```
+>    void -[ClientCheckMgr registerAddImageCallBack](void * self, void * _cmd) {
+>        sp = sp - 0x50;
+>        r4 = self;
+>        if ([*(("/System/Library/Frameworks/MultipeerConnectivity.framework/MultipeerConnectivity" | 0xd50000) + 0x2c8781c) isiOS9plus] != 0x0) {
+>                r5 = _dyld_image_count();
+>                if (r5 != 0x0) {
+>                        r10 = sp + 0x20;
+>                        r11 = 0x0;
+>                        do {
+>                                r0 = _dyld_get_image_header(r11);
+>                                r8 = r0;
+>                                if (dladdr(r0, r10) != 0x0) {
+>                                        [r4 addImage:stack[2036]];
+>                                }
+>                                else {
+>                                        stack[2035] = @selector(logWithLevel:module:errorCode:file:line:func:format:);
+>                                        r0 = @class(iConsole);
+>                                        stack[2031] = "";
+>                                        asm { strd       r1, r2, [sp, #0x48 + var_44] };
+>                                        objc_msgSend(r0, stack[2035], 0x2, "__MMClientCacheManager", 0x0, stack[2029], stack[2030], stack[2031]);
+>                                }
+>                                r11 = r11 + 0x1;
+>                        } while (r5 != r11);
+>                }
+>        }
+>        _dyld_register_func_for_add_image(0x2c878dd);
+>        return;
+>    }
+>    ```
+>
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
