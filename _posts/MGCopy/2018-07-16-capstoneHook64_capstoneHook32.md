@@ -11,6 +11,12 @@ subtitle: disassemble MGCopyAnswer and locate the subroutine for hooking
 
 
 
+# 前言
+
+[libMobileGestalt.xm](https://github.com/Naville/WTFJH/blob/99a2079afb48f6dcfccf2ef369a3d7c9e7fc1fdd/Hooks/API/libMobileGestalt.xm)
+
+
+
 # capstoneHook64 
 
 ####             if (insn[j].id == ARM64_INS_BL){
@@ -101,7 +107,6 @@ else{
 >   </plist>
 >   ```
 >
->   
 
 # capstoneHook32 
 

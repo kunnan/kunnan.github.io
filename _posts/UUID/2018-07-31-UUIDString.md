@@ -31,6 +31,9 @@ subtitle: 设备udid的收集
 >
 >   * OpenUDID  采用CFUUIDCreate、CFUUIDCreateString 进行创建 
 
+> * see also 
+>   * [UUString.m](https://github.com/zhangkn/Ancun/blob/master/iOS/Ancun/YuluByStore/Classes/UUString.m)
+
 # UUIDString
 
 > * app自己生成udid保存到钥匙串
@@ -51,7 +54,7 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
+>
 >
 >   ```
 >   - (NSString *)strUUID{
@@ -101,7 +104,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
 
 
 
@@ -112,8 +114,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
->
 > * _idfv
 >
 >   ```
@@ -121,7 +121,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
 
 
 
@@ -156,7 +155,7 @@ subtitle: 设备udid的收集
 >
 > * ASIdentifierManager 
 >
->   
+>
 >
 >   ```
 >   @class NSUUID;
@@ -173,7 +172,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
 
 # openUDID
 
@@ -181,7 +179,7 @@ subtitle: 设备udid的收集
 
 > * value
 >
->   
+>
 >
 >   ```
 >   //    #include "OpenUDID.h"
@@ -191,7 +189,7 @@ subtitle: 设备udid的收集
 >
 >   * save to Pasteboard: 往粘贴板存储用户\设备信息
 >
->     
+>
 >
 >     ```
 >     - (void)setModel:(WLUserModel *)model{
@@ -259,11 +257,9 @@ subtitle: 设备udid的收集
 >     
 >     ```
 >
->     
->
 >   * save to Keychain 
 >
->     
+>
 >
 >     ```
 >             // 读测试
@@ -272,7 +268,6 @@ subtitle: 设备udid的收集
 >     
 >     ```
 >
->     
 
 
 
@@ -296,7 +291,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
 
 > * [UIDevice _graphicsQuality](https://stackoverflow.com/questions/27878769/check-if-device-supports-blur#27879304)
 >
@@ -338,7 +332,7 @@ subtitle: 设备udid的收集
 
 很多的信息可以从`UIDevice `进行获取，例如
 
-> 
+>
 >
 > * 通过UIDevice获取电池用量和状态转换。
 >
@@ -399,7 +393,7 @@ subtitle: 设备udid的收集
 >
 > * getSysInfo 
 >
->   
+>
 >
 >   ```
 >   int +[UIDevice getSysInfo:](void * self, void * _cmd, unsigned int arg2) {
@@ -509,8 +503,6 @@ subtitle: 设备udid的收集
 >     
 >     ```
 >
->     
->
 > * name 
 >
 >   ```
@@ -518,8 +510,6 @@ subtitle: 设备udid的收集
 >    ret:iPhone
 >   
 >   ```
->
->   
 >
 > * iba_identifier 
 >
@@ -536,16 +526,12 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
->
 > * systemName 
 >
 >   ```
 >    [<UIDevice: 0x16ac14e0> systemName]
 >    ret:iPhone OS
 >   ```
->
->   
 >
 > * (void)beginGeneratingDeviceOrientationNotifications __TVOS_PROHIBITED;      // nestable 
 >
@@ -554,24 +540,20 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
->
 > * _graphicsQuality 
 >
->   
+>
 >
 >   ```
 >    [<UIDevice: 0x16ac14e0> _graphicsQuality]
 >    ret:100
 >   ```
 >
->   
->
 > * NG_DEVICE_SINGLENAME  设备所属国家
 >
->   
 >
->   
+>
+>
 >
 >   ```
 >    [1;36m[knFake] [m[0;36m/Users/devzkn/code/tweak/knwx2018/knFake/knFake/Hook.mm:180[m [0;30;46mDEBUG:[m h63QSdBCiT/z0WU6rdQv6Q: J => (null)
@@ -586,8 +568,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
->
 > * localizedModel 
 >
 >   ```
@@ -595,8 +575,6 @@ subtitle: 设备udid的收集
 >    ret:iPhone
 >   
 >   ```
->
->   
 >
 > * model : 设备名称
 >
@@ -606,8 +584,6 @@ subtitle: 设备udid的收集
 >    ret:iPhone
 >   
 >   ```
->
->   
 >
 > * 常量UIUserInterfaceIdiomPhone 用于判断是否为iPhone设备，UIUserInterfaceIdiomPad用于判断是否为iPad设备
 >
@@ -640,11 +616,9 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
->
 > * platform ： 使用capstone 进行hook 动态库libMobileGestalt.dylib，修改设备类型的时候 ，有些属性是失效的。 比如hw.machine，即设备类型iPhone5,2 ；这个时候我们可以直接修改获取信息 对应的方法---------原因：`使用sysctlbyname 函数，就比较不容易hook到。`
 >
->   
+>
 >
 >   ```
 >    [<UIDevice: 0x16ac14e0> platform]
@@ -691,8 +665,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
->
 > * cpuCount 
 >
 >   ```
@@ -700,8 +672,6 @@ subtitle: 设备udid的收集
 >    -[UIDevice getSysInfo:3 ]
 >    ret:2
 >   ```
->
->   
 >
 > * systemVersion 
 >
@@ -712,15 +682,12 @@ subtitle: 设备udid的收集
 >    ret:8.1
 >   ```
 >
->   
->
 > * _idfv
 >
 >   ```
 >    _idfv = [UIDevice currentDevice].identifierForVendor.UUIDString;
 >   ```
 >
->   
 
 
 
@@ -760,7 +727,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
 
 ```
 #import "KNISDUtility.h"
@@ -1918,8 +1884,6 @@ subtitle: 设备udid的收集
 >   
 >   ```
 >
->   
->
 > * .c
 >
 >   ```
@@ -2024,8 +1988,6 @@ subtitle: 设备udid的收集
 >   }
 >   
 >   ```
->
->   
 >
 > * .h
 
@@ -3052,7 +3014,6 @@ double intervalInCycles( uint64_t startTime, uint64_t endTime )
 >  
 >  ```
 >
->  
 
 ```
 /*
@@ -5125,8 +5086,6 @@ if ([btclass respondsToSelector:@selector(bluetoothStatus)])
 >   Press h to open a hovercard with more details.
 >   ```
 >
->   
->
 > * [UIDevice%2BExtensions.mm](https://github.com/zhangkn/knaso/blob/master/ASO/ChangeCode/UIDevice%2BExtensions.mm)
 >
 >   ```objc
@@ -5249,7 +5208,6 @@ if ([btclass respondsToSelector:@selector(bluetoothStatus)])
 >   
 >   ```
 >
->   
 
 
 
@@ -5885,8 +5843,6 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
 >  
 >  
 >  ```
->
->  
 >
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
