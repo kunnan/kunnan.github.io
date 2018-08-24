@@ -13,6 +13,10 @@ subtitle: 越狱环境检测
 
 [AntiJailbreak.m](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/DynamicProtect/DynamicProtect/AntiJailbreak.m)
 
+#  hook `_dyld_get_image_name`
+
+[Naville/WTFJH](https://github.com/Naville/WTFJH) – [dyldAPI.xm](https://github.com/Naville/WTFJH/blob/99a2079afb48f6dcfccf2ef369a3d7c9e7fc1fdd/Hooks/API/dyldAPI.xm)
+
 
 
 # code
