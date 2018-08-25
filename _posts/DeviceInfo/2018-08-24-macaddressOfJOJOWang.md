@@ -75,6 +75,30 @@ subtitle: macaddress
 
 # `int	sysctlbyname(const char *, void *, size_t *, void *, size_t);`
 
+#### hook 
+
+```objc
+#pragma mark - ******** #import <sys/sysctl.h>
+//void * +[UIDevice getSysInfoByName:](void * self, void * _cmd, char * arg2) {
+int    (*old_sysctlbyname)(const char *, void *, size_t *, void *, size_t);
+int    new_sysctlbyname(const char *name, void *oldp, size_t *oldlenp, void *newp, size_t newlen){
+    
+        NSString* nameStr=[NSString stringWithUTF8String:name];
+        int ret=old_sysctlbyname(name,oldp,oldlenp,newp,newlen);
+    NSLog(@"this is new_sysctlbyname() name:%@ oldp result :%s new ret:%d",nameStr,oldp,ret);//2018-08-24 16:19:58.856596 WeChat[1353:75559] this is new_sysctlbyname() name:hw.machine oldp result :iPhone6,1 new ret:0
+        return ret;
+//    char result[1024];
+  //  size_t result_len = 1024;
+    //if(sysctlbyname([name UTF8String], &result, &result_len, NULL, 0) < 0)
+    //[NSString stringWithUTF8String:result]
+    
+        //return old_sysctlbyname(name,oldp,oldlenp,newp,newlen);
+}
+
+```
+
+
+
 
 
 > * sysctlbyname:`_machineModel = [self getSystemString:@"hw.machine"];`、`[self getSystemNumber:@"sysctl.proc_native" result:&retval]`
@@ -147,7 +171,38 @@ subtitle: macaddress
 
 
 
-
+> * **cpuCount**
+>
+>   ```
+>   2018-08-24 16:30:26.462378 WeChat[1375:77977] [<UIDevice: 0x1740300c0> cpuCount]
+>   2018-08-24 16:30:26.467018 WeChat[1375:77977] -[UIDevice getSysInfo:3 ]
+>   
+>   ```
+>
+>   * getSysInfo
+>
+>     ```
+>     int +[UIDevice getSysInfo:](void * self, void * _cmd, unsigned int arg2) {
+>         sp = sp - 0x24;
+>         r3 = sp + 0xc;
+>         r1 = 0x2;
+>         asm { strd       r0, r2, [sp, #0x1c + var_C] };
+>         asm { strd       r0, r0, [sp, #0x1c + var_1C] };
+>         sysctl(sp + 0x10, r1, sp + 0x8, r3, stack[2039], stack[2040]);
+>         r0 = stack[2041];
+>         r1 = *___stack_chk_guard - stack[2045];
+>         if (r1 == 0x0) {
+>                 asm { addeq      sp, #0x1c };
+>         }
+>         if (CPU_FLAGS & E) {
+>                 return r0;
+>         }
+>         r0 = __stack_chk_fail();
+>         return r0;
+>     }
+>     ```
+>
+>     * macaddressOfJOJOWang 也是依赖sysctl
 
 
 

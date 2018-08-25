@@ -13,6 +13,20 @@ subtitle: 越狱环境检测
 
 [AntiJailbreak.m](https://github.com/AloneMonkey/iOSREBook/blob/master/chapter-8/8.3%20%E5%8A%A8%E6%80%81%E4%BF%9D%E6%8A%A4/DynamicProtect/DynamicProtect/AntiJailbreak.m)
 
+
+
+#### hook `#import <mach-o/dyld.h>`
+
+```
+extern uint32_t                    _dyld_image_count(void)                              __OSX_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_2_0);
+extern const struct mach_header*   _dyld_get_image_header(uint32_t image_index)         __OSX_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_2_0);
+extern intptr_t                    _dyld_get_image_vmaddr_slide(uint32_t image_index)   __OSX_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_2_0);
+extern const char*                 _dyld_get_image_name(uint32_t image_index)           __OSX_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_2_0);
+
+```
+
+
+
 #  hook `_dyld_get_image_name`
 
 [Naville/WTFJH](https://github.com/Naville/WTFJH) – [dyldAPI.xm](https://github.com/Naville/WTFJH/blob/99a2079afb48f6dcfccf2ef369a3d7c9e7fc1fdd/Hooks/API/dyldAPI.xm)
