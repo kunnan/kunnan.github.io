@@ -82,9 +82,9 @@ subtitle: 第五期-怎样找到一份合适的工作
 
 
 
-把自己的价值变成一个确定的产品，释放社会价值。
+# 把自己的价值变成一个确定的产品，释放社会价值。
 
-
+![image](https://ws4.sinaimg.cn/large/af39b376gy1fulrnud5gmj20zk0k0h5f.jpg)
 
 
 
