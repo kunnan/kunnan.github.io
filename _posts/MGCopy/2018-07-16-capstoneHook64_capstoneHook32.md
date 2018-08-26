@@ -13,7 +13,9 @@ subtitle: disassemble MGCopyAnswer and locate the subroutine for hooking
 
 # 前言
 
-[libMobileGestalt.xm](https://github.com/Naville/WTFJH/blob/99a2079afb48f6dcfccf2ef369a3d7c9e7fc1fdd/Hooks/API/libMobileGestalt.xm)
+> * [libMobileGestalt.xm](https://github.com/Naville/WTFJH/blob/99a2079afb48f6dcfccf2ef369a3d7c9e7fc1fdd/Hooks/API/libMobileGestalt.xm)
+> * [ChangeCode.m](https://github.com/zhangkn/knaso/blob/master/ASO/ChangeCode/ChangeCode.m)
+> * 当然有些app是直接使用`sysctlbyname`进行获取的设备信息此时就要直接`    MSHookFunction(&sysctlbyname, &new_sysctlbyname, &old_sysctlbyname);// 可以考虑注释 具体的可以看`[这里](https://kunnan.github.io/2018/08/24/macaddressOfJOJOWang/#hook)
 
 
 
