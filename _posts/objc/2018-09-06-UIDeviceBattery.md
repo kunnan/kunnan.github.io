@@ -16,7 +16,22 @@ subtitle: 电池的状态处理：电池状态获取及监测、电池电量获�
 电量低于 <= 50 %进行报警
 
 > * name:NSProcessInfoPowerStateDidChangeNotification
+>
 > * UIDeviceBatteryLevelDidChangeNotification
+>
+>   ```
+>       [[NSNotificationCenter defaultCenter]
+>        addObserverForName:UIDeviceBatteryLevelDidChangeNotification
+>        object:nil queue:[NSOperationQueue mainQueue]
+>        usingBlock:^(NSNotification *notification) {
+>            // Level has changed
+>            [UIDevice currentDevice].batteryMonitoringEnabled = YES;
+>            NSLog(@"Battery Level Change");
+>            NSLog(@"电池电量：%.2f", [UIDevice currentDevice].batteryLevel);
+>        }];
+>   
+>   ```
+>
 > * UIDeviceBatteryStateDidChangeNotification
 
 # 一、电池状态获取及监测
