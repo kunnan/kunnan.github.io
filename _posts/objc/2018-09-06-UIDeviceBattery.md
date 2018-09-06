@@ -240,6 +240,20 @@ subtitle: 电池的状态处理：电池状态获取及监测、电池电量获�
 >   ```
 >
 
+
+
+# Q&A
+
+
+
+> * 如果使用`    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+>
+>           
+>
+>   ​    });` 的时候，在这里创建使用`   ` [[NSRunLoop currentRunLoop] addTimer:_batteryLevelT forMode:NSRunLoopCommonModes];`   的时候，很可能定时器没有权限执行。
+
+
+
 # See Also 
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
