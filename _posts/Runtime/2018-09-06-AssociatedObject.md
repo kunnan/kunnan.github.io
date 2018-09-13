@@ -15,6 +15,8 @@ subtitle: 动态创建属性：使用分类、@dynamic、objc_setAssociatedObjec
 
 
 
+// 最好一个对象只能设置一次值
+
 # code
 
 #### WCNewCommitViewController+KNWCNewCommitViewControllerAssociatedObject.h

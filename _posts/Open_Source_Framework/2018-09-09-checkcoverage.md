@@ -65,7 +65,7 @@ subtitle: 查看保障状态
 
 ![image](https://wx1.sinaimg.cn/large/af39b376gy1fv3dea1swtj20pf0dftbg.jpg)
 
-
+> * 在terminal终端输入pmset -g assertions 可以查看日志，查出是什么程序唤醒，然后关闭
 
 # See Also 
 
