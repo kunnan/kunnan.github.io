@@ -70,6 +70,12 @@ subtitle: 第六期：怎样逼自己成为一个上进的人?
 
 
 
+# II 、寻求外部监督
+
+
+
+
+
 # See Also 
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
