@@ -21,6 +21,9 @@ subtitle: 静态混淆，使用宏进行替换字符串，或者解析mach-o中�
 >       * 此项目是class-dump的fork，过滤系统库符号，生成需要混淆的符号
 >   * 修改二进制文件对应的section
 
+> * other
+>   * https://github.com/zhangkn/WHC_ConfuseSoftware
+
 
 
 # [ 宏定义的例子请看这](https://github.com/AloneMonkey/iOSREBook/tree/6dd028fea7d9ec9376cde5cc51de93f53fe5a20d/chapter-8/8.2%20%E9%9D%99%E6%80%81%E6%B7%B7%E6%B7%86/TargetApp/TargetApp)
