@@ -24,7 +24,7 @@ subtitle: 第六期：怎样逼自己成为一个上进的人?
 
 # 越老越多采用游戏策略的`产品` 娇生惯养着我们
 
-
+有那么多的游戏、商品、好玩的东西，背后都是能人，他们想瓦解我们的自制力。
 
 ![image](https://ws1.sinaimg.cn/large/af39b376gy1fv8tox6ukfj21hc0u0x6p.jpg)
 
@@ -142,7 +142,24 @@ subtitle: 第六期：怎样逼自己成为一个上进的人?
 
 
 
+![image](https://ws1.sinaimg.cn/large/af39b376gy1fv90rwz7ytj21hc0u01ky.jpg)
 
+
+
+# VI、喂养自己的道路
+
+
+
+> * 设计自己的环境
+>
+> * 寻求外部监督，请求绑架
+>
+> * 获得不确定性的反馈
+>
+> * 选择一个绵延不绝的职业阶梯，拾级而上
+>
+
+![image](https://ws1.sinaimg.cn/large/af39b376gy1fv9110o1iaj21hc0u0u0x.jpg)
 
 # See Also 
 
