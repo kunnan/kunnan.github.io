@@ -7,10 +7,10 @@ author:
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
-    - objc
-    - Runtime
-    
---- 
+​    - objc
+​    - Runtime
+​    
+---
 
 # [前言](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048?language=objc)
 
@@ -28,6 +28,8 @@ ps:而且MVVM的实现又可以借助“V-VM”第三方绑定框架进行实现
 
 >* 对象在 runtime.h 当中是这样定义的：
 ><script src="https://gist.github.com/zhangkn/f5ed829af985c625e1cc054494643f57.js"></script>
+>
+>* [Objective-C 运行时以及 Swift 的动态性](https://segmentfault.com/a/1190000012362645)
 
 
 #### runtime code
@@ -166,7 +168,7 @@ devzkndeMacBook-Pro:objc devzkn$ tree -L 2
 
 
  how the message expressions are converted into [objc_msgSend](https://developer.apple.com/documentation/objectivec/1456712-objc_msgsend) function calls, and how you can refer to methods by name？
- 
+
 
 
 
@@ -235,8 +237,8 @@ self is the more useful of the two arguments. It is, in fact, the way the receiv
 
 
  how you can provide an implementation of a method dynamically?
- 
- 
+
+
 #### 4.1 Dynamic Method Resolution
 
 
@@ -301,6 +303,7 @@ before announcing the error, the runtime system gives the receiving object a sec
 >* You can implement a forwardInvocation: method to give a default response to the message, or to avoid the error in some other way.
 >```
 > As its name implies, forwardInvocation: is commonly used to forward the message to another object.
+>```
 ```
 
 
@@ -402,18 +405,18 @@ enum {
 
 >* 友盟统计模块的例子，使用Swizzle
 ><script src="https://gist.github.com/zhangkn/aa1e1704963fbd4b7e6cd1dcf4ab07e5.js"></script>
- 
+
 
 
 
 # IX、Class-Definition Data Structures
 
 >* /usr/include/objc
- 
+
 >* include/objc/objc.h
  ```
  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/objc/objc.h
-```
+ ```
 
 #### SEL
 
@@ -629,7 +632,8 @@ typedef struct objc_property *objc_property_t;///// An opaque type that represen
 
 >* objc_allocateClassPair
 >```
-Creates a new class and metaclass.
+>Creates a new class and metaclass.
+>```
 ```
 
 ###### 10.3 Instantiating Classes
