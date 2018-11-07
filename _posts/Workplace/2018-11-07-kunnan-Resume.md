@@ -17,7 +17,7 @@ subtitle: 实时最新的个人简历
 
 - Email：zhang_kn@icloud.com 
 
-- 微信号：188...
+- 微信号：同手机号
 
   ![image](https://wx2.sinaimg.cn/large/006tBeITgy1fwsm509qllj30iq0ow44y.jpg)
 
