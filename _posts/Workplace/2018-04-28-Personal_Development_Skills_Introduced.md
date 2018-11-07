@@ -6,7 +6,7 @@ tag: Workplace
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
-subtitle: 实时最新的个人简历
+subtitle: 201806个人简历
 ---
 
 
