@@ -517,7 +517,7 @@ IOS开发工程师、Java程序员
 
 - [充满激情的iOS逆向与安全工程师、高级iOS工程师](https://about.me/kunnan)
 
-   * 1、熟悉Object-C、Swift、lua、iOS&macOS逆向与安全、java、js开发。
+   * 1、熟悉Object-C、Swift、lua、java、js开发以及iOS&macOS应用逆向与安全。
 
    * 2、有前后端开发经验者:
 
