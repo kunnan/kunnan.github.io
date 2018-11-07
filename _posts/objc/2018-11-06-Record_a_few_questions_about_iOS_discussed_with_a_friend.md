@@ -21,7 +21,7 @@ subtitle: 记录和一个朋友讨论的关于iOS的几个问题:新增weak修�
          *  第二步：forwardingTargetForSelector（该方法返回值对象非nil或非self，则向该返回对象重新发送消息）
          *  第三步：forwardInvocation（ runtime发送methodSignatureForSelector:消息获取Selector对应的方法签名。返回值非空则通过forwardInvocation:转发消息，返回值为空则向当前对象发送doesNotRecognizeSelector:消息，程序崩溃退出）
          *  ![image](https://ws3.sinaimg.cn/large/af39b376gy1fwyj52vs2cj20st07bt9m.jpg)
-*  **III、UI滑动的时候出现卡顿的原因（ 排除手势事件冲突之外还有什么原因）？**
+*  **III、UI滑动的时候出现卡顿的原因（ 排除手势事件冲突之外还有什么原因）？** ---Texture (将UI操作相关的任务转移出主线程：对象的创建、调整、销毁；文本的渲染；图片的解码，图形的绘制；文本宽高的计算，视图布局的计算)
     *  答：当用户频繁滑动ListView时，会在瞬间产生很多个加载数据任务导致线程池的拥堵并随即带来大量的UI更新操作，这些UI操作运行在主线程，造成了一定程度的卡顿。
       *  解决的方法：只要让ListView在滑动的过程中加载数据停止更新UI，在滑动停止后再继续获取数据和更新UI。`UITableViewDataSource 的数据源方法进行处理BOOL canLoad = !self.tableView.dragging && !_tableView.decelerating;`
 *  **IV、UI 事件处理的NSRunLoopMode、和定时器的NSRunLoopMode 的关系是什么样的时候，可以保证它们能并发执行不影响个自的运行？**
