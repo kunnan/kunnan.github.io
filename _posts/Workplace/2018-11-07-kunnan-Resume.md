@@ -517,17 +517,16 @@ IOS开发工程师、Java程序员
 
 - [充满激情的iOS逆向与安全工程师、高级iOS工程师](https://about.me/kunnan)
 
-   * 1、熟悉Object-C、Swift、lua、iOS&macOS逆向与安全、java、js开发。 常逛的技术论坛是http://iosre.com/。
+   * 1、熟悉Object-C、Swift、lua、iOS&macOS逆向与安全、java、js开发。
 
-   * 2、有前后端开发经验者(包括微信小程序开发); 
+   * 2、有前后端开发经验者:
 
      * 1 年的java开发经验，3年的iOS app 开发经验，2年的iOS&macOS 逆向开发经验
 
-   * 3、对待工作主动积极，责任心强，对代码规范有轻微强迫症，能良好处理人际关系。 爱好游泳、羽毛球、篮球。 
-
-   * 4、近期的学习计划：x86和arm的指令集转换，参考Xcode的模拟器的系统库。
+   * 4、近期的学习计划：x86和arm的指令集转换，参考Xcode的模拟器的系统库;go 语言；常逛的技术论坛是http://iosre.com/。
 
    * [更多具体信息](https://kunnan.github.io/2018/08/25/Resume/)
+
      * https://github.com/zhangkn
 
      * 实时更新的简历： https://kunnan.github.io/2018/08/25/Resume/
