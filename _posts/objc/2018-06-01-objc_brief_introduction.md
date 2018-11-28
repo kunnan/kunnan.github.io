@@ -76,8 +76,8 @@ subtitle: 01天-入门
 #### 如何修改控件状态
 
 修改UI控件的状态，其实就是修改控件对象的属性
- 
- 
+
+
 #### 按钮的基本使用
 
 按钮的功能比较多，既能`显示文字`，又能`显示图片`，还能随时调整内部图片和文字的位置
@@ -99,6 +99,25 @@ subtitle: 01天-入门
 //清空之前设置的transform属性
 view.transform = CGAffineTransformIdentity;
 ```
+
+
+
+#### contentMode
+
+```objc
+ // Aspect : 按照图片的原来宽高比进行缩
+ // UIViewContentModeScaleAspectFit : 按照图片的原来宽高比进行缩放(一定要看到整张图片)
+ // UIViewContentModeScaleAspectFill :  按照图片的原来宽高比进行缩放(只能图片最中间的内容)
+ // UIViewContentModeScaleToFill : 直接拉伸图片至填充整个imageView
+
+--------------------- 
+作者：iOS&macOS 应用逆向与安全 
+来源：CSDN 
+原文：https://blog.csdn.net/z929118967/article/details/84580831 
+版权声明：本文为博主原创文章，转载请附上博文链接！	
+```
+
+
 
 # See Also 
 

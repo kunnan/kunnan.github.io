@@ -1,15 +1,13 @@
 ---
 layout:     post
 title:      OC_Runtime_system
-subtitle:    read this document to gain an understanding of how the Objective-C runtime system works and how you can take advantage of it.
+subtitle:    read this document to gain an understanding of how the Objective-C runtime system works and how you can take advantage of it
 date:       2017-02-04
 author:     
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
-​    - objc
-​    - Runtime
-​    
+    - Runtime
 ---
 
 # [前言](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048?language=objc)
@@ -26,7 +24,7 @@ ps:而且MVVM的实现又可以借助“V-VM”第三方绑定框架进行实现
 >```
 
 
->* 对象在 runtime.h 当中是这样定义的：
+>* 对象在 runtime.h 当中是这样定义的
 ><script src="https://gist.github.com/zhangkn/f5ed829af985c625e1cc054494643f57.js"></script>
 >
 >* [Objective-C 运行时以及 Swift 的动态性](https://segmentfault.com/a/1190000012362645)
