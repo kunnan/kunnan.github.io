@@ -35,7 +35,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   >   echo -e "\ncommand script import /Users/devzkn/code/lldb/LLDB/lldb_commands/dslldb.py" >> ~/.lldbinit
 >   >   ```
 >   >
->   >   
 
 > * 同时推荐安装`brew install chisel`
 >
@@ -45,7 +44,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   command script import /usr/local/opt/chisel/libexec/fblldb.py
 >   ```
 >
->   
 
 # 例子
 
@@ -108,7 +106,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   
 >   ```
 >
->   
 
 ###### 没有参数的block
 
@@ -179,7 +176,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   Imp: 0x10698bc18    Signature: void ^(long long, NSString *, bool);
 >   ```
 >
->   
 
 
 
@@ -220,7 +216,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >
 >    
 >
->   
 
 
 
@@ -232,8 +227,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   (lldb) search UITextField
 >   <UISearchBarTextField: 0x114114bd0; frame = (8 8; 304 28); text = ''; opaque = NO; gestureRecognizers = <NSArray: 0x116d27e40>; layer = <CALayer: 0x114115b40>>
 >   ```
->
->   
 >
 > * 定位UIButton class 对应的对象，返回的是数组
 >
@@ -255,9 +248,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >         Summary: UIKit`-[UIApplication(UIApplicationKeyboardTesting) runTestForKeyboardBringupAndDismissalWithName:withShowKeyboardBlock:withHideKeyboardBlock:withExtraResultsBlock:withCleanupBlock:]
 >   ```
 >
->   
->
->   
 
 
 
@@ -272,7 +262,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >           Summary: libweixinDylib.dylib`_logos_meta_method$friend$CContactMgr$setupdoVerifybywxid$greetings$(objc_class*, objc_selector*, NSString*, NSString*) at weixinDylib.xm:490        Address: libweixinDylib.dylib[0x0000000000037a9c] (libweixinDylib.dylib.__TEXT.__text + 197048)
 >   ```
 >
->   
 
 # Custom Commands：
 
@@ -309,8 +298,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   (lldb) bclass FLSocketManager
 >   Breakpoint 5: 41 locations.
 >   ```
->
->   
 >
 > * 跟踪打印调用参数: 给断点添加命令
 >
@@ -404,7 +391,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >     0x106afee54: "webSocket:didReceivePong:"
 >     ```
 >
->     
 
 
 
@@ -447,18 +433,15 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   
 >   ```
 >
->   
->
 > * dump_stuff: `image looup`
 >
->   
+>
 >
 >   ```
 >   command regex dump_stuff "s/(.+)/image lookup -rn '\+\[\w+(\(\w+\))?\ \w+
 >   \]$' %1 /"
 >   ```
 >
->   
 
 #### `#!/usr/bin/python` 脚本调用lldb API 进行自定义命令
 
@@ -497,7 +480,6 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 >   
 >   ```
 >
->   
 
 #### 小结
 
@@ -507,6 +489,25 @@ lldb 会默认从`~/.lldbinit `加载自定义脚本。新增command script之�
 > * 使用`command regex`往往是对现有原生的`command`进行进一步简单封装。
 
 # See Also 
+
+
+
+#### lldbinit
+
+* ~/lldbinit
+
+  ```
+  command regex bclass 's/(.+)/rb \[%1 /'
+  command regex ls 's/(.+)/po @import Foundation; [[NSFileManager
+  defaultManager] contentsOfDirectoryAtPath:@"%1" error:nil]/'
+  command regex dump_stuff "s/(.+)/image lookup -rn '\+\[\w+(\(\w+\))?\ \w+
+  \]$' %1 /"
+  command script import /usr/local/opt/chisel/libexec/fblldb.py
+  
+  command script import /Users/devzkn/code/lldb/LLDB/lldb_commands/dslldb.py
+  
+  ```
+
 
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
