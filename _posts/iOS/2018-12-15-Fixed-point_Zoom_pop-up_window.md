@@ -100,6 +100,29 @@ subtitle: iOS开发中常用的动画（定点缩放弹窗)
 
 # See Also 
 
+
+
+
+
+#### 按照图片的原来宽高比进行缩放(只能图片最中间的内容)
+
+```
+ // Aspect : 按照图片的原来宽高比进行缩
+ // UIViewContentModeScaleAspectFit : 按照图片的原来宽高比进行缩放(一定要看到整张图片)
+ // UIViewContentModeScaleAspectFill :  按照图片的原来宽高比进行缩放(只能图片最中间的内容)
+ // UIViewContentModeScaleToFill : 直接拉伸图片至填充整个imageView
+
+```
+
+**code**
+
+
+```objc
+        _iconImgV.contentMode = UIViewContentModeScaleAspectFill;// 按照图片的原来宽高比进行缩放（展示图片最中间的内容）
+        _iconImgV.clipsToBounds = YES;// 配合使用，否则超出父控件的部分不会被clips
+
+```
+
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
