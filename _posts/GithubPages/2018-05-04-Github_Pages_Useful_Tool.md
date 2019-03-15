@@ -13,11 +13,12 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 
 >* 我写文章常用的辅助工具：`ImageOptim`、`ipic`、`MacDown`
 >```
-> 1） ImageOptim： 用于压缩图片
-> 2） ipic ：上传图片到图床
-> 3） MacDown：markdown的编辑工具，支持预览
-> 4)  gist.github.com: 提高代码的阅读行性，以及提升markdown的文章的精简性。
-> 5）rss推送功能
+>1） ImageOptim： 用于压缩图片
+>2） ipic ：上传图片到图床
+>3） MacDown：markdown的编辑工具，支持预览
+>4)  gist.github.com: 提高代码的阅读行性，以及提升markdown的文章的精简性。
+>5）rss推送功能
+>6) https://github.com/Semibold/Weibo-Picture-Store 微博图床
 >```
 >
 
@@ -40,8 +41,9 @@ subtitle: 维护GitHuh_Pages和jekyll搭建的个人博客，我写文章常用�
 
 >* 优点
 >```
-自带域名可 https 访问
-可配置自定义域名
+>自带域名可 https 访问
+>可配置自定义域名
+>```
 ```
 >* 缺点
 >```
@@ -272,7 +274,7 @@ devzkndeMacBook-Pro:hexo_weibo_image devzkn$ sudo pip install rsa
 >```
 >视图->母版->幻灯片母版。
 >```
- 
+
 # [小程序发布流程](https://mp.weixin.qq.com/wxopen/initprofile?action=home&lang=zh_CN)
 
 
