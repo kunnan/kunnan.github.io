@@ -47,6 +47,16 @@ origin	git@github.com:kunnan/kunnan.github.io.git (push)
 >
 >   
 
+
+
+####  取回远程的一个分支 cydia,并创建新的本地分支cydia
+
+
+
+* git checkout -b cydia origin/cydia
+
+
+
 #### 切换到历史提交版本
 
 >* `git checkout 1b3acc187c1f78d666e2b428d32a1bceef6319b6`
