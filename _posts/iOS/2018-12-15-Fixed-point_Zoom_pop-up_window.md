@@ -15,7 +15,8 @@ subtitle: iOS开发中常用的动画（定点缩放弹窗)
 
 每一个UIView内部都默认关联着一个CALayer, UIView有frame、bounds和center三个属性，CALayer也有类似的属性，分别为frame、bounds、position、anchorPoint
 
-
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191221163236303.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEwMTg5Nzk=,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191221163259322.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEwMTg5Nzk=,size_16,color_FFFFFF,t_70)
 
 # CALayer
 
