@@ -1,15 +1,13 @@
 ---
 layout: post
-title: 通过NotificationServiceExtension实现【app进程处于后台或许被杀死的状态时候仍然可以进行语言播报】
+title: App_processes_can_still_be_broadcast_when_they_are_in_a_background_state_where_they_may_be_killed
 date: 2019-12-25
-tag: iosre
+tag: iOS
 site: https://zhangkn.github.io
 catalog: true
 author: kunnan
-subtitle: -t
+subtitle: 通过NotificationServiceExtension实现【app进程处于后台或许被杀死的状态时候仍然可以进行语言播报】
 ---
-
-
 
 
 
@@ -98,7 +96,7 @@ hasHandled = 1; //标记已经在Extension中被处理，防止重复的语言�
 >* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) 
 >
 ```
-/Users/mac/bin/knpost 通过NotificationServiceExtension实现【app进程处于后台或许被杀死的状态时候仍然可以进行语言播报】 -t iOS
+/Users/mac/bin/knpost App_processes_can_still_be_broadcast_when_they_are_in_a_background_state_where_they_may_be_killed 通过NotificationServiceExtension实现【app进程处于后台或许被杀死的状态时候仍然可以进行语言播报】 -t iOS
 > #原来""的参数，需要自己加上""
 ```
 
