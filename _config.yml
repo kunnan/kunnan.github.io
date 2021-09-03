@@ -5,7 +5,7 @@ SEOTitle: 逆向 | iosre Blog
 header-img: img/post-bg-desk.jpg # 设置默认的封面图片
 email: zhang_kn@icloud.com
 description: "https://zhangkn.github.io/"
-keyword: "iosre, kunnan Blog, 张坤楠的博客, zhangkunnan, zhangkn.github.io, iOS, 逆向, ReverseEngineering"
+keyword: "iosre, kunnan Blog, 公众号：iOS逆向, zhangkunnan, zhangkn.github.io, iOS, 逆向, ReverseEngineering"
 url: "https://kunnan.github.io/"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/kunnan/kunnan.github.io.git" # you code repository
@@ -13,7 +13,7 @@ github_repo: "https://github.com/kunnan/kunnan.github.io.git" # you code reposit
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "https://zhangkn.github.io/"
-sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/about_mp.jpeg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
